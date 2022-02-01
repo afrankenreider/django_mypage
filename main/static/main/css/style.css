@@ -293,7 +293,7 @@ input:nth-child(3n){
 	margin-top: 10vh;
 	border-radius: 100%;
 	filter: grayscale(60%);
-	width: 300px;
+	width: 400px;
 }
 
 .skills {
@@ -802,11 +802,4 @@ figure.effect-bubba:hover p {
 	opacity: 1;
 	-webkit-transform: translate3d(0,0,0);
 	transform: translate3d(0,0,0);
-}
-
-#myphoto {
-	margin-top: 10vh;
-	border-radius: 100%;
-	filter: grayscale(30%);
-	width: 300px;
 }
