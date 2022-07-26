@@ -3,7 +3,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<!-- Global site tag (gtag.js) - Google Analytics -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-109064262-1"></script>
 	<script>
 		window.dataLayer = window.dataLayer || [];
@@ -24,12 +23,10 @@
 	<link rel="shortcut icon" href="{% static 'main/images/logo.ico' %}" />
 	<title>Andrew Frankenreider</title>
 
-	<!-- CSS -->
 	<link href="{% static 'main/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" media="screen">
 	<link href="{% static 'main/css/font-awesome.min.css' %}" rel="stylesheet" media="screen">
 	<link href="{% static 'main/css/animate.css" rel="stylesheet' %}">
 
-	<!-- Custom styles CSS -->
 	<link href="{% static 'main/css/style.css' %}" rel="stylesheet" media="screen">
 
     <script src="{% static 'main/js/modernizr.custom.js' %}"></script>
@@ -37,13 +34,9 @@
 </head>
 <body>
 
-	<!-- Preloader -->
-
 	<div id="preloader">
 		<div id="status"></div>
 	</div>
-
-	<!-- Home start -->
 
 	<section id="home" class="pfblock-image screen-height">
     <div class="home-overlay"></div>
@@ -61,10 +54,6 @@
 			</div>
 		</a>
 	</section>
-
-	<!-- Home end -->
-
-	<!-- Navigation start -->
 
 	<header class="header">
 
@@ -91,16 +80,11 @@
 					</ul>
 				</div>
 
-			</div><!-- .container -->
+			</div>
 
 		</nav>
 
 	</header>
-
-	<!-- Navigation end -->
-
-
-  <!-- Services start -->
 
 	<section id="aboutme" class="pfblock pfblock-gray">
 		<div class="container">
@@ -112,10 +96,11 @@
 						<h2 class="pfblock-title">ABOUT ME</h2>
 						<div class="pfblock-line"></div>
 						<div class="pfblock-subtitle">
-							<p>I am currently a data scientist at C.H. Robinson, a third party logistics provider solving supply chain problems from the simple to the most complex.</p>
+							<p>I am currently a data scientist at <a href="https://www.chrobinson.com/en-us/">C.H. Robinson</a>, a third party logistics provider solving supply chain problems from the simple to the most complex.</p>
 							<p>During my time at CHRW, I have had the opportunity to work as a data analyst, senior data analyst, and now data scientist. I have a passion for leveraging cutting-edge technology and creating data products that enable our team to better serve our clients.</p>
-							<p>As a data scientist, I am primarily focused on pricing analysis and solution design, as well as predictive analytics and robotic process automation (RPA). My day-to-day primarily consists of API and front-end application development, creation and management of automated data pipelines, and ad hoc exploratory data analysis.</p>
+							<p>As a data scientist, I am primarily focused on pricing analysis and solution design, as well as predictive analytics and <a href="https://en.wikipedia.org/wiki/Robotic_process_automation">robotic process automation (RPA)</a>. My day-to-day primarily consists of API and front-end application development, creation and management of automated data pipelines, development and deployment of process automation bots, and ad hoc exploratory data analysis.</p>
 							<p>In my previous roles I specialized in creating a suite of dashboards and reporting tools that provided users insight into volume and revenue trends, yield management, and operational metrics and KPIs.</p>
+							<p>In my free time I enjoy reading, exploring new technology, spending time with family, and sneaking in a round of golf whenever possible ;)</p>
 
  							<a href="https://docs.google.com/document/d/e/2PACX-1vTyGDUgp2r9w54HZPxwp5xI8-7WqXVDUyCc373NU25ypCvLufXnFznY-R7kszSWjw/pub" target="_blank" id="resume-effect"><i class="fa fa-3x fa-file-text-o" aria-hidden="true"></i> Click to view my resume.</a>
 						</div>
@@ -127,12 +112,8 @@
 						<img id="myphoto" src="{% static 'main/images/me.jpg' %}" alt="Andrew Frankenreider" style="border-radius: 150%;filter:grayscale(30%);">
 					</div>
 				</div>
-		</div><!-- .container -->
+		</div>
 	</section>
-	
-	<!-- Services end -->
-
-	<!-- Skills start -->
 
 	  <section id="skills" class="pfblock pfblock-gray">
 		<div class="container">
@@ -162,11 +143,6 @@
 			</div>
 		</section>
 
-	<!-- Skills end -->
-
-
-	<!-- Portfolio start -->
-
 	<section id="portfolio" class="pfblock">
 		<div class="container">
 			<div class="row">
@@ -183,7 +159,7 @@
 
 				</div>
 
-			</div><!-- .row -->
+			</div>
 
 			<div class="row">
 				{% for project in list_projects|slice:":2" %}
@@ -209,14 +185,9 @@
 						</div>
 					{% endfor %}
 				</div>
-		</div><!-- .contaier -->
+		</div>
 
 	</section>
-
-
-	<!-- Portfolio end -->
-
-	<!-- Footer start -->
 
 	<footer id="footer">
 		<div class="container">
@@ -235,15 +206,9 @@
 					<p class="heart">Andrew Frankenreider 2022 ©</p>
 
 				</div>
-
-			</div><!-- .row -->
-		</div><!-- .container -->
+			</div>
+		</div>
 	</footer>
-
-	<!-- Footer end -->
-
-
-	<!-- Javascript files -->
 
 	<script src="{% static 'main/js/jquery-1.11.1.min.js' %}"></script>
 	<script src="{% static 'main/bootstrap/js/bootstrap.min.js' %}"></script>

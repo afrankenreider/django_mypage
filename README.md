@@ -21,7 +21,7 @@ Project portfolio webpage developed utilizing:
 - Python installed
 - Docker and docker-compose installed
 
-### Running the dashboard locally
+### Running the application locally
 
 `git clone` to clone repository to development environment
 
