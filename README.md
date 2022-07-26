@@ -25,3 +25,7 @@ Project portfolio webpage developed utilizing:
   <li>Do `docker-compose up` to build app in a container</li>
   <li>Navigate to http://0.0.0.0:8000/ in browser</li>
 </ol>
+
+### Running the dashboard locally
+
+Do `docker-compose up` to run the app in a container
