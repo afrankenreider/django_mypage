@@ -20,14 +20,11 @@ Project portfolio webpage developed utilizing:
 
 - Python installed
 - Docker and docker-compose installed
-<ol>
-  <li>`git clone` repository to development environment</li>
-  <li>Do `docker-compose up` to build app in a container</li>
-  <li>Navigate to http://0.0.0.0:8000/ in browser</li>
-</ol>
 
 ### Running the dashboard locally
 
-`git clone` to run the app in a container
+`git clone` to clone repository to development environment
 
 Do `docker-compose up` to run the app in a container
+
+Navigate to http://0.0.0.0:8000/ in browser
