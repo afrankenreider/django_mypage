@@ -21,7 +21,7 @@ Project portfolio webpage developed utilizing:
 - Python installed
 - Docker and docker-compose installed
 <ol>
-  <li>`git clone` repository to development environment/li>
+  <li>```git clone``` repository to development environment/li>
   <li>Do `docker-compose up` to build app in a container</li>
   <li>Navigate to http://0.0.0.0:8000/ in browser</li>
 </ol>
