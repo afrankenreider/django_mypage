@@ -16,7 +16,7 @@ Project portfolio webpage developed utilizing:
 
 ## Local Development
 
-# Prerequisites:
+### Prerequisites:
 
 - Python installed
 - Docker and docker-compose installed
