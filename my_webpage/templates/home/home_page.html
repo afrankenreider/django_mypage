@@ -159,38 +159,6 @@
 				</div>
 
 			</div>
-
-			<div class="row">
-				{% for project in list_projects|slice:":2" %}
-					<div class="card col-xs-12 col-sm-5 col-md-5">
-							<div class="grid wow zoomIn">
-								<figure class="effect-bubba"><a href="https://github.com/afrankenreider/django_mypage" target="_blank">
-									{% with 'images/webpage.png' as image_static %}
-										<img class="card-img-top" src="{% static image_static %}"></a>
-									{% endwith %}
-								</figure>
-
-								<div class="card-block">
-									<h2 class="card-title">{{ project.title }}</h2>
-									<p class="card-text">{{ project.description }}</p>
-									<div class="project-technologies">
-										{% for iter in project.technology.all %}
-											<span class="badge" style="background-color:{{ iter.used_technology.color }};">
-											{{ iter.used_technology.name }}
-										</span>
-										{% endfor %}
-									</div>
-									<div class="tools">
-										{% for tool in project.tools.split %}
-											<span>{{ tool }}</span>
-										{% endfor %}
-									</div>
-								</div>
-
-							</div>
-						</div>
-					{% endfor %}
-				</div>
 		</div>
 
 	</section>
