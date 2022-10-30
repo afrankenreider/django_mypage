@@ -1,11 +1,21 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
 from django.db import models
 
 
-class Project(models.Model):
+class Projects(models.Model):
+    """Projects model."""
+
+    TECH = (
+        ("Python", "Python"),
+        ("API", "API"),
+        ("Automation", "Automation"),
+        ("Modeling", "Modeling"),
+    )
+
     title = models.CharField(max_length=100)
     description = models.TextField()
-    technology = models.CharField(max_length=20)
-    image = models.FilePathField(path="/img")
+    technology = models.CharField(max_length=30, choices=TECH)
+
+    class Meta:
+        """Meta class."""
+
+        verbose_name_plural = "Projects"

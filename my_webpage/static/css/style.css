@@ -1,5 +1,5 @@
 body {
-  font: 300 14px/1.8 "Raleway", sans-serif;
+  font: 300 14px/1.8 'Raleway', sans-serif;
   color: #666;
   overflow-x: hidden;
 }
@@ -230,7 +230,7 @@ input:nth-child(3n) {
 /* ---------------------------------------------- */
 
 .pfblock {
-  padding: 120px 0 100px;
+  padding: 120px 0 5px;
 }
 
 .pfblock-gray {
@@ -278,7 +278,7 @@ input:nth-child(3n) {
 
 .pfblock-subtitle {
   text-align: left;
-  font-family: Raleway, "Times New Roman", Times, sans-serif;
+  font-family: Raleway, 'Times New Roman', Times, sans-serif;
   font-style: normal;
   font-size: 18px;
 }
@@ -302,7 +302,7 @@ input:nth-child(3n) {
   margin: 2vh auto 2vh auto;
 }
 
-div[class^="devicon"] {
+div[class^='devicon'] {
   display: block;
   color: #333333;
   font-size: 80px;
@@ -310,11 +310,11 @@ div[class^="devicon"] {
   text-align: center;
 }
 
-div[class^="devicon"]:hover {
+div[class^='devicon']:hover {
   color: #999;
 }
 
-div[class^="devicon"] span {
+div[class^='devicon'] span {
   font-family: Raleway, sans-serif;
   font-weight: 600;
   margin-top: 10px;
@@ -327,11 +327,11 @@ div[class^="devicon"] span {
     margin-top: 1vh;
   }
 
-  div[class^="devicon"] {
+  div[class^='devicon'] {
     font-size: 40px;
   }
 
-  div[class^="devicon"] > span {
+  div[class^='devicon'] > span {
     font-size: 10px;
   }
 }
@@ -363,7 +363,7 @@ div[class^="devicon"] span {
 
 .home-overlay {
   background-color: rgba(44, 62, 80, 0.3);
-  background-image: url("../images/pattern.png");
+  background-image: url('../images/pattern.png');
   background-repeat: repeat;
   height: 100%;
   left: 0;
@@ -392,7 +392,7 @@ div[class^="devicon"] span {
 }
 
 .start {
-  font-family: Raleway, "Times New Roman", Times, sans-serif;
+  font-family: Raleway, 'Times New Roman', Times, sans-serif;
   font-size: 16px;
   font-style: normal;
   text-transform: none;
@@ -414,7 +414,7 @@ div[class^="devicon"] span {
 #footer {
   background: #222;
   text-align: center;
-  padding: 40px 0;
+  padding: 10px 0 10px;
   color: #fff;
 }
 
@@ -697,7 +697,7 @@ div[class^="devicon"] span {
 }
 
 .grid h2 {
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-size: 20px;
   padding-top: 0;
   margin: 10px 0px;
@@ -731,7 +731,7 @@ div[class^="devicon"] span {
   padding: 1px 10px;
   margin-bottom: 20px;
   border-radius: 4px;
-  font: 5px, "Raleway", sans-serif;
+  font: 5px, 'Raleway', sans-serif;
 }
 
 .tools > span:hover {
@@ -762,7 +762,7 @@ figure.effect-bubba figcaption::after {
   right: 30px;
   bottom: 30px;
   left: 30px;
-  content: "";
+  content: '';
   opacity: 0;
   -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
   transition: opacity 0.35s, transform 0.35s;
