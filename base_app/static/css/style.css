@@ -4,18 +4,24 @@ body {
     overflow-x: hidden;
 }
 
+p {
+    font: 300 14px/1.8 'Raleway', sans-serif;
+    color: #666;
+    overflow-x: hidden;
+}
+
 img {
     max-width: 100%;
     height: auto;
 }
 
 a {
-    color: #999;
+    color: white;
 }
 
 a:hover {
     text-decoration: none;
-    color: #e7746f;
+    color: #a6432c;
 }
 
 .col-xs-15 {
@@ -75,7 +81,7 @@ h3,
 h4,
 h5,
 h6 {
-    font: 700 40px/1.2 Raleway, sans-serif;
+    font: 700 40px/1.2 'Raleway', sans-serif;
     text-transform: uppercase;
     letter-spacing: 5px;
     margin: 5px 0 5px;
@@ -83,19 +89,25 @@ h6 {
 }
 
 h2 {
-    font-size: 30px;
-    margin: 0 0 30px;
+    margin: 0 0 20px;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 100;
+    font-size: 1.85714em;
+    line-height: 1.6em;
+    color: #731919;
 }
 
 h3 {
-    font-size: 13px;
-    letter-spacing: 1px;
-    margin: 0 0 5px;
+    font-size: 22px;
+    margin: 0 0 0px;
 }
 
 h4 {
-    font-size: 12px;
+    font-family: Fasthand;
+    font-size: 16px;
     letter-spacing: 1px;
+    text-align: center;
+    color: white;
 }
 
 h5 {
@@ -240,7 +252,7 @@ input:nth-child(3n) {
   /* ---------------------------------------------- */
 
 .pfblock {
-    padding: 120px 0 100px;
+    padding: 50px;
 }
 
 .pfblock-gray {
@@ -358,7 +370,7 @@ div[class^='devicon'] span {
   /* ---------------------------------------------- */
 
 #home {
-    background: url(../images/main.jpg);
+    background: url(../images/yosemite.jpeg);
     background-color: #222;
     background-attachment: fixed;
     background-repeat: no-repeat;
@@ -385,15 +397,16 @@ div[class^='devicon'] span {
 .intro {
     position: absolute;
     width: 100%;
-    top: 50%;
+    bottom: 0;
     left: 0;
-    text-align: center;
+    text-align: left;
     -webkit-transform: translate(0%, -50%);
     -moz-transform: translate(0%, -50%);
     -ms-transform: translate(0%, -50%);
     -o-transform: translate(0%, -50%);
     transform: translate(0%, -50%);
-    padding: 0 15px;
+    padding: 0 15px 0 15px;
+    margin: 35px;
 }
 
 .intro h1 {
@@ -460,12 +473,12 @@ div[class^='devicon'] span {
     display: block;
     line-height: 35px;
     text-align: center;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid white;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
     font-size: 14px;
-    color: rgba(255, 255, 255, 0.2);
+    color: white;
 }
 
 .social-links a:hover {
@@ -495,16 +508,17 @@ div[class^='devicon'] span {
 
 .navbar-custom,
 .navbar-custom .dropdown-menu {
-    background: #fff;
+    background: black;
     padding: 0;
+    opacity: 0.92;
 }
 
 .navbar-custom .navbar-brand,
 .navbar-custom .navbar-nav>li>a,
 .navbar-custom .navbar-nav .dropdown-menu>li>a {
-    font-size: 11px;
+    font-size: 13px;
     letter-spacing: 3px;
-    color: #222;
+    color: white;
 }
 
 .navbar-custom .nav li.active,
@@ -513,7 +527,7 @@ div[class^='devicon'] span {
 .navbar-custom .navbar-nav>li.active a {
     background: none;
     outline: 0;
-    color: #e7746f;
+    color: #eb781b;
 }
 
 .navbar-custom .navbar-brand {
@@ -524,7 +538,7 @@ div[class^='devicon'] span {
 
 .navbar-custom .dropdown-menu {
     border: 0;
-    border-top: 2px solid #e7746f;
+    border-top: 2px solid #eb781b;
     border-radius: 0;
 }
 
@@ -581,7 +595,6 @@ div[class^='devicon'] span {
     position: absolute;
     left: 50%;
     bottom: 40px;
-    border: 2px solid #fff;
     border-radius: 50%;
     height: 50px;
     width: 50px;
@@ -593,7 +606,6 @@ div[class^='devicon'] span {
 
 .scroll-down span {
     position: relative;
-    color: #fff;
     -webkit-animation-name: drop;
     -webkit-animation-duration: 1s;
     -webkit-animation-timing-function: linear;
@@ -644,13 +656,13 @@ div[class^='devicon'] span {
   /* ---------------------------------------------- */
 
 #preloader {
-    background: #fff;
     bottom: 0;
     left: 0;
     position: fixed;
     right: 0;
     top: 0;
     z-index: 9999;
+    background-color: white;
 }
 
 #status {
