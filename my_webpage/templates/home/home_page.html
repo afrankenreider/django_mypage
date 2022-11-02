@@ -36,30 +36,39 @@
     <script src="{% static 'js/modernizr.custom.js' %}"></script>
 </head>
 
-<div class="sidenav">
-    <a href="/">Home</a>
-    <a href="/my_story">My Story</a>
-    <a href="/projects">Projects</a>
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <div class="row">
-        <div class="col-sm-12">
+<header class="header">
+    <nav class="navbar navbar-custom" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#custom-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+            </div>
+
+            <div class="collapse navbar-collapse" id="custom-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/my_story">My Story</a></li>
+                    <li><a href="/skills">Skills</a></li>
+                    <li><a href="/projects">Projects</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<body>
+    <div id="preloader">
+        <div id="status"></div>
+    </div>
+    <section id="home" class="pfblock-image screen-height">
+        <div class="intro">
+            <h1>Andrew Frankenreider</h1>
+            <h3>Data Scientist</h3>
+            <br />
             <ul class="social-links">
                 <li>
                     <a href="https://www.linkedin.com/in/andrew-frankenreider-934581b1/" class="wow fadeInUp" data-wow-delay=".1s" target="_blank"><i class="fa fa-linkedin"></i
@@ -75,18 +84,6 @@
                 </li>
             </ul>
         </div>
-    </div>
-</div>
-
-<body>
-    <div id="preloader">
-        <div id="status"></div>
-    </div>
-    <section id="home" class="pfblock-image screen-height">
-        <div class="intro">
-            <h1>Andrew Frankenreider</h1>
-            <h3>Data Scientist</h3>
-        </div>
     </section>
 
     <script src="{% static 'js/jquery-1.11.1.min.js' %}"></script>
@@ -99,6 +96,7 @@
     <script src="{% static 'js/waypoints.min.js' %}"></script>
     <script src="{% static 'js/jquery.cbpQTRotator.js' %}"></script>
     <script src="{% static 'js/custom.js' %}"></script>
+    <script src="{% static 'js/sidebar.js' %}"></script>
 </body>
 
 </html>
