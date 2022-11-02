@@ -273,6 +273,12 @@ input:nth-child(3n) {
     padding: 60px 0 0 250px;
 }
 
+@media (max-width: 480px) {
+    .pfblock {
+        padding: 120px 0 100px;
+    }
+}
+
 .pfblock-gray {
     background: #f5f5f5;
 }
@@ -360,6 +366,18 @@ div[class^='devicon'] span {
     display: block;
 }
 
+@media (max-width: 620px) {
+    #me {
+        margin-top: 1vh;
+    }
+    div[class^='devicon'] {
+        font-size: 40px;
+    }
+    div[class^='devicon']>span {
+        font-size: 10px;
+    }
+}
+
 .pfblock-icon {
     font-size: 32px;
 }
@@ -383,10 +401,23 @@ div[class^='devicon'] span {
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-    padding: 0;
-    position: absolute;
-    width: 100%;
-    margin-left: 215px;
+}
+
+@media (max-width: 480px) {
+    #home {
+        background: url(../images/yosemite.jpeg);
+        background-color: #222;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        background-position: center right;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        padding: 0;
+        position: absolute;
+        width: 100%;
+    }
 }
 
 .home-overlay {
@@ -406,14 +437,13 @@ div[class^='devicon'] span {
     width: 100%;
     bottom: 0;
     left: 0;
-    text-align: left;
+    text-align: right;
     -webkit-transform: translate(0%, -50%);
     -moz-transform: translate(0%, -50%);
     -ms-transform: translate(0%, -50%);
     -o-transform: translate(0%, -50%);
     transform: translate(0%, -50%);
     padding: 0 15px 0 15px;
-    margin: 35px;
 }
 
 .intro h1 {
@@ -1022,48 +1052,70 @@ pre code {
     color: #009879;
 }
 
-.sidenav {
+.sidebar {
+    margin: 0;
+    padding: 0;
+    width: 200px;
+    background-color: black;
+    position: fixed;
     height: 100%;
-    width: 215px;
-    position: absolute;
-    z-index: 1;
+    overflow: auto;
+    opacity: 0.98;
     top: 0;
     left: 0;
-    background-color: black;
-    overflow-x: hidden;
-    padding-top: 20px;
-    opacity: 0.92;
 }
 
-.sidenav a {
+.sidebar a {
     padding: 6px 6px 6px 32px;
     text-decoration: none;
-    margin: 0 0 5px;
+    margin: 5px 0 0;
     font-size: 16px;
     font: 'Raleway', sans-serif;
     text-transform: uppercase;
     letter-spacing: 5px;
-    margin: 5px 0 5px;
     font-weight: 100;
     line-height: 1.6em;
     color: #818181;
     display: block;
 }
 
-.sidenav a:hover {
+.sidebar-footer {
+    height: 50px;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    list-style-type: none;
+    padding-bottom: 5.5em;
+    margin-left: 15px;
+}
+
+.sidebar a:hover {
     color: #a6432c;
 }
 
-.main {
+div.content {
     margin-left: 200px;
-    /* Same as the width of the sidenav */
+    padding: 1px 16px;
+    height: 1000px;
 }
 
-@media screen and (max-height: 450px) {
-    .sidenav {
-        padding-top: 15px;
+@media screen and (max-width: 700px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
     }
-    .sidenav a {
-        font-size: 18px;
+    .sidebar a {
+        float: left;
+    }
+    div.content {
+        margin-left: 0;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .sidebar a {
+        text-align: center;
+        float: none;
     }
 }
