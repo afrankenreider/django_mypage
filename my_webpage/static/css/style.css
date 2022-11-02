@@ -19,6 +19,11 @@ a {
     color: white;
 }
 
+.a_custom {
+    color: black;
+    font-weight: 100;
+}
+
 a:hover {
     text-decoration: none;
     color: #a6432c;
