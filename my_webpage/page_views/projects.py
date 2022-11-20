@@ -1,7 +1,10 @@
 """Home page."""
 from django.shortcuts import render
 
+from my_webpage.models import Projects
+
 
 def projects_page(request):
-    """Load projects page."""
-    return render(request, "home/projects.html")
+    projects = Projects.objects.all()
+    context = {"projects": projects}
+    return render(request, "home/projects.html", context)

@@ -1,4 +1,4 @@
-{% load static %}
+{% load static %} {% load bootstrap4 %} {% load render_table from django_tables2 %} {% load querystring from django_tables2 %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -63,17 +63,31 @@
         <div id="status"></div>
     </div>
 
-    <section id="aboutme" class="pfblock pfblock-gray">
+    <section id="skills" class="pfblock pfblock-gray">
         <div class="container">
             <div class="row">
 
-                <div class="col-sm-8">
+                <div class="skills col-xs-12">
 
-                    <div class="pfblock-header wow fadeInUp">
-                        <h2 class="pfblock-title">PROJECTS</h2>
-                        <div class="pfblock-line"></div>
-                        <p>Coming soon...</p>
-                        <p>https://github.com/afrankenreider/django_mypage</p>
+                    <h2 class="pfblock-title">PROJECTS</h2>
+                    <div class="pfblock-line"></div>
+
+                    <div class="row">
+                        <div class="pfblock-subtitle">
+                            {% block page_content %} {% for project in projects %}
+                            <div class="col-md-6">
+                                <div class="card mb-2">
+                                    <img class="card-img-top" src="{% static project.image %}">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ project.title }}</h5>
+                                        <p class="card-text">{{ project.description }}</p>
+                                        <a href="{{ project.repository }}" class="btn btn-primary">Code Repository</a>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% endblock %}
                     </div>
                 </div>
             </div>
