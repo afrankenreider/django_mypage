@@ -205,9 +205,13 @@ input:nth-child(3n) {
     font-size: 13px;
     padding: 8px 26px;
     border: 0;
+    background-color: #731919;
 }
 
-.btn:hover,
+.btn:hover {
+    background-color: #a6432c;
+}
+
 .btn:focus,
 .btn:active,
 .btn.active {
@@ -558,7 +562,7 @@ div[class^='devicon'] span {
 }
 
 .navbar-custom .navbar-toggle .icon-bar {
-    background: #222;
+    background: white;
 }
 
 
@@ -715,8 +719,8 @@ div[class^='devicon'] span {
 /*--------------------------------*/
 
 .card {
-    padding: 0px 10px 0px 5px;
-    margin: 10px 30px 10px;
+    padding: 5px 10px 10px 5px;
+    margin: 10px 5px 10px;
     border: 1px solid lightgray;
 }
 
@@ -861,4 +865,41 @@ figure.effect-bubba:hover p {
     opacity: 1;
     -webkit-transform: translate3d(0, 0, 0);
     transform: translate3d(0, 0, 0);
+}
+
+.styled-table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 12px;
+    font-family: Titillium Web, Arial, sans-serif;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.styled-table thead tr {
+    background-color: rgb(38, 79, 115);
+    color: #ffffff;
+    text-align: left;
+    opacity: 0.8px;
+}
+
+.styled-table th,
+.styled-table td {
+    padding: 12px 40px;
+}
+
+.styled-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid #1f2630;
+}
+
+.styled-table tbody tr.active-row {
+    font-weight: bold;
+    color: #009879;
 }

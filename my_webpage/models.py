@@ -11,9 +11,11 @@ class Projects(models.Model):
         ("Modeling", "Modeling"),
     )
 
-    title = models.CharField(max_length=100)
+    project_title = models.CharField(max_length=100)
     description = models.TextField()
     technology = models.CharField(max_length=30, choices=TECH)
+    repository = models.CharField(max_length=200, blank=True, null=True)
+    image = models.TextField(blank=True, null=True)
 
     class Meta:
         """Meta class."""
