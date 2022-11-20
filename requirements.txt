@@ -3,6 +3,7 @@ django-bootstrap4==3.0.1
 django-filter==2.4.0
 django-import-export
 django-tables2==2.4.0
+dj-database-url>=1.0,<2.0
 gunicorn==19.9.0
 pandas
 psycopg2-binary==2.8.6
