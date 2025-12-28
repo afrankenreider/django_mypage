@@ -47,10 +47,13 @@ INSTALLED_APPS = [
     "django_filters",
     "django_tables2",
     "import_export",
+    "rest_framework",
+    "corsheaders",
     "my_webpage",
 ]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -61,12 +64,29 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
+# CORS settings
+CORS_ALLOW_ALL_ORIGINS = DEBUG
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+]
+
+# REST Framework settings
+REST_FRAMEWORK = {
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.AllowAny",
+    ],
+    "DEFAULT_RENDERER_CLASSES": [
+        "rest_framework.renderers.JSONRenderer",
+    ],
+}
+
 ROOT_URLCONF = "base_app.urls"
 
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [os.path.join(BASE_DIR, "templates")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -156,6 +176,7 @@ EMAIL_HOST_USER = os.getenv("GMAIL_USER_EMAIL")
 EMAIL_HOST_PASSWORD = os.getenv("GMAIL_USER_PASSWORD")
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
 
 # Test Runner Config
 class HerokuDiscoverRunner(DiscoverRunner):
