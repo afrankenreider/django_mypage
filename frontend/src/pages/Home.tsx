@@ -1,6 +1,9 @@
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import { Github, Linkedin, Mail, ChevronDown } from 'lucide-react'
+import LinkedInIcon from '@mui/icons-material/LinkedIn'
+import GitHubIcon from '@mui/icons-material/GitHub'
+import EmailIcon from '@mui/icons-material/Email'
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 
 export default function Home() {
   return (
@@ -8,7 +11,7 @@ export default function Home() {
       {/* Background decoration */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary-200/30 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-cyan-200/30 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-forest-200/30 rounded-full blur-3xl" />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -17,17 +20,17 @@ export default function Home() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <h1 className="font-display text-5xl md:text-7xl font-bold text-slate-800 mb-6">
+          <h1 className="font-display text-5xl md:text-7xl font-bold text-forest-900 mb-6">
             Andrew Frankenreider
           </h1>
           
           <h2 className="text-2xl md:text-3xl font-medium mb-8">
             <span className="gradient-text">Data Science Manager</span>
-            <span className="text-slate-600"> & </span>
+            <span className="text-earth-600"> & </span>
             <span className="gradient-text">Data Scientist</span>
           </h2>
           
-          <p className="text-lg text-slate-600 max-w-2xl mx-auto mb-12">
+          <p className="text-lg text-earth-700 max-w-2xl mx-auto mb-12">
             Leveraging cutting-edge technology to build data products that drive business value.
             Passionate about machine learning, automation, and creating elegant solutions to complex problems.
           </p>
@@ -40,9 +43,9 @@ export default function Home() {
               href="https://www.linkedin.com/in/andrew-frankenreider-934581b1/"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-3 bg-white rounded-full shadow-lg hover:shadow-xl text-slate-600 hover:text-primary-600 transition-all"
+              className="p-3 bg-white rounded-full shadow-lg hover:shadow-xl text-forest-600 hover:text-primary-600 transition-all"
             >
-              <Linkedin size={24} />
+              <LinkedInIcon />
             </motion.a>
             <motion.a
               whileHover={{ scale: 1.1 }}
@@ -50,17 +53,17 @@ export default function Home() {
               href="https://github.com/afrankenreider"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-3 bg-white rounded-full shadow-lg hover:shadow-xl text-slate-600 hover:text-primary-600 transition-all"
+              className="p-3 bg-white rounded-full shadow-lg hover:shadow-xl text-forest-600 hover:text-primary-600 transition-all"
             >
-              <Github size={24} />
+              <GitHubIcon />
             </motion.a>
             <motion.a
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
               href="mailto:afrankenreider@gmail.com"
-              className="p-3 bg-white rounded-full shadow-lg hover:shadow-xl text-slate-600 hover:text-primary-600 transition-all"
+              className="p-3 bg-white rounded-full shadow-lg hover:shadow-xl text-forest-600 hover:text-primary-600 transition-all"
             >
-              <Mail size={24} />
+              <EmailIcon />
             </motion.a>
           </div>
 
@@ -74,7 +77,7 @@ export default function Home() {
             </Link>
             <Link
               to="/projects"
-              className="px-8 py-3 bg-white text-slate-700 font-medium rounded-full hover:bg-slate-50 transition-colors shadow-lg hover:shadow-xl border border-slate-200"
+              className="px-8 py-3 bg-white text-forest-700 font-medium rounded-full hover:bg-earth-50 transition-colors shadow-lg hover:shadow-xl border border-earth-200"
             >
               View Projects
             </Link>
@@ -92,7 +95,7 @@ export default function Home() {
             animate={{ y: [0, 10, 0] }}
             transition={{ repeat: Infinity, duration: 1.5 }}
           >
-            <ChevronDown size={32} className="text-slate-400" />
+            <KeyboardArrowDownIcon sx={{ fontSize: 32 }} className="text-earth-400" />
           </motion.div>
         </motion.div>
       </div>

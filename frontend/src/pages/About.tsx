@@ -1,5 +1,7 @@
 import { motion } from 'framer-motion'
-import { Briefcase, BookOpen, Heart } from 'lucide-react'
+import WorkIcon from '@mui/icons-material/Work'
+import MenuBookIcon from '@mui/icons-material/MenuBook'
+import FavoriteIcon from '@mui/icons-material/Favorite'
 import meImage from '../assets/me.jpg'
 
 export default function About() {
@@ -13,10 +15,10 @@ export default function About() {
         >
           {/* Header */}
           <div className="text-center mb-16">
-            <h1 className="font-display text-4xl md:text-5xl font-bold text-slate-800 mb-4">
+            <h1 className="font-display text-4xl md:text-5xl font-bold text-forest-900 mb-4">
               About Me
             </h1>
-            <div className="w-24 h-1 bg-gradient-to-r from-primary-500 to-cyan-400 mx-auto rounded-full" />
+            <div className="w-24 h-1 bg-gradient-to-r from-primary-500 to-forest-500 mx-auto rounded-full" />
           </div>
 
           <div className="grid lg:grid-cols-3 gap-12 items-start">
@@ -28,7 +30,7 @@ export default function About() {
               className="lg:col-span-1"
             >
               <div className="relative">
-                <div className="w-64 h-64 mx-auto rounded-2xl bg-gradient-to-br from-primary-400 to-cyan-400 p-1">
+                <div className="w-64 h-64 mx-auto rounded-2xl bg-gradient-to-br from-primary-400 to-forest-500 p-1">
                   <img 
                     src={meImage} 
                     alt="Profile photo" 
@@ -36,7 +38,7 @@ export default function About() {
                   />
                 </div>
                 <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-primary-100 rounded-full -z-10" />
-                <div className="absolute -top-4 -left-4 w-16 h-16 bg-cyan-100 rounded-full -z-10" />
+                <div className="absolute -top-4 -left-4 w-16 h-16 bg-forest-100 rounded-full -z-10" />
               </div>
             </motion.div>
 
@@ -49,10 +51,10 @@ export default function About() {
             >
               <div className="glass-card rounded-2xl p-8">
                 <div className="flex items-center gap-3 mb-4">
-                  <Briefcase className="text-primary-600" size={24} />
-                  <h2 className="text-xl font-semibold text-slate-800">Professional Journey</h2>
+                  <WorkIcon className="text-primary-600" />
+                  <h2 className="text-xl font-semibold text-forest-800">Professional Journey</h2>
                 </div>
-                <div className="space-y-4 text-slate-600 leading-relaxed">
+                <div className="space-y-4 text-earth-700 leading-relaxed">
                   <p>
                     I am currently a Data Science Manager, leading teams that solve complex supply chain problems 
                     using cutting-edge technology and data-driven solutions.
@@ -67,10 +69,10 @@ export default function About() {
 
               <div className="glass-card rounded-2xl p-8">
                 <div className="flex items-center gap-3 mb-4">
-                  <BookOpen className="text-primary-600" size={24} />
-                  <h2 className="text-xl font-semibold text-slate-800">What I Do</h2>
+                  <MenuBookIcon className="text-primary-600" />
+                  <h2 className="text-xl font-semibold text-forest-800">What I Do</h2>
                 </div>
-                <div className="space-y-4 text-slate-600 leading-relaxed">
+                <div className="space-y-4 text-earth-700 leading-relaxed">
                   <p>
                     My focus areas include pricing analysis and solution design, data analytics, 
                     and robotic process automation (RPA). Day-to-day, I work on:
@@ -87,10 +89,10 @@ export default function About() {
 
               <div className="glass-card rounded-2xl p-8">
                 <div className="flex items-center gap-3 mb-4">
-                  <Heart className="text-primary-600" size={24} />
-                  <h2 className="text-xl font-semibold text-slate-800">Beyond Work</h2>
+                  <FavoriteIcon className="text-primary-600" />
+                  <h2 className="text-xl font-semibold text-forest-800">Beyond Work</h2>
                 </div>
-                <p className="text-slate-600 leading-relaxed">
+                <p className="text-earth-700 leading-relaxed">
                   In my free time, I enjoy reading, exploring new technology, spending time with family, 
                   and sneaking in a round of golf whenever possible. I use this site as an avenue to publish 
                   and document side projects as I continue my journey in data science.

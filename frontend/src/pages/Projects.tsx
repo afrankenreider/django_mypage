@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { ExternalLink, Github, Filter } from 'lucide-react'
+import LaunchIcon from '@mui/icons-material/Launch'
+import GitHubIcon from '@mui/icons-material/GitHub'
+import FilterListIcon from '@mui/icons-material/FilterList'
+import ComputerIcon from '@mui/icons-material/Computer'
 
 interface Project {
   id: number
@@ -63,10 +66,10 @@ const fallbackProjects: Project[] = [
 ]
 
 const techColors: Record<string, string> = {
-  Python: 'bg-blue-100 text-blue-700',
-  API: 'bg-green-100 text-green-700',
-  Automation: 'bg-purple-100 text-purple-700',
-  Modeling: 'bg-orange-100 text-orange-700',
+  Python: 'bg-forest-100 text-forest-700',
+  API: 'bg-lake-100 text-lake-700',
+  Automation: 'bg-primary-100 text-primary-700',
+  Modeling: 'bg-earth-100 text-earth-700',
 }
 
 export default function Projects() {
@@ -109,18 +112,18 @@ export default function Projects() {
         >
           {/* Header */}
           <div className="text-center mb-16">
-            <h1 className="font-display text-4xl md:text-5xl font-bold text-slate-800 mb-4">
+            <h1 className="font-display text-4xl md:text-5xl font-bold text-forest-900 mb-4">
               Projects
             </h1>
-            <div className="w-24 h-1 bg-gradient-to-r from-primary-500 to-cyan-400 mx-auto rounded-full mb-6" />
-            <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+            <div className="w-24 h-1 bg-gradient-to-r from-primary-500 to-forest-500 mx-auto rounded-full mb-6" />
+            <p className="text-lg text-earth-700 max-w-2xl mx-auto">
               A collection of projects showcasing my work in data science, automation, and software development
             </p>
           </div>
 
           {/* Filter */}
           <div className="flex flex-wrap justify-center gap-3 mb-12">
-            <Filter size={20} className="text-slate-400 self-center" />
+            <FilterListIcon className="text-earth-400 self-center" />
             {technologies.map((tech) => (
               <button
                 key={tech}
@@ -128,7 +131,7 @@ export default function Projects() {
                 className={`px-4 py-2 rounded-full font-medium transition-all ${
                   filter === tech
                     ? 'bg-primary-600 text-white shadow-lg'
-                    : 'bg-white text-slate-600 hover:bg-slate-50 shadow'
+                    : 'bg-white text-forest-600 hover:bg-earth-50 shadow'
                 }`}
               >
                 {tech}
@@ -156,7 +159,7 @@ export default function Projects() {
                   className="glass-card rounded-2xl overflow-hidden hover-lift group"
                 >
                   {/* Project Image */}
-                  <div className="h-48 bg-gradient-to-br from-primary-400 to-cyan-400 relative overflow-hidden">
+                  <div className="h-48 bg-gradient-to-br from-primary-400 to-forest-500 relative overflow-hidden">
                     {project.image ? (
                       <img
                         src={project.image}
@@ -165,7 +168,7 @@ export default function Projects() {
                       />
                     ) : (
                       <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="text-6xl text-white/30">💻</div>
+                        <ComputerIcon sx={{ fontSize: 64 }} className="text-white/30" />
                       </div>
                     )}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -174,15 +177,15 @@ export default function Projects() {
                   {/* Project Content */}
                   <div className="p-6">
                     <div className="flex items-start justify-between mb-3">
-                      <h3 className="text-xl font-semibold text-slate-800 group-hover:text-primary-600 transition-colors">
+                      <h3 className="text-xl font-semibold text-forest-800 group-hover:text-primary-600 transition-colors">
                         {project.project_title}
                       </h3>
-                      <span className={`px-3 py-1 rounded-full text-xs font-medium ${techColors[project.technology] || 'bg-slate-100 text-slate-600'}`}>
+                      <span className={`px-3 py-1 rounded-full text-xs font-medium ${techColors[project.technology] || 'bg-earth-100 text-earth-600'}`}>
                         {project.technology}
                       </span>
                     </div>
                     
-                    <p className="text-slate-600 mb-4 line-clamp-3">
+                    <p className="text-earth-700 mb-4 line-clamp-3">
                       {project.description}
                     </p>
 
@@ -193,9 +196,9 @@ export default function Projects() {
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-2 text-primary-600 hover:text-primary-700 font-medium transition-colors"
                       >
-                        <Github size={18} />
+                        <GitHubIcon sx={{ fontSize: 18 }} />
                         View Code
-                        <ExternalLink size={14} />
+                        <LaunchIcon sx={{ fontSize: 14 }} />
                       </a>
                     )}
                   </div>
@@ -206,7 +209,7 @@ export default function Projects() {
 
           {filteredProjects.length === 0 && !isLoading && (
             <div className="text-center py-20">
-              <p className="text-slate-500 text-lg">No projects found for this filter.</p>
+              <p className="text-earth-500 text-lg">No projects found for this filter.</p>
             </div>
           )}
         </motion.div>
