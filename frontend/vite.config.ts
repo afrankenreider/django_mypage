@@ -2,9 +2,9 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import path from 'path'
 
-export default defineConfig({
+export default defineConfig(({ command }) => ({
   plugins: [react()],
-  base: '/static/',  // Serve assets from /static/ path
+  base: command === 'build' ? '/static/' : '/',  // Use /static/ only for production build
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
@@ -23,4 +23,4 @@ export default defineConfig({
     outDir: '../staticfiles/frontend',
     emptyOutDir: true,
   },
-})
+}))

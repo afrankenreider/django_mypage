@@ -4,6 +4,7 @@ import LaunchIcon from '@mui/icons-material/Launch'
 import GitHubIcon from '@mui/icons-material/GitHub'
 import FilterListIcon from '@mui/icons-material/FilterList'
 import ComputerIcon from '@mui/icons-material/Computer'
+import FolderIcon from '@mui/icons-material/Folder'
 
 interface Project {
   id: number
@@ -18,9 +19,7 @@ const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-    },
+    transition: { staggerChildren: 0.1 },
   },
 }
 
@@ -29,7 +28,6 @@ const itemVariants = {
   visible: { opacity: 1, y: 0 },
 }
 
-// Fallback projects for when API is not available
 const fallbackProjects: Project[] = [
   {
     id: 1,
@@ -66,10 +64,10 @@ const fallbackProjects: Project[] = [
 ]
 
 const techColors: Record<string, string> = {
-  Python: 'bg-forest-100 text-forest-700',
-  API: 'bg-lake-100 text-lake-700',
-  Automation: 'bg-primary-100 text-primary-700',
-  Modeling: 'bg-earth-100 text-earth-700',
+  Python: 'bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-300 dark:border-slate-700',
+  API: 'bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-300 dark:border-slate-700',
+  Automation: 'bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-300 dark:border-slate-700',
+  Modeling: 'bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-300 dark:border-slate-700',
 }
 
 export default function Projects() {
@@ -93,7 +91,6 @@ export default function Projects() {
         setIsLoading(false)
       }
     }
-
     fetchProjects()
   }, [])
 
@@ -103,7 +100,7 @@ export default function Projects() {
     : projects.filter((p) => p.technology === filter)
 
   return (
-    <section className="min-h-screen pt-24 pb-16">
+    <section className="min-h-screen pt-24 pb-16 bg-slate-50 dark:bg-black">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -112,26 +109,30 @@ export default function Projects() {
         >
           {/* Header */}
           <div className="text-center mb-16">
-            <h1 className="font-display text-4xl md:text-5xl font-bold text-forest-900 mb-4">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-slate-100 dark:bg-slate-900 rounded-full border border-slate-300 dark:border-slate-700 mb-4">
+              <FolderIcon className="text-slate-600 dark:text-slate-400" sx={{ fontSize: 18 }} />
+              <span className="text-slate-600 dark:text-slate-400 font-mono text-sm">~/projects</span>
+            </div>
+            <h1 className="font-display text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4">
               Projects
             </h1>
-            <div className="w-24 h-1 bg-gradient-to-r from-primary-500 to-forest-500 mx-auto rounded-full mb-6" />
-            <p className="text-lg text-earth-700 max-w-2xl mx-auto">
+            <div className="w-24 h-1 bg-slate-900 dark:bg-white mx-auto rounded-full mb-6" />
+            <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
               A collection of projects showcasing my work in data science, automation, and software development
             </p>
           </div>
 
           {/* Filter */}
           <div className="flex flex-wrap justify-center gap-3 mb-12">
-            <FilterListIcon className="text-earth-400 self-center" />
+            <FilterListIcon className="text-slate-400 self-center" />
             {technologies.map((tech) => (
               <button
                 key={tech}
                 onClick={() => setFilter(tech)}
-                className={`px-4 py-2 rounded-full font-medium transition-all ${
+                className={`px-4 py-2 rounded-full font-medium transition-all border ${
                   filter === tech
-                    ? 'bg-primary-600 text-white shadow-lg'
-                    : 'bg-white text-forest-600 hover:bg-earth-50 shadow'
+                    ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 border-slate-900 dark:border-white'
+                    : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-800 hover:border-slate-400 dark:hover:border-slate-600 hover:text-slate-900 dark:hover:text-white'
                 }`}
               >
                 {tech}
@@ -142,7 +143,7 @@ export default function Projects() {
           {/* Projects Grid */}
           {isLoading ? (
             <div className="flex justify-center items-center py-20">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-slate-900 dark:border-white"></div>
             </div>
           ) : (
             <motion.div
@@ -156,10 +157,10 @@ export default function Projects() {
                   key={project.id}
                   variants={itemVariants}
                   layout
-                  className="glass-card rounded-2xl overflow-hidden hover-lift group"
+                  className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-slate-400 dark:hover:border-slate-600 rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-lg group"
                 >
                   {/* Project Image */}
-                  <div className="h-48 bg-gradient-to-br from-primary-400 to-forest-500 relative overflow-hidden">
+                  <div className="h-48 bg-gradient-to-br from-slate-200 to-slate-300 dark:from-slate-800 dark:to-slate-900 relative overflow-hidden">
                     {project.image ? (
                       <img
                         src={project.image}
@@ -168,24 +169,24 @@ export default function Projects() {
                       />
                     ) : (
                       <div className="absolute inset-0 flex items-center justify-center">
-                        <ComputerIcon sx={{ fontSize: 64 }} className="text-white/30" />
+                        <ComputerIcon sx={{ fontSize: 64 }} className="text-slate-400 dark:text-slate-700 group-hover:text-slate-500 dark:group-hover:text-slate-600 transition-colors" />
                       </div>
                     )}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-white/80 dark:from-black/80 to-transparent" />
                   </div>
 
                   {/* Project Content */}
                   <div className="p-6">
                     <div className="flex items-start justify-between mb-3">
-                      <h3 className="text-xl font-semibold text-forest-800 group-hover:text-primary-600 transition-colors">
+                      <h3 className="text-xl font-semibold text-slate-900 dark:text-white group-hover:text-slate-600 dark:group-hover:text-slate-300 transition-colors">
                         {project.project_title}
                       </h3>
-                      <span className={`px-3 py-1 rounded-full text-xs font-medium ${techColors[project.technology] || 'bg-earth-100 text-earth-600'}`}>
+                      <span className={`px-3 py-1 rounded-full text-xs font-medium border ${techColors[project.technology] || 'bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border-slate-300 dark:border-slate-700'}`}>
                         {project.technology}
                       </span>
                     </div>
 
-                    <p className="text-earth-700 mb-4 line-clamp-3">
+                    <p className="text-slate-600 dark:text-slate-400 mb-4 line-clamp-3">
                       {project.description}
                     </p>
 
@@ -194,7 +195,7 @@ export default function Projects() {
                         href={project.repository}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 text-primary-600 hover:text-primary-700 font-medium transition-colors"
+                        className="inline-flex items-center gap-2 text-slate-900 dark:text-white hover:text-slate-600 dark:hover:text-slate-300 font-medium transition-colors"
                       >
                         <GitHubIcon sx={{ fontSize: 18 }} />
                         View Code
@@ -209,7 +210,7 @@ export default function Projects() {
 
           {filteredProjects.length === 0 && !isLoading && (
             <div className="text-center py-20">
-              <p className="text-earth-500 text-lg">No projects found for this filter.</p>
+              <p className="text-slate-500 text-lg">No projects found for this filter.</p>
             </div>
           )}
         </motion.div>

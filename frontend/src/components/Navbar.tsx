@@ -3,6 +3,10 @@ import { Link, useLocation } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import MenuIcon from '@mui/icons-material/Menu'
 import CloseIcon from '@mui/icons-material/Close'
+import TerminalIcon from '@mui/icons-material/Terminal'
+import LightModeIcon from '@mui/icons-material/LightMode'
+import DarkModeIcon from '@mui/icons-material/DarkMode'
+import { useTheme } from '../context/ThemeContext'
 
 const navItems = [
   { name: 'Home', path: '/' },
@@ -14,13 +18,15 @@ const navItems = [
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const location = useLocation()
+  const { theme, toggleTheme } = useTheme()
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-earth-200/50">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 dark:bg-black/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <Link to="/" className="font-display font-bold text-xl text-forest-800 hover:text-primary-600 transition-colors">
-            AF
+          <Link to="/" className="flex items-center gap-2 font-mono font-bold text-xl text-slate-900 dark:text-white hover:text-slate-600 dark:hover:text-slate-300 transition-colors">
+            <TerminalIcon sx={{ fontSize: 24 }} />
+            <span>AF</span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -31,28 +37,46 @@ export default function Navbar() {
                 to={item.path}
                 className={`relative font-medium transition-colors ${
                   location.pathname === item.path
-                    ? 'text-primary-600'
-                    : 'text-forest-700 hover:text-primary-600'
+                    ? 'text-slate-900 dark:text-white'
+                    : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                 }`}
               >
                 {item.name}
                 {location.pathname === item.path && (
                   <motion.div
                     layoutId="navbar-indicator"
-                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary-600 rounded-full"
+                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-slate-900 dark:bg-white rounded-full"
                   />
                 )}
               </Link>
             ))}
+
+            {/* Theme Toggle Button */}
+            <button
+              onClick={toggleTheme}
+              className="p-2 rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+              aria-label="Toggle theme"
+            >
+              {theme === 'dark' ? <LightModeIcon /> : <DarkModeIcon />}
+            </button>
           </div>
 
-          {/* Mobile menu button */}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 rounded-lg text-forest-700 hover:bg-earth-100"
-          >
-            {isOpen ? <CloseIcon /> : <MenuIcon />}
-          </button>
+          {/* Mobile menu buttons */}
+          <div className="md:hidden flex items-center gap-2">
+            <button
+              onClick={toggleTheme}
+              className="p-2 rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+              aria-label="Toggle theme"
+            >
+              {theme === 'dark' ? <LightModeIcon /> : <DarkModeIcon />}
+            </button>
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="p-2 rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+            >
+              {isOpen ? <CloseIcon /> : <MenuIcon />}
+            </button>
+          </div>
         </div>
       </div>
 
@@ -62,7 +86,7 @@ export default function Navbar() {
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -10 }}
-          className="md:hidden bg-white border-b border-earth-200"
+          className="md:hidden bg-white dark:bg-black border-b border-slate-200 dark:border-slate-800"
         >
           <div className="px-4 py-4 space-y-2">
             {navItems.map((item) => (
@@ -72,8 +96,8 @@ export default function Navbar() {
                 onClick={() => setIsOpen(false)}
                 className={`block px-4 py-2 rounded-lg font-medium transition-colors ${
                   location.pathname === item.path
-                    ? 'bg-primary-50 text-primary-600'
-                    : 'text-forest-700 hover:bg-earth-50'
+                    ? 'bg-slate-100 dark:bg-slate-900 text-slate-900 dark:text-white'
+                    : 'text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900 hover:text-slate-900 dark:hover:text-white'
                 }`}
               >
                 {item.name}
