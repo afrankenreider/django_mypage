@@ -31,9 +31,9 @@ export default function About() {
             >
               <div className="relative">
                 <div className="w-64 h-64 mx-auto rounded-2xl bg-gradient-to-br from-primary-400 to-forest-500 p-1">
-                  <img 
-                    src={meImage} 
-                    alt="Profile photo" 
+                  <img
+                    src={meImage}
+                    alt="Profile photo"
                     className="w-full h-full rounded-2xl object-cover"
                   />
                 </div>
@@ -56,12 +56,12 @@ export default function About() {
                 </div>
                 <div className="space-y-4 text-earth-700 leading-relaxed">
                   <p>
-                    I am currently a Data Science Manager, leading teams that solve complex supply chain problems 
+                    I am currently a Data Science Manager, leading teams that solve complex supply chain problems
                     using cutting-edge technology and data-driven solutions.
                   </p>
                   <p>
-                    Throughout my career, I have progressed through roles as a data analyst, senior data analyst, 
-                    and data scientist. I have a passion for leveraging technology and creating data products 
+                    Throughout my career, I have progressed through roles as a data analyst, senior data analyst,
+                    and data scientist. I have a passion for leveraging technology and creating data products
                     that enable teams to better serve clients and drive business value.
                   </p>
                 </div>
@@ -74,7 +74,7 @@ export default function About() {
                 </div>
                 <div className="space-y-4 text-earth-700 leading-relaxed">
                   <p>
-                    My focus areas include pricing analysis and solution design, data analytics, 
+                    My focus areas include pricing analysis and solution design, data analytics,
                     and robotic process automation (RPA). Day-to-day, I work on:
                   </p>
                   <ul className="list-disc list-inside space-y-2 ml-4">
@@ -93,8 +93,8 @@ export default function About() {
                   <h2 className="text-xl font-semibold text-forest-800">Beyond Work</h2>
                 </div>
                 <p className="text-earth-700 leading-relaxed">
-                  In my free time, I enjoy reading, exploring new technology, spending time with family, 
-                  and sneaking in a round of golf whenever possible. I use this site as an avenue to publish 
+                  In my free time, I enjoy reading, exploring new technology, spending time with family,
+                  and sneaking in a round of golf whenever possible. I use this site as an avenue to publish
                   and document side projects as I continue my journey in data science.
                 </p>
               </div>

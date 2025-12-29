@@ -98,8 +98,8 @@ export default function Projects() {
   }, [])
 
   const technologies = ['All', ...new Set(projects.map((p) => p.technology))]
-  const filteredProjects = filter === 'All' 
-    ? projects 
+  const filteredProjects = filter === 'All'
+    ? projects
     : projects.filter((p) => p.technology === filter)
 
   return (
@@ -184,7 +184,7 @@ export default function Projects() {
                         {project.technology}
                       </span>
                     </div>
-                    
+
                     <p className="text-earth-700 mb-4 line-clamp-3">
                       {project.description}
                     </p>

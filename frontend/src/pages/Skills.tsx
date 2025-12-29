@@ -32,18 +32,18 @@ const skills: Skill[] = [
   { name: 'SQL', Icon: StorageIcon, category: 'Languages', url: 'https://www.postgresql.org/' },
   { name: 'Django', Icon: WebIcon, category: 'Frameworks', url: 'https://www.djangoproject.com/' },
   { name: 'React', Icon: CodeIcon, category: 'Frameworks', url: 'https://react.dev/' },
-  
+
   // DevOps & Tools
   { name: 'Docker', Icon: CloudIcon, category: 'DevOps', url: 'https://www.docker.com/' },
   { name: 'Kubernetes', Icon: IntegrationInstructionsIcon, category: 'DevOps', url: 'https://kubernetes.io/' },
   { name: 'Git', Icon: SourceIcon, category: 'DevOps', url: 'https://git-scm.com/' },
   { name: 'Jenkins', Icon: BuildIcon, category: 'DevOps', url: 'https://www.jenkins.io/' },
-  
+
   // Data & ML
   { name: 'Machine Learning', Icon: SmartToyIcon, category: 'Data Science', url: '#' },
   { name: 'Data Pipelines', Icon: SyncIcon, category: 'Data Science', url: '#' },
   { name: 'Analytics', Icon: InsightsIcon, category: 'Data Science', url: '#' },
-  
+
   // Web
   { name: 'HTML5', Icon: Html5Icon, category: 'Web', url: 'https://developer.mozilla.org/en-US/docs/Web/HTML' },
   { name: 'CSS3', Icon: BrushIcon, category: 'Web', url: 'https://developer.mozilla.org/en-US/docs/Web/CSS' },
@@ -118,7 +118,7 @@ export default function Skills() {
                 <span className="w-8 h-1 bg-primary-500 rounded-full" />
                 {category}
               </h2>
-              
+
               <motion.div
                 variants={containerVariants}
                 initial="hidden"
@@ -160,7 +160,7 @@ export default function Skills() {
               <span className="w-8 h-1 bg-primary-500 rounded-full" />
               Areas of Expertise
             </h2>
-            
+
             <div className="grid md:grid-cols-3 gap-6">
               {expertiseAreas.map((area) => (
                 <div

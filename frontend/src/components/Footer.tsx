@@ -11,7 +11,7 @@ export default function Footer() {
             <h3 className="font-display font-bold text-xl mb-2">Andrew Frankenreider</h3>
             <p className="text-forest-300">Data Science Manager & Data Scientist</p>
           </div>
-          
+
           <div className="flex items-center space-x-6">
             <a
               href="https://www.linkedin.com/in/andrew-frankenreider-934581b1/"
@@ -40,7 +40,7 @@ export default function Footer() {
             </a>
           </div>
         </div>
-        
+
         <div className="mt-8 pt-8 border-t border-forest-700 text-center text-forest-400 text-sm">
           <p>© {new Date().getFullYear()} Andrew Frankenreider. All rights reserved.</p>
         </div>

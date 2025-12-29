@@ -10,41 +10,70 @@ A modern personal portfolio website built with React/TypeScript frontend and Dja
 - **Tailwind CSS** - Utility-first CSS framework
 - **Framer Motion** - Animation library
 - **React Router** - Client-side routing
-- **Lucide React** - Icon library
+- **Material UI** - Component library
 
 ### Backend
-- **Django 4.1** - Python web framework
+- **Django 6.0** - Python web framework
 - **Django REST Framework** - API toolkit
-- **SQLite** (development) / PostgreSQL (production)
+- **PostgreSQL** - Database (local via Docker, managed on Heroku)
 - **uv** - Fast Python package manager
+
+### Data Science
+- **Jupyter Notebooks** - Interactive development
+- **pandas** - Data manipulation
+- **numpy** - Numerical computing
 
 ## Project Structure
 
 ```
 django_mypage/
-├── base_app/          # Django project settings
-├── my_webpage/        # Django app with models and API
-│   ├── api/           # REST API views
-│   ├── models.py      # Data models
-│   └── serializers.py # DRF serializers
-├── frontend/          # React TypeScript frontend
-│   ├── src/
-│   │   ├── components/  # Reusable UI components
-│   │   ├── pages/       # Page components
-│   │   └── types/       # TypeScript type definitions
-│   └── ...
-└── pyproject.toml     # Python dependencies and project config
+├── src/                    # Python source code
+│   ├── apps/               # Django applications
+│   │   ├── base_app/       # Django project settings & config
+│   │   └── projects/       # Projects app with models and API
+│   └── notebooks/          # Jupyter notebooks for data science/ML
+├── frontend/               # React TypeScript frontend
+│   └── src/
+│       ├── components/     # Reusable UI components
+│       ├── pages/          # Page components
+│       └── types/          # TypeScript type definitions
+├── tests/                  # Test suite
+│   ├── unit/               # Unit tests
+│   └── integration/        # Integration tests
+├── scripts/                # Utility scripts
+├── docker/                 # Docker configuration
+│   ├── Dockerfile
+│   └── docker-compose.yaml
+├── docs/                   # Documentation
+├── manage.py               # Django CLI
+└── pyproject.toml          # Python dependencies and project config
 ```
 
 ## Getting Started
 
 ### Prerequisites
-- Python 3.8+
+- Python 3.13+
 - [uv](https://docs.astral.sh/uv/) - Fast Python package manager
-- Node.js 14+ (16+ recommended)
-- npm or yarn
+- Node.js 20+
+- Docker (for local PostgreSQL)
 
-### Backend Setup
+### Quick Start (Docker)
+
+The easiest way to run the full stack locally:
+
+```bash
+cd docker
+docker-compose up
+```
+
+This starts:
+- PostgreSQL database on port 5432
+- Django backend on port 8000
+- Vite frontend on port 3000
+
+### Manual Setup
+
+#### Backend Setup
 
 1. Install uv (if not already installed):
    ```bash
@@ -53,27 +82,32 @@ django_mypage/
 
 2. Create virtual environment and install dependencies:
    ```bash
-   uv sync
+   uv sync --dev
    ```
 
-3. Run migrations:
+3. Start PostgreSQL (via Docker):
+   ```bash
+   cd docker && docker-compose up db -d
+   ```
+
+4. Run migrations:
    ```bash
    uv run python manage.py migrate
    ```
 
-4. Create a superuser (optional, for admin access):
+5. Create a superuser (optional):
    ```bash
    uv run python manage.py createsuperuser
    ```
 
-5. Start the Django development server:
+6. Start the Django development server:
    ```bash
    uv run python manage.py runserver
    ```
 
 The API will be available at `http://localhost:8000/api/`
 
-### Frontend Setup
+#### Frontend Setup
 
 1. Navigate to the frontend directory:
    ```bash
@@ -92,6 +126,58 @@ The API will be available at `http://localhost:8000/api/`
 
 The frontend will be available at `http://localhost:3000`
 
+### Running Both Services
+
+Use the start script to run both frontend and backend:
+
+```bash
+./scripts/start.sh
+```
+
+## Development
+
+### Code Quality
+
+This project uses:
+- **Ruff** - Fast Python linter and formatter
+- **Pre-commit** - Git hooks for code quality
+
+Setup pre-commit hooks:
+```bash
+uv run pre-commit install
+```
+
+Run linting manually:
+```bash
+uv run ruff check --fix .
+uv run ruff format .
+```
+
+### Jupyter Notebooks
+
+Start Jupyter for data science work:
+```bash
+uv run jupyter notebook
+```
+
+Notebooks are located in `src/notebooks/`.
+
+### Running Tests
+
+```bash
+uv run pytest
+```
+
+### Adding Dependencies
+
+```bash
+# Add production dependency
+uv add <package-name>
+
+# Add dev dependency
+uv add --dev <package-name>
+```
+
 ## API Endpoints
 
 | Endpoint | Method | Description |
@@ -99,47 +185,24 @@ The frontend will be available at `http://localhost:3000`
 | `/api/projects/` | GET | List all projects |
 | `/api/projects/{id}/` | GET | Get a specific project |
 
-## Development
+## Deployment (Heroku)
 
-### Running Both Servers
+The project is configured for Heroku deployment:
 
-For development, you need to run both the Django backend and Vite frontend:
-
-**Terminal 1 - Backend:**
-```bash
-uv run python manage.py runserver
-```
-
-**Terminal 2 - Frontend:**
-```bash
-cd frontend && npm run dev
-```
-
-### Adding Dependencies
-
-To add a new Python dependency:
-```bash
-uv add <package-name>
-```
-
-To add a dev dependency:
-```bash
-uv add --dev <package-name>
-```
-
-### Building for Production
-
-1. Build the frontend:
+1. Create Heroku app and add PostgreSQL:
    ```bash
-   cd frontend
-   npm run build
+   heroku create your-app-name
+   heroku addons:create heroku-postgresql:essential-0
    ```
 
-2. The built files will be output to `base_app/static/frontend/`
-
-3. Collect static files:
+2. Set environment variables:
    ```bash
-   uv run python manage.py collectstatic
+   heroku config:set SECRET_KEY=your-secret-key
+   ```
+
+3. Deploy:
+   ```bash
+   git push heroku main
    ```
 
 ## Features
@@ -148,6 +211,7 @@ uv add --dev <package-name>
 - 👤 **About** - Professional background and story
 - 🛠️ **Skills** - Technical skills and tools showcase
 - 💼 **Projects** - Portfolio of work with filtering
+- 📊 **Notebooks** - Data science experiments and ML projects
 
 ## License
 

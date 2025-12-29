@@ -23,13 +23,13 @@ export default function Home() {
           <h1 className="font-display text-5xl md:text-7xl font-bold text-forest-900 mb-6">
             Andrew Frankenreider
           </h1>
-          
+
           <h2 className="text-2xl md:text-3xl font-medium mb-8">
             <span className="gradient-text">Data Science Manager</span>
             <span className="text-earth-600"> & </span>
             <span className="gradient-text">Data Scientist</span>
           </h2>
-          
+
           <p className="text-lg text-earth-700 max-w-2xl mx-auto mb-12">
             Leveraging cutting-edge technology to build data products that drive business value.
             Passionate about machine learning, automation, and creating elegant solutions to complex problems.
