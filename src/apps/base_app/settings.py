@@ -131,12 +131,12 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = "/static/"
-STATIC_ROOT = BASE_DIR / "staticfiles"
+STATIC_ROOT = BASE_DIR / "staticfiles" / "collected"
 
-# Only add frontend static files if the directory exists (after build)
-_frontend_static = BASE_DIR / "staticfiles" / "frontend"
-if _frontend_static.exists():
-    STATICFILES_DIRS = [_frontend_static]
+# Static files directories - include the frontend build
+STATICFILES_DIRS = [
+    BASE_DIR / "staticfiles" / "frontend",
+]
 
 # WhiteNoise configuration
 STORAGES = {
@@ -147,6 +147,9 @@ STORAGES = {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
 }
+
+# WhiteNoise settings
+WHITENOISE_ROOT = BASE_DIR / "staticfiles" / "frontend"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
