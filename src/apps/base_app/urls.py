@@ -14,8 +14,11 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
+import os
+
 from django.contrib import admin
-from django.urls import include, path
+from django.urls import include, path, re_path
+from django.views.generic import TemplateView
 from rest_framework.routers import DefaultRouter
 
 from src.apps.projects.api.views import ProjectsViewSet
@@ -27,5 +30,18 @@ router.register(r"projects", ProjectsViewSet, basename="projects")
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/", include(router.urls)),
-    path("", include(("src.apps.projects.urls", "projects"), namespace="projects")),
 ]
+
+# In production, serve the React frontend for all other routes
+if os.environ.get("DYNO"):
+    urlpatterns += [
+        re_path(
+            r"^(?!api|admin|static).*$",
+            TemplateView.as_view(template_name="index.html"),
+        ),
+    ]
+else:
+    # In development, include Django template views (React runs separately on port 3000)
+    urlpatterns += [
+        path("", include(("src.apps.projects.urls", "projects"), namespace="projects")),
+    ]
