@@ -5,7 +5,7 @@
         "node": "20.x"
     },
     "scripts": {
-        "build": "cd frontend && npm install && npm run build",
+        "build": "cd frontend && npm install --include=dev && npm run build",
         "heroku-postbuild": "npm run build"
     },
     "cacheDirectories": ["frontend/node_modules"]
