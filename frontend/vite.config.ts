@@ -4,6 +4,7 @@ import path from 'path'
 
 export default defineConfig({
   plugins: [react()],
+  base: '/static/',  // Serve assets from /static/ path
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
