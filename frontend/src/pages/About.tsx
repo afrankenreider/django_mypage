@@ -55,20 +55,67 @@ export default function About() {
               className="lg:col-span-2 space-y-6"
             >
               <div className="bg-white dark:bg-slate-900 backdrop-blur-md border border-slate-200 dark:border-slate-800 rounded-2xl p-8 shadow-sm">
-                <div className="flex items-center gap-3 mb-4">
+                <div className="flex items-center gap-3 mb-6">
                   <WorkIcon className="text-slate-600 dark:text-slate-400" />
                   <h2 className="text-xl font-semibold text-slate-900 dark:text-white">Professional Journey</h2>
                 </div>
-                <div className="space-y-4 text-slate-600 dark:text-slate-400 leading-relaxed">
-                  <p>
-                    I am currently a Data Science Manager, leading teams that solve complex supply chain problems
-                    using cutting-edge technology and data-driven solutions.
-                  </p>
-                  <p>
-                    Throughout my career, I have progressed through roles as a data analyst, senior data analyst,
-                    and data scientist. I have a passion for leveraging technology and creating data products
-                    that enable teams to better serve clients and drive business value.
-                  </p>
+
+                {/* Timeline */}
+                <div className="relative">
+                  {/* Timeline line */}
+                  <div className="absolute left-[7px] top-2 bottom-2 w-0.5 bg-slate-200 dark:bg-slate-700" />
+
+                  <div className="space-y-6">
+                    {/* Analytics & Data Science Manager */}
+                    <div className="relative pl-8">
+                      <div className="absolute left-0 top-1.5 w-4 h-4 rounded-full bg-slate-900 dark:bg-white border-4 border-slate-200 dark:border-slate-700" />
+                      <div>
+                        <h3 className="text-lg font-semibold text-slate-900 dark:text-white">Analytics & Data Science Manager</h3>
+                        <p className="text-slate-600 dark:text-slate-400 font-medium">Caterpillar, Inc.</p>
+                        <p className="text-sm text-slate-500 dark:text-slate-500">May 2024 - Present</p>
+                      </div>
+                    </div>
+
+                    {/* Data Scientist - Caterpillar */}
+                    <div className="relative pl-8">
+                      <div className="absolute left-0 top-1.5 w-4 h-4 rounded-full bg-slate-400 dark:bg-slate-600 border-4 border-slate-200 dark:border-slate-700" />
+                      <div>
+                        <h3 className="text-lg font-semibold text-slate-900 dark:text-white">Data Scientist</h3>
+                        <p className="text-slate-600 dark:text-slate-400 font-medium">Caterpillar, Inc.</p>
+                        <p className="text-sm text-slate-500 dark:text-slate-500">Apr 2023 - May 2024</p>
+                      </div>
+                    </div>
+
+                    {/* Data Scientist - C.H. Robinson */}
+                    <div className="relative pl-8">
+                      <div className="absolute left-0 top-1.5 w-4 h-4 rounded-full bg-slate-400 dark:bg-slate-600 border-4 border-slate-200 dark:border-slate-700" />
+                      <div>
+                        <h3 className="text-lg font-semibold text-slate-900 dark:text-white">Data Scientist</h3>
+                        <p className="text-slate-600 dark:text-slate-400 font-medium">C.H. Robinson</p>
+                        <p className="text-sm text-slate-500 dark:text-slate-500">Oct 2021 - Apr 2023</p>
+                      </div>
+                    </div>
+
+                    {/* Senior Data Analyst */}
+                    <div className="relative pl-8">
+                      <div className="absolute left-0 top-1.5 w-4 h-4 rounded-full bg-slate-400 dark:bg-slate-600 border-4 border-slate-200 dark:border-slate-700" />
+                      <div>
+                        <h3 className="text-lg font-semibold text-slate-900 dark:text-white">Senior Data Analyst</h3>
+                        <p className="text-slate-600 dark:text-slate-400 font-medium">C.H. Robinson</p>
+                        <p className="text-sm text-slate-500 dark:text-slate-500">Apr 2021 - Sep 2021</p>
+                      </div>
+                    </div>
+
+                    {/* Data Analyst */}
+                    <div className="relative pl-8">
+                      <div className="absolute left-0 top-1.5 w-4 h-4 rounded-full bg-slate-400 dark:bg-slate-600 border-4 border-slate-200 dark:border-slate-700" />
+                      <div>
+                        <h3 className="text-lg font-semibold text-slate-900 dark:text-white">Data Analyst</h3>
+                        <p className="text-slate-600 dark:text-slate-400 font-medium">C.H. Robinson</p>
+                        <p className="text-sm text-slate-500 dark:text-slate-500">Jun 2018 - Apr 2021</p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
 
