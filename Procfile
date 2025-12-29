@@ -1,1 +1,2 @@
-web: gunicorn base_app.wsgi
+web: ./scripts/start.sh
+release: python manage.py migrate --noinput

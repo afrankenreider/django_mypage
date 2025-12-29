@@ -1,30 +1,218 @@
-# Andrew Frankenreider - Personal Webpage
+# Andrew Frankenreider Portfolio
 
-Project portfolio webpage developed utilizing:
+A modern personal portfolio website built with React/TypeScript frontend and Django REST API backend.
 
-1. Python (Django)
+## Tech Stack
 
-2. JavaScript, CSS, HTML
+### Frontend
+- **React 18** with TypeScript
+- **Vite** - Fast build tool
+- **Tailwind CSS** - Utility-first CSS framework
+- **Framer Motion** - Animation library
+- **React Router** - Client-side routing
+- **Material UI** - Component library
 
-3. Docker
+### Backend
+- **Django 6.0** - Python web framework
+- **Django REST Framework** - API toolkit
+- **PostgreSQL** - Database (local via Docker, managed on Heroku)
+- **uv** - Fast Python package manager
 
-## URLs
+### Data Science
+- **Jupyter Notebooks** - Interactive development
+- **pandas** - Data manipulation
+- **numpy** - Numerical computing
 
-### Prod
+## Project Structure
 
-- App: https://afrankenreider.herokuapp.com/
+```
+django_mypage/
+├── src/                    # Python source code
+│   ├── apps/               # Django applications
+│   │   ├── base_app/       # Django project settings & config
+│   │   └── projects/       # Projects app with models and API
+│   └── notebooks/          # Jupyter notebooks for data science/ML
+├── frontend/               # React TypeScript frontend
+│   └── src/
+│       ├── components/     # Reusable UI components
+│       ├── pages/          # Page components
+│       └── types/          # TypeScript type definitions
+├── tests/                  # Test suite
+│   ├── unit/               # Unit tests
+│   └── integration/        # Integration tests
+├── scripts/                # Utility scripts
+├── docker/                 # Docker configuration
+│   ├── Dockerfile
+│   └── docker-compose.yaml
+├── docs/                   # Documentation
+├── manage.py               # Django CLI
+└── pyproject.toml          # Python dependencies and project config
+```
 
-## Local Development
+## Getting Started
 
-### Prerequisites:
+### Prerequisites
+- Python 3.13+
+- [uv](https://docs.astral.sh/uv/) - Fast Python package manager
+- Node.js 20+
+- Docker (for local PostgreSQL)
 
-- Python installed
-- Docker and docker-compose installed
+### Quick Start (Docker)
 
-### Running the application locally
+The easiest way to run the full stack locally:
 
-`git clone` to clone repository to development environment
+```bash
+cd docker
+docker-compose up
+```
 
-Do `docker-compose up` to run the app in a container
+This starts:
+- PostgreSQL database on port 5432
+- Django backend on port 8000
+- Vite frontend on port 3000
 
-Navigate to http://0.0.0.0:8000/ in browser
+### Manual Setup
+
+#### Backend Setup
+
+1. Install uv (if not already installed):
+   ```bash
+   curl -LsSf https://astral.sh/uv/install.sh | sh
+   ```
+
+2. Create virtual environment and install dependencies:
+   ```bash
+   uv sync --dev
+   ```
+
+3. Start PostgreSQL (via Docker):
+   ```bash
+   cd docker && docker-compose up db -d
+   ```
+
+4. Run migrations:
+   ```bash
+   uv run python manage.py migrate
+   ```
+
+5. Create a superuser (optional):
+   ```bash
+   uv run python manage.py createsuperuser
+   ```
+
+6. Start the Django development server:
+   ```bash
+   uv run python manage.py runserver
+   ```
+
+The API will be available at `http://localhost:8000/api/`
+
+#### Frontend Setup
+
+1. Navigate to the frontend directory:
+   ```bash
+   cd frontend
+   ```
+
+2. Install npm dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+The frontend will be available at `http://localhost:3000`
+
+### Running Both Services
+
+Use the start script to run both frontend and backend:
+
+```bash
+./scripts/start.sh
+```
+
+## Development
+
+### Code Quality
+
+This project uses:
+- **Ruff** - Fast Python linter and formatter
+- **Pre-commit** - Git hooks for code quality
+
+Setup pre-commit hooks:
+```bash
+uv run pre-commit install
+```
+
+Run linting manually:
+```bash
+uv run ruff check --fix .
+uv run ruff format .
+```
+
+### Jupyter Notebooks
+
+Start Jupyter for data science work:
+```bash
+uv run jupyter notebook
+```
+
+Notebooks are located in `src/notebooks/`.
+
+### Running Tests
+
+```bash
+uv run pytest
+```
+
+### Adding Dependencies
+
+```bash
+# Add production dependency
+uv add <package-name>
+
+# Add dev dependency
+uv add --dev <package-name>
+```
+
+## API Endpoints
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/api/projects/` | GET | List all projects |
+| `/api/projects/{id}/` | GET | Get a specific project |
+
+## Deployment (Heroku)
+
+The project is configured for Heroku deployment:
+
+1. Create Heroku app and add PostgreSQL:
+   ```bash
+   heroku create your-app-name
+   heroku addons:create heroku-postgresql:essential-0
+   ```
+
+2. Set environment variables:
+   ```bash
+   heroku config:set SECRET_KEY=your-secret-key
+   ```
+
+3. Deploy:
+   ```bash
+   git push heroku main
+   ```
+
+## Features
+
+- 🏠 **Home** - Hero section with social links
+- 👤 **About** - Professional background and story
+- 🛠️ **Skills** - Technical skills and tools showcase
+- 💼 **Projects** - Portfolio of work with filtering
+- 📊 **Notebooks** - Data science experiments and ML projects
+
+## License
+
+MIT License
