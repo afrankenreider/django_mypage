@@ -1,0 +1,13 @@
+#!/bin/bash
+# This script is run by Heroku during the build phase
+# It builds the React frontend before Django collects static files
+
+set -e
+
+echo "Building React frontend..."
+cd frontend
+npm install
+npm run build
+cd ..
+
+echo "Frontend build complete!"
