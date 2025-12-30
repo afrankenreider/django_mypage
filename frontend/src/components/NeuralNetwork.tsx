@@ -24,17 +24,23 @@ const FRAME_INTERVAL = 1000 / 30
 
 export default function NeuralNetwork() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
-  const animationRef = useRef<number>()
+  const animationRef = useRef<number | null>(null)
   const nodesRef = useRef<Node[]>([])
   const connectionsRef = useRef<Connection[]>([])
   const lastFrameTimeRef = useRef<number>(0)
-  const [isVisible, setIsVisible] = useState(true)
+  const isVisibleRef = useRef(true)
+  const [, setIsVisible] = useState(true) // Keep state for re-render on visibility change
   const { theme } = useTheme()
-  const isDarkMode = theme === 'dark'
+  const isDarkModeRef = useRef(theme === 'dark')
+
+  // Keep the ref updated with the current theme
+  useEffect(() => {
+    isDarkModeRef.current = theme === 'dark'
+  }, [theme])
 
   const initializeNetwork = useCallback((width: number, height: number) => {
-    // Reduced node count for better performance
-    const nodeCount = Math.min(25, Math.floor((width * height) / 50000))
+    // Increased node count for better visibility while maintaining performance
+    const nodeCount = Math.min(35, Math.floor((width * height) / 35000))
     const nodes: Node[] = []
 
     for (let i = 0; i < nodeCount; i++) {
@@ -43,7 +49,7 @@ export default function NeuralNetwork() {
         y: Math.random() * height,
         vx: (Math.random() - 0.5) * 0.5,
         vy: (Math.random() - 0.5) * 0.5,
-        radius: Math.random() * 2 + 1.5,
+        radius: Math.random() * 2.5 + 2,
         pulsePhase: Math.random() * Math.PI * 2,
       })
     }
@@ -52,7 +58,7 @@ export default function NeuralNetwork() {
 
     // Create connections between nearby nodes
     const connections: Connection[] = []
-    const maxDistance = Math.min(width, height) * 0.2
+    const maxDistance = Math.min(width, height) * 0.25
 
     for (let i = 0; i < nodes.length; i++) {
       for (let j = i + 1; j < nodes.length; j++) {
@@ -60,7 +66,7 @@ export default function NeuralNetwork() {
         const dy = nodes[i].y - nodes[j].y
         const distance = Math.sqrt(dx * dx + dy * dy)
 
-        if (distance < maxDistance && Math.random() > 0.6) {
+        if (distance < maxDistance && Math.random() > 0.5) {
           connections.push({
             from: i,
             to: j,
@@ -95,6 +101,7 @@ export default function NeuralNetwork() {
     const height = canvas.height
     const nodes = nodesRef.current
     const connections = connectionsRef.current
+    const isDarkMode = isDarkModeRef.current
 
     // Clear canvas
     ctx.clearRect(0, 0, width, height)
@@ -110,12 +117,12 @@ export default function NeuralNetwork() {
       if (!fromNode || !toNode) return
 
       // Draw base connection line - increased opacity and thickness
-      const baseOpacity = conn.opacity * 0.5
+      const baseOpacity = conn.opacity * 0.7
       ctx.beginPath()
       ctx.moveTo(fromNode.x, fromNode.y)
       ctx.lineTo(toNode.x, toNode.y)
       ctx.strokeStyle = `rgba(${lineColor}, ${baseOpacity})`
-      ctx.lineWidth = 1.5
+      ctx.lineWidth = 2
       ctx.stroke()
 
       // Animate pulse along active connections
@@ -199,21 +206,23 @@ export default function NeuralNetwork() {
     })
 
     animationRef.current = requestAnimationFrame(animate)
-  }, [isDarkMode])
+  }, []) // No dependencies - uses refs for all mutable values
 
   // Handle visibility changes to start/stop animation
   useEffect(() => {
-    if (isVisible) {
+    if (isVisibleRef.current) {
       animationRef.current = requestAnimationFrame(animate)
     } else if (animationRef.current) {
       cancelAnimationFrame(animationRef.current)
+      animationRef.current = null
     }
     return () => {
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current)
+        animationRef.current = null
       }
     }
-  }, [isVisible, animate])
+  }, [animate])
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -244,7 +253,15 @@ export default function NeuralNetwork() {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
+          isVisibleRef.current = entry.isIntersecting
           setIsVisible(entry.isIntersecting)
+
+          if (entry.isIntersecting && !animationRef.current) {
+            animationRef.current = requestAnimationFrame(animate)
+          } else if (!entry.isIntersecting && animationRef.current) {
+            cancelAnimationFrame(animationRef.current)
+            animationRef.current = null
+          }
         })
       },
       { threshold: 0 }
@@ -264,7 +281,7 @@ export default function NeuralNetwork() {
     <canvas
       ref={canvasRef}
       className="absolute inset-0 w-full h-full pointer-events-none"
-      style={{ opacity: 0.7 }}
+      style={{ opacity: 0.9 }}
     />
   )
 }
