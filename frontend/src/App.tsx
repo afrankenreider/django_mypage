@@ -4,6 +4,7 @@ import Home from './pages/Home'
 import About from './pages/About'
 import Skills from './pages/Skills'
 import Projects from './pages/Projects'
+import LinearRegressionDemo from './pages/LinearRegressionDemo'
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="about" element={<About />} />
         <Route path="skills" element={<Skills />} />
         <Route path="projects" element={<Projects />} />
+        <Route path="projects/linear-regression" element={<LinearRegressionDemo />} />
       </Route>
     </Routes>
   )
