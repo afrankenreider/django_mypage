@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useRef, useCallback } from 'react'
+import { useState, useEffect, useMemo, useRef, useCallback, memo } from 'react'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import {
@@ -73,8 +73,8 @@ interface DataPoint {
   residual?: number
 }
 
-// Custom tooltip component for modern look
-const CustomTooltip = ({ active, payload }: any) => {
+// Custom tooltip component for modern look - memoized for performance
+const CustomTooltip = memo(({ active, payload }: any) => {
   if (active && payload && payload.length) {
     return (
       <div className="bg-slate-900/95 backdrop-blur-sm border border-slate-700 rounded-lg px-4 py-3 shadow-xl">
@@ -89,10 +89,11 @@ const CustomTooltip = ({ active, payload }: any) => {
     )
   }
   return null
-}
+})
+CustomTooltip.displayName = 'CustomTooltip'
 
-// Custom legend component
-const CustomLegend = ({ payload }: any) => {
+// Custom legend component - memoized for performance
+const CustomLegend = memo(({ payload }: any) => {
   return (
     <div className="flex justify-center gap-6 mt-4">
       {payload?.map((entry: any, index: number) => (
@@ -108,7 +109,8 @@ const CustomLegend = ({ payload }: any) => {
       ))}
     </div>
   )
-}
+})
+CustomLegend.displayName = 'CustomLegend'
 
 // Fallback calculation for client-side
 function calculateLinearRegression(xValues: number[], yValues: number[]): RegressionResult {
@@ -194,6 +196,12 @@ export default function LinearRegressionDemo() {
   // Custom mode bounds
   const customBounds = { xMin: 0, xMax: 100, yMin: 0, yMax: 100 }
 
+  // Serialize custom points for stable dependency
+  const customPointsKey = useMemo(() =>
+    JSON.stringify(customPoints.map(p => [p.x, p.y])),
+    [customPoints]
+  )
+
   // Calculate regression when dataset changes
   useEffect(() => {
     if (!isCustomMode && currentDataset) {
@@ -212,7 +220,7 @@ export default function LinearRegressionDemo() {
     } else if (isCustomMode && customPoints.length < 2) {
       setResult(null)
     }
-  }, [customPoints, isCustomMode])
+  }, [customPointsKey, isCustomMode])
 
   // Prepare chart data
   const chartData: DataPoint[] = useMemo(() => {
@@ -344,11 +352,10 @@ export default function LinearRegressionDemo() {
                 <button
                   key={section.id}
                   onClick={() => setActiveSection(section.id)}
-                  className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-medium transition-all ${
-                    activeSection === section.id
+                  className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-medium transition-all ${activeSection === section.id
                       ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 shadow-lg'
                       : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
-                  }`}
+                    }`}
                 >
                   <Icon sx={{ fontSize: 18 }} />
                   {section.label}
@@ -422,10 +429,10 @@ export default function LinearRegressionDemo() {
                         <stop offset="100%" stopColor={colors.warning} />
                       </linearGradient>
                       <filter id="glow">
-                        <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                        <feGaussianBlur stdDeviation="3" result="coloredBlur" />
                         <feMerge>
-                          <feMergeNode in="coloredBlur"/>
-                          <feMergeNode in="SourceGraphic"/>
+                          <feMergeNode in="coloredBlur" />
+                          <feMergeNode in="SourceGraphic" />
                         </feMerge>
                       </filter>
                     </defs>
@@ -639,22 +646,20 @@ export default function LinearRegressionDemo() {
                       setIsCustomMode(false)
                       clearCustomPoints()
                     }}
-                    className={`px-4 py-2 rounded-lg font-medium transition-all flex items-center gap-2 ${
-                      !isCustomMode
+                    className={`px-4 py-2 rounded-lg font-medium transition-all flex items-center gap-2 ${!isCustomMode
                         ? 'bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-lg shadow-indigo-500/25'
                         : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
-                    }`}
+                      }`}
                   >
                     <DatasetIcon sx={{ fontSize: 18 }} />
                     Sample Data
                   </button>
                   <button
                     onClick={() => setIsCustomMode(true)}
-                    className={`px-4 py-2 rounded-lg font-medium transition-all flex items-center gap-2 ${
-                      isCustomMode
+                    className={`px-4 py-2 rounded-lg font-medium transition-all flex items-center gap-2 ${isCustomMode
                         ? 'bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-lg shadow-cyan-500/25'
                         : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
-                    }`}
+                      }`}
                   >
                     <TouchAppIcon sx={{ fontSize: 18 }} />
                     Draw Points
@@ -668,11 +673,10 @@ export default function LinearRegressionDemo() {
                     <button
                       key={key}
                       onClick={() => setSelectedDataset(key)}
-                      className={`px-4 py-2 rounded-full text-sm font-medium transition-all border ${
-                        selectedDataset === key
+                      className={`px-4 py-2 rounded-full text-sm font-medium transition-all border ${selectedDataset === key
                           ? 'bg-gradient-to-r from-indigo-500 to-purple-500 text-white border-transparent shadow-md'
                           : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:border-indigo-400 hover:text-indigo-600'
-                      }`}
+                        }`}
                     >
                       {dataset.name}
                     </button>
@@ -725,10 +729,10 @@ export default function LinearRegressionDemo() {
                         <stop offset="100%" stopColor={colors.secondary} />
                       </linearGradient>
                       <filter id="glowInteractive">
-                        <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+                        <feGaussianBlur stdDeviation="2" result="coloredBlur" />
                         <feMerge>
-                          <feMergeNode in="coloredBlur"/>
-                          <feMergeNode in="SourceGraphic"/>
+                          <feMergeNode in="coloredBlur" />
+                          <feMergeNode in="SourceGraphic" />
                         </feMerge>
                       </filter>
                     </defs>
@@ -811,19 +815,17 @@ export default function LinearRegressionDemo() {
                     <p className="text-slate-500 dark:text-slate-400 text-sm mb-2">Intercept (b)</p>
                     <p className="text-lg font-mono font-bold text-amber-600 dark:text-amber-400">{result.intercept}</p>
                   </div>
-                  <div className={`rounded-xl p-5 text-center border ${
-                    result.r_squared >= 0.7
+                  <div className={`rounded-xl p-5 text-center border ${result.r_squared >= 0.7
                       ? 'bg-gradient-to-br from-emerald-50 to-green-50 dark:from-emerald-900/20 dark:to-green-900/20 border-emerald-100 dark:border-emerald-800'
                       : result.r_squared >= 0.3
-                      ? 'bg-gradient-to-br from-amber-50 to-yellow-50 dark:from-amber-900/20 dark:to-yellow-900/20 border-amber-100 dark:border-amber-800'
-                      : 'bg-gradient-to-br from-red-50 to-rose-50 dark:from-red-900/20 dark:to-rose-900/20 border-red-100 dark:border-red-800'
-                  }`}>
-                    <p className="text-slate-500 dark:text-slate-400 text-sm mb-2">R² Score</p>
-                    <p className={`text-lg font-mono font-bold ${
-                      result.r_squared >= 0.7 ? 'text-emerald-600 dark:text-emerald-400' :
-                      result.r_squared >= 0.3 ? 'text-amber-600 dark:text-amber-400' :
-                      'text-red-600 dark:text-red-400'
+                        ? 'bg-gradient-to-br from-amber-50 to-yellow-50 dark:from-amber-900/20 dark:to-yellow-900/20 border-amber-100 dark:border-amber-800'
+                        : 'bg-gradient-to-br from-red-50 to-rose-50 dark:from-red-900/20 dark:to-rose-900/20 border-red-100 dark:border-red-800'
                     }`}>
+                    <p className="text-slate-500 dark:text-slate-400 text-sm mb-2">R² Score</p>
+                    <p className={`text-lg font-mono font-bold ${result.r_squared >= 0.7 ? 'text-emerald-600 dark:text-emerald-400' :
+                        result.r_squared >= 0.3 ? 'text-amber-600 dark:text-amber-400' :
+                          'text-red-600 dark:text-red-400'
+                      }`}>
                       {result.r_squared}
                     </p>
                   </div>
@@ -856,12 +858,12 @@ export default function LinearRegressionDemo() {
                     >
                       <defs>
                         <linearGradient id="positiveGradient" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor={colors.success} stopOpacity={0.8}/>
-                          <stop offset="100%" stopColor={colors.success} stopOpacity={0.4}/>
+                          <stop offset="0%" stopColor={colors.success} stopOpacity={0.8} />
+                          <stop offset="100%" stopColor={colors.success} stopOpacity={0.4} />
                         </linearGradient>
                         <linearGradient id="negativeGradient" x1="0" y1="1" x2="0" y2="0">
-                          <stop offset="0%" stopColor={colors.danger} stopOpacity={0.8}/>
-                          <stop offset="100%" stopColor={colors.danger} stopOpacity={0.4}/>
+                          <stop offset="0%" stopColor={colors.danger} stopOpacity={0.8} />
+                          <stop offset="100%" stopColor={colors.danger} stopOpacity={0.4} />
                         </linearGradient>
                       </defs>
                       <CartesianGrid strokeDasharray="3 3" stroke="rgba(148, 163, 184, 0.2)" vertical={false} />

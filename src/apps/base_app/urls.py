@@ -21,6 +21,10 @@ from django.urls import include, path, re_path
 from django.views.generic import TemplateView
 from rest_framework.routers import DefaultRouter
 
+from src.apps.projects.api.kmeans import (
+    kmeans_calculate,
+    kmeans_sample_data,
+)
 from src.apps.projects.api.linear_regression import (
     linear_regression_calculate,
     linear_regression_sample_data,
@@ -43,6 +47,16 @@ urlpatterns = [
         "api/linear-regression/sample-data/",
         linear_regression_sample_data,
         name="linear-regression-sample-data",
+    ),
+    path(
+        "api/kmeans/calculate/",
+        kmeans_calculate,
+        name="kmeans-calculate",
+    ),
+    path(
+        "api/kmeans/sample-data/",
+        kmeans_sample_data,
+        name="kmeans-sample-data",
     ),
 ]
 

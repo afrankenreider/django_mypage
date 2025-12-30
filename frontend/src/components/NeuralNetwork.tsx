@@ -1,4 +1,4 @@
-import { useEffect, useRef, useCallback } from 'react'
+import { useEffect, useRef, useCallback, useState } from 'react'
 import { useTheme } from '../context/ThemeContext'
 
 interface Node {
@@ -19,16 +19,22 @@ interface Connection {
   active: boolean
 }
 
+// Throttle animation to ~30fps for better performance
+const FRAME_INTERVAL = 1000 / 30
+
 export default function NeuralNetwork() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const animationRef = useRef<number>()
   const nodesRef = useRef<Node[]>([])
   const connectionsRef = useRef<Connection[]>([])
+  const lastFrameTimeRef = useRef<number>(0)
+  const [isVisible, setIsVisible] = useState(true)
   const { theme } = useTheme()
   const isDarkMode = theme === 'dark'
 
   const initializeNetwork = useCallback((width: number, height: number) => {
-    const nodeCount = Math.min(50, Math.floor((width * height) / 25000))
+    // Reduced node count for better performance
+    const nodeCount = Math.min(25, Math.floor((width * height) / 50000))
     const nodes: Node[] = []
 
     for (let i = 0; i < nodeCount; i++) {
@@ -70,9 +76,17 @@ export default function NeuralNetwork() {
     connectionsRef.current = connections
   }, [])
 
-  const animate = useCallback(() => {
+  const animate = useCallback((timestamp: number) => {
     const canvas = canvasRef.current
     if (!canvas) return
+
+    // Throttle to target frame rate
+    const elapsed = timestamp - lastFrameTimeRef.current
+    if (elapsed < FRAME_INTERVAL) {
+      animationRef.current = requestAnimationFrame(animate)
+      return
+    }
+    lastFrameTimeRef.current = timestamp
 
     const ctx = canvas.getContext('2d')
     if (!ctx) return
@@ -187,6 +201,20 @@ export default function NeuralNetwork() {
     animationRef.current = requestAnimationFrame(animate)
   }, [isDarkMode])
 
+  // Handle visibility changes to start/stop animation
+  useEffect(() => {
+    if (isVisible) {
+      animationRef.current = requestAnimationFrame(animate)
+    } else if (animationRef.current) {
+      cancelAnimationFrame(animationRef.current)
+    }
+    return () => {
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current)
+      }
+    }
+  }, [isVisible, animate])
+
   useEffect(() => {
     const canvas = canvasRef.current
     if (!canvas) return
@@ -212,15 +240,25 @@ export default function NeuralNetwork() {
     handleResize()
     window.addEventListener('resize', handleResize)
 
-    animationRef.current = requestAnimationFrame(animate)
+    // Set up IntersectionObserver to pause animation when not visible
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          setIsVisible(entry.isIntersecting)
+        })
+      },
+      { threshold: 0 }
+    )
+
+    if (canvas) {
+      observer.observe(canvas)
+    }
 
     return () => {
       window.removeEventListener('resize', handleResize)
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current)
-      }
+      observer.disconnect()
     }
-  }, [animate, initializeNetwork])
+  }, [initializeNetwork])
 
   return (
     <canvas

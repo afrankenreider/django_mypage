@@ -19,6 +19,10 @@ You are working in a full-stack web application built with:
 ### 2. Modern Best Practices
 Always follow current best practices for Python, Django, React, and TypeScript development.
 
+### 3. Do Not Use Emojis
+Do not use any emojis in code comments, commit messages, documentation, or
+user interfaces. If icons are being used, please use Google's Material Icons.
+
 ## Python & Django Guidelines
 
 ### Code Style
@@ -84,6 +88,7 @@ Always follow current best practices for Python, Django, React, and TypeScript d
 - Avoid unnecessary re-renders by proper state structure
 
 ### Styling
+- Use Google's Material Icons for icons
 - Use Tailwind CSS utility classes
 - Follow mobile-first responsive design
 - Extract repeated class combinations into components
