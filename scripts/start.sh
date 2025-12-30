@@ -17,6 +17,7 @@ else
     echo "Running locally..."
 
     # Run migrations
+    python manage.py makemigrations --noinput
     python manage.py migrate --noinput
 
     # Collect static files

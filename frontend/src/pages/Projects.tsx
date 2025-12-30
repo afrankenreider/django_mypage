@@ -4,6 +4,7 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import TimelineIcon from '@mui/icons-material/Timeline'
 import AutoGraphIcon from '@mui/icons-material/AutoGraph'
 import DataObjectIcon from '@mui/icons-material/DataObject'
+import BubbleChartIcon from '@mui/icons-material/BubbleChart'
 
 interface Project {
   id: number
@@ -26,6 +27,14 @@ const projects: Project[] = [
   },
   {
     id: 2,
+    title: 'K-Means Clustering',
+    description: 'Discover how unsupervised learning finds hidden patterns in data. Watch the algorithm iterate in real-time as it groups data points into meaningful clusters.',
+    technology: 'Machine Learning',
+    link: '/projects/kmeans',
+    icon: <BubbleChartIcon sx={{ fontSize: 32 }} />,
+  },
+  {
+    id: 3,
     title: 'Neural Networks',
     description: 'Explore the building blocks of deep learning. Understand how neural networks learn patterns through interactive visualizations of forward and backward propagation.',
     technology: 'Deep Learning',
@@ -34,7 +43,7 @@ const projects: Project[] = [
     comingSoon: true,
   },
   {
-    id: 3,
+    id: 4,
     title: 'Data Pipelines',
     description: 'Learn how to build robust, scalable data pipelines. From ETL processes to real-time streaming, master the art of data engineering.',
     technology: 'Data Engineering',
@@ -85,9 +94,8 @@ export default function Projects() {
                 className="group relative"
               >
                 {/* Card */}
-                <div className={`h-full bg-slate-50 dark:bg-slate-900/50 backdrop-blur-sm border border-slate-200/50 dark:border-slate-800/50 rounded-3xl overflow-hidden transition-all duration-500 ${
-                  !project.comingSoon ? 'hover:-translate-y-2 hover:shadow-2xl hover:border-slate-300 dark:hover:border-slate-700' : 'opacity-75'
-                }`}>
+                <div className={`h-full bg-slate-50 dark:bg-slate-900/50 backdrop-blur-sm border border-slate-200/50 dark:border-slate-800/50 rounded-3xl overflow-hidden transition-all duration-500 ${!project.comingSoon ? 'hover:-translate-y-2 hover:shadow-2xl hover:border-slate-300 dark:hover:border-slate-700' : 'opacity-75'
+                  }`}>
                   {/* Gradient header - monochromatic */}
                   <div className="h-48 bg-gradient-to-br from-slate-700 to-slate-900 dark:from-slate-700 dark:to-slate-800 relative overflow-hidden">
                     <div className="absolute inset-0 flex items-center justify-center text-white/80">

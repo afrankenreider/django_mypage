@@ -5,6 +5,7 @@ import About from './pages/About'
 import Skills from './pages/Skills'
 import Projects from './pages/Projects'
 import LinearRegressionDemo from './pages/LinearRegressionDemo'
+import KMeansDemo from './pages/KMeansDemo'
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="skills" element={<Skills />} />
         <Route path="projects" element={<Projects />} />
         <Route path="projects/linear-regression" element={<LinearRegressionDemo />} />
+        <Route path="projects/kmeans" element={<KMeansDemo />} />
       </Route>
     </Routes>
   )
