@@ -40,7 +40,6 @@ const projects: Project[] = [
     technology: 'Deep Learning',
     link: '/projects/neural-networks',
     icon: <AutoGraphIcon sx={{ fontSize: 32 }} />,
-    comingSoon: true,
   },
   {
     id: 4,
