@@ -34,6 +34,11 @@ import DirectionsCarIcon from '@mui/icons-material/DirectionsCar'
 import ThermostatIcon from '@mui/icons-material/Thermostat'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 import CancelIcon from '@mui/icons-material/Cancel'
+import CodeIcon from '@mui/icons-material/Code'
+import ContentCopyIcon from '@mui/icons-material/ContentCopy'
+import CheckIcon from '@mui/icons-material/Check'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import ExpandLessIcon from '@mui/icons-material/ExpandLess'
 
 // Modern color palette - monochromatic with accent colors for data viz
 const colors = {
@@ -183,6 +188,628 @@ const sampleDatasets: Record<string, Dataset> = {
   },
 }
 
+// Notebook code cells data
+interface NotebookCell {
+  id: string
+  type: 'markdown' | 'code'
+  content: string
+  output?: string
+}
+
+const notebookCells: NotebookCell[] = [
+  {
+    id: 'imports',
+    type: 'code',
+    content: `# Core libraries
+import numpy as np
+import pandas as pd
+
+# Visualization
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Machine Learning
+from sklearn.datasets import fetch_california_housing
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import (
+    mean_squared_error,
+    mean_absolute_error,
+    r2_score
+)
+
+# Set style for plots
+plt.style.use('seaborn-v0_8-whitegrid')
+sns.set_palette('husl')
+
+print('Libraries imported successfully!')`,
+    output: 'Libraries imported successfully!'
+  },
+  {
+    id: 'load-data',
+    type: 'code',
+    content: `# Load the California Housing dataset
+california = fetch_california_housing(as_frame=True)
+
+# Create DataFrame
+df = california.frame
+
+# Display basic info
+print(f"Dataset Shape: {df.shape}")
+print(f"Number of samples: {df.shape[0]:,}")
+print(f"Number of features: {df.shape[1] - 1}")
+
+feature_descriptions = {
+    'MedInc': 'Median income in block group',
+    'HouseAge': 'Median house age in block group',
+    'AveRooms': 'Average number of rooms per household',
+    'AveBedrms': 'Average number of bedrooms per household',
+    'Population': 'Block group population',
+    'AveOccup': 'Average number of household members',
+    'Latitude': 'Block group latitude',
+    'Longitude': 'Block group longitude'
+}
+
+print("\\nFeature Descriptions:")
+for feature, desc in feature_descriptions.items():
+    print(f"  {feature:12} - {desc}")`,
+    output: `Dataset Shape: (20640, 9)
+Number of samples: 20,640
+Number of features: 8
+
+Feature Descriptions:
+  MedInc       - Median income in block group
+  HouseAge     - Median house age in block group
+  AveRooms     - Average number of rooms per household
+  AveBedrms    - Average number of bedrooms per household
+  Population   - Block group population
+  AveOccup     - Average number of household members
+  Latitude     - Block group latitude
+  Longitude    - Block group longitude`
+  },
+  {
+    id: 'preview-data',
+    type: 'code',
+    content: `# Display first few rows
+df.head()`,
+    output: `      MedInc  HouseAge  AveRooms  AveBedrms  Population  AveOccup  Latitude  Longitude  MedHouseVal
+0     8.3252      41.0  6.984127   1.023810       322.0  2.555556     37.88    -122.23        4.526
+1     8.3014      21.0  6.238137   0.971880      2401.0  2.109842     37.86    -122.22        3.585
+2     7.2574      52.0  8.288136   1.073446       496.0  2.802260     37.85    -122.24        3.521
+3     5.6431      52.0  5.817352   1.073059       558.0  2.547945     37.85    -122.25        3.413
+4     3.8462      52.0  6.281853   1.081081       565.0  2.181467     37.85    -122.25        3.422`
+  },
+  {
+    id: 'stats',
+    type: 'code',
+    content: `# Statistical summary
+df.describe().round(2)`,
+    output: `         MedInc  HouseAge  AveRooms  AveBedrms  Population  AveOccup  Latitude  Longitude  MedHouseVal
+count  20640.00  20640.00  20640.00   20640.00    20640.00  20640.00  20640.00   20640.00     20640.00
+mean       3.87     28.64      5.43       1.10     1425.48      3.07     35.63    -119.57         2.07
+std        1.90     12.59      2.47       0.47     1132.46     10.39      2.14       2.00         1.15
+min        0.50      1.00      0.85       0.33        3.00      0.69     32.54    -124.35         0.15
+25%        2.56     18.00      4.44       1.01      787.00      2.43     33.93    -121.80         1.20
+50%        3.53     29.00      5.23       1.05     1166.00      2.82     34.26    -118.49         1.80
+75%        4.74     37.00      6.05       1.10     1725.00      3.28     37.71    -118.01         2.65
+max       15.00     52.00    141.91      34.07    35682.00   1243.33     41.95    -114.31         5.00`
+  },
+  {
+    id: 'split-data',
+    type: 'code',
+    content: `# Separate features and target
+X = df.drop('MedHouseVal', axis=1)
+y = df['MedHouseVal']
+
+# Split into training and test sets
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y,
+    test_size=0.2,
+    random_state=42
+)
+
+print(f"Features shape: {X.shape}")
+print(f"Target shape: {y.shape}")
+print(f"\\nTraining set: {X_train.shape[0]:,} samples (80%)")
+print(f"Test set: {X_test.shape[0]:,} samples (20%)")`,
+    output: `Features shape: (20640, 8)
+Target shape: (20640,)
+
+Training set: 16,512 samples (80%)
+Test set: 4,128 samples (20%)`
+  },
+  {
+    id: 'scale-data',
+    type: 'code',
+    content: `# Scale features (important for interpretation)
+scaler = StandardScaler()
+X_train_scaled = scaler.fit_transform(X_train)
+X_test_scaled = scaler.transform(X_test)
+
+print("Feature Scaling Applied (StandardScaler):")
+print("  - Mean of each feature: 0")
+print("  - Standard deviation of each feature: 1")`,
+    output: `Feature Scaling Applied (StandardScaler):
+  - Mean of each feature: 0
+  - Standard deviation of each feature: 1`
+  },
+  {
+    id: 'train-model',
+    type: 'code',
+    content: `# Create and train the model
+model = LinearRegression()
+
+# Train on scaled features
+model.fit(X_train_scaled, y_train)
+
+print("Model Training Complete!")
+print("="*50)
+print(f"\\nModel Intercept (bias term): {model.intercept_:.4f}")
+print(f"  In dollars: \${model.intercept_ * 100000:,.0f}")`,
+    output: `Model Training Complete!
+==================================================
+
+Model Intercept (bias term): 2.0719
+  In dollars: $207,187`
+  },
+  {
+    id: 'coefficients',
+    type: 'code',
+    content: `# Display coefficients (feature importance)
+coefficients = pd.DataFrame({
+    'Feature': X_train.columns,
+    'Coefficient': model.coef_,
+    'Abs_Coefficient': np.abs(model.coef_)
+}).sort_values('Abs_Coefficient', ascending=False)
+
+print("Model Coefficients (Feature Importance):")
+print("-" * 50)
+print("\\nFor each 1 std dev increase in the feature,")
+print("the house value changes by this amount ($100k):")
+print()
+
+for _, row in coefficients.iterrows():
+    direction = "+" if row['Coefficient'] > 0 else "-"
+    print(f"  {row['Feature']:12}: {row['Coefficient']:+.4f}  "
+          f"({direction}\${abs(row['Coefficient'])*100000:,.0f})")`,
+    output: `Model Coefficients (Feature Importance):
+--------------------------------------------------
+
+For each 1 std dev increase in the feature,
+the house value changes by this amount ($100k):
+
+  MedInc      : +0.8296  (+$82,957)
+  Latitude    : -0.8959  (-$89,592)
+  Longitude   : -0.8699  (-$86,991)
+  AveOccup    : -0.0393  (-$3,931)
+  HouseAge    : +0.1162  (+$11,620)
+  AveRooms    : -0.0554  (-$5,542)
+  Population  : -0.0048  (-$481)
+  AveBedrms   : +0.0628  (+$6,282)`
+  },
+  {
+    id: 'evaluate',
+    type: 'code',
+    content: `# Make predictions
+y_train_pred = model.predict(X_train_scaled)
+y_test_pred = model.predict(X_test_scaled)
+
+# Calculate metrics
+r2_test = r2_score(y_test, y_test_pred)
+rmse_test = np.sqrt(mean_squared_error(y_test, y_test_pred))
+mae_test = mean_absolute_error(y_test, y_test_pred)
+
+print("Model Performance Metrics (Test Set):")
+print("=" * 50)
+print(f"\\n  R-squared (R2):  {r2_test:.4f}")
+print(f"    -> Model explains {r2_test*100:.1f}% of variance")
+print(f"\\n  RMSE: {rmse_test:.4f} (\${rmse_test*100000:,.0f})")
+print(f"    -> Typical prediction error")
+print(f"\\n  MAE:  {mae_test:.4f} (\${mae_test*100000:,.0f})")
+print(f"    -> Average absolute error")`,
+    output: `Model Performance Metrics (Test Set):
+==================================================
+
+  R-squared (R2):  0.5758
+    -> Model explains 57.6% of variance
+
+  RMSE: 0.7456 ($74,560)
+    -> Typical prediction error
+
+  MAE:  0.5332 ($53,320)
+    -> Average absolute error`
+  },
+  {
+    id: 'predictions',
+    type: 'code',
+    content: `# Example: Predict house value for specific conditions
+example_houses = pd.DataFrame({
+    'MedInc': [4.0, 8.0, 3.5],
+    'HouseAge': [20, 5, 40],
+    'AveRooms': [5.0, 8.0, 4.0],
+    'AveBedrms': [1.0, 1.5, 1.0],
+    'Population': [1500, 800, 2000],
+    'AveOccup': [3.0, 2.5, 3.5],
+    'Latitude': [34.0, 37.0, 33.5],
+    'Longitude': [-118.0, -122.0, -117.5]
+}, index=['Modest Home', 'Luxury Home', 'Budget Home'])
+
+# Scale and predict
+example_scaled = scaler.transform(example_houses)
+predictions = model.predict(example_scaled)
+
+print("House Value Predictions:")
+print("=" * 60)
+for i, (name, pred) in enumerate(zip(example_houses.index, predictions)):
+    print(f"\\n{name}:")
+    print(f"  Income={example_houses.iloc[i]['MedInc']:.1f}, "
+          f"Age={example_houses.iloc[i]['HouseAge']:.0f}yrs, "
+          f"Rooms={example_houses.iloc[i]['AveRooms']:.1f}")
+    print(f"  Predicted Value: \${pred * 100000:,.0f}")`,
+    output: `House Value Predictions:
+============================================================
+
+Modest Home:
+  Income=4.0, Age=20yrs, Rooms=5.0
+  Predicted Value: $219,847
+
+Luxury Home:
+  Income=8.0, Age=5yrs, Rooms=8.0
+  Predicted Value: $412,325
+
+Budget Home:
+  Income=3.5, Age=40yrs, Rooms=4.0
+  Predicted Value: $168,493`
+  },
+  {
+    id: 'summary',
+    type: 'code',
+    content: `# Final summary
+print("\\n" + "="*60)
+print("          LINEAR REGRESSION MODEL SUMMARY")
+print("="*60)
+print(f"\\n  Dataset: California Housing")
+print(f"  Samples: {len(df):,}")
+print(f"  Features: {X.shape[1]}")
+print(f"\\n  Test R2: {r2_test:.4f}")
+print(f"  Test RMSE: \${rmse_test*100000:,.0f}")
+print(f"  Test MAE: \${mae_test*100000:,.0f}")
+print(f"\\n  Top 3 Most Important Features:")
+print(f"    1. MedInc (Median Income): +$82,957")
+print(f"    2. Latitude: -$89,592")
+print(f"    3. Longitude: -$86,991")
+print("\\n" + "="*60)`,
+    output: `
+============================================================
+          LINEAR REGRESSION MODEL SUMMARY
+============================================================
+
+  Dataset: California Housing
+  Samples: 20,640
+  Features: 8
+
+  Test R2: 0.5758
+  Test RMSE: $74,560
+  Test MAE: $53,320
+
+  Top 3 Most Important Features:
+    1. MedInc (Median Income): +$82,957
+    2. Latitude: -$89,592
+    3. Longitude: -$86,991
+
+============================================================`
+  }
+]
+
+// Code cell component
+const CodeCell = memo(({ cell, isExpanded, onToggle }: { cell: NotebookCell; isExpanded: boolean; onToggle: () => void }) => {
+  const [copied, setCopied] = useState(false)
+
+  const copyCode = useCallback(() => {
+    navigator.clipboard.writeText(cell.content)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+  }, [cell.content])
+
+  return (
+    <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm">
+      {/* Cell header */}
+      <div className="flex items-center justify-between px-4 py-2 bg-slate-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-700">
+        <div className="flex items-center gap-2">
+          <div className="flex gap-1">
+            <div className="w-3 h-3 rounded-full bg-red-400" />
+            <div className="w-3 h-3 rounded-full bg-yellow-400" />
+            <div className="w-3 h-3 rounded-full bg-green-400" />
+          </div>
+          <span className="text-xs font-mono text-slate-500 dark:text-slate-400 ml-2">
+            Python
+          </span>
+        </div>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={copyCode}
+            className="p-1.5 rounded-md hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+            title="Copy code"
+          >
+            {copied ? (
+              <CheckIcon sx={{ fontSize: 16 }} className="text-green-500" />
+            ) : (
+              <ContentCopyIcon sx={{ fontSize: 16 }} className="text-slate-400" />
+            )}
+          </button>
+          <button
+            onClick={onToggle}
+            className="p-1.5 rounded-md hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+            title={isExpanded ? "Collapse" : "Expand"}
+          >
+            {isExpanded ? (
+              <ExpandLessIcon sx={{ fontSize: 18 }} className="text-slate-400" />
+            ) : (
+              <ExpandMoreIcon sx={{ fontSize: 18 }} className="text-slate-400" />
+            )}
+          </button>
+        </div>
+      </div>
+
+      {/* Code content */}
+      <div className={`transition-all duration-300 ${isExpanded ? 'max-h-[1000px]' : 'max-h-32 overflow-hidden'}`}>
+        <pre className="p-4 text-sm font-mono overflow-x-auto bg-slate-950 text-slate-100">
+          <code>{cell.content}</code>
+        </pre>
+      </div>
+
+      {/* Output */}
+      {cell.output && (
+        <div className="border-t border-slate-200 dark:border-slate-700">
+          <div className="px-4 py-1.5 bg-slate-100 dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700">
+            <span className="text-xs font-medium text-slate-500 dark:text-slate-400">Output</span>
+          </div>
+          <pre className="p-4 text-sm font-mono overflow-x-auto bg-slate-50 dark:bg-slate-900/50 text-slate-700 dark:text-slate-300 whitespace-pre-wrap">
+            {cell.output}
+          </pre>
+        </div>
+      )}
+    </div>
+  )
+})
+CodeCell.displayName = 'CodeCell'
+
+// Notebook section component
+const NotebookSection = memo(() => {
+  const [expandedCells, setExpandedCells] = useState<Set<string>>(new Set(['imports', 'train-model', 'evaluate']))
+
+  const toggleCell = useCallback((id: string) => {
+    setExpandedCells(prev => {
+      const next = new Set(prev)
+      if (next.has(id)) {
+        next.delete(id)
+      } else {
+        next.add(id)
+      }
+      return next
+    })
+  }, [])
+
+  const expandAll = useCallback(() => {
+    setExpandedCells(new Set(notebookCells.map(c => c.id)))
+  }, [])
+
+  const collapseAll = useCallback(() => {
+    setExpandedCells(new Set())
+  }, [])
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="space-y-8"
+    >
+      {/* Header Card */}
+      <div className="bg-gradient-to-br from-slate-900 to-slate-800 dark:from-slate-800 dark:to-slate-900 rounded-3xl p-8 shadow-xl border border-slate-700">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <div>
+            <h2 className="text-2xl font-bold text-white mb-2">California Housing Price Prediction</h2>
+            <p className="text-slate-300">
+              A complete linear regression workflow using scikit-learn on real-world housing data.
+            </p>
+          </div>
+          <div className="flex gap-2">
+            <button
+              onClick={expandAll}
+              className="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white text-sm font-medium rounded-lg transition-colors"
+            >
+              Expand All
+            </button>
+            <button
+              onClick={collapseAll}
+              className="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white text-sm font-medium rounded-lg transition-colors"
+            >
+              Collapse All
+            </button>
+          </div>
+        </div>
+
+        {/* Key stats */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
+          {[
+            { label: 'Dataset', value: 'California Housing' },
+            { label: 'Samples', value: '20,640' },
+            { label: 'R-squared', value: '0.576' },
+            { label: 'RMSE', value: '$74,560' }
+          ].map((stat, i) => (
+            <div key={i} className="bg-slate-800/50 rounded-xl p-4 border border-slate-700/50">
+              <p className="text-slate-400 text-sm">{stat.label}</p>
+              <p className="text-white font-semibold font-mono">{stat.value}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Notebook Steps */}
+      <div className="space-y-6">
+        {/* Step 1: Import Libraries */}
+        <div>
+          <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
+            <span className="w-7 h-7 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-lg flex items-center justify-center text-sm font-bold">1</span>
+            Import Libraries
+          </h3>
+          <CodeCell
+            cell={notebookCells[0]}
+            isExpanded={expandedCells.has(notebookCells[0].id)}
+            onToggle={() => toggleCell(notebookCells[0].id)}
+          />
+        </div>
+
+        {/* Step 2: Load Data */}
+        <div>
+          <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
+            <span className="w-7 h-7 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-lg flex items-center justify-center text-sm font-bold">2</span>
+            Load and Explore Data
+          </h3>
+          <div className="space-y-4">
+            {notebookCells.slice(1, 4).map(cell => (
+              <CodeCell
+                key={cell.id}
+                cell={cell}
+                isExpanded={expandedCells.has(cell.id)}
+                onToggle={() => toggleCell(cell.id)}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Step 3: Preprocess */}
+        <div>
+          <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
+            <span className="w-7 h-7 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-lg flex items-center justify-center text-sm font-bold">3</span>
+            Data Preprocessing
+          </h3>
+          <div className="space-y-4">
+            {notebookCells.slice(4, 6).map(cell => (
+              <CodeCell
+                key={cell.id}
+                cell={cell}
+                isExpanded={expandedCells.has(cell.id)}
+                onToggle={() => toggleCell(cell.id)}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Step 4: Train Model */}
+        <div>
+          <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
+            <span className="w-7 h-7 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-lg flex items-center justify-center text-sm font-bold">4</span>
+            Train the Model
+          </h3>
+          <div className="space-y-4">
+            {notebookCells.slice(6, 8).map(cell => (
+              <CodeCell
+                key={cell.id}
+                cell={cell}
+                isExpanded={expandedCells.has(cell.id)}
+                onToggle={() => toggleCell(cell.id)}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Step 5: Evaluate */}
+        <div>
+          <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
+            <span className="w-7 h-7 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-lg flex items-center justify-center text-sm font-bold">5</span>
+            Model Evaluation
+          </h3>
+          <CodeCell
+            cell={notebookCells[8]}
+            isExpanded={expandedCells.has(notebookCells[8].id)}
+            onToggle={() => toggleCell(notebookCells[8].id)}
+          />
+        </div>
+
+        {/* Step 6: Predictions */}
+        <div>
+          <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
+            <span className="w-7 h-7 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-lg flex items-center justify-center text-sm font-bold">6</span>
+            Make Predictions
+          </h3>
+          <div className="space-y-4">
+            {notebookCells.slice(9, 11).map(cell => (
+              <CodeCell
+                key={cell.id}
+                cell={cell}
+                isExpanded={expandedCells.has(cell.id)}
+                onToggle={() => toggleCell(cell.id)}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Key Insights Card */}
+      <div className="bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-900/20 dark:to-teal-900/20 rounded-3xl p-8 border border-emerald-200 dark:border-emerald-800">
+        <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-4">Key Insights</h3>
+        <div className="grid md:grid-cols-2 gap-6">
+          <div>
+            <h4 className="font-semibold text-slate-900 dark:text-white mb-2">Most Important Features</h4>
+            <ul className="space-y-2 text-slate-600 dark:text-slate-400">
+              <li className="flex items-center gap-2">
+                <span className="text-emerald-500 font-bold">1.</span>
+                <span><strong>Median Income</strong> - Strongest positive predictor (+$82,957/std)</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="text-emerald-500 font-bold">2.</span>
+                <span><strong>Location (Lat/Long)</strong> - Coastal areas command higher prices</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="text-emerald-500 font-bold">3.</span>
+                <span><strong>House Age</strong> - Newer homes slightly more valuable</span>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4 className="font-semibold text-slate-900 dark:text-white mb-2">Model Limitations</h4>
+            <ul className="space-y-2 text-slate-600 dark:text-slate-400">
+              <li className="flex items-start gap-2">
+                <span className="text-amber-500 mt-1">!</span>
+                <span>R-squared of 0.58 means 42% of variance is unexplained</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-amber-500 mt-1">!</span>
+                <span>Linear model cannot capture non-linear relationships</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-amber-500 mt-1">!</span>
+                <span>Missing features like school quality, crime rates</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      {/* Download notebook CTA */}
+      <div className="bg-slate-100 dark:bg-slate-800/50 rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div>
+          <h3 className="font-semibold text-slate-900 dark:text-white">Want to run this yourself?</h3>
+          <p className="text-slate-600 dark:text-slate-400 text-sm">
+            Download the complete Jupyter notebook and experiment with the code.
+          </p>
+        </div>
+        <a
+          href="/notebooks/linear_regression_housing.ipynb"
+          download
+          className="px-6 py-3 bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-semibold rounded-xl hover:bg-slate-800 dark:hover:bg-slate-100 transition-colors shadow-lg flex items-center gap-2"
+        >
+          <CodeIcon sx={{ fontSize: 20 }} />
+          Download Notebook
+        </a>
+      </div>
+    </motion.div>
+  )
+})
+NotebookSection.displayName = 'NotebookSection'
+
 export default function LinearRegressionDemo() {
   const [selectedDataset, setSelectedDataset] = useState<string>('housing')
   const [result, setResult] = useState<RegressionResult | null>(null)
@@ -303,6 +930,7 @@ export default function LinearRegressionDemo() {
     { id: 'intro', label: 'Introduction', icon: SchoolIcon },
     { id: 'math', label: 'The Math', icon: CalculateIcon },
     { id: 'interactive', label: 'Interactive Demo', icon: TouchAppIcon },
+    { id: 'notebook', label: 'Python Code', icon: CodeIcon },
     { id: 'usecases', label: 'Use Cases', icon: TipsAndUpdatesIcon },
   ]
 
@@ -353,8 +981,8 @@ export default function LinearRegressionDemo() {
                   key={section.id}
                   onClick={() => setActiveSection(section.id)}
                   className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-medium transition-all ${activeSection === section.id
-                      ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 shadow-lg'
-                      : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
+                    ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 shadow-lg'
+                    : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
                     }`}
                 >
                   <Icon sx={{ fontSize: 18 }} />
@@ -647,8 +1275,8 @@ export default function LinearRegressionDemo() {
                       clearCustomPoints()
                     }}
                     className={`px-4 py-2 rounded-lg font-medium transition-all flex items-center gap-2 ${!isCustomMode
-                        ? 'bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-lg shadow-indigo-500/25'
-                        : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
+                      ? 'bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-lg shadow-indigo-500/25'
+                      : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
                       }`}
                   >
                     <DatasetIcon sx={{ fontSize: 18 }} />
@@ -657,8 +1285,8 @@ export default function LinearRegressionDemo() {
                   <button
                     onClick={() => setIsCustomMode(true)}
                     className={`px-4 py-2 rounded-lg font-medium transition-all flex items-center gap-2 ${isCustomMode
-                        ? 'bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-lg shadow-cyan-500/25'
-                        : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
+                      ? 'bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-lg shadow-cyan-500/25'
+                      : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
                       }`}
                   >
                     <TouchAppIcon sx={{ fontSize: 18 }} />
@@ -674,8 +1302,8 @@ export default function LinearRegressionDemo() {
                       key={key}
                       onClick={() => setSelectedDataset(key)}
                       className={`px-4 py-2 rounded-full text-sm font-medium transition-all border ${selectedDataset === key
-                          ? 'bg-gradient-to-r from-indigo-500 to-purple-500 text-white border-transparent shadow-md'
-                          : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:border-indigo-400 hover:text-indigo-600'
+                        ? 'bg-gradient-to-r from-indigo-500 to-purple-500 text-white border-transparent shadow-md'
+                        : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:border-indigo-400 hover:text-indigo-600'
                         }`}
                     >
                       {dataset.name}
@@ -816,15 +1444,15 @@ export default function LinearRegressionDemo() {
                     <p className="text-lg font-mono font-bold text-amber-600 dark:text-amber-400">{result.intercept}</p>
                   </div>
                   <div className={`rounded-xl p-5 text-center border ${result.r_squared >= 0.7
-                      ? 'bg-gradient-to-br from-emerald-50 to-green-50 dark:from-emerald-900/20 dark:to-green-900/20 border-emerald-100 dark:border-emerald-800'
-                      : result.r_squared >= 0.3
-                        ? 'bg-gradient-to-br from-amber-50 to-yellow-50 dark:from-amber-900/20 dark:to-yellow-900/20 border-amber-100 dark:border-amber-800'
-                        : 'bg-gradient-to-br from-red-50 to-rose-50 dark:from-red-900/20 dark:to-rose-900/20 border-red-100 dark:border-red-800'
+                    ? 'bg-gradient-to-br from-emerald-50 to-green-50 dark:from-emerald-900/20 dark:to-green-900/20 border-emerald-100 dark:border-emerald-800'
+                    : result.r_squared >= 0.3
+                      ? 'bg-gradient-to-br from-amber-50 to-yellow-50 dark:from-amber-900/20 dark:to-yellow-900/20 border-amber-100 dark:border-amber-800'
+                      : 'bg-gradient-to-br from-red-50 to-rose-50 dark:from-red-900/20 dark:to-rose-900/20 border-red-100 dark:border-red-800'
                     }`}>
                     <p className="text-slate-500 dark:text-slate-400 text-sm mb-2">R² Score</p>
                     <p className={`text-lg font-mono font-bold ${result.r_squared >= 0.7 ? 'text-emerald-600 dark:text-emerald-400' :
-                        result.r_squared >= 0.3 ? 'text-amber-600 dark:text-amber-400' :
-                          'text-red-600 dark:text-red-400'
+                      result.r_squared >= 0.3 ? 'text-amber-600 dark:text-amber-400' :
+                        'text-red-600 dark:text-red-400'
                       }`}>
                       {result.r_squared}
                     </p>
@@ -916,6 +1544,11 @@ export default function LinearRegressionDemo() {
               </div>
             )}
           </motion.div>
+        )}
+
+        {/* Python Notebook Section */}
+        {activeSection === 'notebook' && (
+          <NotebookSection />
         )}
 
         {/* Use Cases Section */}

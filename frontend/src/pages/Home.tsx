@@ -82,7 +82,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5, duration: 0.6 }}
-              className="flex flex-col sm:flex-row justify-center items-center gap-4 mb-16"
+              className="flex flex-col sm:flex-row flex-wrap justify-center items-center gap-4 mb-16"
             >
               <Link
                 to="/projects"
@@ -96,6 +96,18 @@ export default function Home() {
                 className="btn-secondary"
               >
                 About Me
+              </Link>
+              <Link
+                to="/skills"
+                className="btn-secondary"
+              >
+                Skills
+              </Link>
+              <Link
+                to="/weekly-media"
+                className="btn-secondary"
+              >
+                Weekly Media
               </Link>
             </motion.div>
 

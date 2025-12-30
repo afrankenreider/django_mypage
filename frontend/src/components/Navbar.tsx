@@ -29,14 +29,19 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  // Close mobile menu when route changes
+  useEffect(() => {
+    setIsOpen(false)
+  }, [location.pathname])
+
   return (
     <motion.nav
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled
-          ? 'bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl shadow-lg shadow-slate-900/5 dark:shadow-slate-900/20'
-          : 'bg-transparent'
+        ? 'bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl shadow-lg shadow-slate-900/5 dark:shadow-slate-900/20'
+        : 'bg-transparent'
         }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -69,8 +74,8 @@ export default function Navbar() {
                   />
                 )}
                 <span className={`relative z-10 ${location.pathname === item.path
-                    ? 'text-slate-900 dark:text-white'
-                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                  ? 'text-slate-900 dark:text-white'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                   }`}>
                   {item.name}
                 </span>
@@ -132,8 +137,8 @@ export default function Navbar() {
                     to={item.path}
                     onClick={() => setIsOpen(false)}
                     className={`block px-4 py-3 rounded-xl font-medium transition-all ${location.pathname === item.path
-                        ? 'bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white'
-                        : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white'
+                      ? 'bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white'
+                      : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white'
                       }`}
                   >
                     {item.name}
