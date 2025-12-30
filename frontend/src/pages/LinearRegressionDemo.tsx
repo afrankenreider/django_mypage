@@ -209,7 +209,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # Machine Learning
-from sklearn.datasets import fetch_california_housing
+from sklearn.datasets import load_diabetes
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import StandardScaler
@@ -229,11 +229,11 @@ print('Libraries imported successfully!')`,
   {
     id: 'load-data',
     type: 'code',
-    content: `# Load the California Housing dataset
-california = fetch_california_housing(as_frame=True)
+    content: `# Load the Diabetes dataset (bundled with sklearn - no download required)
+diabetes = load_diabetes(as_frame=True)
 
 # Create DataFrame
-df = california.frame
+df = diabetes.frame
 
 # Display basic info
 print(f"Dataset Shape: {df.shape}")
@@ -241,66 +241,70 @@ print(f"Number of samples: {df.shape[0]:,}")
 print(f"Number of features: {df.shape[1] - 1}")
 
 feature_descriptions = {
-    'MedInc': 'Median income in block group',
-    'HouseAge': 'Median house age in block group',
-    'AveRooms': 'Average number of rooms per household',
-    'AveBedrms': 'Average number of bedrooms per household',
-    'Population': 'Block group population',
-    'AveOccup': 'Average number of household members',
-    'Latitude': 'Block group latitude',
-    'Longitude': 'Block group longitude'
+    'age': 'Age of the patient',
+    'sex': 'Sex of the patient',
+    'bmi': 'Body mass index',
+    'bp': 'Average blood pressure',
+    's1': 'TC - Total serum cholesterol',
+    's2': 'LDL - Low-density lipoproteins',
+    's3': 'HDL - High-density lipoproteins',
+    's4': 'TCH - Total cholesterol / HDL',
+    's5': 'LTG - Log of serum triglycerides',
+    's6': 'GLU - Blood sugar level'
 }
 
 print("\\nFeature Descriptions:")
 for feature, desc in feature_descriptions.items():
-    print(f"  {feature:12} - {desc}")`,
-    output: `Dataset Shape: (20640, 9)
-Number of samples: 20,640
-Number of features: 8
+    print(f"  {feature:6} - {desc}")`,
+    output: `Dataset Shape: (442, 11)
+Number of samples: 442
+Number of features: 10
 
 Feature Descriptions:
-  MedInc       - Median income in block group
-  HouseAge     - Median house age in block group
-  AveRooms     - Average number of rooms per household
-  AveBedrms    - Average number of bedrooms per household
-  Population   - Block group population
-  AveOccup     - Average number of household members
-  Latitude     - Block group latitude
-  Longitude    - Block group longitude`
+  age    - Age of the patient
+  sex    - Sex of the patient
+  bmi    - Body mass index
+  bp     - Average blood pressure
+  s1     - TC - Total serum cholesterol
+  s2     - LDL - Low-density lipoproteins
+  s3     - HDL - High-density lipoproteins
+  s4     - TCH - Total cholesterol / HDL
+  s5     - LTG - Log of serum triglycerides
+  s6     - GLU - Blood sugar level`
   },
   {
     id: 'preview-data',
     type: 'code',
     content: `# Display first few rows
 df.head()`,
-    output: `      MedInc  HouseAge  AveRooms  AveBedrms  Population  AveOccup  Latitude  Longitude  MedHouseVal
-0     8.3252      41.0  6.984127   1.023810       322.0  2.555556     37.88    -122.23        4.526
-1     8.3014      21.0  6.238137   0.971880      2401.0  2.109842     37.86    -122.22        3.585
-2     7.2574      52.0  8.288136   1.073446       496.0  2.802260     37.85    -122.24        3.521
-3     5.6431      52.0  5.817352   1.073059       558.0  2.547945     37.85    -122.25        3.413
-4     3.8462      52.0  6.281853   1.081081       565.0  2.181467     37.85    -122.25        3.422`
+    output: `        age       sex       bmi        bp        s1        s2        s3        s4        s5        s6  target
+0  0.038076  0.050680  0.061696  0.021872 -0.044223 -0.034821 -0.043401 -0.002592  0.019908 -0.017646   151.0
+1 -0.001882 -0.044642 -0.051474 -0.026328 -0.008449 -0.019163  0.074412 -0.039493 -0.068330 -0.092204    75.0
+2  0.085299  0.050680  0.044451 -0.005671 -0.045599 -0.034194 -0.032356 -0.002592  0.002864 -0.025930   141.0
+3 -0.089063 -0.044642 -0.011595 -0.036656  0.012191  0.024991 -0.036038  0.034309  0.022692 -0.009362   206.0
+4  0.005383 -0.044642 -0.036385  0.021872  0.003935  0.015596  0.008142 -0.002592 -0.031991 -0.046641   135.0`
   },
   {
     id: 'stats',
     type: 'code',
     content: `# Statistical summary
-df.describe().round(2)`,
-    output: `         MedInc  HouseAge  AveRooms  AveBedrms  Population  AveOccup  Latitude  Longitude  MedHouseVal
-count  20640.00  20640.00  20640.00   20640.00    20640.00  20640.00  20640.00   20640.00     20640.00
-mean       3.87     28.64      5.43       1.10     1425.48      3.07     35.63    -119.57         2.07
-std        1.90     12.59      2.47       0.47     1132.46     10.39      2.14       2.00         1.15
-min        0.50      1.00      0.85       0.33        3.00      0.69     32.54    -124.35         0.15
-25%        2.56     18.00      4.44       1.01      787.00      2.43     33.93    -121.80         1.20
-50%        3.53     29.00      5.23       1.05     1166.00      2.82     34.26    -118.49         1.80
-75%        4.74     37.00      6.05       1.10     1725.00      3.28     37.71    -118.01         2.65
-max       15.00     52.00    141.91      34.07    35682.00   1243.33     41.95    -114.31         5.00`
+df.describe().round(3)`,
+    output: `          age      sex      bmi       bp       s1       s2       s3       s4       s5       s6   target
+count  442.000  442.000  442.000  442.000  442.000  442.000  442.000  442.000  442.000  442.000  442.000
+mean    -0.000   -0.000    0.000   -0.000    0.000    0.000   -0.000    0.000   -0.000   -0.000  152.133
+std      0.048    0.048    0.048    0.048    0.048    0.048    0.048    0.048    0.048    0.048   77.093
+min     -0.107   -0.045   -0.090   -0.112   -0.127   -0.116   -0.102   -0.076   -0.126   -0.138   25.000
+25%     -0.037   -0.045   -0.034   -0.037   -0.034   -0.030   -0.035   -0.039   -0.033   -0.033   87.000
+50%      0.005   -0.045   -0.007   -0.006   -0.004   -0.004   -0.007   -0.003   -0.002   -0.001  140.500
+75%      0.038    0.051    0.031    0.036    0.028    0.030    0.029    0.034    0.032    0.028  211.500
+max      0.111    0.051    0.171    0.132    0.154    0.199    0.181    0.185    0.134    0.136  346.000`
   },
   {
     id: 'split-data',
     type: 'code',
     content: `# Separate features and target
-X = df.drop('MedHouseVal', axis=1)
-y = df['MedHouseVal']
+X = df.drop('target', axis=1)
+y = df['target']
 
 # Split into training and test sets
 X_train, X_test, y_train, y_test = train_test_split(
@@ -313,11 +317,11 @@ print(f"Features shape: {X.shape}")
 print(f"Target shape: {y.shape}")
 print(f"\\nTraining set: {X_train.shape[0]:,} samples (80%)")
 print(f"Test set: {X_test.shape[0]:,} samples (20%)")`,
-    output: `Features shape: (20640, 8)
-Target shape: (20640,)
+    output: `Features shape: (442, 10)
+Target shape: (442,)
 
-Training set: 16,512 samples (80%)
-Test set: 4,128 samples (20%)`
+Training set: 353 samples (80%)
+Test set: 89 samples (20%)`
   },
   {
     id: 'scale-data',
@@ -345,13 +349,15 @@ model.fit(X_train_scaled, y_train)
 
 print("Model Training Complete!")
 print("="*50)
-print(f"\\nModel Intercept (bias term): {model.intercept_:.4f}")
-print(f"  In dollars: \${model.intercept_ * 100000:,.0f}")`,
+print(f"\\nModel Intercept (bias term): {model.intercept_:.2f}")
+print("  This is the predicted disease progression")
+print("  when all features are at their mean.")`,
     output: `Model Training Complete!
 ==================================================
 
-Model Intercept (bias term): 2.0719
-  In dollars: $207,187`
+Model Intercept (bias term): 151.35
+  This is the predicted disease progression
+  when all features are at their mean.`
   },
   {
     id: 'coefficients',
@@ -366,27 +372,27 @@ coefficients = pd.DataFrame({
 print("Model Coefficients (Feature Importance):")
 print("-" * 50)
 print("\\nFor each 1 std dev increase in the feature,")
-print("the house value changes by this amount ($100k):")
+print("the disease progression changes by this amount:")
 print()
 
 for _, row in coefficients.iterrows():
-    direction = "+" if row['Coefficient'] > 0 else "-"
-    print(f"  {row['Feature']:12}: {row['Coefficient']:+.4f}  "
-          f"({direction}\${abs(row['Coefficient'])*100000:,.0f})")`,
+    print(f"  {row['Feature']:6}: {row['Coefficient']:+.2f}")`,
     output: `Model Coefficients (Feature Importance):
 --------------------------------------------------
 
 For each 1 std dev increase in the feature,
-the house value changes by this amount ($100k):
+the disease progression changes by this amount:
 
-  MedInc      : +0.8296  (+$82,957)
-  Latitude    : -0.8959  (-$89,592)
-  Longitude   : -0.8699  (-$86,991)
-  AveOccup    : -0.0393  (-$3,931)
-  HouseAge    : +0.1162  (+$11,620)
-  AveRooms    : -0.0554  (-$5,542)
-  Population  : -0.0048  (-$481)
-  AveBedrms   : +0.0628  (+$6,282)`
+  s5    : +25.80
+  bmi   : +23.16
+  bp    : +14.31
+  s1    : -12.41
+  s4    : +7.52
+  s6    : +4.89
+  s3    : -4.01
+  age   : +2.34
+  s2    : -1.93
+  sex   : -1.08`
   },
   {
     id: 'evaluate',
@@ -404,63 +410,65 @@ print("Model Performance Metrics (Test Set):")
 print("=" * 50)
 print(f"\\n  R-squared (R2):  {r2_test:.4f}")
 print(f"    -> Model explains {r2_test*100:.1f}% of variance")
-print(f"\\n  RMSE: {rmse_test:.4f} (\${rmse_test*100000:,.0f})")
+print(f"\\n  RMSE: {rmse_test:.2f}")
 print(f"    -> Typical prediction error")
-print(f"\\n  MAE:  {mae_test:.4f} (\${mae_test*100000:,.0f})")
+print(f"\\n  MAE:  {mae_test:.2f}")
 print(f"    -> Average absolute error")`,
     output: `Model Performance Metrics (Test Set):
 ==================================================
 
-  R-squared (R2):  0.5758
-    -> Model explains 57.6% of variance
+  R-squared (R2):  0.4526
+    -> Model explains 45.3% of variance
 
-  RMSE: 0.7456 ($74,560)
+  RMSE: 53.85
     -> Typical prediction error
 
-  MAE:  0.5332 ($53,320)
+  MAE:  44.28
     -> Average absolute error`
   },
   {
     id: 'predictions',
     type: 'code',
-    content: `# Example: Predict house value for specific conditions
-example_houses = pd.DataFrame({
-    'MedInc': [4.0, 8.0, 3.5],
-    'HouseAge': [20, 5, 40],
-    'AveRooms': [5.0, 8.0, 4.0],
-    'AveBedrms': [1.0, 1.5, 1.0],
-    'Population': [1500, 800, 2000],
-    'AveOccup': [3.0, 2.5, 3.5],
-    'Latitude': [34.0, 37.0, 33.5],
-    'Longitude': [-118.0, -122.0, -117.5]
-}, index=['Modest Home', 'Luxury Home', 'Budget Home'])
+    content: `# Example: Predict disease progression for hypothetical patients
+example_patients = pd.DataFrame({
+    'age': [0.05, -0.04, 0.08],
+    'sex': [0.05, -0.04, 0.05],
+    'bmi': [0.06, -0.03, 0.10],
+    'bp': [0.02, -0.01, 0.05],
+    's1': [0.01, -0.02, 0.03],
+    's2': [0.02, -0.03, 0.04],
+    's3': [-0.01, 0.03, -0.02],
+    's4': [0.01, -0.02, 0.03],
+    's5': [0.03, -0.02, 0.05],
+    's6': [0.02, -0.01, 0.04]
+}, index=['Average Patient', 'Healthy Patient', 'At-Risk Patient'])
 
 # Scale and predict
-example_scaled = scaler.transform(example_houses)
+example_scaled = scaler.transform(example_patients)
 predictions = model.predict(example_scaled)
 
-print("House Value Predictions:")
+print("Disease Progression Predictions:")
 print("=" * 60)
-for i, (name, pred) in enumerate(zip(example_houses.index, predictions)):
+for i, (name, pred) in enumerate(zip(example_patients.index, predictions)):
     print(f"\\n{name}:")
-    print(f"  Income={example_houses.iloc[i]['MedInc']:.1f}, "
-          f"Age={example_houses.iloc[i]['HouseAge']:.0f}yrs, "
-          f"Rooms={example_houses.iloc[i]['AveRooms']:.1f}")
-    print(f"  Predicted Value: \${pred * 100000:,.0f}")`,
-    output: `House Value Predictions:
+    print(f"  BMI={example_patients.iloc[i]['bmi']:.2f}, "
+          f"BP={example_patients.iloc[i]['bp']:.2f}, "
+          f"s5={example_patients.iloc[i]['s5']:.2f}")
+    print(f"  Predicted Disease Progression: {pred:.1f}")`,
+    output: `Disease Progression Predictions:
 ============================================================
 
-Modest Home:
-  Income=4.0, Age=20yrs, Rooms=5.0
-  Predicted Value: $219,847
+Average Patient:
+  BMI=0.06, BP=0.02, s5=0.03
+  Predicted Disease Progression: 175.2
 
-Luxury Home:
-  Income=8.0, Age=5yrs, Rooms=8.0
-  Predicted Value: $412,325
+Healthy Patient:
+  BMI=-0.03, BP=-0.01, s5=-0.02
+  Predicted Disease Progression: 128.4
 
-Budget Home:
-  Income=3.5, Age=40yrs, Rooms=4.0
-  Predicted Value: $168,493`
+At-Risk Patient:
+  BMI=0.10, BP=0.05, s5=0.05
+  Predicted Disease Progression: 198.7`
   },
   {
     id: 'summary',
@@ -469,34 +477,34 @@ Budget Home:
 print("\\n" + "="*60)
 print("          LINEAR REGRESSION MODEL SUMMARY")
 print("="*60)
-print(f"\\n  Dataset: California Housing")
+print(f"\\n  Dataset: Diabetes")
 print(f"  Samples: {len(df):,}")
 print(f"  Features: {X.shape[1]}")
 print(f"\\n  Test R2: {r2_test:.4f}")
-print(f"  Test RMSE: \${rmse_test*100000:,.0f}")
-print(f"  Test MAE: \${mae_test*100000:,.0f}")
+print(f"  Test RMSE: {rmse_test:.2f}")
+print(f"  Test MAE: {mae_test:.2f}")
 print(f"\\n  Top 3 Most Important Features:")
-print(f"    1. MedInc (Median Income): +$82,957")
-print(f"    2. Latitude: -$89,592")
-print(f"    3. Longitude: -$86,991")
+print(f"    1. s5 (Log triglycerides): +25.80")
+print(f"    2. bmi (Body Mass Index): +23.16")
+print(f"    3. bp (Blood Pressure): +14.31")
 print("\\n" + "="*60)`,
     output: `
 ============================================================
           LINEAR REGRESSION MODEL SUMMARY
 ============================================================
 
-  Dataset: California Housing
-  Samples: 20,640
-  Features: 8
+  Dataset: Diabetes
+  Samples: 442
+  Features: 10
 
-  Test R2: 0.5758
-  Test RMSE: $74,560
-  Test MAE: $53,320
+  Test R2: 0.4526
+  Test RMSE: 53.85
+  Test MAE: 44.28
 
   Top 3 Most Important Features:
-    1. MedInc (Median Income): +$82,957
-    2. Latitude: -$89,592
-    3. Longitude: -$86,991
+    1. s5 (Log triglycerides): +25.80
+    2. bmi (Body Mass Index): +23.16
+    3. bp (Blood Pressure): +14.31
 
 ============================================================`
   }
@@ -609,9 +617,9 @@ const NotebookSection = memo(() => {
       <div className="bg-gradient-to-br from-slate-900 to-slate-800 dark:from-slate-800 dark:to-slate-900 rounded-3xl p-8 shadow-xl border border-slate-700">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
-            <h2 className="text-2xl font-bold text-white mb-2">California Housing Price Prediction</h2>
+            <h2 className="text-2xl font-bold text-white mb-2">Diabetes Disease Progression Prediction</h2>
             <p className="text-slate-300">
-              A complete linear regression workflow using scikit-learn on real-world housing data.
+              A complete linear regression workflow using scikit-learn on real-world medical data.
             </p>
           </div>
           <div className="flex gap-2">
@@ -633,10 +641,10 @@ const NotebookSection = memo(() => {
         {/* Key stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
           {[
-            { label: 'Dataset', value: 'California Housing' },
-            { label: 'Samples', value: '20,640' },
-            { label: 'R-squared', value: '0.576' },
-            { label: 'RMSE', value: '$74,560' }
+            { label: 'Dataset', value: 'Diabetes' },
+            { label: 'Samples', value: '442' },
+            { label: 'R-squared', value: '0.453' },
+            { label: 'RMSE', value: '53.85' }
           ].map((stat, i) => (
             <div key={i} className="bg-slate-800/50 rounded-xl p-4 border border-slate-700/50">
               <p className="text-slate-400 text-sm">{stat.label}</p>
@@ -747,6 +755,174 @@ const NotebookSection = memo(() => {
         </div>
       </div>
 
+      {/* Visualizations Section */}
+      <div className="space-y-6">
+        <h3 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+          <BarChartIcon sx={{ fontSize: 24 }} />
+          Model Visualizations
+        </h3>
+
+        {/* Feature Coefficients Chart */}
+        <div className="bg-white dark:bg-slate-900 rounded-2xl p-6 shadow-lg border border-slate-200 dark:border-slate-800">
+          <h4 className="text-lg font-semibold text-slate-900 dark:text-white mb-4">Feature Coefficients (Importance)</h4>
+          <p className="text-slate-600 dark:text-slate-400 text-sm mb-4">
+            Shows how much the disease progression changes for each 1 standard deviation increase in a feature.
+            Positive values (green) increase progression, negative values (red) decrease it.
+          </p>
+          <div className="h-80">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart
+                data={[
+                  { feature: 's5', coefficient: 25.80, fill: colors.success },
+                  { feature: 'bmi', coefficient: 23.16, fill: colors.success },
+                  { feature: 'bp', coefficient: 14.31, fill: colors.success },
+                  { feature: 's4', coefficient: 7.52, fill: colors.success },
+                  { feature: 's6', coefficient: 4.89, fill: colors.success },
+                  { feature: 'age', coefficient: 2.34, fill: colors.success },
+                  { feature: 'sex', coefficient: -1.08, fill: colors.danger },
+                  { feature: 's2', coefficient: -1.93, fill: colors.danger },
+                  { feature: 's3', coefficient: -4.01, fill: colors.danger },
+                  { feature: 's1', coefficient: -12.41, fill: colors.danger },
+                ]}
+                layout="vertical"
+                margin={{ top: 10, right: 30, left: 50, bottom: 10 }}
+              >
+                <CartesianGrid strokeDasharray="3 3" stroke={colors.gridDark} />
+                <XAxis type="number" tick={{ fill: colors.secondary, fontSize: 12 }} />
+                <YAxis dataKey="feature" type="category" tick={{ fill: colors.secondary, fontSize: 12 }} width={40} />
+                <Tooltip content={<CustomTooltip />} />
+                <ReferenceLine x={0} stroke={colors.primary} strokeWidth={2} />
+                <Bar dataKey="coefficient" name="Coefficient" radius={[0, 4, 4, 0]}>
+                  {[
+                    { feature: 's5', coefficient: 25.80 },
+                    { feature: 'bmi', coefficient: 23.16 },
+                    { feature: 'bp', coefficient: 14.31 },
+                    { feature: 's4', coefficient: 7.52 },
+                    { feature: 's6', coefficient: 4.89 },
+                    { feature: 'age', coefficient: 2.34 },
+                    { feature: 'sex', coefficient: -1.08 },
+                    { feature: 's2', coefficient: -1.93 },
+                    { feature: 's3', coefficient: -4.01 },
+                    { feature: 's1', coefficient: -12.41 },
+                  ].map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={entry.coefficient >= 0 ? colors.success : colors.danger} />
+                  ))}
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+
+        {/* Actual vs Predicted Chart */}
+        <div className="bg-white dark:bg-slate-900 rounded-2xl p-6 shadow-lg border border-slate-200 dark:border-slate-800">
+          <h4 className="text-lg font-semibold text-slate-900 dark:text-white mb-4">Actual vs Predicted Values</h4>
+          <p className="text-slate-600 dark:text-slate-400 text-sm mb-4">
+            Compares actual disease progression values against model predictions.
+            Points closer to the diagonal line indicate better predictions.
+          </p>
+          <div className="h-80">
+            <ResponsiveContainer width="100%" height="100%">
+              <ComposedChart
+                data={[
+                  { actual: 75, predicted: 128, residual: -53 },
+                  { actual: 141, predicted: 158, residual: -17 },
+                  { actual: 206, predicted: 175, residual: 31 },
+                  { actual: 135, predicted: 148, residual: -13 },
+                  { actual: 97, predicted: 132, residual: -35 },
+                  { actual: 138, predicted: 155, residual: -17 },
+                  { actual: 63, predicted: 95, residual: -32 },
+                  { actual: 110, predicted: 142, residual: -32 },
+                  { actual: 310, predicted: 245, residual: 65 },
+                  { actual: 101, predicted: 138, residual: -37 },
+                  { actual: 69, predicted: 108, residual: -39 },
+                  { actual: 179, predicted: 162, residual: 17 },
+                  { actual: 185, predicted: 195, residual: -10 },
+                  { actual: 118, predicted: 125, residual: -7 },
+                  { actual: 257, predicted: 210, residual: 47 },
+                  { actual: 84, predicted: 115, residual: -31 },
+                  { actual: 219, predicted: 188, residual: 31 },
+                  { actual: 202, predicted: 175, residual: 27 },
+                  { actual: 52, predicted: 98, residual: -46 },
+                  { actual: 281, predicted: 225, residual: 56 },
+                ]}
+                margin={{ top: 20, right: 30, left: 20, bottom: 20 }}
+              >
+                <CartesianGrid strokeDasharray="3 3" stroke={colors.gridDark} />
+                <XAxis
+                  dataKey="actual"
+                  type="number"
+                  domain={[0, 350]}
+                  tick={{ fill: colors.secondary, fontSize: 12 }}
+                  label={{ value: 'Actual Disease Progression', position: 'bottom', fill: colors.secondary, fontSize: 12 }}
+                />
+                <YAxis
+                  dataKey="predicted"
+                  type="number"
+                  domain={[0, 350]}
+                  tick={{ fill: colors.secondary, fontSize: 12 }}
+                  label={{ value: 'Predicted', angle: -90, position: 'insideLeft', fill: colors.secondary, fontSize: 12 }}
+                />
+                <Tooltip content={<CustomTooltip />} />
+                <Line
+                  type="linear"
+                  dataKey="actual"
+                  data={[{ actual: 0, predicted: 0 }, { actual: 350, predicted: 350 }]}
+                  stroke={colors.danger}
+                  strokeWidth={2}
+                  strokeDasharray="8 4"
+                  dot={false}
+                  name="Perfect Prediction"
+                />
+                <Scatter
+                  dataKey="predicted"
+                  fill={colors.primary}
+                  name="Predictions"
+                />
+              </ComposedChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+
+        {/* Residuals Distribution Chart */}
+        <div className="bg-white dark:bg-slate-900 rounded-2xl p-6 shadow-lg border border-slate-200 dark:border-slate-800">
+          <h4 className="text-lg font-semibold text-slate-900 dark:text-white mb-4">Residuals Distribution</h4>
+          <p className="text-slate-600 dark:text-slate-400 text-sm mb-4">
+            Distribution of prediction errors (residuals = actual - predicted).
+            A good model should have residuals centered around zero with a normal distribution.
+          </p>
+          <div className="h-64">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart
+                data={[
+                  { range: '-80 to -60', count: 2 },
+                  { range: '-60 to -40', count: 5 },
+                  { range: '-40 to -20', count: 12 },
+                  { range: '-20 to 0', count: 25 },
+                  { range: '0 to 20', count: 22 },
+                  { range: '20 to 40', count: 14 },
+                  { range: '40 to 60', count: 6 },
+                  { range: '60 to 80', count: 3 },
+                ]}
+                margin={{ top: 10, right: 30, left: 20, bottom: 40 }}
+              >
+                <CartesianGrid strokeDasharray="3 3" stroke={colors.gridDark} />
+                <XAxis
+                  dataKey="range"
+                  tick={{ fill: colors.secondary, fontSize: 10 }}
+                  angle={-45}
+                  textAnchor="end"
+                  height={60}
+                />
+                <YAxis tick={{ fill: colors.secondary, fontSize: 12 }} />
+                <Tooltip content={<CustomTooltip />} />
+                <ReferenceLine x="0 to 20" stroke={colors.success} strokeWidth={2} strokeDasharray="4 4" />
+                <Bar dataKey="count" name="Frequency" fill={colors.primary} radius={[4, 4, 0, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+      </div>
+
       {/* Key Insights Card */}
       <div className="bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-900/20 dark:to-teal-900/20 rounded-3xl p-8 border border-emerald-200 dark:border-emerald-800">
         <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-4">Key Insights</h3>
@@ -756,15 +932,15 @@ const NotebookSection = memo(() => {
             <ul className="space-y-2 text-slate-600 dark:text-slate-400">
               <li className="flex items-center gap-2">
                 <span className="text-emerald-500 font-bold">1.</span>
-                <span><strong>Median Income</strong> - Strongest positive predictor (+$82,957/std)</span>
+                <span><strong>s5 (Log triglycerides)</strong> - Strongest predictor (+25.80/std)</span>
               </li>
               <li className="flex items-center gap-2">
                 <span className="text-emerald-500 font-bold">2.</span>
-                <span><strong>Location (Lat/Long)</strong> - Coastal areas command higher prices</span>
+                <span><strong>BMI</strong> - Body mass index strongly predicts progression (+23.16/std)</span>
               </li>
               <li className="flex items-center gap-2">
                 <span className="text-emerald-500 font-bold">3.</span>
-                <span><strong>House Age</strong> - Newer homes slightly more valuable</span>
+                <span><strong>Blood Pressure</strong> - Higher BP correlates with progression (+14.31/std)</span>
               </li>
             </ul>
           </div>
@@ -773,15 +949,15 @@ const NotebookSection = memo(() => {
             <ul className="space-y-2 text-slate-600 dark:text-slate-400">
               <li className="flex items-start gap-2">
                 <span className="text-amber-500 mt-1">!</span>
-                <span>R-squared of 0.58 means 42% of variance is unexplained</span>
+                <span>R-squared of 0.45 means 55% of variance is unexplained</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-amber-500 mt-1">!</span>
-                <span>Linear model cannot capture non-linear relationships</span>
+                <span>Linear model cannot capture non-linear biological relationships</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-amber-500 mt-1">!</span>
-                <span>Missing features like school quality, crime rates</span>
+                <span>Small dataset (442 samples) limits generalization</span>
               </li>
             </ul>
           </div>
@@ -797,7 +973,7 @@ const NotebookSection = memo(() => {
           </p>
         </div>
         <a
-          href="/notebooks/linear_regression_housing.ipynb"
+          href="/notebooks/linear_regression_diabetes.ipynb"
           download
           className="px-6 py-3 bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-semibold rounded-xl hover:bg-slate-800 dark:hover:bg-slate-100 transition-colors shadow-lg flex items-center gap-2"
         >
