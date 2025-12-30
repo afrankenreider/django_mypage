@@ -56,8 +56,8 @@ packages = ["src"]
 
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "src.apps.base_app.settings"
-python_files = ["test_*.py", "*_test.py"]
-testpaths = ["tests"]
+python_files = ["test_*.py", "*_test.py", "tests.py"]
+testpaths = ["tests", "src/apps"]
 
 [tool.ruff]
 target-version = "py313"

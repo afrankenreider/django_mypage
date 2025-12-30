@@ -23,6 +23,10 @@ Always follow current best practices for Python, Django, React, and TypeScript d
 Do not use any emojis in code comments, commit messages, documentation, or
 user interfaces. If icons are being used, please use Google's Material Icons.
 
+### 4. All Python Dependencies Must Be Managed with UV
+- Use `uv` for managing Python dependencies and virtual environments.
+- Ensure `uv.lock` is updated whenever dependencies change.
+
 ## Python & Django Guidelines
 
 ### Code Style
