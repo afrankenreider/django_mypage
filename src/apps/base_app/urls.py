@@ -21,6 +21,10 @@ from django.urls import include, path, re_path
 from django.views.generic import TemplateView
 from rest_framework.routers import DefaultRouter
 
+from src.apps.projects.api.linear_regression import (
+    linear_regression_calculate,
+    linear_regression_sample_data,
+)
 from src.apps.projects.api.views import ProjectsViewSet
 
 # API Router
@@ -30,6 +34,16 @@ router.register(r"projects", ProjectsViewSet, basename="projects")
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/", include(router.urls)),
+    path(
+        "api/linear-regression/calculate/",
+        linear_regression_calculate,
+        name="linear-regression-calculate",
+    ),
+    path(
+        "api/linear-regression/sample-data/",
+        linear_regression_sample_data,
+        name="linear-regression-sample-data",
+    ),
 ]
 
 # In production, serve the React frontend for all other routes
