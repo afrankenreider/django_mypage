@@ -23,15 +23,26 @@ import TipsAndUpdatesIcon from '@mui/icons-material/TipsAndUpdates'
 import CalculateIcon from '@mui/icons-material/Calculate'
 import DatasetIcon from '@mui/icons-material/Dataset'
 import TouchAppIcon from '@mui/icons-material/TouchApp'
+import BarChartIcon from '@mui/icons-material/BarChart'
+import TrendingUpIcon from '@mui/icons-material/TrendingUp'
+import SpeedIcon from '@mui/icons-material/Speed'
+import HomeWorkIcon from '@mui/icons-material/HomeWork'
+import ShowChartIcon from '@mui/icons-material/ShowChart'
+import LocalHospitalIcon from '@mui/icons-material/LocalHospital'
+import AccountBalanceIcon from '@mui/icons-material/AccountBalance'
+import DirectionsCarIcon from '@mui/icons-material/DirectionsCar'
+import ThermostatIcon from '@mui/icons-material/Thermostat'
+import CheckCircleIcon from '@mui/icons-material/CheckCircle'
+import CancelIcon from '@mui/icons-material/Cancel'
 
-// Modern color palette
+// Modern color palette - monochromatic with accent colors for data viz
 const colors = {
-  primary: '#6366f1', // Indigo
-  secondary: '#8b5cf6', // Purple
-  accent: '#06b6d4', // Cyan
-  success: '#10b981', // Emerald
-  warning: '#f59e0b', // Amber
-  danger: '#ef4444', // Red
+  primary: '#475569', // Slate 600
+  secondary: '#64748b', // Slate 500
+  accent: '#1e293b', // Slate 800
+  success: '#10b981', // Emerald (keep for positive indicators)
+  warning: '#f59e0b', // Amber (keep for warnings)
+  danger: '#ef4444', // Red (keep for negative indicators)
   gridLight: 'rgba(148, 163, 184, 0.1)',
   gridDark: 'rgba(71, 85, 105, 0.3)',
 }
@@ -288,8 +299,11 @@ export default function LinearRegressionDemo() {
   ]
 
   return (
-    <section className="min-h-screen pt-24 pb-16 bg-slate-50 dark:bg-black">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="min-h-screen pt-32 pb-24 bg-white/80 dark:bg-slate-950/80 relative overflow-hidden">
+      {/* Background gradient */}
+      <div className="absolute inset-0 gradient-mesh opacity-50" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -298,22 +312,26 @@ export default function LinearRegressionDemo() {
         >
           <Link
             to="/projects"
-            className="inline-flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white mb-8 transition-colors"
+            className="inline-flex items-center gap-2 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white mb-8 transition-colors group"
           >
-            <ArrowBackIcon sx={{ fontSize: 20 }} />
+            <ArrowBackIcon className="group-hover:-translate-x-1 transition-transform" sx={{ fontSize: 20 }} />
             Back to Projects
           </Link>
 
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-slate-100 dark:bg-slate-900 rounded-full border border-slate-300 dark:border-slate-700 mb-4">
-              <TimelineIcon className="text-slate-600 dark:text-slate-400" sx={{ fontSize: 18 }} />
-              <span className="text-slate-600 dark:text-slate-400 font-mono text-sm">linear-regression.ipynb</span>
-            </div>
-            <h1 className="font-display text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4">
-              Linear Regression
+          <div className="text-center mb-16">
+            <motion.span
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+              className="inline-flex items-center gap-2 px-4 py-2 bg-slate-100 dark:bg-slate-800 rounded-full text-sm font-medium text-slate-600 dark:text-slate-400 mb-6"
+            >
+              <TimelineIcon sx={{ fontSize: 18 }} />
+              Machine Learning Tutorial
+            </motion.span>
+            <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-bold text-slate-900 dark:text-white mb-6">
+              Linear <span className="gradient-text">Regression</span>
             </h1>
-            <div className="w-24 h-1 bg-gradient-to-r from-indigo-500 to-cyan-500 mx-auto rounded-full mb-6" />
-            <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+            <p className="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
               A comprehensive, interactive guide to understanding one of the most fundamental algorithms in machine learning and statistics.
             </p>
           </div>
@@ -326,10 +344,10 @@ export default function LinearRegressionDemo() {
                 <button
                   key={section.id}
                   onClick={() => setActiveSection(section.id)}
-                  className={`inline-flex items-center gap-2 px-4 py-2 rounded-full font-medium transition-all border ${
+                  className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-medium transition-all ${
                     activeSection === section.id
-                      ? 'bg-gradient-to-r from-indigo-500 to-purple-500 text-white border-transparent shadow-lg shadow-indigo-500/25'
-                      : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-800 hover:border-indigo-400 dark:hover:border-indigo-600'
+                      ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 shadow-lg'
+                      : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
                   }`}
                 >
                   <Icon sx={{ fontSize: 18 }} />
@@ -347,38 +365,38 @@ export default function LinearRegressionDemo() {
             animate={{ opacity: 1, y: 0 }}
             className="space-y-8"
           >
-            <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-8 shadow-sm">
+            <div className="bg-slate-50 dark:bg-slate-900/50 backdrop-blur-sm rounded-3xl border border-slate-200/50 dark:border-slate-800/50 p-8 shadow-sm">
               <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">What is Linear Regression?</h2>
               <div className="prose dark:prose-invert max-w-none">
                 <p className="text-slate-600 dark:text-slate-400 text-lg leading-relaxed mb-6">
-                  Linear regression is a <strong className="text-indigo-600 dark:text-indigo-400">supervised learning algorithm</strong> that models the relationship between a dependent variable (y) and one or more independent variables (x) by fitting a linear equation to the observed data.
+                  Linear regression is a <strong className="text-slate-900 dark:text-white">supervised learning algorithm</strong> that models the relationship between a dependent variable (y) and one or more independent variables (x) by fitting a linear equation to the observed data.
                 </p>
                 <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
                   Think of it as drawing the "best fit" straight line through a scatter plot of data points. This line can then be used to make predictions about new data.
                 </p>
 
                 <div className="grid md:grid-cols-3 gap-6 mt-8">
-                  <div className="bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 rounded-xl p-6 border border-indigo-100 dark:border-indigo-800">
-                    <div className="w-12 h-12 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-xl flex items-center justify-center mb-4 shadow-lg shadow-indigo-500/25">
-                      <span className="text-2xl">📊</span>
+                  <div className="bg-slate-100 dark:bg-slate-800/50 rounded-xl p-6 border border-slate-200 dark:border-slate-700">
+                    <div className="w-12 h-12 bg-slate-900 dark:bg-white rounded-xl flex items-center justify-center mb-4 shadow-lg text-white dark:text-slate-900">
+                      <BarChartIcon sx={{ fontSize: 24 }} />
                     </div>
                     <h3 className="font-semibold text-slate-900 dark:text-white mb-2">Descriptive</h3>
                     <p className="text-slate-600 dark:text-slate-400 text-sm">
                       Understand the relationship between variables and quantify how they change together.
                     </p>
                   </div>
-                  <div className="bg-gradient-to-br from-cyan-50 to-blue-50 dark:from-cyan-900/20 dark:to-blue-900/20 rounded-xl p-6 border border-cyan-100 dark:border-cyan-800">
-                    <div className="w-12 h-12 bg-gradient-to-br from-cyan-500 to-blue-500 rounded-xl flex items-center justify-center mb-4 shadow-lg shadow-cyan-500/25">
-                      <span className="text-2xl">🔮</span>
+                  <div className="bg-slate-100 dark:bg-slate-800/50 rounded-xl p-6 border border-slate-200 dark:border-slate-700">
+                    <div className="w-12 h-12 bg-slate-900 dark:bg-white rounded-xl flex items-center justify-center mb-4 shadow-lg text-white dark:text-slate-900">
+                      <TrendingUpIcon sx={{ fontSize: 24 }} />
                     </div>
                     <h3 className="font-semibold text-slate-900 dark:text-white mb-2">Predictive</h3>
                     <p className="text-slate-600 dark:text-slate-400 text-sm">
                       Forecast future outcomes based on historical data patterns.
                     </p>
                   </div>
-                  <div className="bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-900/20 dark:to-teal-900/20 rounded-xl p-6 border border-emerald-100 dark:border-emerald-800">
-                    <div className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-xl flex items-center justify-center mb-4 shadow-lg shadow-emerald-500/25">
-                      <span className="text-2xl">⚡</span>
+                  <div className="bg-slate-100 dark:bg-slate-800/50 rounded-xl p-6 border border-slate-200 dark:border-slate-700">
+                    <div className="w-12 h-12 bg-slate-900 dark:bg-white rounded-xl flex items-center justify-center mb-4 shadow-lg text-white dark:text-slate-900">
+                      <SpeedIcon sx={{ fontSize: 24 }} />
                     </div>
                     <h3 className="font-semibold text-slate-900 dark:text-white mb-2">Interpretable</h3>
                     <p className="text-slate-600 dark:text-slate-400 text-sm">
@@ -390,7 +408,7 @@ export default function LinearRegressionDemo() {
             </div>
 
             {/* Visual Example */}
-            <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-8 shadow-sm">
+            <div className="bg-slate-50 dark:bg-slate-900/50 backdrop-blur-sm rounded-3xl border border-slate-200/50 dark:border-slate-800/50 p-8 shadow-sm">
               <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">Visual Example</h2>
               <p className="text-slate-600 dark:text-slate-400 mb-6">
                 The relationship between square footage and house prices. Data points show actual observations; the trend line shows the predicted relationship.
@@ -905,20 +923,22 @@ export default function LinearRegressionDemo() {
             animate={{ opacity: 1, y: 0 }}
             className="space-y-8"
           >
-            <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-8 shadow-sm">
+            <div className="bg-slate-50 dark:bg-slate-900/50 backdrop-blur-sm rounded-3xl border border-slate-200/50 dark:border-slate-800/50 p-8 shadow-sm">
               <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">Real-World Applications</h2>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {[
-                  { icon: '🏠', title: 'Real Estate', desc: 'Predict house prices based on features like square footage, bedrooms, location, and property age.', color: 'indigo' },
-                  { icon: '📈', title: 'Sales Forecasting', desc: 'Forecast future sales based on advertising spend, seasonality, and historical trends.', color: 'purple' },
-                  { icon: '🏥', title: 'Healthcare', desc: 'Predict patient outcomes, drug dosages, or treatment effectiveness.', color: 'cyan' },
-                  { icon: '💰', title: 'Finance', desc: 'Model economic indicators, assess risk, and predict stock returns or credit scores.', color: 'emerald' },
-                  { icon: '🚗', title: 'Automotive', desc: 'Predict fuel efficiency based on vehicle weight, engine size, and aerodynamics.', color: 'amber' },
-                  { icon: '🌡️', title: 'Environmental Science', desc: 'Model climate patterns, predict pollution levels, or analyze environmental impact.', color: 'rose' },
+                  { Icon: HomeWorkIcon, title: 'Real Estate', desc: 'Predict house prices based on features like square footage, bedrooms, location, and property age.' },
+                  { Icon: ShowChartIcon, title: 'Sales Forecasting', desc: 'Forecast future sales based on advertising spend, seasonality, and historical trends.' },
+                  { Icon: LocalHospitalIcon, title: 'Healthcare', desc: 'Predict patient outcomes, drug dosages, or treatment effectiveness.' },
+                  { Icon: AccountBalanceIcon, title: 'Finance', desc: 'Model economic indicators, assess risk, and predict stock returns or credit scores.' },
+                  { Icon: DirectionsCarIcon, title: 'Automotive', desc: 'Predict fuel efficiency based on vehicle weight, engine size, and aerodynamics.' },
+                  { Icon: ThermostatIcon, title: 'Environmental Science', desc: 'Model climate patterns, predict pollution levels, or analyze environmental impact.' },
                 ].map((item, i) => (
-                  <div key={i} className={`bg-gradient-to-br from-${item.color}-50 to-${item.color}-100/50 dark:from-${item.color}-900/20 dark:to-${item.color}-900/10 rounded-xl p-6 border border-${item.color}-100 dark:border-${item.color}-800 hover:shadow-lg transition-shadow`}>
+                  <div key={i} className="bg-slate-100 dark:bg-slate-800/50 rounded-xl p-6 border border-slate-200 dark:border-slate-700 hover:shadow-lg transition-shadow">
                     <div className="flex items-center gap-3 mb-4">
-                      <span className="text-3xl">{item.icon}</span>
+                      <div className="w-10 h-10 bg-slate-900 dark:bg-white rounded-lg flex items-center justify-center text-white dark:text-slate-900">
+                        <item.Icon sx={{ fontSize: 22 }} />
+                      </div>
                       <h3 className="text-lg font-semibold text-slate-900 dark:text-white">{item.title}</h3>
                     </div>
                     <p className="text-slate-600 dark:text-slate-400 text-sm">{item.desc}</p>
@@ -927,12 +947,12 @@ export default function LinearRegressionDemo() {
               </div>
             </div>
 
-            <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-8 shadow-sm">
+            <div className="bg-slate-50 dark:bg-slate-900/50 backdrop-blur-sm rounded-3xl border border-slate-200/50 dark:border-slate-800/50 p-8 shadow-sm">
               <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">When to Use Linear Regression</h2>
               <div className="grid md:grid-cols-2 gap-8">
-                <div className="bg-gradient-to-br from-emerald-50 to-green-50 dark:from-emerald-900/20 dark:to-green-900/20 rounded-xl p-6 border border-emerald-100 dark:border-emerald-800">
+                <div className="bg-slate-100 dark:bg-slate-800/50 rounded-xl p-6 border border-slate-200 dark:border-slate-700">
                   <h3 className="font-semibold text-emerald-600 dark:text-emerald-400 mb-4 flex items-center gap-2 text-lg">
-                    <span className="w-6 h-6 bg-emerald-500 text-white rounded-full flex items-center justify-center text-sm">✓</span>
+                    <CheckCircleIcon sx={{ fontSize: 22 }} />
                     Good For
                   </h3>
                   <ul className="space-y-3">
@@ -949,9 +969,9 @@ export default function LinearRegressionDemo() {
                     ))}
                   </ul>
                 </div>
-                <div className="bg-gradient-to-br from-red-50 to-rose-50 dark:from-red-900/20 dark:to-rose-900/20 rounded-xl p-6 border border-red-100 dark:border-red-800">
+                <div className="bg-slate-100 dark:bg-slate-800/50 rounded-xl p-6 border border-slate-200 dark:border-slate-700">
                   <h3 className="font-semibold text-red-600 dark:text-red-400 mb-4 flex items-center gap-2 text-lg">
-                    <span className="w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center text-sm">✗</span>
+                    <CancelIcon sx={{ fontSize: 22 }} />
                     Not Ideal For
                   </h3>
                   <ul className="space-y-3">
@@ -971,14 +991,14 @@ export default function LinearRegressionDemo() {
               </div>
             </div>
 
-            <div className="bg-gradient-to-r from-indigo-600 via-purple-600 to-cyan-600 rounded-2xl p-8 text-center shadow-xl">
-              <h2 className="text-2xl font-bold text-white mb-4">Ready to Explore?</h2>
-              <p className="text-indigo-100 mb-6 max-w-xl mx-auto">
+            <div className="bg-slate-900 dark:bg-white rounded-2xl p-8 text-center shadow-xl">
+              <h2 className="text-2xl font-bold text-white dark:text-slate-900 mb-4">Ready to Explore?</h2>
+              <p className="text-slate-300 dark:text-slate-600 mb-6 max-w-xl mx-auto">
                 Head to the Interactive Demo section to experiment with different datasets or create your own visualizations!
               </p>
               <button
                 onClick={() => setActiveSection('interactive')}
-                className="px-8 py-3 bg-white text-indigo-600 rounded-xl font-semibold hover:bg-indigo-50 transition-colors shadow-lg"
+                className="px-8 py-3 bg-white dark:bg-slate-900 text-slate-900 dark:text-white rounded-xl font-semibold hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors shadow-lg"
               >
                 Try Interactive Demo →
               </button>

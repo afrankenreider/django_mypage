@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion'
-import CodeIcon from '@mui/icons-material/Code'
 import StorageIcon from '@mui/icons-material/Storage'
 import WebIcon from '@mui/icons-material/Web'
 import TerminalIcon from '@mui/icons-material/Terminal'
@@ -16,6 +15,7 @@ import BrushIcon from '@mui/icons-material/Brush'
 import PsychologyIcon from '@mui/icons-material/Psychology'
 import BoltIcon from '@mui/icons-material/Bolt'
 import ComputerIcon from '@mui/icons-material/Computer'
+import CodeIcon from '@mui/icons-material/Code'
 import { SvgIconComponent } from '@mui/icons-material'
 
 interface Skill {
@@ -45,19 +45,6 @@ const skills: Skill[] = [
 
 const categories = [...new Set(skills.map(s => s.category))]
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.1 },
-  },
-}
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0 },
-}
-
 interface ExpertiseArea {
   title: string
   description: string
@@ -84,93 +71,113 @@ const expertiseAreas: ExpertiseArea[] = [
 
 export default function Skills() {
   return (
-    <section className="min-h-screen pt-24 pb-16 bg-slate-50 dark:bg-black">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="min-h-screen pt-32 pb-24 bg-white/80 dark:bg-slate-950/80 relative overflow-hidden">
+      {/* Background gradient */}
+      <div className="absolute inset-0 gradient-mesh opacity-50" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
           {/* Header */}
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-slate-100 dark:bg-slate-900 rounded-full border border-slate-300 dark:border-slate-700 mb-4">
-              <TerminalIcon className="text-slate-600 dark:text-slate-400" sx={{ fontSize: 18 }} />
-              <span className="text-slate-600 dark:text-slate-400 font-mono text-sm">skills.json</span>
-            </div>
-            <h1 className="font-display text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4">
-              Skills & Tools
+          <div className="text-center mb-20">
+            <motion.span
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+              className="inline-block px-4 py-2 bg-slate-100 dark:bg-slate-800 rounded-full text-sm font-medium text-slate-600 dark:text-slate-400 mb-6"
+            >
+              Technical Expertise
+            </motion.span>
+            <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-bold text-slate-900 dark:text-white mb-6">
+              Skills & <span className="gradient-text">Tools</span>
             </h1>
-            <div className="w-24 h-1 bg-slate-900 dark:bg-white mx-auto rounded-full mb-6" />
-            <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+            <p className="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
               Technologies and tools I use to bring ideas to life
             </p>
           </div>
 
-          {/* Skills by Category */}
-          {categories.map((category) => (
-            <div key={category} className="mb-12">
-              <h2 className="text-2xl font-semibold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
-                <span className="w-8 h-1 bg-slate-400 dark:bg-slate-600 rounded-full" />
-                {category}
-              </h2>
-
-              <motion.div
-                variants={containerVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-100px" }}
-                className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4"
-              >
-                {skills
-                  .filter((skill) => skill.category === category)
-                  .map((skill) => (
-                    <motion.a
-                      key={skill.name}
-                      variants={itemVariants}
-                      href={skill.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-slate-400 dark:hover:border-slate-600 rounded-xl p-6 text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
-                    >
-                      <div className="mb-3 flex justify-center group-hover:scale-110 transition-transform text-slate-500 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white">
-                        <skill.Icon sx={{ fontSize: 40 }} />
-                      </div>
-                      <h3 className="font-medium text-slate-600 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white transition-colors">
-                        {skill.name}
-                      </h3>
-                    </motion.a>
-                  ))}
-              </motion.div>
-            </div>
-          ))}
-
           {/* Expertise Areas */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mt-16"
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.6 }}
+            className="mb-20"
           >
-            <h2 className="text-2xl font-semibold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
-              <span className="w-8 h-1 bg-slate-400 dark:bg-slate-600 rounded-full" />
-              Areas of Expertise
-            </h2>
-
-            <div className="grid md:grid-cols-3 gap-6">
-              {expertiseAreas.map((area) => (
-                <div
+            <div className="grid md:grid-cols-3 gap-8">
+              {expertiseAreas.map((area, index) => (
+                <motion.div
                   key={area.title}
-                  className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-slate-400 dark:hover:border-slate-600 rounded-2xl p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 + index * 0.1, duration: 0.6 }}
+                  className="group"
                 >
-                  <div className="mb-4 text-slate-600 dark:text-slate-400">
-                    <area.Icon sx={{ fontSize: 40 }} />
+                  <div className="h-full bg-slate-50 dark:bg-slate-900/50 backdrop-blur-sm border border-slate-200/50 dark:border-slate-800/50 rounded-3xl p-8 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:border-slate-300 dark:hover:border-slate-700">
+                    <div className="w-14 h-14 rounded-2xl bg-slate-900 dark:bg-white flex items-center justify-center mb-6 shadow-lg text-white dark:text-slate-900">
+                      <area.Icon sx={{ fontSize: 28 }} />
+                    </div>
+                    <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-3">
+                      {area.title}
+                    </h3>
+                    <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+                      {area.description}
+                    </p>
                   </div>
-                  <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-2">{area.title}</h3>
-                  <p className="text-slate-600 dark:text-slate-400">{area.description}</p>
-                </div>
+                </motion.div>
               ))}
             </div>
           </motion.div>
+
+          {/* Skills by Category */}
+          <div className="space-y-16">
+            {categories.map((category) => (
+              <motion.div
+                key={category}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.6 }}
+              >
+                <div className="flex items-center gap-4 mb-8">
+                  <div className="w-12 h-12 rounded-xl bg-slate-900 dark:bg-white flex items-center justify-center shadow-lg">
+                    <span className="text-white dark:text-slate-900 font-bold text-lg">{category.charAt(0)}</span>
+                  </div>
+                  <h2 className="text-2xl font-semibold text-slate-900 dark:text-white">
+                    {category}
+                  </h2>
+                </div>
+
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                  {skills
+                    .filter((skill) => skill.category === category)
+                    .map((skill, index) => (
+                      <motion.a
+                        key={skill.name}
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: index * 0.05, duration: 0.4 }}
+                        whileHover={{ scale: 1.05, y: -4 }}
+                        href={skill.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group bg-white dark:bg-slate-900/50 border border-slate-200/50 dark:border-slate-800/50 hover:border-slate-300 dark:hover:border-slate-700 rounded-2xl p-6 text-center transition-all duration-300 hover:shadow-xl"
+                      >
+                        <div className="mb-3 flex justify-center text-slate-400 dark:text-slate-500 group-hover:text-slate-700 dark:group-hover:text-slate-300 transition-colors">
+                          <skill.Icon sx={{ fontSize: 36 }} />
+                        </div>
+                        <h3 className="font-medium text-slate-600 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white transition-colors">
+                          {skill.name}
+                        </h3>
+                      </motion.a>
+                    ))}
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </motion.div>
       </div>
     </section>
