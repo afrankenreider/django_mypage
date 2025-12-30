@@ -58,6 +58,12 @@ urlpatterns = [
         kmeans_sample_data,
         name="kmeans-sample-data",
     ),
+    path(
+        "api/weekly-media/",
+        include(
+            ("src.apps.weekly_media.urls", "weekly_media"), namespace="weekly_media"
+        ),
+    ),
 ]
 
 # In production, serve the React frontend for all other routes
