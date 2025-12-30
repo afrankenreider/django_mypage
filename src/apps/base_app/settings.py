@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "rest_framework",
     # Local apps
     "src.apps.projects",
+    "src.apps.weekly_media",
 ]
 
 MIDDLEWARE = [
