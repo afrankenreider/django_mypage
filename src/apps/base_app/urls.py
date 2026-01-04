@@ -29,6 +29,12 @@ from src.apps.projects.api.linear_regression import (
     linear_regression_calculate,
     linear_regression_sample_data,
 )
+from src.apps.projects.api.stock_data import (
+    get_multiple_quotes,
+    get_stock_history,
+    get_stock_quote,
+    search_symbols,
+)
 from src.apps.projects.api.views import ProjectsViewSet
 
 # API Router
@@ -57,6 +63,26 @@ urlpatterns = [
         "api/kmeans/sample-data/",
         kmeans_sample_data,
         name="kmeans-sample-data",
+    ),
+    path(
+        "api/stocks/quote/",
+        get_stock_quote,
+        name="stock-quote",
+    ),
+    path(
+        "api/stocks/history/",
+        get_stock_history,
+        name="stock-history",
+    ),
+    path(
+        "api/stocks/quotes/",
+        get_multiple_quotes,
+        name="stock-quotes",
+    ),
+    path(
+        "api/stocks/search/",
+        search_symbols,
+        name="stock-search",
     ),
     path(
         "api/weekly-media/",

@@ -5,6 +5,7 @@ import TimelineIcon from '@mui/icons-material/Timeline'
 import AutoGraphIcon from '@mui/icons-material/AutoGraph'
 import DataObjectIcon from '@mui/icons-material/DataObject'
 import BubbleChartIcon from '@mui/icons-material/BubbleChart'
+import CandlestickChartIcon from '@mui/icons-material/CandlestickChart'
 
 interface Project {
   id: number
@@ -43,6 +44,14 @@ const projects: Project[] = [
   },
   {
     id: 4,
+    title: 'Finance Dashboard',
+    description: 'A real-time stock market dashboard with customizable watchlists. Track prices, view historical charts, and analyze key financial metrics for publicly traded companies.',
+    technology: 'Financial Analysis',
+    link: '/projects/finance-dashboard',
+    icon: <CandlestickChartIcon sx={{ fontSize: 32 }} />,
+  },
+  {
+    id: 5,
     title: 'Data Pipelines',
     description: 'Learn how to build robust, scalable data pipelines. From ETL processes to real-time streaming, master the art of data engineering.',
     technology: 'Data Engineering',
