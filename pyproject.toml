@@ -23,6 +23,7 @@ dependencies = [
     "python-dotenv>=1.0",
     "tablib>=3.7",
     "whitenoise>=6.8",
+    "yfinance>=0.2",
 ]
 
 [project.optional-dependencies]

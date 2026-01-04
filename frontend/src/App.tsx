@@ -15,6 +15,7 @@ const Projects = lazy(() => import('./pages/Projects'))
 const LinearRegressionDemo = lazy(() => import('./pages/LinearRegressionDemo'))
 const KMeansDemo = lazy(() => import('./pages/KMeansDemo'))
 const NeuralNetworkDemo = lazy(() => import('./pages/NeuralNetworkDemo'))
+const FinanceDashboard = lazy(() => import('./pages/FinanceDashboard'))
 
 // Lazy load content pages
 const WeeklyMedia = lazy(() => import('./pages/WeeklyMedia'))
@@ -31,6 +32,7 @@ function App() {
           <Route path="projects/linear-regression" element={<LinearRegressionDemo />} />
           <Route path="projects/kmeans" element={<KMeansDemo />} />
           <Route path="projects/neural-networks" element={<NeuralNetworkDemo />} />
+          <Route path="projects/finance-dashboard" element={<FinanceDashboard />} />
           <Route path="weekly-media" element={<WeeklyMedia />} />
         </Route>
       </Routes>

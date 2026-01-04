@@ -1669,10 +1669,6 @@ export default function LinearRegressionDemo() {
                       wrapperStyle={{ paddingTop: 10 }}
                       formatter={(value) => <span style={{ color: '#475569', fontSize: 13, fontWeight: 500 }}>{value}</span>}
                       iconType="circle"
-                      payload={[
-                        { value: 'Data Points', type: 'circle', color: colors.primary },
-                        ...(result && lineData.length > 0 ? [{ value: 'Regression Line', type: 'line' as const, color: colors.danger }] : [])
-                      ]}
                     />
                     <Scatter
                       name="Data Points"

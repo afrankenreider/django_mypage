@@ -3,8 +3,12 @@ import Navbar from './Navbar'
 import Footer from './Footer'
 import NeuralNetwork from './NeuralNetwork'
 import ErrorBoundary from './ErrorBoundary'
+import { usePageTracking } from '../hooks/usePageTracking'
 
 export default function Layout() {
+  // Track page views for Google Analytics on route changes
+  usePageTracking();
+
   return (
     <div className="min-h-screen flex flex-col bg-white dark:bg-slate-950 relative">
       {/* Neural Network Animation - Global Background */}
