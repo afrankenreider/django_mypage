@@ -50,14 +50,6 @@ export default function About() {
         >
           {/* Compact Header */}
           <div className="text-center mb-10">
-            <motion.span
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className="inline-block px-4 py-1.5 bg-slate-100 dark:bg-slate-800 rounded-full text-sm font-medium text-slate-600 dark:text-slate-400 mb-4"
-            >
-              Get to know me
-            </motion.span>
             <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 dark:text-white mb-4">
               About <span className="gradient-text">Me</span>
             </h1>
@@ -96,8 +88,8 @@ export default function About() {
                       className="relative pl-6"
                     >
                       <div className={`absolute left-0 top-1 w-3 h-3 rounded-full border-2 ${item.current
-                          ? 'bg-slate-900 dark:bg-white border-slate-200 dark:border-slate-700'
-                          : 'bg-slate-300 dark:bg-slate-600 border-slate-100 dark:border-slate-800'
+                        ? 'bg-slate-900 dark:bg-white border-slate-200 dark:border-slate-700'
+                        : 'bg-slate-300 dark:bg-slate-600 border-slate-100 dark:border-slate-800'
                         }`} />
                       <div>
                         <h3 className="text-sm font-semibold text-slate-900 dark:text-white leading-tight">{item.title}</h3>

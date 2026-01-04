@@ -66,14 +66,6 @@ export default function Projects() {
         >
           {/* Header */}
           <div className="text-center mb-20">
-            <motion.span
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className="inline-block px-4 py-2 bg-slate-100 dark:bg-slate-800 rounded-full text-sm font-medium text-slate-600 dark:text-slate-400 mb-6"
-            >
-              Interactive Tutorials
-            </motion.span>
             <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-bold text-slate-900 dark:text-white mb-6">
               <span className="gradient-text">Projects</span>
             </h1>
@@ -114,11 +106,11 @@ export default function Projects() {
 
                   {/* Content */}
                   <div className="p-8">
-                    <div className="flex items-start justify-between mb-4">
+                    <div className="flex items-start justify-between gap-3 mb-4">
                       <h3 className="text-xl font-semibold text-slate-900 dark:text-white">
                         {project.title}
                       </h3>
-                      <span className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full text-xs font-medium text-slate-600 dark:text-slate-400">
+                      <span className="shrink-0 px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full text-xs font-medium text-slate-600 dark:text-slate-400 whitespace-nowrap">
                         {project.technology}
                       </span>
                     </div>

@@ -83,11 +83,11 @@ const CustomTooltip = memo(({ active, payload }: any) => {
   if (active && payload && payload.length) {
     return (
       <div className="bg-slate-900/95 backdrop-blur-sm border border-slate-700 rounded-lg px-4 py-3 shadow-xl">
-        <p className="text-cyan-400 font-mono text-sm mb-1">Point Data</p>
+        <p className="text-slate-100 font-semibold text-sm mb-2">Point Data</p>
         {payload.map((entry: any, index: number) => (
           <p key={index} className="text-slate-200 text-sm">
             <span className="text-slate-400">{entry.name}: </span>
-            <span className="font-semibold font-mono">{typeof entry.value === 'number' ? entry.value.toFixed(2) : entry.value}</span>
+            <span className="font-semibold font-mono">{typeof entry.value === 'number' ? entry.value.toFixed(1) : entry.value}</span>
           </p>
         ))}
       </div>
@@ -773,37 +773,62 @@ const NotebookSection = memo(() => {
             <ResponsiveContainer width="100%" height="100%">
               <BarChart
                 data={[
-                  { feature: 's5', coefficient: 25.80, fill: colors.success },
-                  { feature: 'bmi', coefficient: 23.16, fill: colors.success },
-                  { feature: 'bp', coefficient: 14.31, fill: colors.success },
-                  { feature: 's4', coefficient: 7.52, fill: colors.success },
-                  { feature: 's6', coefficient: 4.89, fill: colors.success },
-                  { feature: 'age', coefficient: 2.34, fill: colors.success },
-                  { feature: 'sex', coefficient: -1.08, fill: colors.danger },
-                  { feature: 's2', coefficient: -1.93, fill: colors.danger },
-                  { feature: 's3', coefficient: -4.01, fill: colors.danger },
-                  { feature: 's1', coefficient: -12.41, fill: colors.danger },
+                  { feature: 's5', coefficient: 25.8, fill: colors.success },
+                  { feature: 'bmi', coefficient: 23.2, fill: colors.success },
+                  { feature: 'bp', coefficient: 14.3, fill: colors.success },
+                  { feature: 's4', coefficient: 7.5, fill: colors.success },
+                  { feature: 's6', coefficient: 4.9, fill: colors.success },
+                  { feature: 'age', coefficient: 2.3, fill: colors.success },
+                  { feature: 'sex', coefficient: -1.1, fill: colors.danger },
+                  { feature: 's2', coefficient: -1.9, fill: colors.danger },
+                  { feature: 's3', coefficient: -4.0, fill: colors.danger },
+                  { feature: 's1', coefficient: -12.4, fill: colors.danger },
                 ]}
                 layout="vertical"
-                margin={{ top: 10, right: 30, left: 50, bottom: 10 }}
+                margin={{ top: 20, right: 40, left: 60, bottom: 30 }}
               >
-                <CartesianGrid strokeDasharray="3 3" stroke={colors.gridDark} />
-                <XAxis type="number" tick={{ fill: colors.secondary, fontSize: 12 }} />
-                <YAxis dataKey="feature" type="category" tick={{ fill: colors.secondary, fontSize: 12 }} width={40} />
+                <CartesianGrid strokeDasharray="3 3" stroke={colors.gridDark} horizontal={true} vertical={false} />
+                <XAxis
+                  type="number"
+                  tick={{ fill: '#64748b', fontSize: 12, fontFamily: 'system-ui' }}
+                  tickLine={{ stroke: '#94a3b8' }}
+                  axisLine={{ stroke: '#94a3b8' }}
+                  tickFormatter={(value) => value.toFixed(1)}
+                  label={{
+                    value: 'Coefficient Value',
+                    position: 'bottom',
+                    offset: 15,
+                    fill: '#475569',
+                    fontSize: 13,
+                    fontWeight: 500,
+                  }}
+                />
+                <YAxis
+                  dataKey="feature"
+                  type="category"
+                  tick={{ fill: '#475569', fontSize: 12, fontWeight: 500, fontFamily: 'system-ui' }}
+                  tickLine={false}
+                  axisLine={{ stroke: '#94a3b8' }}
+                  width={50}
+                />
                 <Tooltip content={<CustomTooltip />} />
+                <Legend
+                  wrapperStyle={{ paddingTop: 10 }}
+                  formatter={(value) => <span style={{ color: '#475569', fontSize: 13, fontWeight: 500 }}>{value}</span>}
+                />
                 <ReferenceLine x={0} stroke={colors.primary} strokeWidth={2} />
                 <Bar dataKey="coefficient" name="Coefficient" radius={[0, 4, 4, 0]}>
                   {[
-                    { feature: 's5', coefficient: 25.80 },
-                    { feature: 'bmi', coefficient: 23.16 },
-                    { feature: 'bp', coefficient: 14.31 },
-                    { feature: 's4', coefficient: 7.52 },
-                    { feature: 's6', coefficient: 4.89 },
-                    { feature: 'age', coefficient: 2.34 },
-                    { feature: 'sex', coefficient: -1.08 },
-                    { feature: 's2', coefficient: -1.93 },
-                    { feature: 's3', coefficient: -4.01 },
-                    { feature: 's1', coefficient: -12.41 },
+                    { feature: 's5', coefficient: 25.8 },
+                    { feature: 'bmi', coefficient: 23.2 },
+                    { feature: 'bp', coefficient: 14.3 },
+                    { feature: 's4', coefficient: 7.5 },
+                    { feature: 's6', coefficient: 4.9 },
+                    { feature: 'age', coefficient: 2.3 },
+                    { feature: 'sex', coefficient: -1.1 },
+                    { feature: 's2', coefficient: -1.9 },
+                    { feature: 's3', coefficient: -4.0 },
+                    { feature: 's1', coefficient: -12.4 },
                   ].map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={entry.coefficient >= 0 ? colors.success : colors.danger} />
                   ))}
@@ -845,24 +870,50 @@ const NotebookSection = memo(() => {
                   { actual: 52, predicted: 98, residual: -46 },
                   { actual: 281, predicted: 225, residual: 56 },
                 ]}
-                margin={{ top: 20, right: 30, left: 20, bottom: 20 }}
+                margin={{ top: 20, right: 40, left: 70, bottom: 60 }}
               >
                 <CartesianGrid strokeDasharray="3 3" stroke={colors.gridDark} />
                 <XAxis
                   dataKey="actual"
                   type="number"
                   domain={[0, 350]}
-                  tick={{ fill: colors.secondary, fontSize: 12 }}
-                  label={{ value: 'Actual Disease Progression', position: 'bottom', fill: colors.secondary, fontSize: 12 }}
+                  tick={{ fill: '#64748b', fontSize: 12, fontFamily: 'system-ui' }}
+                  tickLine={{ stroke: '#94a3b8' }}
+                  axisLine={{ stroke: '#94a3b8' }}
+                  tickFormatter={(value) => value.toFixed(0)}
+                  label={{
+                    value: 'Actual Disease Progression',
+                    position: 'bottom',
+                    offset: 40,
+                    fill: '#475569',
+                    fontSize: 13,
+                    fontWeight: 500,
+                  }}
                 />
                 <YAxis
                   dataKey="predicted"
                   type="number"
                   domain={[0, 350]}
-                  tick={{ fill: colors.secondary, fontSize: 12 }}
-                  label={{ value: 'Predicted', angle: -90, position: 'insideLeft', fill: colors.secondary, fontSize: 12 }}
+                  tick={{ fill: '#64748b', fontSize: 12, fontFamily: 'system-ui' }}
+                  tickLine={{ stroke: '#94a3b8' }}
+                  axisLine={{ stroke: '#94a3b8' }}
+                  tickFormatter={(value) => value.toFixed(0)}
+                  label={{
+                    value: 'Predicted Progression',
+                    angle: -90,
+                    position: 'insideLeft',
+                    offset: -10,
+                    fill: '#475569',
+                    fontSize: 13,
+                    fontWeight: 500,
+                    style: { textAnchor: 'middle' }
+                  }}
                 />
                 <Tooltip content={<CustomTooltip />} />
+                <Legend
+                  wrapperStyle={{ paddingTop: 10 }}
+                  formatter={(value) => <span style={{ color: '#475569', fontSize: 13, fontWeight: 500 }}>{value}</span>}
+                />
                 <Line
                   type="linear"
                   dataKey="actual"
@@ -890,7 +941,7 @@ const NotebookSection = memo(() => {
             Distribution of prediction errors (residuals = actual - predicted).
             A good model should have residuals centered around zero with a normal distribution.
           </p>
-          <div className="h-64">
+          <div className="h-72">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart
                 data={[
@@ -903,18 +954,46 @@ const NotebookSection = memo(() => {
                   { range: '40 to 60', count: 6 },
                   { range: '60 to 80', count: 3 },
                 ]}
-                margin={{ top: 10, right: 30, left: 20, bottom: 40 }}
+                margin={{ top: 20, right: 40, left: 70, bottom: 60 }}
               >
-                <CartesianGrid strokeDasharray="3 3" stroke={colors.gridDark} />
+                <CartesianGrid strokeDasharray="3 3" stroke={colors.gridDark} vertical={false} />
                 <XAxis
                   dataKey="range"
-                  tick={{ fill: colors.secondary, fontSize: 10 }}
-                  angle={-45}
+                  tick={{ fill: '#64748b', fontSize: 11, fontFamily: 'system-ui' }}
+                  tickLine={{ stroke: '#94a3b8' }}
+                  axisLine={{ stroke: '#94a3b8' }}
+                  angle={-35}
                   textAnchor="end"
-                  height={60}
+                  height={70}
+                  label={{
+                    value: 'Residual Range',
+                    position: 'bottom',
+                    offset: 45,
+                    fill: '#475569',
+                    fontSize: 13,
+                    fontWeight: 500,
+                  }}
                 />
-                <YAxis tick={{ fill: colors.secondary, fontSize: 12 }} />
+                <YAxis
+                  tick={{ fill: '#64748b', fontSize: 12, fontFamily: 'system-ui' }}
+                  tickLine={{ stroke: '#94a3b8' }}
+                  axisLine={{ stroke: '#94a3b8' }}
+                  label={{
+                    value: 'Frequency',
+                    angle: -90,
+                    position: 'insideLeft',
+                    offset: -10,
+                    fill: '#475569',
+                    fontSize: 13,
+                    fontWeight: 500,
+                    style: { textAnchor: 'middle' }
+                  }}
+                />
                 <Tooltip content={<CustomTooltip />} />
+                <Legend
+                  wrapperStyle={{ paddingTop: 10 }}
+                  formatter={(value) => <span style={{ color: '#475569', fontSize: 13, fontWeight: 500 }}>{value}</span>}
+                />
                 <ReferenceLine x="0 to 20" stroke={colors.success} strokeWidth={2} strokeDasharray="4 4" />
                 <Bar dataKey="count" name="Frequency" fill={colors.primary} radius={[4, 4, 0, 0]} />
               </BarChart>
@@ -1249,24 +1328,26 @@ export default function LinearRegressionDemo() {
                       dataKey="x"
                       type="number"
                       domain={['dataMin - 100', 'dataMax + 100']}
-                      tick={{ fill: '#64748b', fontSize: 12, fontFamily: 'monospace' }}
+                      tick={{ fill: '#64748b', fontSize: 12, fontFamily: 'system-ui' }}
                       tickLine={{ stroke: '#94a3b8' }}
                       axisLine={{ stroke: '#94a3b8' }}
+                      tickFormatter={(value) => Number(value).toFixed(0)}
                       label={{
                         value: currentDataset.x_label,
                         position: 'bottom',
                         offset: 40,
                         fill: '#475569',
                         fontSize: 13,
-                        fontWeight: 500,
+                        fontWeight: 600,
                       }}
                     />
                     <YAxis
                       type="number"
                       domain={['dataMin - 20', 'dataMax + 20']}
-                      tick={{ fill: '#64748b', fontSize: 12, fontFamily: 'monospace' }}
+                      tick={{ fill: '#64748b', fontSize: 12, fontFamily: 'system-ui' }}
                       tickLine={{ stroke: '#94a3b8' }}
                       axisLine={{ stroke: '#94a3b8' }}
+                      tickFormatter={(value) => Number(value).toFixed(0)}
                       label={{
                         value: currentDataset.y_label,
                         angle: -90,
@@ -1274,12 +1355,15 @@ export default function LinearRegressionDemo() {
                         offset: -10,
                         fill: '#475569',
                         fontSize: 13,
-                        fontWeight: 500,
+                        fontWeight: 600,
                         style: { textAnchor: 'middle' }
                       }}
                     />
                     <Tooltip content={<CustomTooltip />} />
-                    <Legend content={<CustomLegend />} />
+                    <Legend
+                      wrapperStyle={{ paddingTop: 10 }}
+                      formatter={(value) => <span style={{ color: '#475569', fontSize: 13, fontWeight: 500 }}>{value}</span>}
+                    />
                     <Scatter
                       name="Data Points"
                       dataKey="y"
@@ -1549,24 +1633,26 @@ export default function LinearRegressionDemo() {
                       dataKey="x"
                       type="number"
                       domain={isCustomMode ? [customBounds.xMin, customBounds.xMax] : ['dataMin - 100', 'dataMax + 100']}
-                      tick={{ fill: '#64748b', fontSize: 12, fontFamily: 'monospace' }}
+                      tick={{ fill: '#64748b', fontSize: 12, fontFamily: 'system-ui' }}
                       tickLine={{ stroke: '#94a3b8' }}
                       axisLine={{ stroke: '#94a3b8' }}
+                      tickFormatter={(value) => Number(value).toFixed(1)}
                       label={{
                         value: isCustomMode ? 'X Value' : currentDataset.x_label,
                         position: 'bottom',
                         offset: 40,
                         fill: '#475569',
                         fontSize: 13,
-                        fontWeight: 500,
+                        fontWeight: 600,
                       }}
                     />
                     <YAxis
                       type="number"
                       domain={isCustomMode ? [customBounds.yMin, customBounds.yMax] : ['dataMin - 20', 'dataMax + 20']}
-                      tick={{ fill: '#64748b', fontSize: 12, fontFamily: 'monospace' }}
+                      tick={{ fill: '#64748b', fontSize: 12, fontFamily: 'system-ui' }}
                       tickLine={{ stroke: '#94a3b8' }}
                       axisLine={{ stroke: '#94a3b8' }}
+                      tickFormatter={(value) => Number(value).toFixed(1)}
                       label={{
                         value: isCustomMode ? 'Y Value' : currentDataset.y_label,
                         angle: -90,
@@ -1574,12 +1660,20 @@ export default function LinearRegressionDemo() {
                         offset: -10,
                         fill: '#475569',
                         fontSize: 13,
-                        fontWeight: 500,
+                        fontWeight: 600,
                         style: { textAnchor: 'middle' }
                       }}
                     />
                     <Tooltip content={<CustomTooltip />} />
-                    <Legend content={<CustomLegend />} />
+                    <Legend
+                      wrapperStyle={{ paddingTop: 10 }}
+                      formatter={(value) => <span style={{ color: '#475569', fontSize: 13, fontWeight: 500 }}>{value}</span>}
+                      iconType="circle"
+                      payload={[
+                        { value: 'Data Points', type: 'circle', color: colors.primary },
+                        ...(result && lineData.length > 0 ? [{ value: 'Regression Line', type: 'line' as const, color: colors.danger }] : [])
+                      ]}
+                    />
                     <Scatter
                       name="Data Points"
                       dataKey="y"
@@ -1673,7 +1767,7 @@ export default function LinearRegressionDemo() {
                       <CartesianGrid strokeDasharray="3 3" stroke="rgba(148, 163, 184, 0.2)" vertical={false} />
                       <XAxis
                         dataKey="index"
-                        tick={{ fill: '#64748b', fontSize: 12, fontFamily: 'monospace' }}
+                        tick={{ fill: '#64748b', fontSize: 12, fontFamily: 'system-ui' }}
                         tickLine={{ stroke: '#94a3b8' }}
                         axisLine={{ stroke: '#94a3b8' }}
                         label={{
@@ -1682,13 +1776,14 @@ export default function LinearRegressionDemo() {
                           offset: 40,
                           fill: '#475569',
                           fontSize: 13,
-                          fontWeight: 500,
+                          fontWeight: 600,
                         }}
                       />
                       <YAxis
-                        tick={{ fill: '#64748b', fontSize: 12, fontFamily: 'monospace' }}
+                        tick={{ fill: '#64748b', fontSize: 12, fontFamily: 'system-ui' }}
                         tickLine={{ stroke: '#94a3b8' }}
                         axisLine={{ stroke: '#94a3b8' }}
+                        tickFormatter={(value) => Number(value).toFixed(1)}
                         label={{
                           value: 'Residual Value',
                           angle: -90,
@@ -1696,14 +1791,19 @@ export default function LinearRegressionDemo() {
                           offset: -10,
                           fill: '#475569',
                           fontSize: 13,
-                          fontWeight: 500,
+                          fontWeight: 600,
                           style: { textAnchor: 'middle' }
                         }}
                       />
                       <Tooltip content={<CustomTooltip />} />
+                      <Legend
+                        wrapperStyle={{ paddingTop: 10 }}
+                        formatter={(value) => <span style={{ color: '#475569', fontSize: 13, fontWeight: 500 }}>{value}</span>}
+                      />
                       <ReferenceLine y={0} stroke="#64748b" strokeWidth={2} strokeDasharray="4 4" />
                       <Bar
                         dataKey="residual"
+                        name="Residual"
                         radius={[4, 4, 4, 4]}
                         maxBarSize={40}
                       >
