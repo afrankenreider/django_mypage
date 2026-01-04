@@ -83,14 +83,6 @@ export default function Skills() {
         >
           {/* Header */}
           <div className="text-center mb-20">
-            <motion.span
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className="inline-block px-4 py-2 bg-slate-100 dark:bg-slate-800 rounded-full text-sm font-medium text-slate-600 dark:text-slate-400 mb-6"
-            >
-              Technical Expertise
-            </motion.span>
             <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-bold text-slate-900 dark:text-white mb-6">
               Skills & <span className="gradient-text">Tools</span>
             </h1>
