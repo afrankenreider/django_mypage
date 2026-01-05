@@ -24,6 +24,10 @@ dependencies = [
     "tablib>=3.7",
     "whitenoise>=6.8",
     "yfinance>=0.2",
+    "statsmodels>=0.14",
+    "xgboost>=2.0",
+    "catboost>=1.2",
+    "lightgbm>=4.0",
 ]
 
 [project.optional-dependencies]

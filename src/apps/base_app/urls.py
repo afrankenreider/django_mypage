@@ -35,6 +35,10 @@ from src.apps.projects.api.stock_data import (
     get_stock_quote,
     search_symbols,
 )
+from src.apps.projects.api.stock_predictions import (
+    get_available_models,
+    predict_stock_price,
+)
 from src.apps.projects.api.views import ProjectsViewSet
 
 # API Router
@@ -83,6 +87,16 @@ urlpatterns = [
         "api/stocks/search/",
         search_symbols,
         name="stock-search",
+    ),
+    path(
+        "api/stocks/predict/",
+        predict_stock_price,
+        name="stock-predict",
+    ),
+    path(
+        "api/stocks/models/",
+        get_available_models,
+        name="stock-models",
     ),
     path(
         "api/weekly-media/",
