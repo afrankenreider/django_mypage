@@ -164,8 +164,69 @@ Notebooks are located in `src/notebooks/`.
 
 ### Running Tests
 
+The project uses Django's test framework with `unittest` style tests. Tests are organized by app within each app's `tests.py` file.
+
+#### Test Structure
+
+```
+src/apps/
+├── projects/
+│   └── tests.py          # Projects app tests (model & API)
+└── weekly_media/
+    └── tests.py          # Weekly media app tests (model & API)
+```
+
+#### Running Tests with uv
+
 ```bash
-uv run pytest
+# Run all tests
+uv run python manage.py test
+
+# Run tests with verbose output
+uv run python manage.py test --verbosity=2
+
+# Run tests for a specific app
+uv run python manage.py test src.apps.projects
+uv run python manage.py test src.apps.weekly_media
+
+# Run a specific test class
+uv run python manage.py test src.apps.projects.tests.ProjectsAPITests
+
+# Run a specific test method
+uv run python manage.py test src.apps.projects.tests.ProjectsAPITests.test_list_projects
+```
+
+#### Running Tests with Docker
+
+```bash
+# Run tests in the Docker container
+cd docker
+docker-compose exec web python manage.py test
+
+# Run tests with verbose output
+docker-compose exec web python manage.py test --verbosity=2
+
+# Run tests for a specific app
+docker-compose exec web python manage.py test src.apps.projects
+```
+
+#### Test Coverage
+
+To run tests with coverage reporting:
+
+```bash
+# Install coverage (if not already installed)
+uv add --dev coverage
+
+# Run tests with coverage
+uv run coverage run manage.py test
+
+# View coverage report in terminal
+uv run coverage report
+
+# Generate HTML coverage report
+uv run coverage html
+# Open htmlcov/index.html in your browser
 ```
 
 ### Adding Dependencies
@@ -180,10 +241,10 @@ uv add --dev <package-name>
 
 ## API Endpoints
 
-| Endpoint | Method | Description |
-|----------|--------|-------------|
-| `/api/projects/` | GET | List all projects |
-| `/api/projects/{id}/` | GET | Get a specific project |
+| Endpoint              | Method | Description            |
+| --------------------- | ------ | ---------------------- |
+| `/api/projects/`      | GET    | List all projects      |
+| `/api/projects/{id}/` | GET    | Get a specific project |
 
 ## Deployment (Heroku)
 
