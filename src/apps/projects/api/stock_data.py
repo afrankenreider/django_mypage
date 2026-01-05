@@ -215,6 +215,16 @@ def get_multiple_quotes(request: Request) -> JsonResponse:
                 "marketCap": info.get("marketCap", 0),
                 "dayHigh": info.get("regularMarketDayHigh", 0),
                 "dayLow": info.get("regularMarketDayLow", 0),
+                "previousClose": previous_close,
+                "open": info.get("regularMarketOpen", 0),
+                "52WeekHigh": info.get("fiftyTwoWeekHigh", 0),
+                "52WeekLow": info.get("fiftyTwoWeekLow", 0),
+                "peRatio": info.get("trailingPE"),
+                "eps": info.get("trailingEps"),
+                "dividend": info.get("dividendRate"),
+                "dividendYield": info.get("dividendYield"),
+                "sector": info.get("sector", ""),
+                "industry": info.get("industry", ""),
             }
 
         except Exception as e:
