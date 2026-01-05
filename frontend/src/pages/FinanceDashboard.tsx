@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, memo } from 'react'
+import { useState, useEffect, useCallback, useMemo, memo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import {
@@ -122,8 +122,8 @@ const StockCard = memo(({
             whileHover={{ scale: 1.02 }}
             onClick={onClick}
             className={`relative p-4 rounded-xl cursor-pointer transition-all duration-200 ${isSelected
-                    ? 'bg-slate-800 border-2 border-slate-600'
-                    : 'bg-slate-900/50 border border-slate-800 hover:border-slate-700'
+                ? 'bg-slate-800 border-2 border-slate-600'
+                : 'bg-slate-900/50 border border-slate-800 hover:border-slate-700'
                 }`}
         >
             {/* Remove button */}
@@ -341,12 +341,26 @@ export default function FinanceDashboard() {
     // Get selected stock details
     const selectedQuote = quotes[selectedStock]
 
-    // Calculate chart color based on performance
-    const chartColor =
-        historicalData.length > 1 &&
-            historicalData[historicalData.length - 1].price >= historicalData[0].price
-            ? '#10b981'
-            : '#ef4444'
+    // Calculate period-based performance from historical data
+    const periodPerformance = useMemo(() => {
+        if (historicalData.length < 2) {
+            return { change: 0, changePercent: 0, isPositive: true }
+        }
+        const startPrice = historicalData[0].price
+        const endPrice = historicalData[historicalData.length - 1].price
+        const change = endPrice - startPrice
+        const changePercent = (change / startPrice) * 100
+        return {
+            change,
+            changePercent,
+            isPositive: change >= 0
+        }
+    }, [historicalData])
+
+    // Chart color based on period performance
+    const chartColor = periodPerformance.isPositive
+        ? '#10b981'  // Emerald 500 - positive
+        : '#ef4444'  // Red 500 - negative
 
     return (
         <section className="min-h-screen pt-24 pb-16 bg-slate-950">
@@ -554,13 +568,13 @@ export default function FinanceDashboard() {
                                                     {selectedQuote.symbol}
                                                 </h2>
                                                 <span
-                                                    className={`px-2 py-1 rounded text-xs font-medium ${selectedQuote.change >= 0
-                                                            ? 'bg-emerald-900/50 text-emerald-400'
-                                                            : 'bg-red-900/50 text-red-400'
+                                                    className={`px-2 py-1 rounded text-xs font-medium ${periodPerformance.isPositive
+                                                        ? 'bg-emerald-900/50 text-emerald-400'
+                                                        : 'bg-red-900/50 text-red-400'
                                                         }`}
                                                 >
-                                                    {selectedQuote.change >= 0 ? '+' : ''}
-                                                    {selectedQuote.changePercent?.toFixed(2)}%
+                                                    {periodPerformance.isPositive ? '+' : ''}
+                                                    {periodPerformance.changePercent?.toFixed(2)}%
                                                 </span>
                                             </div>
                                             <p className="text-slate-400">{selectedQuote.name}</p>
@@ -570,13 +584,13 @@ export default function FinanceDashboard() {
                                                 ${selectedQuote.price?.toFixed(2)}
                                             </p>
                                             <p
-                                                className={`text-sm ${selectedQuote.change >= 0
-                                                        ? 'text-emerald-400'
-                                                        : 'text-red-400'
+                                                className={`text-sm ${periodPerformance.isPositive
+                                                    ? 'text-emerald-400'
+                                                    : 'text-red-400'
                                                     }`}
                                             >
-                                                {selectedQuote.change >= 0 ? '+' : ''}$
-                                                {selectedQuote.change?.toFixed(2)} today
+                                                {periodPerformance.isPositive ? '+' : ''}$
+                                                {periodPerformance.change?.toFixed(2)} ({selectedPeriod.label})
                                             </p>
                                         </div>
                                     </div>
@@ -588,8 +602,8 @@ export default function FinanceDashboard() {
                                                 key={period.value}
                                                 onClick={() => setSelectedPeriod(period)}
                                                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors whitespace-nowrap ${selectedPeriod.value === period.value
-                                                        ? 'bg-slate-700 text-white'
-                                                        : 'bg-slate-800/50 text-slate-400 hover:text-white hover:bg-slate-800'
+                                                    ? 'bg-slate-700 text-white'
+                                                    : 'bg-slate-800/50 text-slate-400 hover:text-white hover:bg-slate-800'
                                                     }`}
                                             >
                                                 {period.label}
@@ -609,40 +623,20 @@ export default function FinanceDashboard() {
                                                     data={historicalData}
                                                     margin={{ top: 10, right: 10, left: 0, bottom: 0 }}
                                                 >
-                                                    <defs>
-                                                        <linearGradient
-                                                            id="colorPrice"
-                                                            x1="0"
-                                                            y1="0"
-                                                            x2="0"
-                                                            y2="1"
-                                                        >
-                                                            <stop
-                                                                offset="5%"
-                                                                stopColor={chartColor}
-                                                                stopOpacity={0.3}
-                                                            />
-                                                            <stop
-                                                                offset="95%"
-                                                                stopColor={chartColor}
-                                                                stopOpacity={0}
-                                                            />
-                                                        </linearGradient>
-                                                    </defs>
                                                     <CartesianGrid
                                                         strokeDasharray="3 3"
                                                         stroke="#334155"
-                                                        opacity={0.5}
+                                                        opacity={0.4}
                                                     />
                                                     <XAxis
                                                         dataKey="date"
-                                                        stroke="#64748b"
-                                                        tick={{ fill: '#94a3b8', fontSize: 12 }}
+                                                        stroke="#475569"
+                                                        tick={{ fill: '#64748b', fontSize: 12 }}
                                                         tickLine={{ stroke: '#475569' }}
                                                     />
                                                     <YAxis
-                                                        stroke="#64748b"
-                                                        tick={{ fill: '#94a3b8', fontSize: 12 }}
+                                                        stroke="#475569"
+                                                        tick={{ fill: '#64748b', fontSize: 12 }}
                                                         tickLine={{ stroke: '#475569' }}
                                                         domain={['auto', 'auto']}
                                                         tickFormatter={(value) => `$${value.toFixed(0)}`}
@@ -653,7 +647,8 @@ export default function FinanceDashboard() {
                                                         dataKey="price"
                                                         stroke={chartColor}
                                                         strokeWidth={2}
-                                                        fill="url(#colorPrice)"
+                                                        fill={chartColor}
+                                                        fillOpacity={0.1}
                                                     />
                                                 </AreaChart>
                                             </ResponsiveContainer>

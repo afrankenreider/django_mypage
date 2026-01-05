@@ -37,27 +37,27 @@ import PeopleIcon from '@mui/icons-material/People'
 import StorefrontIcon from '@mui/icons-material/Storefront'
 import PlaceIcon from '@mui/icons-material/Place'
 
-// Color palette for clusters
+// Stormy morning / tech color palette for clusters
 const clusterColors = [
-    '#3b82f6', // Blue
-    '#10b981', // Green
-    '#f59e0b', // Amber
-    '#ef4444', // Red
-    '#8b5cf6', // Purple
-    '#ec4899', // Pink
-    '#06b6d4', // Cyan
-    '#f97316', // Orange
+    '#0891b2', // Cyan 600
+    '#0d9488', // Teal 600
+    '#475569', // Slate 600
+    '#64748b', // Slate 500
+    '#334155', // Slate 700
+    '#0e7490', // Cyan 700
+    '#115e59', // Teal 800
+    '#1e293b', // Slate 800
 ]
 
 const centroidColors = [
-    '#1e40af', // Darker blue
-    '#047857', // Darker green
-    '#d97706', // Darker amber
-    '#b91c1c', // Darker red
-    '#6d28d9', // Darker purple
-    '#be185d', // Darker pink
-    '#0e7490', // Darker cyan
-    '#c2410c', // Darker orange
+    '#0e7490', // Cyan 700
+    '#0f766e', // Teal 700
+    '#334155', // Slate 700
+    '#475569', // Slate 600
+    '#1e293b', // Slate 800
+    '#155e75', // Cyan 800
+    '#134e4a', // Teal 900
+    '#0f172a', // Slate 900
 ]
 
 interface Point {
@@ -859,22 +859,16 @@ export default function KMeansDemo() {
                             )}
 
                             <div
-                                className={`h-[500px] bg-gradient-to-br from-slate-50 via-slate-100 to-slate-50 dark:from-slate-800/80 dark:via-slate-900/60 dark:to-slate-800/80 rounded-2xl p-4 border border-slate-200/50 dark:border-slate-700/50 shadow-inner ${isCustomMode ? 'cursor-crosshair' : ''
+                                className={`h-[500px] bg-slate-100 dark:bg-slate-800/60 rounded-2xl p-4 border border-slate-200 dark:border-slate-700/50 ${isCustomMode ? 'cursor-crosshair' : ''
                                     }`}
                                 onClick={handleChartClick}
                                 ref={chartRef}
                             >
                                 <ResponsiveContainer width="100%" height="100%">
                                     <ScatterChart margin={{ top: 30, right: 40, bottom: 60, left: 80 }}>
-                                        <defs>
-                                            <linearGradient id="gridGradient" x1="0" y1="0" x2="0" y2="1">
-                                                <stop offset="0%" stopColor="#94a3b8" stopOpacity={0.1} />
-                                                <stop offset="100%" stopColor="#94a3b8" stopOpacity={0.05} />
-                                            </linearGradient>
-                                        </defs>
                                         <CartesianGrid
                                             strokeDasharray="3 3"
-                                            stroke="rgba(148, 163, 184, 0.15)"
+                                            stroke="rgba(100, 116, 139, 0.15)"
                                             strokeWidth={1}
                                         />
                                         <XAxis

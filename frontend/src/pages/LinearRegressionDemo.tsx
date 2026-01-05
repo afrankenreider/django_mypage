@@ -40,16 +40,18 @@ import CheckIcon from '@mui/icons-material/Check'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import ExpandLessIcon from '@mui/icons-material/ExpandLess'
 
-// Modern color palette - monochromatic with accent colors for data viz
+// Stormy morning / tech color palette
 const colors = {
-  primary: '#475569', // Slate 600
-  secondary: '#64748b', // Slate 500
-  accent: '#1e293b', // Slate 800
-  success: '#10b981', // Emerald (keep for positive indicators)
-  warning: '#f59e0b', // Amber (keep for warnings)
-  danger: '#ef4444', // Red (keep for negative indicators)
-  gridLight: 'rgba(148, 163, 184, 0.1)',
-  gridDark: 'rgba(71, 85, 105, 0.3)',
+  primary: '#334155',       // Slate 700 - main data points
+  secondary: '#475569',     // Slate 600 - secondary elements
+  accent: '#0f172a',        // Slate 900 - deep accent
+  muted: '#64748b',         // Slate 500 - muted elements
+  success: '#0d9488',       // Teal 600 - positive indicators
+  warning: '#d97706',       // Amber 600 - warnings
+  danger: '#dc2626',        // Red 600 - negative/residuals
+  line: '#0891b2',          // Cyan 600 - trend line
+  gridLight: 'rgba(100, 116, 139, 0.08)',
+  gridDark: 'rgba(71, 85, 105, 0.25)',
 }
 
 interface RegressionResult {
@@ -1303,16 +1305,12 @@ export default function LinearRegressionDemo() {
               <p className="text-slate-600 dark:text-slate-400 mb-6">
                 The relationship between square footage and house prices. Data points show actual observations; the trend line shows the predicted relationship.
               </p>
-              <div className="h-80 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800/50 dark:to-slate-900/50 rounded-xl p-4">
+              <div className="h-80 bg-slate-100 dark:bg-slate-800/60 rounded-xl p-4 border border-slate-200 dark:border-slate-700/50">
                 <ResponsiveContainer width="100%" height="100%">
                   <ComposedChart data={chartData} margin={{ top: 20, right: 40, bottom: 60, left: 70 }}>
                     <defs>
-                      <linearGradient id="lineGradient" x1="0" y1="0" x2="1" y2="0">
-                        <stop offset="0%" stopColor={colors.danger} />
-                        <stop offset="100%" stopColor={colors.warning} />
-                      </linearGradient>
                       <filter id="glow">
-                        <feGaussianBlur stdDeviation="3" result="coloredBlur" />
+                        <feGaussianBlur stdDeviation="2" result="coloredBlur" />
                         <feMerge>
                           <feMergeNode in="coloredBlur" />
                           <feMergeNode in="SourceGraphic" />
@@ -1321,7 +1319,7 @@ export default function LinearRegressionDemo() {
                     </defs>
                     <CartesianGrid
                       strokeDasharray="3 3"
-                      stroke="rgba(148, 163, 184, 0.2)"
+                      stroke="rgba(100, 116, 139, 0.15)"
                       vertical={false}
                     />
                     <XAxis
@@ -1376,8 +1374,8 @@ export default function LinearRegressionDemo() {
                       data={lineData}
                       type="monotone"
                       dataKey="y"
-                      stroke="url(#lineGradient)"
-                      strokeWidth={3}
+                      stroke={colors.line}
+                      strokeWidth={2.5}
                       dot={false}
                       name="Trend Line"
                       filter="url(#glow)"
@@ -1387,13 +1385,13 @@ export default function LinearRegressionDemo() {
               </div>
               {result && (
                 <div className="mt-6 flex flex-wrap gap-4 justify-center">
-                  <div className="bg-gradient-to-r from-indigo-500/10 to-purple-500/10 dark:from-indigo-500/20 dark:to-purple-500/20 rounded-xl px-5 py-3 border border-indigo-200 dark:border-indigo-800">
+                  <div className="bg-slate-100 dark:bg-slate-800/60 rounded-xl px-5 py-3 border border-slate-200 dark:border-slate-700">
                     <span className="text-slate-500 dark:text-slate-400 text-sm">Equation: </span>
-                    <span className="text-indigo-600 dark:text-indigo-400 font-mono font-bold">{result.equation}</span>
+                    <span className="text-cyan-700 dark:text-cyan-400 font-mono font-bold">{result.equation}</span>
                   </div>
-                  <div className="bg-gradient-to-r from-emerald-500/10 to-teal-500/10 dark:from-emerald-500/20 dark:to-teal-500/20 rounded-xl px-5 py-3 border border-emerald-200 dark:border-emerald-800">
+                  <div className="bg-slate-100 dark:bg-slate-800/60 rounded-xl px-5 py-3 border border-slate-200 dark:border-slate-700">
                     <span className="text-slate-500 dark:text-slate-400 text-sm">R² Score: </span>
-                    <span className="text-emerald-600 dark:text-emerald-400 font-mono font-bold">{result.r_squared}</span>
+                    <span className="text-teal-700 dark:text-teal-400 font-mono font-bold">{result.r_squared}</span>
                   </div>
                 </div>
               )}

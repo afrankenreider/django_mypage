@@ -25,20 +25,21 @@ import HealthAndSafetyIcon from '@mui/icons-material/HealthAndSafety'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 import CancelIcon from '@mui/icons-material/Cancel'
 
-// Modern color palette - monochromatic with accent colors for data viz
+// Stormy morning / tech color palette
 const colors = {
-    primary: '#475569',
-    secondary: '#64748b',
-    accent: '#1e293b',
-    success: '#10b981',
-    warning: '#f59e0b',
-    danger: '#ef4444',
-    neuron: '#6366f1',
-    connection: '#94a3b8',
-    activeNeuron: '#22c55e',
-    inputNeuron: '#3b82f6',
-    hiddenNeuron: '#8b5cf6',
-    outputNeuron: '#f59e0b',
+    primary: '#334155',       // Slate 700 - main elements
+    secondary: '#475569',     // Slate 600 - secondary elements
+    accent: '#0f172a',        // Slate 900 - deep accent
+    muted: '#64748b',         // Slate 500 - muted text
+    success: '#0d9488',       // Teal 600 - positive (muted)
+    warning: '#d97706',       // Amber 600 - warning (muted)
+    danger: '#dc2626',        // Red 600 - negative
+    neuron: '#475569',        // Slate 600 - default neuron
+    connection: '#64748b',    // Slate 500 - connections
+    activeNeuron: '#0d9488',  // Teal 600 - active state
+    inputNeuron: '#0891b2',   // Cyan 600 - input layer
+    hiddenNeuron: '#475569',  // Slate 600 - hidden layers
+    outputNeuron: '#0d9488',  // Teal 600 - output layer
 }
 
 // Types
@@ -248,7 +249,7 @@ const NetworkVisualization = memo(({
     }
 
     return (
-        <svg width={width} height={height} className="bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800/50 dark:to-slate-900/50 rounded-xl">
+        <svg width={width} height={height} className="bg-slate-100 dark:bg-slate-800/60 rounded-xl border border-slate-200 dark:border-slate-700/50">
             <defs>
                 <filter id="neuronGlow" x="-50%" y="-50%" width="200%" height="200%">
                     <feGaussianBlur stdDeviation="3" result="coloredBlur" />

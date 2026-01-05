@@ -32,7 +32,7 @@ export default function Navbar() {
   // Close mobile menu when route changes
   useEffect(() => {
     setIsOpen(false)
-  }, [location.pathname])
+  }, [location])
 
   return (
     <motion.nav
