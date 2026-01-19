@@ -273,7 +273,3 @@ The project is configured for Heroku deployment:
 - 🛠️ **Skills** - Technical skills and tools showcase
 - 💼 **Projects** - Portfolio of work with filtering
 - 📊 **Notebooks** - Data science experiments and ML projects
-
-## License
-
-MIT License

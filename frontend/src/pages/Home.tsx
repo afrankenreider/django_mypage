@@ -9,6 +9,16 @@ import PsychologyIcon from '@mui/icons-material/Psychology'
 import CodeIcon from '@mui/icons-material/Code'
 import StorageIcon from '@mui/icons-material/Storage'
 
+// Check for reduced motion preference
+const prefersReducedMotion = typeof window !== 'undefined'
+  ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  : false
+
+// Simplified animations for mobile/reduced motion
+const fadeInUp = prefersReducedMotion
+  ? {}
+  : { initial: { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0 } }
+
 export default function Home() {
   return (
     <>
@@ -17,30 +27,30 @@ export default function Home() {
         {/* Gradient mesh background */}
         <div className="absolute inset-0 gradient-mesh" />
 
-        {/* Animated gradient orbs - monochromatic */}
+        {/* Animated gradient orbs - monochromatic (hidden on mobile for performance) */}
         <motion.div
-          animate={{
+          animate={prefersReducedMotion ? {} : {
             scale: [1, 1.2, 1],
             opacity: [0.15, 0.25, 0.15],
           }}
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-1/4 -left-32 w-96 h-96 bg-gradient-to-r from-slate-400/20 to-slate-500/20 rounded-full blur-3xl"
+          className="absolute top-1/4 -left-32 w-96 h-96 bg-gradient-to-r from-slate-400/20 to-slate-500/20 rounded-full blur-3xl hidden md:block"
         />
         <motion.div
-          animate={{
+          animate={prefersReducedMotion ? {} : {
             scale: [1.2, 1, 1.2],
             opacity: [0.15, 0.25, 0.15],
           }}
           transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute bottom-1/4 -right-32 w-96 h-96 bg-gradient-to-r from-slate-500/20 to-slate-600/20 rounded-full blur-3xl"
+          className="absolute bottom-1/4 -right-32 w-96 h-96 bg-gradient-to-r from-slate-500/20 to-slate-600/20 rounded-full blur-3xl hidden md:block"
         />
         <motion.div
-          animate={{
+          animate={prefersReducedMotion ? {} : {
             scale: [1, 1.3, 1],
             opacity: [0.1, 0.2, 0.1],
           }}
           transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-slate-300/15 to-slate-500/15 rounded-full blur-3xl"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-slate-300/15 to-slate-500/15 rounded-full blur-3xl hidden lg:block"
         />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 pt-20">

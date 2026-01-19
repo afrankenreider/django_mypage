@@ -116,27 +116,27 @@ export default function Navbar() {
       </div>
 
       {/* Mobile Navigation */}
-      <AnimatePresence>
+      <AnimatePresence mode="wait">
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-            className="md:hidden bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border-t border-slate-200/50 dark:border-slate-700/50"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            className="md:hidden absolute top-full left-0 right-0 bg-white/98 dark:bg-slate-900/98 backdrop-blur-xl border-t border-slate-200/50 dark:border-slate-700/50 shadow-lg"
           >
-            <div className="px-4 py-6 space-y-2">
+            <div className="px-4 py-4 space-y-1">
               {navItems.map((item, index) => (
                 <motion.div
                   key={item.path}
-                  initial={{ opacity: 0, x: -20 }}
+                  initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.05 }}
+                  transition={{ delay: index * 0.03, duration: 0.15 }}
                 >
                   <Link
                     to={item.path}
                     onClick={() => setIsOpen(false)}
-                    className={`block px-4 py-3 rounded-xl font-medium transition-all ${location.pathname === item.path
+                    className={`block px-4 py-3.5 rounded-xl font-medium text-base transition-colors active:bg-slate-200 dark:active:bg-slate-700 ${location.pathname === item.path
                       ? 'bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white'
                       : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white'
                       }`}
