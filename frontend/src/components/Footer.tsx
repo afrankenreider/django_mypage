@@ -1,109 +1,71 @@
-import { motion } from 'framer-motion'
 import LinkedInIcon from '@mui/icons-material/LinkedIn'
 import GitHubIcon from '@mui/icons-material/GitHub'
 import EmailIcon from '@mui/icons-material/Email'
 import { Link } from 'react-router-dom'
 
 const footerLinks = [
-  { name: 'Home', path: '/' },
   { name: 'About', path: '/about' },
   { name: 'Skills', path: '/skills' },
   { name: 'Projects', path: '/projects' },
+  { name: 'Weekly Media', path: '/weekly-media' },
 ]
 
 const socialLinks = [
-  { icon: <LinkedInIcon sx={{ fontSize: 20 }} />, href: "https://www.linkedin.com/in/andrew-frankenreider-934581b1/", label: "LinkedIn" },
-  { icon: <GitHubIcon sx={{ fontSize: 20 }} />, href: "https://github.com/afrankenreider", label: "GitHub" },
-  { icon: <EmailIcon sx={{ fontSize: 20 }} />, href: "mailto:afrankenreider@gmail.com", label: "Email" },
+  { icon: <LinkedInIcon sx={{ fontSize: 18 }} />, href: 'https://www.linkedin.com/in/andrew-frankenreider-934581b1/', label: 'LinkedIn' },
+  { icon: <GitHubIcon sx={{ fontSize: 18 }} />, href: 'https://github.com/afrankenreider', label: 'GitHub' },
+  { icon: <EmailIcon sx={{ fontSize: 18 }} />, href: 'mailto:afrankenreider@gmail.com', label: 'Email' },
 ]
 
 export default function Footer() {
   return (
-    <footer className="bg-slate-50 dark:bg-slate-900 border-t border-slate-200/50 dark:border-slate-800/50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Main footer content */}
-        <div className="py-16">
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
-            {/* Brand column */}
-            <div className="lg:col-span-2">
-              <Link to="/" className="inline-flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-slate-900 to-slate-700 dark:from-white dark:to-slate-300 flex items-center justify-center">
-                  <span className="font-display font-bold text-white dark:text-slate-900 text-lg">A</span>
-                </div>
-                <span className="font-display font-semibold text-xl text-slate-900 dark:text-white">
-                  Andrew Frankenreider
-                </span>
-              </Link>
-              <p className="text-slate-600 dark:text-slate-400 max-w-md leading-relaxed mb-6">
-                Advanced Analytics & Data Science Manager passionate about building intelligent systems
-                and creating beautiful, functional interfaces.
-              </p>
-              {/* Social links */}
-              <div className="flex items-center gap-3">
-                {socialLinks.map((social) => (
-                  <motion.a
-                    key={social.label}
-                    whileHover={{ scale: 1.1, y: -2 }}
-                    whileTap={{ scale: 0.95 }}
-                    href={social.href}
-                    target={social.href.startsWith('mailto') ? undefined : "_blank"}
-                    rel="noopener noreferrer"
-                    className="p-2.5 bg-white dark:bg-slate-800 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all shadow-sm hover:shadow-md border border-slate-200/50 dark:border-slate-700/50"
-                    aria-label={social.label}
-                  >
-                    {social.icon}
-                  </motion.a>
-                ))}
-              </div>
-            </div>
+    <footer className="bg-[#f5f5f7] dark:bg-black">
+      <div className="apple-section py-12">
+        <div className="soft-rule mb-8" />
+        <div className="grid gap-10 md:grid-cols-[1.6fr_1fr_1fr]">
+          <div>
+            <Link to="/" className="text-lg font-semibold tracking-tight">
+              Andrew Frankenreider
+            </Link>
+            <p className="apple-copy mt-3 max-w-md text-sm">
+              Analytics and data science leader building useful systems, measured interfaces, and practical machine learning tools.
+            </p>
+          </div>
 
-            {/* Quick links */}
-            <div>
-              <h4 className="font-semibold text-slate-900 dark:text-white mb-4">Quick Links</h4>
-              <ul className="space-y-3">
-                {footerLinks.map((link) => (
-                  <li key={link.path}>
-                    <Link
-                      to={link.path}
-                      className="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
-                    >
-                      {link.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
+          <div>
+            <h4 className="text-sm font-semibold">Explore</h4>
+            <ul className="mt-4 space-y-2">
+              {footerLinks.map((link) => (
+                <li key={link.path}>
+                  <Link to={link.path} className="text-sm text-[#6e6e73] transition-colors hover:text-[#1d1d1f] dark:text-[#a1a1a6] dark:hover:text-white">
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-            {/* Contact */}
-            <div>
-              <h4 className="font-semibold text-slate-900 dark:text-white mb-4">Get in Touch</h4>
-              <ul className="space-y-3">
-                <li>
-                  <a
-                    href="mailto:afrankenreider@gmail.com"
-                    className="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
-                  >
-                    afrankenreider@gmail.com
-                  </a>
-                </li>
-                <li className="text-slate-600 dark:text-slate-400">
-                  Chicago, IL
-                </li>
-              </ul>
+          <div>
+            <h4 className="text-sm font-semibold">Contact</h4>
+            <div className="mt-4 flex items-center gap-2">
+              {socialLinks.map((social) => (
+                <a
+                  key={social.label}
+                  href={social.href}
+                  target={social.href.startsWith('mailto') ? undefined : '_blank'}
+                  rel="noopener noreferrer"
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border hairline text-[#6e6e73] transition-colors hover:bg-white hover:text-[#1d1d1f] dark:text-[#a1a1a6] dark:hover:bg-white/10 dark:hover:text-white"
+                  aria-label={social.label}
+                >
+                  {social.icon}
+                </a>
+              ))}
             </div>
           </div>
         </div>
 
-        {/* Bottom bar */}
-        <div className="py-6 border-t border-slate-200/50 dark:border-slate-800/50">
-          <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
-            <p className="text-sm text-slate-500 dark:text-slate-500">
-              © {new Date().getFullYear()} Andrew Frankenreider. All rights reserved.
-            </p>
-            <p className="text-sm text-slate-500 dark:text-slate-500">
-              Built with React, TypeScript & Django
-            </p>
-          </div>
+        <div className="mt-10 flex flex-col gap-2 text-xs text-[#86868b] sm:flex-row sm:items-center sm:justify-between">
+          <p>© {new Date().getFullYear()} Andrew Frankenreider. All rights reserved.</p>
+          <p>Built with React, TypeScript, and Django.</p>
         </div>
       </div>
     </footer>
