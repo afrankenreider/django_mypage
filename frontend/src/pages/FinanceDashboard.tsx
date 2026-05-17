@@ -559,8 +559,8 @@ export default function FinanceDashboard() {
         : '#ef4444'  // Red 500 - negative
 
     return (
-        <section className="min-h-screen pt-24 pb-16 bg-slate-950">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section className="apple-page pt-28 pb-16">
+            <div className="apple-section max-w-7xl">
                 {/* Header */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -570,7 +570,7 @@ export default function FinanceDashboard() {
                 >
                     <Link
                         to="/projects"
-                        className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors mb-6"
+                        className="text-link mb-6"
                     >
                         <ArrowBackIcon sx={{ fontSize: 20 }} />
                         <span>Back to Projects</span>
@@ -578,12 +578,12 @@ export default function FinanceDashboard() {
 
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                         <div>
-                            <h1 className="text-3xl md:text-4xl font-bold text-white flex items-center gap-3">
+                            <h1 className="display-heading text-3xl md:text-4xl flex items-center gap-3">
                                 <CandlestickChartIcon sx={{ fontSize: 40 }} />
                                 Finance Dashboard
                             </h1>
-                            <p className="text-slate-400 mt-2">
-                                Real-time stock tracking and analysis
+                            <p className="apple-copy mt-2">
+                                A personal market tracker for my watchlist, historical charts, and forecast experiments.
                             </p>
                         </div>
 

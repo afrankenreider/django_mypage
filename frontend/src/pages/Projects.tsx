@@ -15,35 +15,35 @@ const projects: Project[] = [
   {
     id: 1,
     title: 'Linear Regression',
-    description: 'A hands-on look at regression, residuals, and model fit with interactive visualizations.',
+    description: 'A hands-on walkthrough of regression, residuals, and model fit using examples I rely on when teaching teams.',
     technology: 'Machine Learning',
     link: '/projects/linear-regression',
   },
   {
     id: 2,
     title: 'K-Means Clustering',
-    description: 'An interactive clustering demo that shows assignments, centroids, and convergence over time.',
+    description: 'An interactive clustering demo that makes assignments, centroids, and convergence easy to see step by step.',
     technology: 'Machine Learning',
     link: '/projects/kmeans',
   },
   {
     id: 3,
     title: 'Neural Networks',
-    description: 'A simple visual walkthrough of layers, activations, and forward propagation.',
+    description: 'A practical visual walkthrough of layers, activations, and forward propagation without the hype.',
     technology: 'Deep Learning',
     link: '/projects/neural-networks',
   },
   {
     id: 4,
     title: 'Finance Dashboard',
-    description: 'A market dashboard for watchlists, historical charts, and experimental forecasting models.',
+    description: 'A market dashboard I built to track a watchlist, review trends, and test forecasting ideas.',
     technology: 'Financial Analysis',
     link: '/projects/finance-dashboard',
   },
   {
     id: 5,
     title: 'Data Pipelines',
-    description: 'A future guide to robust ETL, scheduling, monitoring, and streaming patterns.',
+    description: 'A planned write-up on how I structure ETL jobs, scheduling, and monitoring in day-to-day work.',
     technology: 'Data Engineering',
     link: '/projects/data-pipelines',
     comingSoon: true,
@@ -63,11 +63,11 @@ export default function Projects() {
           <div>
             <p className="eyebrow mb-6">Projects</p>
             <h1 className="display-heading text-5xl sm:text-6xl lg:text-7xl">
-              Interactive notes from the lab.
+              Project notes from real work.
             </h1>
           </div>
           <p className="apple-copy max-w-2xl text-xl">
-            Small, focused demos that explain data science concepts without hiding the mechanics behind glossy presentation.
+            These demos reflect how I explain modeling and analytics in practice: clear mechanics, useful tradeoffs, and no filler.
           </p>
         </motion.div>
 
