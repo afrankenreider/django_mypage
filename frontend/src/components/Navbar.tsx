@@ -12,7 +12,7 @@ const navItems = [
   { name: 'About', path: '/about' },
   { name: 'Skills', path: '/skills' },
   { name: 'Projects', path: '/projects' },
-  { name: 'Weekly Media', path: '/weekly-media' },
+  { name: 'Media', path: '/weekly-media' },
 ]
 
 export default function Navbar() {
@@ -22,128 +22,90 @@ export default function Navbar() {
   const { theme, toggleTheme } = useTheme()
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20)
-    }
+    const handleScroll = () => setScrolled(window.scrollY > 12)
+    handleScroll()
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // Close mobile menu when route changes
   useEffect(() => {
     setIsOpen(false)
   }, [location])
 
   return (
     <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled
-        ? 'bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl shadow-lg shadow-slate-900/5 dark:shadow-slate-900/20'
-        : 'bg-transparent'
-        }`}
+      initial={{ y: -24, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.45, ease: 'easeOut' }}
+      className={`fixed top-0 left-0 right-0 z-50 border-b transition-all duration-300 ${
+        scrolled
+          ? 'liquid-surface hairline shadow-[0_10px_30px_rgba(0,0,0,0.04)]'
+          : 'border-transparent bg-[#f5f5f7]/70 backdrop-blur-xl dark:bg-black/60'
+      }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-20">
-          {/* Logo */}
-          <Link
-            to="/"
-            className="group flex items-center gap-3"
-          >
-            <div className="relative">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-slate-900 to-slate-700 dark:from-white dark:to-slate-300 flex items-center justify-center shadow-lg group-hover:shadow-xl transition-shadow">
-                <span className="font-display font-bold text-white dark:text-slate-900 text-lg">A</span>
-              </div>
-            </div>
+      <div className="apple-section">
+        <div className="flex h-14 items-center justify-between">
+          <Link to="/" className="font-semibold tracking-tight text-sm" aria-label="Andrew Frankenreider home">
+            Andrew Frankenreider
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-1">
-            {navItems.map((item) => (
-              <Link
-                key={item.path}
-                to={item.path}
-                className="relative px-5 py-2 rounded-full font-medium text-sm transition-colors"
-              >
-                {location.pathname === item.path && (
-                  <motion.div
-                    layoutId="navbar-pill"
-                    className="absolute inset-0 bg-slate-100 dark:bg-slate-800 rounded-full"
-                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                  />
-                )}
-                <span className={`relative z-10 ${location.pathname === item.path
-                  ? 'text-slate-900 dark:text-white'
-                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-                  }`}>
+          <div className="hidden md:flex items-center gap-8">
+            {navItems.map((item) => {
+              const isActive = location.pathname === item.path
+              return (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  className={`text-sm transition-colors ${
+                    isActive
+                      ? 'text-[#1d1d1f] dark:text-[#f5f5f7]'
+                      : 'text-[#6e6e73] hover:text-[#1d1d1f] dark:text-[#a1a1a6] dark:hover:text-white'
+                  }`}
+                >
                   {item.name}
-                </span>
-              </Link>
-            ))}
+                </Link>
+              )
+            })}
           </div>
 
-          {/* Right side actions */}
           <div className="flex items-center gap-2">
-            {/* Theme Toggle */}
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+            <button
               onClick={toggleTheme}
-              className="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-full text-[#6e6e73] transition-colors hover:bg-black/5 hover:text-[#1d1d1f] dark:text-[#a1a1a6] dark:hover:bg-white/10 dark:hover:text-white"
               aria-label="Toggle theme"
             >
-              <motion.div
-                initial={false}
-                animate={{ rotate: theme === 'dark' ? 180 : 0 }}
-                transition={{ duration: 0.3 }}
-              >
-                {theme === 'dark' ? <LightModeIcon sx={{ fontSize: 20 }} /> : <DarkModeIcon sx={{ fontSize: 20 }} />}
-              </motion.div>
-            </motion.button>
-
-            {/* Mobile menu button */}
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              {theme === 'dark' ? <LightModeIcon sx={{ fontSize: 18 }} /> : <DarkModeIcon sx={{ fontSize: 18 }} />}
+            </button>
+            <button
               onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-full text-[#6e6e73] transition-colors hover:bg-black/5 hover:text-[#1d1d1f] dark:text-[#a1a1a6] dark:hover:bg-white/10 dark:hover:text-white md:hidden"
+              aria-label="Toggle navigation"
+              aria-expanded={isOpen}
             >
               {isOpen ? <CloseIcon sx={{ fontSize: 20 }} /> : <MenuIcon sx={{ fontSize: 20 }} />}
-            </motion.button>
+            </button>
           </div>
         </div>
       </div>
 
-      {/* Mobile Navigation */}
-      <AnimatePresence mode="wait">
+      <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.2, ease: "easeOut" }}
-            className="md:hidden absolute top-full left-0 right-0 bg-white/98 dark:bg-slate-900/98 backdrop-blur-xl border-t border-slate-200/50 dark:border-slate-700/50 shadow-lg"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.2 }}
+            className="md:hidden overflow-hidden border-t hairline liquid-surface"
           >
-            <div className="px-4 py-4 space-y-1">
-              {navItems.map((item, index) => (
-                <motion.div
+            <div className="apple-section py-3">
+              {navItems.map((item) => (
+                <Link
                   key={item.path}
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.03, duration: 0.15 }}
+                  to={item.path}
+                  className="block rounded-xl px-1 py-3 text-lg font-medium text-[#1d1d1f] dark:text-[#f5f5f7]"
                 >
-                  <Link
-                    to={item.path}
-                    onClick={() => setIsOpen(false)}
-                    className={`block px-4 py-3.5 rounded-xl font-medium text-base transition-colors active:bg-slate-200 dark:active:bg-slate-700 ${location.pathname === item.path
-                      ? 'bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white'
-                      : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white'
-                      }`}
-                  >
-                    {item.name}
-                  </Link>
-                </motion.div>
+                  {item.name}
+                </Link>
               ))}
             </div>
           </motion.div>
