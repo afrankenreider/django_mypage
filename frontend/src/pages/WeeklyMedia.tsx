@@ -67,6 +67,11 @@ interface MediaRowProps {
 function MediaRow({ item, index }: MediaRowProps) {
     const [copied, setCopied] = useState(false)
     const config = mediaTypeConfig[item.type]
+    const shareIcon = copied
+        ? <CheckIcon sx={{ fontSize: 18 }} />
+        : 'share' in navigator
+            ? <ShareIcon sx={{ fontSize: 18 }} />
+            : <ContentCopyIcon sx={{ fontSize: 18 }} />
 
     const handleShare = async () => {
         try {
@@ -126,7 +131,7 @@ function MediaRow({ item, index }: MediaRowProps) {
                     className="inline-flex h-10 w-10 items-center justify-center rounded-full border hairline text-[#6e6e73] transition-colors hover:bg-white hover:text-[#1d1d1f] dark:text-[#a1a1a6] dark:hover:bg-white/10 dark:hover:text-white"
                     aria-label="Share"
                 >
-                    {copied ? <CheckIcon sx={{ fontSize: 18 }} /> : 'share' in navigator ? <ShareIcon sx={{ fontSize: 18 }} /> : <ContentCopyIcon sx={{ fontSize: 18 }} />}
+                    {shareIcon}
                 </button>
             </div>
         </motion.article>

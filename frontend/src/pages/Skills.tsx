@@ -84,17 +84,21 @@ export default function Skills() {
               <div className="flex flex-wrap gap-3">
                 {skills
                   .filter((skill) => skill.category === category)
-                  .map((skill) => (
-                    <a
-                      key={skill.name}
-                      href={skill.url}
-                      target={skill.url === '#' ? undefined : '_blank'}
-                      rel={skill.url === '#' ? undefined : 'noopener noreferrer'}
-                      className="rounded-full border hairline px-4 py-2 text-sm text-[#424245] transition-colors hover:bg-white hover:text-[#1d1d1f] dark:text-[#d2d2d7] dark:hover:bg-white/10 dark:hover:text-white"
-                    >
-                      {skill.name}
-                    </a>
-                  ))}
+                  .map((skill) => {
+                    const isPlaceholder = skill.url === '#'
+
+                    return (
+                      <a
+                        key={skill.name}
+                        href={skill.url}
+                        target={isPlaceholder ? undefined : '_blank'}
+                        rel={isPlaceholder ? undefined : 'noopener noreferrer'}
+                        className="rounded-full border hairline px-4 py-2 text-sm text-[#424245] transition-colors hover:bg-white hover:text-[#1d1d1f] dark:text-[#d2d2d7] dark:hover:bg-white/10 dark:hover:text-white"
+                      >
+                        {skill.name}
+                      </a>
+                    )
+                  })}
               </div>
             </section>
           ))}
