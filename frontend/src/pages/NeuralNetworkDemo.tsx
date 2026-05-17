@@ -752,27 +752,27 @@ export default function NeuralNetworkDemo() {
     ]
 
     return (
-        <section className="min-h-screen pt-32 pb-24 bg-white/80 dark:bg-slate-950/80 relative overflow-hidden">
+        <section className="apple-page pt-28 pb-24 relative overflow-hidden">
             <div className="absolute inset-0 gradient-mesh opacity-50" />
 
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div className="apple-section max-w-7xl relative z-10">
                 {/* Header */}
                 <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-                    <Link to="/projects" className="inline-flex items-center gap-2 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white mb-8 transition-colors group">
+                    <Link to="/projects" className="text-link mb-8 group">
                         <ArrowBackIcon className="group-hover:-translate-x-1 transition-transform" sx={{ fontSize: 20 }} />
                         Back to Projects
                     </Link>
 
                     <div className="text-center mb-16">
-                        <motion.span initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="inline-flex items-center gap-2 px-4 py-2 bg-slate-100 dark:bg-slate-800 rounded-full text-sm font-medium text-slate-600 dark:text-slate-400 mb-6">
+                        <motion.span initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="inline-flex items-center gap-2 rounded-full bg-black/5 px-4 py-2 text-sm font-medium text-[#6e6e73] dark:bg-white/10 dark:text-[#a1a1a6] mb-6">
                             <AutoGraphIcon sx={{ fontSize: 18 }} />
-                            Deep Learning Tutorial
+                            Project walkthrough
                         </motion.span>
-                        <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-bold text-slate-900 dark:text-white mb-6">
+                        <h1 className="display-heading text-5xl md:text-6xl lg:text-7xl mb-6">
                             Neural <span className="gradient-text">Networks</span>
                         </h1>
-                        <p className="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-                            Explore the building blocks of deep learning through interactive visualizations and hands-on experimentation.
+                        <p className="apple-copy text-xl max-w-2xl mx-auto">
+                            A straightforward look at how network layers and activations behave, based on how I explain the topic to partners.
                         </p>
                     </div>
 
@@ -804,10 +804,10 @@ export default function NeuralNetworkDemo() {
                             <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">What is a Neural Network?</h2>
                             <div className="prose dark:prose-invert max-w-none">
                                 <p className="text-slate-600 dark:text-slate-400 text-lg leading-relaxed mb-6">
-                                    A neural network is a <strong className="text-slate-900 dark:text-white">computational model</strong> inspired by the structure and function of biological neural networks in the brain. It consists of interconnected nodes (neurons) organized in layers that process information.
+                                    A neural network is a layered model that learns relationships from data by tuning weights between connected nodes.
                                 </p>
                                 <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
-                                    Neural networks learn by adjusting the strength (weights) of connections between neurons based on training data, enabling them to recognize patterns and make predictions on new, unseen data.
+                                    This page focuses on the mechanics: what each layer does, how values move through the network, and what changes when you adjust inputs.
                                 </p>
 
                                 <div className="grid md:grid-cols-3 gap-6 mt-8">
@@ -1129,10 +1129,10 @@ export default function NeuralNetworkDemo() {
                                 {[
                                     { Icon: ImageIcon, title: 'Computer Vision', desc: 'Image classification, object detection, facial recognition, and medical image analysis.' },
                                     { Icon: TranslateIcon, title: 'Natural Language', desc: 'Translation, sentiment analysis, text generation, and chatbots like GPT.' },
-                                    { Icon: SmartToyIcon, title: 'Robotics & Games', desc: 'Autonomous vehicles, game AI, robot control, and reinforcement learning.' },
+                                    { Icon: SmartToyIcon, title: 'Robotics & Games', desc: 'Robot control, game agents, and reinforcement learning experiments.' },
                                     { Icon: HealthAndSafetyIcon, title: 'Healthcare', desc: 'Drug discovery, disease diagnosis, patient outcome prediction, and genomics.' },
                                     { Icon: MemoryIcon, title: 'Recommendation', desc: 'Personalized content, product recommendations, and user behavior prediction.' },
-                                    { Icon: PsychologyIcon, title: 'Generative AI', desc: 'Image synthesis, music composition, text-to-image, and creative tools.' },
+                                    { Icon: PsychologyIcon, title: 'Generative Models', desc: 'Image, text, and audio generation tools built from learned patterns.' },
                                 ].map((item, i) => (
                                     <div key={i} className="bg-slate-100 dark:bg-slate-800/50 rounded-xl p-6 border border-slate-200 dark:border-slate-700 hover:shadow-lg transition-shadow">
                                         <div className="flex items-center gap-3 mb-4">

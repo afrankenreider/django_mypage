@@ -1192,11 +1192,11 @@ export default function LinearRegressionDemo() {
   ]
 
   return (
-    <section className="min-h-screen pt-32 pb-24 bg-white/80 dark:bg-slate-950/80 relative overflow-hidden">
+    <section className="apple-page pt-28 pb-24 relative overflow-hidden">
       {/* Background gradient */}
       <div className="absolute inset-0 gradient-mesh opacity-50" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="apple-section max-w-7xl relative z-10">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -1205,7 +1205,7 @@ export default function LinearRegressionDemo() {
         >
           <Link
             to="/projects"
-            className="inline-flex items-center gap-2 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white mb-8 transition-colors group"
+            className="text-link mb-8 group"
           >
             <ArrowBackIcon className="group-hover:-translate-x-1 transition-transform" sx={{ fontSize: 20 }} />
             Back to Projects
@@ -1216,16 +1216,16 @@ export default function LinearRegressionDemo() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-slate-100 dark:bg-slate-800 rounded-full text-sm font-medium text-slate-600 dark:text-slate-400 mb-6"
+              className="inline-flex items-center gap-2 rounded-full bg-black/5 px-4 py-2 text-sm font-medium text-[#6e6e73] dark:bg-white/10 dark:text-[#a1a1a6] mb-6"
             >
               <TimelineIcon sx={{ fontSize: 18 }} />
-              Machine Learning Tutorial
+              Project walkthrough
             </motion.span>
-            <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-bold text-slate-900 dark:text-white mb-6">
+            <h1 className="display-heading text-5xl md:text-6xl lg:text-7xl mb-6">
               Linear <span className="gradient-text">Regression</span>
             </h1>
-            <p className="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-              A comprehensive, interactive guide to understanding one of the most fundamental algorithms in machine learning and statistics.
+            <p className="apple-copy text-xl max-w-2xl mx-auto">
+              This is the same plain-language regression walkthrough I use with teams when we need to explain model fit and tradeoffs.
             </p>
           </div>
 
