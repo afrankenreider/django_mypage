@@ -160,13 +160,9 @@ export default function NeuralNetwork() {
         const pulseY = fromNode.y + (toNode.y - fromNode.y) * conn.pulsePosition
         const pulseSize = isMobile ? 8 : 12
 
-        const gradient = ctx.createRadialGradient(pulseX, pulseY, 0, pulseX, pulseY, pulseSize)
-        gradient.addColorStop(0, `rgba(${pulseColor}, ${0.8 * conn.opacity})`)
-        gradient.addColorStop(1, 'rgba(0, 0, 0, 0)')
-
         ctx.beginPath()
-        ctx.arc(pulseX, pulseY, pulseSize, 0, Math.PI * 2)
-        ctx.fillStyle = gradient
+        ctx.arc(pulseX, pulseY, pulseSize * 0.45, 0, Math.PI * 2)
+        ctx.fillStyle = `rgba(${pulseColor}, ${0.7 * conn.opacity})`
         ctx.fill()
       } else if (Math.random() > 0.998) {
         conn.active = true
@@ -195,20 +191,12 @@ export default function NeuralNetwork() {
       const pulse = Math.sin(node.pulsePhase) * 0.3 + 0.7
       const currentRadius = node.radius * pulse
 
-      // Skip glow effect on mobile for performance
       if (!isMobile) {
-        // Draw node glow
-        const glowGradient = ctx.createRadialGradient(
-          node.x, node.y, 0,
-          node.x, node.y, currentRadius * 4
-        )
-        glowGradient.addColorStop(0, `rgba(${nodeGlow}, ${0.15 * pulse})`)
-        glowGradient.addColorStop(1, 'rgba(0, 0, 0, 0)')
-
         ctx.beginPath()
-        ctx.arc(node.x, node.y, currentRadius * 4, 0, Math.PI * 2)
-        ctx.fillStyle = glowGradient
-        ctx.fill()
+        ctx.arc(node.x, node.y, currentRadius * 1.8, 0, Math.PI * 2)
+        ctx.strokeStyle = `rgba(${nodeGlow}, ${0.18 * pulse})`
+        ctx.lineWidth = 1
+        ctx.stroke()
       }
 
       // Draw node

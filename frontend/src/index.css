@@ -192,32 +192,6 @@ a {
 
 }
 
-.apple-page [class*="bg-gradient-to"] {
-    background-image: none !important;
-}
-
-.apple-page [class*="from-blue"],
-.apple-page [class*="from-cyan"],
-.apple-page [class*="from-indigo"],
-.apple-page [class*="from-purple"],
-.apple-page [class*="to-blue"],
-.apple-page [class*="to-cyan"],
-.apple-page [class*="to-indigo"],
-.apple-page [class*="to-purple"] {
-    background-color: var(--surface-strong) !important;
-}
-
-.dark .apple-page [class*="from-blue"],
-.dark .apple-page [class*="from-cyan"],
-.dark .apple-page [class*="from-indigo"],
-.dark .apple-page [class*="from-purple"],
-.dark .apple-page [class*="to-blue"],
-.dark .apple-page [class*="to-cyan"],
-.dark .apple-page [class*="to-indigo"],
-.dark .apple-page [class*="to-purple"] {
-    background-color: var(--surface-strong) !important;
-}
-
 .apple-page [class*="text-blue"],
 .apple-page [class*="text-cyan"],
 .apple-page [class*="text-indigo"],

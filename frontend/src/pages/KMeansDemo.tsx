@@ -23,7 +23,6 @@ import RestartAltIcon from '@mui/icons-material/RestartAlt'
 import SkipNextIcon from '@mui/icons-material/SkipNext'
 import TrackChangesIcon from '@mui/icons-material/TrackChanges'
 import BarChartIcon from '@mui/icons-material/BarChart'
-import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import ImageIcon from '@mui/icons-material/Image'
 import ArticleIcon from '@mui/icons-material/Article'
@@ -443,8 +442,8 @@ export default function KMeansDemo() {
 
     return (
         <section className="apple-page pt-28 pb-24 relative overflow-hidden">
-            {/* Background gradient */}
-            <div className="absolute inset-0 gradient-mesh opacity-50" />
+            {/* Ambient analytics backdrop */}
+            <div className="absolute inset-0 studio-grid opacity-50" />
 
             <div className="apple-section max-w-7xl relative z-10">
                 {/* Header */}
@@ -472,7 +471,7 @@ export default function KMeansDemo() {
                             Project walkthrough
                         </motion.span>
                         <h1 className="display-heading text-5xl md:text-6xl lg:text-7xl mb-6">
-                            K-Means <span className="gradient-text">Clustering</span>
+                            K-Means <span className="ink-text">Clustering</span>
                         </h1>
                         <p className="apple-copy text-xl max-w-2xl mx-auto">
                             I use this demo to explain clustering decisions in a practical way, including where k-means works well and where it does not.
@@ -538,7 +537,7 @@ export default function KMeansDemo() {
                                     </div>
                                     <div className="bg-slate-100 dark:bg-slate-800/50 rounded-xl p-6 border border-slate-200 dark:border-slate-700">
                                         <div className="w-12 h-12 bg-slate-900 dark:bg-white rounded-xl flex items-center justify-center mb-4 shadow-lg text-white dark:text-slate-900">
-                                            <AutoAwesomeIcon sx={{ fontSize: 24 }} />
+                                            <TrackChangesIcon sx={{ fontSize: 24 }} />
                                         </div>
                                         <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-2">Output</h3>
                                         <p className="text-sm text-slate-600 dark:text-slate-400">
@@ -594,7 +593,7 @@ export default function KMeansDemo() {
 
                                 <div className="space-y-4">
                                     <div className="flex items-start gap-3">
-                                        <div className="w-6 h-6 rounded-full bg-amber-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                        <div className="w-6 h-6 rounded-full bg-[#1d1d1f] dark:bg-[#f5f5f7] dark:text-[#1d1d1f]/20 flex items-center justify-center flex-shrink-0 mt-0.5">
                                             <WarningIcon className="text-amber-600 dark:text-amber-400" sx={{ fontSize: 16 }} />
                                         </div>
                                         <div>
@@ -605,7 +604,7 @@ export default function KMeansDemo() {
                                         </div>
                                     </div>
                                     <div className="flex items-start gap-3">
-                                        <div className="w-6 h-6 rounded-full bg-amber-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                        <div className="w-6 h-6 rounded-full bg-[#1d1d1f] dark:bg-[#f5f5f7] dark:text-[#1d1d1f]/20 flex items-center justify-center flex-shrink-0 mt-0.5">
                                             <WarningIcon className="text-amber-600 dark:text-amber-400" sx={{ fontSize: 16 }} />
                                         </div>
                                         <div>
@@ -616,7 +615,7 @@ export default function KMeansDemo() {
                                         </div>
                                     </div>
                                     <div className="flex items-start gap-3">
-                                        <div className="w-6 h-6 rounded-full bg-amber-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                        <div className="w-6 h-6 rounded-full bg-[#1d1d1f] dark:bg-[#f5f5f7] dark:text-[#1d1d1f]/20 flex items-center justify-center flex-shrink-0 mt-0.5">
                                             <WarningIcon className="text-amber-600 dark:text-amber-400" sx={{ fontSize: 16 }} />
                                         </div>
                                         <div>
@@ -643,9 +642,9 @@ export default function KMeansDemo() {
                             <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">The Algorithm Steps</h2>
 
                             <div className="space-y-6">
-                                <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl p-6 border border-blue-100 dark:border-blue-800">
+                                <div className="apple-card-solid rounded-xl p-6 border border-blue-100 dark:border-blue-800">
                                     <div className="flex items-start gap-4">
-                                        <div className="w-10 h-10 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold flex-shrink-0">
+                                        <div className="w-10 h-10 rounded-full bg-[#1d1d1f] dark:bg-[#f5f5f7] dark:text-[#1d1d1f] text-white flex items-center justify-center font-bold flex-shrink-0">
                                             1
                                         </div>
                                         <div>
@@ -657,7 +656,7 @@ export default function KMeansDemo() {
                                     </div>
                                 </div>
 
-                                <div className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-xl p-6 border border-green-100 dark:border-green-800">
+                                <div className="apple-card-solid rounded-xl p-6 border border-green-100 dark:border-green-800">
                                     <div className="flex items-start gap-4">
                                         <div className="w-10 h-10 rounded-full bg-green-500 text-white flex items-center justify-center font-bold flex-shrink-0">
                                             2
@@ -674,9 +673,9 @@ export default function KMeansDemo() {
                                     </div>
                                 </div>
 
-                                <div className="bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 rounded-xl p-6 border border-amber-100 dark:border-amber-800">
+                                <div className="apple-card-solid rounded-xl p-6 border border-amber-100 dark:border-amber-800">
                                     <div className="flex items-start gap-4">
-                                        <div className="w-10 h-10 rounded-full bg-amber-500 text-white flex items-center justify-center font-bold flex-shrink-0">
+                                        <div className="w-10 h-10 rounded-full bg-[#1d1d1f] dark:bg-[#f5f5f7] dark:text-[#1d1d1f] text-white flex items-center justify-center font-bold flex-shrink-0">
                                             3
                                         </div>
                                         <div>
@@ -692,9 +691,9 @@ export default function KMeansDemo() {
                                     </div>
                                 </div>
 
-                                <div className="bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-xl p-6 border border-purple-100 dark:border-purple-800">
+                                <div className="apple-card-solid rounded-xl p-6 border border-purple-100 dark:border-purple-800">
                                     <div className="flex items-start gap-4">
-                                        <div className="w-10 h-10 rounded-full bg-purple-500 text-white flex items-center justify-center font-bold flex-shrink-0">
+                                        <div className="w-10 h-10 rounded-full bg-[#1d1d1f] dark:bg-[#f5f5f7] dark:text-[#1d1d1f] text-white flex items-center justify-center font-bold flex-shrink-0">
                                             4
                                         </div>
                                         <div>
@@ -736,15 +735,15 @@ export default function KMeansDemo() {
                                             <span className="text-slate-600 dark:text-slate-400">0.7 - 1.0: Excellent</span>
                                         </div>
                                         <div className="flex items-center gap-2">
-                                            <div className="w-3 h-3 rounded-full bg-blue-500" />
+                                            <div className="w-3 h-3 rounded-full bg-[#1d1d1f] dark:bg-[#f5f5f7] dark:text-[#1d1d1f]" />
                                             <span className="text-slate-600 dark:text-slate-400">0.5 - 0.7: Good</span>
                                         </div>
                                         <div className="flex items-center gap-2">
-                                            <div className="w-3 h-3 rounded-full bg-amber-500" />
+                                            <div className="w-3 h-3 rounded-full bg-[#1d1d1f] dark:bg-[#f5f5f7] dark:text-[#1d1d1f]" />
                                             <span className="text-slate-600 dark:text-slate-400">0.25 - 0.5: Fair</span>
                                         </div>
                                         <div className="flex items-center gap-2">
-                                            <div className="w-3 h-3 rounded-full bg-red-500" />
+                                            <div className="w-3 h-3 rounded-full bg-[#1d1d1f] dark:bg-[#f5f5f7] dark:text-[#1d1d1f]" />
                                             <span className="text-slate-600 dark:text-slate-400">&lt; 0.25: Poor</span>
                                         </div>
                                     </div>
@@ -838,14 +837,14 @@ export default function KMeansDemo() {
                                         <button
                                             onClick={removeLastPoint}
                                             disabled={customPoints.length === 0}
-                                            className="px-4 py-2 bg-amber-500 text-white rounded-lg hover:bg-amber-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                                            className="px-4 py-2 bg-[#1d1d1f] dark:bg-[#f5f5f7] dark:text-[#1d1d1f] text-white rounded-lg hover:bg-amber-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                                         >
                                             Remove Last Point
                                         </button>
                                         <button
                                             onClick={clearCustomPoints}
                                             disabled={customPoints.length === 0}
-                                            className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                                            className="px-4 py-2 bg-[#1d1d1f] dark:bg-[#f5f5f7] dark:text-[#1d1d1f] text-white rounded-lg hover:bg-red-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                                         >
                                             Clear All Points
                                         </button>
@@ -951,7 +950,7 @@ export default function KMeansDemo() {
                                         <button
                                             onClick={() => setIsPlaying(!isPlaying)}
                                             disabled={currentIteration >= result.history.length - 1 && !isPlaying}
-                                            className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
+                                            className="px-4 py-2 bg-[#1d1d1f] dark:bg-[#f5f5f7] dark:text-[#1d1d1f] text-white rounded-lg hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
                                         >
                                             {isPlaying ? (
                                                 <>
@@ -1041,7 +1040,7 @@ export default function KMeansDemo() {
                             )}
 
                             {isCustomMode && customPoints.length < k && (
-                                <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl">
+                                <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 border hairline rounded-xl">
                                     <p className="text-blue-800 dark:text-blue-300">
                                         Add {k - customPoints.length} more point{k - customPoints.length !== 1 ? 's' : ''} to run k-means clustering.
                                     </p>

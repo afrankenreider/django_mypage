@@ -588,7 +588,7 @@ const NotebookSection = memo(() => {
     return (
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-8">
             {/* Header Card */}
-            <div className="bg-gradient-to-br from-slate-900 to-slate-800 dark:from-slate-800 dark:to-slate-900 rounded-3xl p-8 shadow-xl border border-slate-700">
+            <div className="apple-card-solid rounded-3xl p-8 shadow-xl border border-slate-700">
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                     <div>
                         <h2 className="text-2xl font-bold text-white mb-2">Binary Classification with Neural Networks</h2>
@@ -670,7 +670,7 @@ const NotebookSection = memo(() => {
             </div>
 
             {/* Key Insights Card */}
-            <div className="bg-gradient-to-br from-violet-50 to-purple-50 dark:from-violet-900/20 dark:to-purple-900/20 rounded-3xl p-8 border border-violet-200 dark:border-violet-800">
+            <div className="apple-card-solid rounded-3xl p-8 border hairline">
                 <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-4">Key Insights</h3>
                 <div className="grid md:grid-cols-2 gap-6">
                     <div>
@@ -753,7 +753,7 @@ export default function NeuralNetworkDemo() {
 
     return (
         <section className="apple-page pt-28 pb-24 relative overflow-hidden">
-            <div className="absolute inset-0 gradient-mesh opacity-50" />
+            <div className="absolute inset-0 studio-grid opacity-50" />
 
             <div className="apple-section max-w-7xl relative z-10">
                 {/* Header */}
@@ -769,7 +769,7 @@ export default function NeuralNetworkDemo() {
                             Project walkthrough
                         </motion.span>
                         <h1 className="display-heading text-5xl md:text-6xl lg:text-7xl mb-6">
-                            Neural <span className="gradient-text">Networks</span>
+                            Neural <span className="ink-text">Networks</span>
                         </h1>
                         <p className="apple-copy text-xl max-w-2xl mx-auto">
                             A straightforward look at how network layers and activations behave, based on how I explain the topic to partners.
@@ -812,21 +812,21 @@ export default function NeuralNetworkDemo() {
 
                                 <div className="grid md:grid-cols-3 gap-6 mt-8">
                                     <div className="bg-slate-100 dark:bg-slate-800/50 rounded-xl p-6 border border-slate-200 dark:border-slate-700">
-                                        <div className="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center mb-4 shadow-lg text-white">
+                                        <div className="w-12 h-12 bg-[#1d1d1f] dark:bg-[#f5f5f7] dark:text-[#1d1d1f] rounded-xl flex items-center justify-center mb-4 shadow-lg text-white">
                                             <LayersIcon sx={{ fontSize: 24 }} />
                                         </div>
                                         <h3 className="font-semibold text-slate-900 dark:text-white mb-2">Input Layer</h3>
                                         <p className="text-slate-600 dark:text-slate-400 text-sm">Receives raw data features. Each neuron represents one input feature.</p>
                                     </div>
                                     <div className="bg-slate-100 dark:bg-slate-800/50 rounded-xl p-6 border border-slate-200 dark:border-slate-700">
-                                        <div className="w-12 h-12 bg-violet-500 rounded-xl flex items-center justify-center mb-4 shadow-lg text-white">
+                                        <div className="w-12 h-12 bg-[#1d1d1f] dark:bg-[#f5f5f7] dark:text-[#1d1d1f] rounded-xl flex items-center justify-center mb-4 shadow-lg text-white">
                                             <AccountTreeIcon sx={{ fontSize: 24 }} />
                                         </div>
                                         <h3 className="font-semibold text-slate-900 dark:text-white mb-2">Hidden Layers</h3>
                                         <p className="text-slate-600 dark:text-slate-400 text-sm">Process and transform data. More layers enable learning complex patterns.</p>
                                     </div>
                                     <div className="bg-slate-100 dark:bg-slate-800/50 rounded-xl p-6 border border-slate-200 dark:border-slate-700">
-                                        <div className="w-12 h-12 bg-amber-500 rounded-xl flex items-center justify-center mb-4 shadow-lg text-white">
+                                        <div className="w-12 h-12 bg-[#1d1d1f] dark:bg-[#f5f5f7] dark:text-[#1d1d1f] rounded-xl flex items-center justify-center mb-4 shadow-lg text-white">
                                             <PsychologyIcon sx={{ fontSize: 24 }} />
                                         </div>
                                         <h3 className="font-semibold text-slate-900 dark:text-white mb-2">Output Layer</h3>
@@ -876,7 +876,7 @@ export default function NeuralNetworkDemo() {
                             <p className="text-slate-600 dark:text-slate-400 mb-6">
                                 Each neuron computes a weighted sum of its inputs, adds a bias, and applies an activation function.
                             </p>
-                            <div className="bg-gradient-to-br from-violet-50 to-purple-50 dark:from-violet-900/30 dark:to-purple-900/30 rounded-xl p-8 text-center mb-8 border border-violet-100 dark:border-violet-800">
+                            <div className="apple-card-solid rounded-xl p-8 text-center mb-8 border border-violet-100 dark:border-violet-800">
                                 <p className="text-3xl md:text-4xl font-mono text-violet-600 dark:text-violet-400 font-bold">
                                     z = Wx + b
                                 </p>
@@ -887,7 +887,7 @@ export default function NeuralNetworkDemo() {
                             </div>
 
                             <div className="grid md:grid-cols-2 gap-6">
-                                <div className="bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20 rounded-xl p-6 border border-blue-100 dark:border-blue-800">
+                                <div className="apple-card-solid rounded-xl p-6 border border-blue-100 dark:border-blue-800">
                                     <h3 className="font-semibold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
                                         <span className="font-mono text-lg text-blue-600 dark:text-blue-400">W</span> - Weights
                                     </h3>
@@ -895,7 +895,7 @@ export default function NeuralNetworkDemo() {
                                         Learnable parameters that determine how much influence each input has on the output. Adjusted during training via backpropagation.
                                     </p>
                                 </div>
-                                <div className="bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 rounded-xl p-6 border border-amber-100 dark:border-amber-800">
+                                <div className="apple-card-solid rounded-xl p-6 border border-amber-100 dark:border-amber-800">
                                     <h3 className="font-semibold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
                                         <span className="font-mono text-lg text-amber-600 dark:text-amber-400">b</span> - Bias
                                     </h3>
@@ -913,17 +913,17 @@ export default function NeuralNetworkDemo() {
                             </p>
 
                             <div className="grid md:grid-cols-3 gap-6">
-                                <div className="bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-900/20 dark:to-teal-900/20 rounded-xl p-6 border border-emerald-100 dark:border-emerald-800">
+                                <div className="apple-card-solid rounded-xl p-6 border border-emerald-100 dark:border-emerald-800">
                                     <h3 className="font-semibold text-slate-900 dark:text-white mb-2">Sigmoid</h3>
                                     <p className="text-slate-700 dark:text-slate-300 font-mono text-lg mb-2">f(x) = 1/(1+e^-x)</p>
                                     <p className="text-slate-600 dark:text-slate-400 text-sm">Output range: (0, 1). Good for binary classification output layers.</p>
                                 </div>
-                                <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl p-6 border border-blue-100 dark:border-blue-800">
+                                <div className="apple-card-solid rounded-xl p-6 border border-blue-100 dark:border-blue-800">
                                     <h3 className="font-semibold text-slate-900 dark:text-white mb-2">ReLU</h3>
                                     <p className="text-slate-700 dark:text-slate-300 font-mono text-lg mb-2">f(x) = max(0, x)</p>
                                     <p className="text-slate-600 dark:text-slate-400 text-sm">Most popular for hidden layers. Fast to compute, reduces vanishing gradients.</p>
                                 </div>
-                                <div className="bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-xl p-6 border border-purple-100 dark:border-purple-800">
+                                <div className="apple-card-solid rounded-xl p-6 border border-purple-100 dark:border-purple-800">
                                     <h3 className="font-semibold text-slate-900 dark:text-white mb-2">Tanh</h3>
                                     <p className="text-slate-700 dark:text-slate-300 font-mono text-lg mb-2">f(x) = tanh(x)</p>
                                     <p className="text-slate-600 dark:text-slate-400 text-sm">Output range: (-1, 1). Zero-centered, useful for hidden layers.</p>
@@ -938,25 +938,25 @@ export default function NeuralNetworkDemo() {
                             </p>
 
                             <div className="space-y-4">
-                                <div className="bg-gradient-to-r from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-800/50 rounded-xl p-6 border-l-4 border-red-500">
+                                <div className="apple-card-solid rounded-xl p-6 border-l-4 border-red-500">
                                     <div className="flex items-center gap-3 mb-3">
-                                        <span className="w-8 h-8 bg-red-500 text-white rounded-lg flex items-center justify-center font-bold text-sm">1</span>
+                                        <span className="w-8 h-8 bg-[#1d1d1f] dark:bg-[#f5f5f7] dark:text-[#1d1d1f] text-white rounded-lg flex items-center justify-center font-bold text-sm">1</span>
                                         <h3 className="font-semibold text-slate-900 dark:text-white">Compute Loss</h3>
                                     </div>
                                     <p className="text-slate-700 dark:text-slate-300 font-mono text-lg pl-11">L = (1/n) * sum((y - y_pred)^2)</p>
                                 </div>
 
-                                <div className="bg-gradient-to-r from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-800/50 rounded-xl p-6 border-l-4 border-amber-500">
+                                <div className="apple-card-solid rounded-xl p-6 border-l-4 border-amber-500">
                                     <div className="flex items-center gap-3 mb-3">
-                                        <span className="w-8 h-8 bg-amber-500 text-white rounded-lg flex items-center justify-center font-bold text-sm">2</span>
+                                        <span className="w-8 h-8 bg-[#1d1d1f] dark:bg-[#f5f5f7] dark:text-[#1d1d1f] text-white rounded-lg flex items-center justify-center font-bold text-sm">2</span>
                                         <h3 className="font-semibold text-slate-900 dark:text-white">Compute Gradients</h3>
                                     </div>
                                     <p className="text-slate-700 dark:text-slate-300 font-mono text-lg pl-11">dL/dW = dL/da * da/dz * dz/dW</p>
                                 </div>
 
-                                <div className="bg-gradient-to-r from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-800/50 rounded-xl p-6 border-l-4 border-emerald-500">
+                                <div className="apple-card-solid rounded-xl p-6 border-l-4 border-emerald-500">
                                     <div className="flex items-center gap-3 mb-3">
-                                        <span className="w-8 h-8 bg-emerald-500 text-white rounded-lg flex items-center justify-center font-bold text-sm">3</span>
+                                        <span className="w-8 h-8 bg-[#1d1d1f] dark:bg-[#f5f5f7] dark:text-[#1d1d1f] text-white rounded-lg flex items-center justify-center font-bold text-sm">3</span>
                                         <h3 className="font-semibold text-slate-900 dark:text-white">Update Weights</h3>
                                     </div>
                                     <p className="text-slate-700 dark:text-slate-300 font-mono text-lg pl-11">W = W - learning_rate * dL/dW</p>
@@ -978,7 +978,7 @@ export default function NeuralNetworkDemo() {
                                     <button
                                         onClick={runForwardPass}
                                         disabled={isAnimating}
-                                        className="px-4 py-2 bg-gradient-to-r from-violet-500 to-purple-500 text-white rounded-lg font-medium transition-all shadow-lg shadow-violet-500/25 hover:shadow-violet-500/40 disabled:opacity-50 flex items-center gap-2"
+                                        className="px-4 py-2 bg-[#1d1d1f] dark:bg-[#f5f5f7] dark:text-[#1d1d1f] text-white rounded-lg font-medium transition-all shadow-lg shadow-black/10 dark:shadow-none disabled:opacity-50 flex items-center gap-2"
                                     >
                                         <PlayArrowIcon sx={{ fontSize: 18 }} />
                                         {isAnimating ? 'Running...' : 'Forward Pass'}
@@ -1040,7 +1040,7 @@ export default function NeuralNetworkDemo() {
                             </div>
 
                             {/* Input Controls */}
-                            <div className="bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20 rounded-xl p-4 mb-6 border border-blue-200 dark:border-blue-800">
+                            <div className="apple-card-solid rounded-xl p-4 mb-6 border hairline">
                                 <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-3">Input Values</label>
                                 <div className="flex flex-wrap gap-4">
                                     {inputs.map((val, i) => (
@@ -1095,7 +1095,7 @@ export default function NeuralNetworkDemo() {
 
                         {/* Info Cards */}
                         <div className="grid md:grid-cols-2 gap-6">
-                            <div className="bg-gradient-to-br from-violet-50 to-purple-50 dark:from-violet-900/20 dark:to-purple-900/20 rounded-2xl p-6 border border-violet-200 dark:border-violet-800">
+                            <div className="apple-card-solid rounded-2xl p-6 border hairline">
                                 <h3 className="font-semibold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
                                     <PlayArrowIcon className="text-violet-500" />
                                     Forward Pass
@@ -1104,7 +1104,7 @@ export default function NeuralNetworkDemo() {
                                     Click "Forward Pass" to see how input values propagate through the network. Each neuron computes its weighted sum, adds bias, and applies the activation function.
                                 </p>
                             </div>
-                            <div className="bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 rounded-2xl p-6 border border-amber-200 dark:border-amber-800">
+                            <div className="apple-card-solid rounded-2xl p-6 border border-amber-200 dark:border-amber-800">
                                 <h3 className="font-semibold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
                                     <TouchAppIcon className="text-amber-500" />
                                     Interact
