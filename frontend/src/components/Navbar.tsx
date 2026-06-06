@@ -44,8 +44,8 @@ export default function Navbar() {
       }`}
     >
       <div className="apple-section">
-        <div className="flex h-14 items-center justify-between">
-          <Link to="/" className="font-semibold tracking-tight text-sm" aria-label="Andrew Frankenreider home">
+        <div className="flex h-14 items-center justify-between gap-4">
+          <Link to="/" className="min-w-0 truncate py-2 text-sm font-semibold tracking-tight" aria-label="Andrew Frankenreider home">
             Andrew Frankenreider
           </Link>
 
@@ -68,17 +68,17 @@ export default function Navbar() {
             })}
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex shrink-0 items-center gap-1">
             <button
               onClick={toggleTheme}
-              className="inline-flex h-9 w-9 items-center justify-center rounded-full text-[#6e6e73] transition-colors hover:bg-black/5 hover:text-[#1d1d1f] dark:text-[#a1a1a6] dark:hover:bg-white/10 dark:hover:text-white"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full text-[#6e6e73] transition-colors hover:bg-black/5 hover:text-[#1d1d1f] dark:text-[#a1a1a6] dark:hover:bg-white/10 dark:hover:text-white md:h-9 md:w-9"
               aria-label="Toggle theme"
             >
               {theme === 'dark' ? <LightModeIcon sx={{ fontSize: 18 }} /> : <DarkModeIcon sx={{ fontSize: 18 }} />}
             </button>
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="inline-flex h-9 w-9 items-center justify-center rounded-full text-[#6e6e73] transition-colors hover:bg-black/5 hover:text-[#1d1d1f] dark:text-[#a1a1a6] dark:hover:bg-white/10 dark:hover:text-white md:hidden"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full text-[#6e6e73] transition-colors hover:bg-black/5 hover:text-[#1d1d1f] dark:text-[#a1a1a6] dark:hover:bg-white/10 dark:hover:text-white md:hidden"
               aria-label="Toggle navigation"
               aria-expanded={isOpen}
             >
@@ -97,12 +97,12 @@ export default function Navbar() {
             transition={{ duration: 0.2 }}
             className="md:hidden overflow-hidden border-t hairline liquid-surface"
           >
-            <div className="apple-section py-3">
+            <div className="apple-section py-2">
               {navItems.map((item) => (
                 <Link
                   key={item.path}
                   to={item.path}
-                  className="block rounded-xl px-1 py-3 text-lg font-medium text-[#1d1d1f] dark:text-[#f5f5f7]"
+                  className="block rounded-xl py-3 text-lg font-medium text-[#1d1d1f] dark:text-[#f5f5f7]"
                 >
                   {item.name}
                 </Link>

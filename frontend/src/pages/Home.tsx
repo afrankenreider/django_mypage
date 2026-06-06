@@ -4,26 +4,26 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn'
 import GitHubIcon from '@mui/icons-material/GitHub'
 import EmailIcon from '@mui/icons-material/Email'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
-import headshot from '../assets/me.jpg'
+import DataScienceAnimation from '../components/DataScienceAnimation'
 
 const stats = [
-  { value: '100+', label: 'Reports, apps & ML models in production' },
-  { value: '7+ yrs', label: 'Building data products end to end' },
-  { value: '2', label: 'Fortune 500 analytics organizations' },
+  { value: '100+', label: 'analytics products' },
+  { value: '7+', label: 'years in data' },
+  { value: '2', label: 'enterprise teams' },
 ]
 
 const focusAreas = [
   {
     title: 'Analytics platforms',
-    description: 'Reporting, apps, and models brought together in one place.',
+    description: 'Reporting, apps, and models in one place.',
   },
   {
     title: 'Automation',
-    description: 'APIs, pipelines, and dashboards for finance, pricing, and operations.',
+    description: 'APIs, pipelines, and dashboards.',
   },
   {
     title: 'Full-stack delivery',
-    description: 'Python, Django, Airflow, Snowflake, PostgreSQL, and Power BI.',
+    description: 'Python, Django, Airflow, Snowflake, PostgreSQL, Power BI.',
   },
 ]
 
@@ -50,10 +50,10 @@ export default function Home() {
                 Andrew Frankenreider
               </h1>
               <p className="apple-copy mt-7 max-w-2xl text-xl sm:text-2xl">
-                Analytics and data science manager working at the intersection of data, automation, and the decisions businesses make every day.
+                Analytics and data science manager building practical data products.
               </p>
               <p className="mt-6 max-w-xl text-lg leading-relaxed text-[#424245] dark:text-[#d2d2d7]">
-                At Caterpillar I built Earthmoving Mission Control, a central platform that brings 100+ Power BI reports, web apps, and ML models into one place for the Earthmoving Division.
+                I lead analytics platforms, automation, reporting, and ML delivery for operations and finance teams.
               </p>
               <div className="mt-9 flex flex-wrap items-center gap-3">
                 <Link to="/projects" className="quiet-link">
@@ -81,20 +81,12 @@ export default function Home() {
             </div>
 
             <motion.div
-              initial={{ opacity: 0, scale: 0.94 }}
+              initial={{ opacity: 0, scale: 0.98 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, ease: 'easeOut', delay: 0.1 }}
-              className="relative mx-auto w-full max-w-xs sm:max-w-sm lg:max-w-md"
+              className="relative mx-auto w-full max-w-xl"
             >
-              <div className="absolute -inset-4 -z-10 rounded-full bg-gradient-to-tr from-blue-500/25 via-cyan-400/20 to-teal-400/25 blur-3xl" />
-              <div className="relative aspect-square overflow-hidden rounded-full border hairline shadow-[0_30px_80px_-30px_rgba(0,0,0,0.45)]">
-                <img
-                  src={headshot}
-                  alt="Andrew Frankenreider"
-                  className="h-full w-full scale-[1.04] object-cover"
-                  loading="eager"
-                />
-              </div>
+              <DataScienceAnimation />
             </motion.div>
           </div>
 
@@ -141,7 +133,7 @@ export default function Home() {
             <div>
               <p className="text-sm font-medium uppercase tracking-[0.22em] text-white/50">Selected work</p>
               <h2 className="mt-4 max-w-3xl text-4xl font-semibold tracking-[-0.04em] sm:text-5xl">
-                Tools for analytics, automation, and reporting.
+                Analytics, automation, reporting.
               </h2>
             </div>
             <Link to="/projects" className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-medium text-[#1d1d1f] transition-colors hover:bg-[#f5f5f7]">
@@ -155,7 +147,7 @@ export default function Home() {
       <section className="apple-section pb-28">
         <div className="flex flex-col gap-6 border-t hairline pt-8 sm:flex-row sm:items-center sm:justify-between">
           <p className="max-w-xl text-2xl font-semibold tracking-tight">
-            Good data work helps people make better decisions, faster.
+            Better data. Faster decisions.
           </p>
           <a href="mailto:afrankenreider@gmail.com" className="quiet-link self-start">
             Get in touch

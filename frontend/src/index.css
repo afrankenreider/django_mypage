@@ -61,7 +61,6 @@ a {
 
 @media (max-width: 768px) {
     button,
-    a,
     [role="button"] {
         min-height: 44px;
         min-width: 44px;
@@ -139,29 +138,61 @@ a {
         background: var(--hairline);
     }
 
-    /* Accent gradient used for emphasis words in demo titles */
     .gradient-text {
-        background-image: linear-gradient(120deg, #2563eb 0%, #0891b2 55%, #0d9488 100%);
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-        -webkit-text-fill-color: transparent;
+        color: var(--text-primary);
     }
 
-    /* Soft ambient background wash for demo pages */
     .gradient-mesh {
         background-image:
-            radial-gradient(48rem 48rem at 12% -8%, rgba(37, 99, 235, 0.12), transparent 60%),
-            radial-gradient(42rem 42rem at 100% 0%, rgba(13, 148, 136, 0.10), transparent 55%),
-            radial-gradient(38rem 38rem at 60% 120%, rgba(8, 145, 178, 0.08), transparent 60%);
+            radial-gradient(48rem 48rem at 12% -8%, rgba(0, 0, 0, 0.05), transparent 60%),
+            radial-gradient(42rem 42rem at 100% 0%, rgba(0, 0, 0, 0.035), transparent 55%);
     }
 
     .dark .gradient-mesh {
         background-image:
-            radial-gradient(48rem 48rem at 12% -8%, rgba(56, 132, 255, 0.16), transparent 60%),
-            radial-gradient(42rem 42rem at 100% 0%, rgba(20, 184, 166, 0.12), transparent 55%),
-            radial-gradient(38rem 38rem at 60% 120%, rgba(34, 211, 238, 0.10), transparent 60%);
+            radial-gradient(48rem 48rem at 12% -8%, rgba(255, 255, 255, 0.08), transparent 60%),
+            radial-gradient(42rem 42rem at 100% 0%, rgba(255, 255, 255, 0.045), transparent 55%);
     }
+}
+
+.apple-page [class*="bg-gradient-to"] {
+    background-image: none !important;
+}
+
+.apple-page [class*="from-blue"],
+.apple-page [class*="from-cyan"],
+.apple-page [class*="from-indigo"],
+.apple-page [class*="from-purple"],
+.apple-page [class*="to-blue"],
+.apple-page [class*="to-cyan"],
+.apple-page [class*="to-indigo"],
+.apple-page [class*="to-purple"] {
+    background-color: var(--surface-strong) !important;
+}
+
+.dark .apple-page [class*="from-blue"],
+.dark .apple-page [class*="from-cyan"],
+.dark .apple-page [class*="from-indigo"],
+.dark .apple-page [class*="from-purple"],
+.dark .apple-page [class*="to-blue"],
+.dark .apple-page [class*="to-cyan"],
+.dark .apple-page [class*="to-indigo"],
+.dark .apple-page [class*="to-purple"] {
+    background-color: var(--surface-strong) !important;
+}
+
+.apple-page [class*="text-blue"],
+.apple-page [class*="text-cyan"],
+.apple-page [class*="text-indigo"],
+.apple-page [class*="text-purple"] {
+    color: var(--text-primary) !important;
+}
+
+.apple-page [class*="border-blue"],
+.apple-page [class*="border-cyan"],
+.apple-page [class*="border-indigo"],
+.apple-page [class*="border-purple"] {
+    border-color: var(--hairline) !important;
 }
 
 .line-clamp-2 {

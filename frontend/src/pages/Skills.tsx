@@ -27,15 +27,15 @@ const skills: Skill[] = [
 const expertiseAreas = [
   {
     title: 'Data science and ML',
-    description: 'Modeling, statistical thinking, and interpretation for messy operational problems.',
+    description: 'Modeling, statistics, interpretation.',
   },
   {
     title: 'Process automation',
-    description: 'Systems that reduce repetitive work and make the path from signal to action shorter.',
+    description: 'Systems that reduce repetitive work.',
   },
   {
     title: 'Full-stack delivery',
-    description: 'APIs, interfaces, and deployment patterns that make analytical tools durable.',
+    description: 'APIs, interfaces, deployment.',
   },
 ]
 
@@ -53,10 +53,10 @@ export default function Skills() {
           <p className="eyebrow mb-6">Skills</p>
           <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
             <h1 className="display-heading text-5xl sm:text-6xl lg:text-7xl">
-              Tools are secondary. Judgment comes first.
+              Practical analytics stack.
             </h1>
             <p className="apple-copy max-w-2xl text-xl">
-              I use a practical stack across analytics, automation, and web development, choosing tools that fit the problem rather than the other way around.
+              Tools I use across data science, automation, and web delivery.
             </p>
           </div>
         </motion.div>
