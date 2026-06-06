@@ -1,36 +1,35 @@
 import { motion } from 'framer-motion'
-import portrait from '../assets/me.jpg'
 
 const timeline = [
   {
     title: 'Analytics & Data Science Manager',
     company: 'Caterpillar, Inc.',
     period: 'May 2024 - Present',
-    summary: 'Leading analytics and automation work for accounting and finance, S&OP, and operations across the Earthmoving Division.',
+    summary: 'Analytics and automation for finance, S&OP, and operations.',
   },
   {
     title: 'Data Scientist',
     company: 'Caterpillar, Inc.',
     period: 'Apr 2023 - May 2024',
-    summary: 'Developed and deployed Earthmoving Mission Control, a centralized home for reports, web apps, ML models, access management, and AI-enabled analytics.',
+    summary: 'Built Earthmoving Mission Control for reports, apps, models, and access.',
   },
   {
     title: 'Data Scientist',
     company: 'C.H. Robinson',
     period: 'Oct 2021 - Apr 2023',
-    summary: 'Built intermodal pricing APIs, user-facing quote tools, ETL processes, and data pipelines with Python, Kubernetes, Azure DevOps, Airflow, Snowflake, and PostgreSQL.',
+    summary: 'Built pricing APIs, quote tools, ETL, and pipelines.',
   },
   {
     title: 'Senior Data Analyst',
     company: 'C.H. Robinson',
     period: 'Apr 2021 - Sep 2021',
-    summary: 'Delivered dashboards and reporting tools for volume and revenue tracking, market trends, yield management, and operational KPIs.',
+    summary: 'Delivered dashboards for revenue, market trends, yield, and KPIs.',
   },
   {
     title: 'Data Analyst',
     company: 'C.H. Robinson',
     period: 'Jun 2018 - Apr 2021',
-    summary: 'Developed automation bots and handled long-term and ad hoc project requests focused on cost reduction, efficiency, and volume and revenue growth.',
+    summary: 'Built automation for cost reduction, efficiency, and revenue growth.',
   },
 ]
 
@@ -41,7 +40,7 @@ const capabilities = [
   'Airflow, Snowflake, and PostgreSQL pipelines',
   'Kubernetes and Azure DevOps deployments',
   'Operational automation and bot development',
-  'ML model deployment and AI integration',
+  'ML model deployment',
   'Stakeholder intake, prioritization, and delivery',
 ]
 
@@ -58,28 +57,19 @@ export default function About() {
           <div className="grid gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
             <div>
               <h1 className="display-heading text-5xl sm:text-6xl lg:text-7xl">
-                I build data products grounded in business operations.
+                Data products for business operations.
               </h1>
-              <div className="mt-10 flex items-center gap-5">
-                <div className="h-24 w-24 shrink-0 overflow-hidden rounded-full border hairline">
-                  <img src={portrait} alt="Andrew Frankenreider" className="h-full w-full object-cover" />
-                </div>
-                <div>
-                  <p className="font-semibold tracking-tight">Andrew Frankenreider</p>
-                  <p className="apple-copy text-sm">Analytics & Data Science Manager</p>
-                  <p className="apple-copy text-sm">Caterpillar · Earthmoving Division</p>
-                </div>
-              </div>
+              <p className="apple-copy mt-8 max-w-md text-lg">Andrew Frankenreider · Analytics & Data Science Manager</p>
             </div>
             <div className="space-y-6 pt-2 text-lg leading-relaxed text-[#424245] dark:text-[#d2d2d7]">
               <p>
-                My professional experience sits at the intersection of data science, analytics engineering, full-stack application development, and process automation. I have built tools for accounting and finance, S&OP, operations, transportation pricing, business development, and leadership reporting.
+                I build analytics platforms, ML tools, APIs, and automation for finance, operations, pricing, and leadership reporting.
               </p>
               <p>
-                At Caterpillar, I developed and deployed Earthmoving Mission Control, a centralized platform for analytics and data science products across the Earthmoving Division. At C.H. Robinson, I built real-time pricing APIs, quote submission tools, ETL pipelines, dashboards, and automation bots that supported cost reduction, revenue growth, and day-to-day operational execution.
+                At Caterpillar, I developed Earthmoving Mission Control. At C.H. Robinson, I built pricing APIs, ETL pipelines, dashboards, and automation bots.
               </p>
               <p>
-                Outside of work, I enjoy reading, exploring new technology, spending time with family, and finding time for golf. This site is where I share projects and examples that reflect the kind of practical analytics work I enjoy building.
+                This site is a concise record of the practical data work I enjoy building.
               </p>
             </div>
           </div>
