@@ -27,7 +27,7 @@ export default function Footer() {
               Andrew Frankenreider
             </Link>
             <p className="apple-copy mt-3 max-w-md text-sm">
-              Analytics and data science leader building useful systems, measured interfaces, and practical machine learning tools.
+              Analytics and data science manager building reporting platforms, automation, and machine learning tools that teams actually use.
             </p>
           </div>
 
