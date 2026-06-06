@@ -124,7 +124,6 @@ export default function DataScienceAnimation() {
   return (
     <div className="relative h-[22rem] overflow-hidden rounded-[2rem] border hairline bg-white/70 shadow-[0_24px_80px_-52px_rgba(0,0,0,0.55)] dark:bg-white/[0.06]">
       <canvas ref={canvasRef} className="h-full w-full" aria-hidden="true" />
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-white/80 to-transparent dark:from-black/70" />
     </div>
   )
 }

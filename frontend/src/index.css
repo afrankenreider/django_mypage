@@ -99,6 +99,58 @@ a {
         @apply text-[#6e6e73] dark:text-[#a1a1a6] leading-relaxed;
     }
 
+    .studio-grid {
+        background-color: transparent;
+        background-image: none;
+        opacity: 0.26;
+    }
+
+    .ink-text {
+        color: var(--text-primary);
+    }
+
+    .apple-card {
+        @apply rounded-[2rem] border p-6 shadow-[0_24px_70px_-56px_rgba(0,0,0,0.55)] dark:shadow-none;
+        background: var(--surface);
+        border-color: var(--hairline);
+        backdrop-filter: blur(22px) saturate(170%);
+        -webkit-backdrop-filter: blur(22px) saturate(170%);
+    }
+
+    .apple-card-solid {
+        @apply rounded-[2rem] border p-6 shadow-[0_22px_60px_-54px_rgba(0,0,0,0.5)] dark:shadow-none;
+        background: var(--surface-strong);
+        border-color: var(--hairline);
+    }
+
+    .metric-tile {
+        @apply rounded-3xl border p-5;
+        background: rgba(255, 255, 255, 0.68);
+        border-color: var(--hairline);
+    }
+
+    .dark .metric-tile {
+        background: rgba(255, 255, 255, 0.055);
+    }
+
+    .signal-strip {
+        @apply overflow-hidden rounded-full border;
+        height: 8px;
+        background: rgba(0, 0, 0, 0.08);
+        border-color: var(--hairline);
+    }
+
+    .signal-strip > span {
+        display: block;
+        height: 100%;
+        border-radius: 9999px;
+        background: var(--text-primary);
+    }
+
+    .dark .signal-strip {
+        background: rgba(255, 255, 255, 0.14);
+    }
+
     .hairline {
         border-color: var(--hairline);
     }
@@ -138,47 +190,6 @@ a {
         background: var(--hairline);
     }
 
-    .gradient-text {
-        color: var(--text-primary);
-    }
-
-    .gradient-mesh {
-        background-image:
-            radial-gradient(48rem 48rem at 12% -8%, rgba(0, 0, 0, 0.05), transparent 60%),
-            radial-gradient(42rem 42rem at 100% 0%, rgba(0, 0, 0, 0.035), transparent 55%);
-    }
-
-    .dark .gradient-mesh {
-        background-image:
-            radial-gradient(48rem 48rem at 12% -8%, rgba(255, 255, 255, 0.08), transparent 60%),
-            radial-gradient(42rem 42rem at 100% 0%, rgba(255, 255, 255, 0.045), transparent 55%);
-    }
-}
-
-.apple-page [class*="bg-gradient-to"] {
-    background-image: none !important;
-}
-
-.apple-page [class*="from-blue"],
-.apple-page [class*="from-cyan"],
-.apple-page [class*="from-indigo"],
-.apple-page [class*="from-purple"],
-.apple-page [class*="to-blue"],
-.apple-page [class*="to-cyan"],
-.apple-page [class*="to-indigo"],
-.apple-page [class*="to-purple"] {
-    background-color: var(--surface-strong) !important;
-}
-
-.dark .apple-page [class*="from-blue"],
-.dark .apple-page [class*="from-cyan"],
-.dark .apple-page [class*="from-indigo"],
-.dark .apple-page [class*="from-purple"],
-.dark .apple-page [class*="to-blue"],
-.dark .apple-page [class*="to-cyan"],
-.dark .apple-page [class*="to-indigo"],
-.dark .apple-page [class*="to-purple"] {
-    background-color: var(--surface-strong) !important;
 }
 
 .apple-page [class*="text-blue"],

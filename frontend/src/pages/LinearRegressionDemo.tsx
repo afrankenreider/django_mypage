@@ -616,7 +616,7 @@ const NotebookSection = memo(() => {
       className="space-y-8"
     >
       {/* Header Card */}
-      <div className="bg-gradient-to-br from-slate-900 to-slate-800 dark:from-slate-800 dark:to-slate-900 rounded-3xl p-8 shadow-xl border border-slate-700">
+      <div className="apple-card-solid rounded-3xl p-8 shadow-xl border border-slate-700">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
             <h2 className="text-2xl font-bold text-white mb-2">Diabetes Disease Progression Prediction</h2>
@@ -1005,7 +1005,7 @@ const NotebookSection = memo(() => {
       </div>
 
       {/* Key Insights Card */}
-      <div className="bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-900/20 dark:to-teal-900/20 rounded-3xl p-8 border border-emerald-200 dark:border-emerald-800">
+      <div className="apple-card-solid rounded-3xl p-8 border border-emerald-200 dark:border-emerald-800">
         <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-4">Key Insights</h3>
         <div className="grid md:grid-cols-2 gap-6">
           <div>
@@ -1193,8 +1193,8 @@ export default function LinearRegressionDemo() {
 
   return (
     <section className="apple-page pt-28 pb-24 relative overflow-hidden">
-      {/* Background gradient */}
-      <div className="absolute inset-0 gradient-mesh opacity-50" />
+      {/* Ambient analytics backdrop */}
+      <div className="absolute inset-0 studio-grid opacity-50" />
 
       <div className="apple-section max-w-7xl relative z-10">
         {/* Header */}
@@ -1222,7 +1222,7 @@ export default function LinearRegressionDemo() {
               Project walkthrough
             </motion.span>
             <h1 className="display-heading text-5xl md:text-6xl lg:text-7xl mb-6">
-              Linear <span className="gradient-text">Regression</span>
+              Linear <span className="ink-text">Regression</span>
             </h1>
             <p className="apple-copy text-xl max-w-2xl mx-auto">
               This is the same plain-language regression walkthrough I use with teams when we need to explain model fit and tradeoffs.
@@ -1408,7 +1408,7 @@ export default function LinearRegressionDemo() {
           >
             <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-8 shadow-sm">
               <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">The Linear Equation</h2>
-              <div className="bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-900/30 dark:to-purple-900/30 rounded-xl p-8 text-center mb-8 border border-indigo-100 dark:border-indigo-800">
+              <div className="apple-card-solid rounded-xl p-8 text-center mb-8 border hairline">
                 <p className="text-3xl md:text-4xl font-mono text-indigo-600 dark:text-indigo-400 font-bold">
                   y = mx + b
                 </p>
@@ -1419,7 +1419,7 @@ export default function LinearRegressionDemo() {
               </div>
 
               <div className="grid md:grid-cols-2 gap-6">
-                <div className="bg-gradient-to-br from-cyan-50 to-blue-50 dark:from-cyan-900/20 dark:to-blue-900/20 rounded-xl p-6 border border-cyan-100 dark:border-cyan-800">
+                <div className="apple-card-solid rounded-xl p-6 border border-cyan-100 dark:border-cyan-800">
                   <h3 className="font-semibold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
                     <span className="font-mono text-lg text-cyan-600 dark:text-cyan-400">m</span> or <span className="font-mono text-lg text-cyan-600 dark:text-cyan-400">β₁</span> — Slope
                   </h3>
@@ -1427,7 +1427,7 @@ export default function LinearRegressionDemo() {
                     The slope tells you how much y changes for every one-unit increase in x. A positive slope means y increases as x increases; a negative slope means y decreases.
                   </p>
                 </div>
-                <div className="bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 rounded-xl p-6 border border-amber-100 dark:border-amber-800">
+                <div className="apple-card-solid rounded-xl p-6 border border-amber-100 dark:border-amber-800">
                   <h3 className="font-semibold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
                     <span className="font-mono text-lg text-amber-600 dark:text-amber-400">b</span> or <span className="font-mono text-lg text-amber-600 dark:text-amber-400">β₀</span> — Intercept
                   </h3>
@@ -1445,9 +1445,9 @@ export default function LinearRegressionDemo() {
               </p>
 
               <div className="space-y-4">
-                <div className="bg-gradient-to-r from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-800/50 rounded-xl p-6 border-l-4 border-indigo-500">
+                <div className="apple-card-solid rounded-xl p-6 border-l-4 border-indigo-500">
                   <div className="flex items-center gap-3 mb-3">
-                    <span className="w-8 h-8 bg-indigo-500 text-white rounded-lg flex items-center justify-center font-bold text-sm">1</span>
+                    <span className="w-8 h-8 bg-[#1d1d1f] dark:bg-[#f5f5f7] dark:text-[#1d1d1f] text-white rounded-lg flex items-center justify-center font-bold text-sm">1</span>
                     <h3 className="font-semibold text-slate-900 dark:text-white">Calculate Means</h3>
                   </div>
                   <p className="text-slate-700 dark:text-slate-300 font-mono text-lg pl-11">
@@ -1455,9 +1455,9 @@ export default function LinearRegressionDemo() {
                   </p>
                 </div>
 
-                <div className="bg-gradient-to-r from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-800/50 rounded-xl p-6 border-l-4 border-purple-500">
+                <div className="apple-card-solid rounded-xl p-6 border-l-4 border-purple-500">
                   <div className="flex items-center gap-3 mb-3">
-                    <span className="w-8 h-8 bg-purple-500 text-white rounded-lg flex items-center justify-center font-bold text-sm">2</span>
+                    <span className="w-8 h-8 bg-[#1d1d1f] dark:bg-[#f5f5f7] dark:text-[#1d1d1f] text-white rounded-lg flex items-center justify-center font-bold text-sm">2</span>
                     <h3 className="font-semibold text-slate-900 dark:text-white">Calculate Slope</h3>
                   </div>
                   <p className="text-slate-700 dark:text-slate-300 font-mono text-lg pl-11">
@@ -1465,9 +1465,9 @@ export default function LinearRegressionDemo() {
                   </p>
                 </div>
 
-                <div className="bg-gradient-to-r from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-800/50 rounded-xl p-6 border-l-4 border-cyan-500">
+                <div className="apple-card-solid rounded-xl p-6 border-l-4 border-cyan-500">
                   <div className="flex items-center gap-3 mb-3">
-                    <span className="w-8 h-8 bg-cyan-500 text-white rounded-lg flex items-center justify-center font-bold text-sm">3</span>
+                    <span className="w-8 h-8 bg-[#1d1d1f] dark:bg-[#f5f5f7] dark:text-[#1d1d1f] text-white rounded-lg flex items-center justify-center font-bold text-sm">3</span>
                     <h3 className="font-semibold text-slate-900 dark:text-white">Calculate Intercept</h3>
                   </div>
                   <p className="text-slate-700 dark:text-slate-300 font-mono text-lg pl-11">
@@ -1483,32 +1483,32 @@ export default function LinearRegressionDemo() {
                 R² measures how well the regression line fits the data. It represents the proportion of variance in the dependent variable that's predictable from the independent variable.
               </p>
 
-              <div className="bg-gradient-to-br from-slate-100 to-slate-50 dark:from-slate-800 dark:to-slate-800/50 rounded-xl p-6 mb-6 border border-slate-200 dark:border-slate-700">
+              <div className="apple-card-solid rounded-xl p-6 mb-6 border border-slate-200 dark:border-slate-700">
                 <p className="text-slate-700 dark:text-slate-300 font-mono text-center text-xl font-bold">
                   R² = 1 - (SS<sub>res</sub> / SS<sub>tot</sub>)
                 </p>
               </div>
 
               <div className="grid md:grid-cols-3 gap-4">
-                <div className="text-center p-5 bg-gradient-to-br from-red-50 to-rose-50 dark:from-red-900/20 dark:to-rose-900/20 rounded-xl border border-red-100 dark:border-red-800">
+                <div className="text-center p-5 apple-card-solid rounded-xl border border-red-100 dark:border-red-800">
                   <p className="text-3xl font-bold text-red-500">0.0 - 0.3</p>
                   <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">Weak fit</p>
                   <div className="w-full bg-red-200 dark:bg-red-800/30 rounded-full h-2 mt-3">
-                    <div className="bg-red-500 h-2 rounded-full" style={{ width: '30%' }}></div>
+                    <div className="bg-[#1d1d1f] dark:bg-[#f5f5f7] dark:text-[#1d1d1f] h-2 rounded-full" style={{ width: '30%' }}></div>
                   </div>
                 </div>
-                <div className="text-center p-5 bg-gradient-to-br from-amber-50 to-yellow-50 dark:from-amber-900/20 dark:to-yellow-900/20 rounded-xl border border-amber-100 dark:border-amber-800">
+                <div className="text-center p-5 apple-card-solid rounded-xl border border-amber-100 dark:border-amber-800">
                   <p className="text-3xl font-bold text-amber-500">0.3 - 0.7</p>
                   <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">Moderate fit</p>
                   <div className="w-full bg-amber-200 dark:bg-amber-800/30 rounded-full h-2 mt-3">
-                    <div className="bg-amber-500 h-2 rounded-full" style={{ width: '60%' }}></div>
+                    <div className="bg-[#1d1d1f] dark:bg-[#f5f5f7] dark:text-[#1d1d1f] h-2 rounded-full" style={{ width: '60%' }}></div>
                   </div>
                 </div>
-                <div className="text-center p-5 bg-gradient-to-br from-emerald-50 to-green-50 dark:from-emerald-900/20 dark:to-green-900/20 rounded-xl border border-emerald-100 dark:border-emerald-800">
+                <div className="text-center p-5 apple-card-solid rounded-xl border border-emerald-100 dark:border-emerald-800">
                   <p className="text-3xl font-bold text-emerald-500">0.7 - 1.0</p>
                   <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">Strong fit</p>
                   <div className="w-full bg-emerald-200 dark:bg-emerald-800/30 rounded-full h-2 mt-3">
-                    <div className="bg-emerald-500 h-2 rounded-full" style={{ width: '90%' }}></div>
+                    <div className="bg-[#1d1d1f] dark:bg-[#f5f5f7] dark:text-[#1d1d1f] h-2 rounded-full" style={{ width: '90%' }}></div>
                   </div>
                 </div>
               </div>
@@ -1533,7 +1533,7 @@ export default function LinearRegressionDemo() {
                       clearCustomPoints()
                     }}
                     className={`px-4 py-2 rounded-lg font-medium transition-all flex items-center gap-2 ${!isCustomMode
-                      ? 'bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-lg shadow-indigo-500/25'
+                      ? 'apple-card-solid text-white shadow-lg shadow-black/10 dark:shadow-none'
                       : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
                       }`}
                   >
@@ -1543,7 +1543,7 @@ export default function LinearRegressionDemo() {
                   <button
                     onClick={() => setIsCustomMode(true)}
                     className={`px-4 py-2 rounded-lg font-medium transition-all flex items-center gap-2 ${isCustomMode
-                      ? 'bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-lg shadow-cyan-500/25'
+                      ? 'apple-card-solid text-white shadow-lg shadow-black/10 dark:shadow-none'
                       : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
                       }`}
                   >
@@ -1560,7 +1560,7 @@ export default function LinearRegressionDemo() {
                       key={key}
                       onClick={() => setSelectedDataset(key)}
                       className={`px-4 py-2 rounded-full text-sm font-medium transition-all border ${selectedDataset === key
-                        ? 'bg-gradient-to-r from-indigo-500 to-purple-500 text-white border-transparent shadow-md'
+                        ? 'apple-card-solid text-white hairline shadow-md'
                         : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:border-indigo-400 hover:text-indigo-600'
                         }`}
                     >
@@ -1571,7 +1571,7 @@ export default function LinearRegressionDemo() {
               )}
 
               {isCustomMode && (
-                <div className="bg-gradient-to-r from-cyan-50 to-blue-50 dark:from-cyan-900/20 dark:to-blue-900/20 rounded-xl p-4 mb-6 flex flex-wrap items-center justify-between gap-4 border border-cyan-200 dark:border-cyan-800">
+                <div className="apple-card-solid rounded-xl p-4 mb-6 flex flex-wrap items-center justify-between gap-4 border hairline">
                   <div className="flex items-center gap-2 text-slate-700 dark:text-slate-300">
                     <TouchAppIcon className="text-cyan-500" sx={{ fontSize: 20 }} />
                     <span>Click anywhere on the chart to add points.</span>
@@ -1596,7 +1596,7 @@ export default function LinearRegressionDemo() {
               )}
 
               <div
-                className={`h-[450px] bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800/50 dark:to-slate-900/50 rounded-xl p-2 ${isCustomMode ? 'cursor-crosshair' : ''}`}
+                className={`h-[450px] apple-card-solid rounded-xl p-2 ${isCustomMode ? 'cursor-crosshair' : ''}`}
                 onClick={handleChartClick}
                 ref={chartRef}
               >
@@ -1695,23 +1695,23 @@ export default function LinearRegressionDemo() {
               {/* Results Panel */}
               {result && (
                 <div className="mt-8 grid md:grid-cols-4 gap-4">
-                  <div className="bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 rounded-xl p-5 text-center border border-indigo-100 dark:border-indigo-800">
+                  <div className="apple-card-solid rounded-xl p-5 text-center border hairline">
                     <p className="text-slate-500 dark:text-slate-400 text-sm mb-2">Equation</p>
                     <p className="text-lg font-mono font-bold text-indigo-600 dark:text-indigo-400">{result.equation}</p>
                   </div>
-                  <div className="bg-gradient-to-br from-cyan-50 to-blue-50 dark:from-cyan-900/20 dark:to-blue-900/20 rounded-xl p-5 text-center border border-cyan-100 dark:border-cyan-800">
+                  <div className="apple-card-solid rounded-xl p-5 text-center border border-cyan-100 dark:border-cyan-800">
                     <p className="text-slate-500 dark:text-slate-400 text-sm mb-2">Slope (m)</p>
                     <p className="text-lg font-mono font-bold text-cyan-600 dark:text-cyan-400">{result.slope}</p>
                   </div>
-                  <div className="bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 rounded-xl p-5 text-center border border-amber-100 dark:border-amber-800">
+                  <div className="apple-card-solid rounded-xl p-5 text-center border border-amber-100 dark:border-amber-800">
                     <p className="text-slate-500 dark:text-slate-400 text-sm mb-2">Intercept (b)</p>
                     <p className="text-lg font-mono font-bold text-amber-600 dark:text-amber-400">{result.intercept}</p>
                   </div>
                   <div className={`rounded-xl p-5 text-center border ${result.r_squared >= 0.7
-                    ? 'bg-gradient-to-br from-emerald-50 to-green-50 dark:from-emerald-900/20 dark:to-green-900/20 border-emerald-100 dark:border-emerald-800'
+                    ? 'apple-card-solid border-emerald-100 dark:border-emerald-800'
                     : result.r_squared >= 0.3
-                      ? 'bg-gradient-to-br from-amber-50 to-yellow-50 dark:from-amber-900/20 dark:to-yellow-900/20 border-amber-100 dark:border-amber-800'
-                      : 'bg-gradient-to-br from-red-50 to-rose-50 dark:from-red-900/20 dark:to-rose-900/20 border-red-100 dark:border-red-800'
+                      ? 'apple-card-solid border-amber-100 dark:border-amber-800'
+                      : 'apple-card-solid border-red-100 dark:border-red-800'
                     }`}>
                     <p className="text-slate-500 dark:text-slate-400 text-sm mb-2">R² Score</p>
                     <p className={`text-lg font-mono font-bold ${result.r_squared >= 0.7 ? 'text-emerald-600 dark:text-emerald-400' :
@@ -1738,7 +1738,7 @@ export default function LinearRegressionDemo() {
                 <p className="text-slate-600 dark:text-slate-400 mb-6">
                   Residuals show the difference between actual and predicted values. Ideally, they should be randomly scattered around zero.
                 </p>
-                <div className="h-72 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800/50 dark:to-slate-900/50 rounded-xl p-4">
+                <div className="h-72 apple-card-solid rounded-xl p-4">
                   <ResponsiveContainer width="100%" height="100%">
                     <BarChart
                       data={chartData.map((d, i) => ({
