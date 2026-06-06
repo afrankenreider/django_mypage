@@ -26,8 +26,6 @@ export default function DataScienceAnimation() {
     const isDark = theme === 'dark'
     const ink = isDark ? '245, 245, 247' : '29, 29, 31'
     const muted = isDark ? '161, 161, 166' : '110, 110, 115'
-    const grid = isDark ? '255, 255, 255' : '0, 0, 0'
-
     const resize = () => {
       const rect = canvas.getBoundingClientRect()
       const dpr = Math.min(window.devicePixelRatio || 1, 2)
