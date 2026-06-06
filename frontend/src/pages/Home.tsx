@@ -4,6 +4,13 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn'
 import GitHubIcon from '@mui/icons-material/GitHub'
 import EmailIcon from '@mui/icons-material/Email'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
+import headshot from '../assets/me.jpg'
+
+const stats = [
+  { value: '100+', label: 'Reports, apps & ML models in production' },
+  { value: '7+ yrs', label: 'Building data products end to end' },
+  { value: '2', label: 'Fortune 500 analytics organizations' },
+]
 
 const focusAreas = [
   {
@@ -29,28 +36,26 @@ const socialLinks = [
 export default function Home() {
   return (
     <div className="apple-page">
-      <section className="apple-section flex min-h-screen items-center pt-20">
+      <section className="apple-section flex min-h-screen items-center pt-24 pb-16">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: 'easeOut' }}
           className="w-full"
         >
-          <p className="eyebrow mb-6">Portfolio</p>
-          <div className="grid gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
+          <div className="grid items-center gap-12 lg:grid-cols-[1.15fr_0.85fr]">
             <div>
-              <h1 className="display-heading max-w-5xl text-6xl sm:text-7xl lg:text-8xl">
+              <p className="eyebrow mb-6">Analytics & Data Science Leadership</p>
+              <h1 className="display-heading max-w-4xl text-6xl sm:text-7xl lg:text-8xl">
                 Andrew Frankenreider
               </h1>
-              <p className="apple-copy mt-8 max-w-2xl text-xl sm:text-2xl">
-                Analytics and data science manager. Working at the intersection of data, automation, and business insights.
+              <p className="apple-copy mt-7 max-w-2xl text-xl sm:text-2xl">
+                Analytics and data science manager working at the intersection of data, automation, and the decisions businesses make every day.
               </p>
-            </div>
-            <div className="lg:pb-3">
-              <p className="text-lg leading-relaxed text-[#424245] dark:text-[#d2d2d7]">
-                At Caterpillar, I built Earthmoving Mission Control, a central analytics platform with 100+ Power BI reports, web apps, and ML models.
+              <p className="mt-6 max-w-xl text-lg leading-relaxed text-[#424245] dark:text-[#d2d2d7]">
+                At Caterpillar I built Earthmoving Mission Control, a central platform that brings 100+ Power BI reports, web apps, and ML models into one place for the Earthmoving Division.
               </p>
-              <div className="mt-8 flex flex-wrap items-center gap-3">
+              <div className="mt-9 flex flex-wrap items-center gap-3">
                 <Link to="/projects" className="quiet-link">
                   View work
                   <ArrowForwardIcon sx={{ fontSize: 17 }} />
@@ -58,8 +63,54 @@ export default function Home() {
                 <Link to="/about" className="text-link px-2 py-3">
                   About me
                 </Link>
+                <div className="ml-1 flex items-center gap-1.5">
+                  {socialLinks.map((social) => (
+                    <a
+                      key={social.label}
+                      href={social.href}
+                      target={social.href.startsWith('mailto') ? undefined : '_blank'}
+                      rel="noopener noreferrer"
+                      className="inline-flex h-11 w-11 items-center justify-center rounded-full border hairline text-[#6e6e73] transition-colors hover:bg-white hover:text-[#1d1d1f] dark:text-[#a1a1a6] dark:hover:bg-white/10 dark:hover:text-white"
+                      aria-label={social.label}
+                    >
+                      {social.icon}
+                    </a>
+                  ))}
+                </div>
               </div>
             </div>
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.94 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, ease: 'easeOut', delay: 0.1 }}
+              className="relative mx-auto w-full max-w-xs sm:max-w-sm lg:max-w-md"
+            >
+              <div className="absolute -inset-4 -z-10 rounded-full bg-gradient-to-tr from-blue-500/25 via-cyan-400/20 to-teal-400/25 blur-3xl" />
+              <div className="relative aspect-square overflow-hidden rounded-full border hairline shadow-[0_30px_80px_-30px_rgba(0,0,0,0.45)]">
+                <img
+                  src={headshot}
+                  alt="Andrew Frankenreider"
+                  className="h-full w-full scale-[1.04] object-cover"
+                  loading="eager"
+                />
+              </div>
+            </motion.div>
+          </div>
+
+          <div className="mt-16 grid grid-cols-1 gap-px overflow-hidden rounded-3xl border hairline bg-black/[0.04] sm:grid-cols-3 dark:bg-white/[0.06]">
+            {stats.map((stat, index) => (
+              <motion.div
+                key={stat.value}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 + index * 0.08, duration: 0.5 }}
+                className="bg-[#f5f5f7] px-7 py-8 dark:bg-black"
+              >
+                <p className="text-4xl font-semibold tracking-tight sm:text-5xl">{stat.value}</p>
+                <p className="apple-copy mt-3 text-sm">{stat.label}</p>
+              </motion.div>
+            ))}
           </div>
         </motion.div>
       </section>
@@ -106,20 +157,10 @@ export default function Home() {
           <p className="max-w-xl text-2xl font-semibold tracking-tight">
             Good data work helps people make better decisions, faster.
           </p>
-          <div className="flex items-center gap-2">
-            {socialLinks.map((social) => (
-              <a
-                key={social.label}
-                href={social.href}
-                target={social.href.startsWith('mailto') ? undefined : '_blank'}
-                rel="noopener noreferrer"
-                className="inline-flex h-11 w-11 items-center justify-center rounded-full border hairline text-[#6e6e73] transition-colors hover:bg-white hover:text-[#1d1d1f] dark:text-[#a1a1a6] dark:hover:bg-white/10 dark:hover:text-white"
-                aria-label={social.label}
-              >
-                {social.icon}
-              </a>
-            ))}
-          </div>
+          <a href="mailto:afrankenreider@gmail.com" className="quiet-link self-start">
+            Get in touch
+            <ArrowForwardIcon sx={{ fontSize: 17 }} />
+          </a>
         </div>
       </section>
     </div>

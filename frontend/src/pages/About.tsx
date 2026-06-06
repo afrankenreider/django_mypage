@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import portrait from '../assets/me.jpg'
 
 const timeline = [
   {
@@ -59,6 +60,16 @@ export default function About() {
               <h1 className="display-heading text-5xl sm:text-6xl lg:text-7xl">
                 I build data products grounded in business operations.
               </h1>
+              <div className="mt-10 flex items-center gap-5">
+                <div className="h-24 w-24 shrink-0 overflow-hidden rounded-full border hairline">
+                  <img src={portrait} alt="Andrew Frankenreider" className="h-full w-full object-cover" />
+                </div>
+                <div>
+                  <p className="font-semibold tracking-tight">Andrew Frankenreider</p>
+                  <p className="apple-copy text-sm">Analytics & Data Science Manager</p>
+                  <p className="apple-copy text-sm">Caterpillar · Earthmoving Division</p>
+                </div>
+              </div>
             </div>
             <div className="space-y-6 pt-2 text-lg leading-relaxed text-[#424245] dark:text-[#d2d2d7]">
               <p>
