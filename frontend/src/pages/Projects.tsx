@@ -1,122 +1,178 @@
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
-import AnalyticsSignal from '../components/AnalyticsSignal'
 
 interface Project {
-  id: number
   title: string
   description: string
-  technology: string
+  category: string
   link: string
-  metrics: string[]
-  comingSoon?: boolean
+  capabilities: string[]
 }
 
 const projects: Project[] = [
   {
-    id: 1,
     title: 'Linear Regression',
-    description: 'Regression, residuals, and fit.',
-    technology: 'Machine Learning',
+    description:
+      'An interactive guide to model fitting, residual analysis, and regression diagnostics using practical datasets.',
+    category: 'Statistical modeling',
     link: '/projects/linear-regression',
-    metrics: ['R² diagnostics', 'Residual views', 'Interactive fit'],
+    capabilities: ['Interactive fit', 'Residual analysis', 'Model diagnostics'],
   },
   {
-    id: 2,
     title: 'K-Means Clustering',
-    description: 'Assignments, centroids, and convergence.',
-    technology: 'Machine Learning',
+    description:
+      'A step-by-step visualization of centroid initialization, cluster assignment, and model convergence.',
+    category: 'Unsupervised learning',
     link: '/projects/kmeans',
-    metrics: ['Live clusters', 'Centroid trace', 'Quality scoring'],
+    capabilities: ['Live clustering', 'Iteration history', 'Quality scoring'],
   },
   {
-    id: 3,
     title: 'Neural Networks',
-    description: 'Layers, activations, and forward propagation.',
-    technology: 'Deep Learning',
+    description:
+      'A visual workspace for exploring network architecture, activation functions, and forward propagation.',
+    category: 'Deep learning',
     link: '/projects/neural-networks',
-    metrics: ['Layer map', 'Activation flow', 'Notebook mode'],
+    capabilities: ['Layer controls', 'Activation flow', 'Training concepts'],
   },
   {
-    id: 4,
     title: 'Finance Dashboard',
-    description: 'Watchlists, trends, and forecasts.',
-    technology: 'Financial Analysis',
+    description:
+      'A market analysis workspace combining watchlists, technical indicators, and forecasting experiments.',
+    category: 'Financial analytics',
     link: '/projects/finance-dashboard',
-    metrics: ['Market signal', 'Forecast lab', 'Watchlist'],
-  },
-  {
-    id: 5,
-    title: 'Data Pipelines',
-    description: 'ETL structure, scheduling, and monitoring.',
-    technology: 'Data Engineering',
-    link: '/projects/data-pipelines',
-    metrics: ['Lineage', 'Scheduling', 'Observability'],
-    comingSoon: true,
+    capabilities: ['Market overview', 'Forecasting lab', 'Custom watchlist'],
   },
 ]
 
 export default function Projects() {
   return (
-    <section className="apple-page pt-28 pb-24">
+    <section className="apple-page pb-24 pt-28">
       <div className="apple-section">
-        <motion.div
+        <motion.header
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center"
+          transition={{ duration: 0.6, ease: 'easeOut' }}
+          className="grid gap-10 border-b hairline pb-14 sm:pb-16 lg:grid-cols-[1.35fr_0.65fr] lg:items-end"
         >
           <div>
-            <p className="eyebrow mb-6">Projects</p>
-            <h1 className="display-heading text-5xl sm:text-6xl lg:text-7xl">
-              Work built like instruments.
+            <p className="eyebrow mb-6">Selected work</p>
+            <h1 className="display-heading max-w-4xl text-5xl sm:text-6xl lg:text-7xl">
+              Projects built to explain, not impress.
             </h1>
-            <p className="apple-copy mt-7 max-w-xl text-xl">
-              Interactive analytics, clean product surfaces, and practical demos with the same calm visual system as the home page.
+          </div>
+          <p className="apple-copy max-w-xl text-lg sm:text-xl lg:pb-1">
+            Focused, browser-based tools that make statistical and financial
+            concepts easier to inspect, test, and understand.
+          </p>
+        </motion.header>
+
+        <div className="mt-8 grid gap-px overflow-hidden rounded-3xl border hairline bg-black/[0.06] dark:bg-white/[0.08] sm:mt-10 sm:grid-cols-3">
+          {[
+            ['04', 'interactive demos'],
+            ['03', 'data disciplines'],
+            ['100%', 'browser based'],
+          ].map(([value, label]) => (
+            <div
+              key={label}
+              className="bg-white px-6 py-6 dark:bg-[#161617] sm:px-7 sm:py-7"
+            >
+              <p className="text-2xl font-semibold tracking-tight">{value}</p>
+              <p className="apple-copy mt-1 text-sm">{label}</p>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-16 sm:mt-20">
+          <div className="mb-8 flex items-end justify-between gap-6">
+            <div>
+              <p className="eyebrow">Case studies</p>
+              <h2 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
+                Explore the work.
+              </h2>
+            </div>
+            <p className="hidden text-sm text-[#86868b] sm:block">
+              Interactive experiences
             </p>
           </div>
-          <AnalyticsSignal title="Project command center" caption="A live-feeling overview for models, dashboards, pipelines, and automation work." />
-        </motion.div>
 
-        <div className="mt-20 grid gap-5">
-          {projects.map((project, index) => (
-            <motion.div
-              key={project.id}
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 + index * 0.06, duration: 0.5 }}
-              className="apple-card-solid group grid gap-6 md:grid-cols-[76px_1fr_auto] md:items-center"
-            >
-              <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#1d1d1f] text-sm font-semibold text-white dark:bg-[#f5f5f7] dark:text-[#1d1d1f]">
-                {String(index + 1).padStart(2, '0')}
-              </span>
-              <div>
-                <div className="flex flex-wrap items-center gap-3">
-                  <h2 className="text-3xl font-semibold tracking-tight">{project.title}</h2>
-                  <span className="rounded-full bg-black/5 px-3 py-1 text-xs font-medium text-[#6e6e73] dark:bg-white/10 dark:text-[#a1a1a6]">
-                    {project.technology}
+          <div className="grid gap-5 lg:grid-cols-2">
+            {projects.map((project, index) => (
+              <motion.article
+                key={project.title}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-60px' }}
+                transition={{
+                  delay: (index % 2) * 0.06,
+                  duration: 0.45,
+                  ease: 'easeOut',
+                }}
+                className="apple-card-solid group flex min-h-full flex-col p-6 sm:p-8"
+              >
+                <div className="flex items-center justify-between gap-4">
+                  <p className="text-sm font-medium text-[#6e6e73] dark:text-[#a1a1a6]">
+                    {project.category}
+                  </p>
+                  <span
+                    className="text-sm tabular-nums text-[#86868b]"
+                    aria-hidden="true"
+                  >
+                    {String(index + 1).padStart(2, '0')}
                   </span>
                 </div>
-                <p className="apple-copy mt-3 max-w-2xl">{project.description}</p>
-                <div className="mt-5 flex flex-wrap gap-2">
-                  {project.metrics.map((metric) => (
-                    <span key={metric} className="rounded-full border hairline px-3 py-1 text-xs text-[#6e6e73] dark:text-[#a1a1a6]">
-                      {metric}
-                    </span>
+
+                <h3 className="mt-10 text-3xl font-semibold tracking-tight sm:text-4xl">
+                  {project.title}
+                </h3>
+                <p className="apple-copy mt-4 max-w-xl text-base sm:text-lg">
+                  {project.description}
+                </p>
+
+                <ul
+                  className="mt-7 flex flex-wrap gap-x-5 gap-y-2 border-t hairline pt-5"
+                  aria-label={`${project.title} capabilities`}
+                >
+                  {project.capabilities.map((capability) => (
+                    <li
+                      key={capability}
+                      className="text-sm text-[#6e6e73] dark:text-[#a1a1a6]"
+                    >
+                      {capability}
+                    </li>
                   ))}
-                </div>
-              </div>
-              {project.comingSoon ? (
-                <span className="text-sm font-medium text-[#86868b]">Coming soon</span>
-              ) : (
-                <Link to={project.link} className="text-link justify-self-start md:justify-self-end">
-                  Open
-                  <ArrowForwardIcon className="transition-transform group-hover:translate-x-1" sx={{ fontSize: 17 }} />
+                </ul>
+
+                <Link
+                  to={project.link}
+                  className="text-link mt-10 self-start rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4"
+                  aria-label={`Explore ${project.title}`}
+                >
+                  Explore project
+                  <ArrowForwardIcon
+                    className="transition-transform group-hover:translate-x-1 group-focus-within:translate-x-1"
+                    sx={{ fontSize: 17 }}
+                  />
                 </Link>
-              )}
-            </motion.div>
-          ))}
+              </motion.article>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-20 flex flex-col gap-6 border-t hairline pt-8 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <p className="eyebrow">Built with purpose</p>
+            <p className="mt-3 max-w-2xl text-2xl font-semibold tracking-tight">
+              Clear interfaces for complex analytical work.
+            </p>
+          </div>
+          <a
+            href="mailto:afrankenreider@gmail.com"
+            className="quiet-link self-start focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4"
+          >
+            Start a conversation
+            <ArrowForwardIcon sx={{ fontSize: 17 }} />
+          </a>
         </div>
       </div>
     </section>

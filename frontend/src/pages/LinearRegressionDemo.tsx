@@ -40,16 +40,15 @@ import CheckIcon from '@mui/icons-material/Check'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import ExpandLessIcon from '@mui/icons-material/ExpandLess'
 
-// Stormy morning / tech color palette
 const colors = {
-  primary: '#334155',       // Slate 700 - main data points
-  secondary: '#475569',     // Slate 600 - secondary elements
-  accent: '#0f172a',        // Slate 900 - deep accent
-  muted: '#64748b',         // Slate 500 - muted elements
-  success: '#0d9488',       // Teal 600 - positive indicators
-  warning: '#d97706',       // Amber 600 - warnings
-  danger: '#dc2626',        // Red 600 - negative/residuals
-  line: '#0891b2',          // Cyan 600 - trend line
+  primary: '#1d1d1f',
+  secondary: '#6e6e73',
+  accent: '#000000',
+  muted: '#86868b',
+  success: '#248a3d',
+  warning: '#b25000',
+  danger: '#d70015',
+  line: '#1d1d1f',
   gridLight: 'rgba(100, 116, 139, 0.08)',
   gridDark: 'rgba(71, 85, 105, 0.25)',
 }
@@ -787,7 +786,7 @@ const NotebookSection = memo(() => {
                   { feature: 's1', coefficient: -12.4, fill: colors.danger },
                 ]}
                 layout="vertical"
-                margin={{ top: 20, right: 40, left: 60, bottom: 30 }}
+                margin={{ top: 20, right: 16, left: 40, bottom: 30 }}
               >
                 <CartesianGrid strokeDasharray="3 3" stroke={colors.gridDark} horizontal={true} vertical={false} />
                 <XAxis
@@ -872,7 +871,7 @@ const NotebookSection = memo(() => {
                   { actual: 52, predicted: 98, residual: -46 },
                   { actual: 281, predicted: 225, residual: 56 },
                 ]}
-                margin={{ top: 20, right: 40, left: 70, bottom: 60 }}
+                margin={{ top: 20, right: 16, left: 40, bottom: 60 }}
               >
                 <CartesianGrid strokeDasharray="3 3" stroke={colors.gridDark} />
                 <XAxis
@@ -956,7 +955,7 @@ const NotebookSection = memo(() => {
                   { range: '40 to 60', count: 6 },
                   { range: '60 to 80', count: 3 },
                 ]}
-                margin={{ top: 20, right: 40, left: 70, bottom: 60 }}
+                margin={{ top: 20, right: 16, left: 40, bottom: 60 }}
               >
                 <CartesianGrid strokeDasharray="3 3" stroke={colors.gridDark} vertical={false} />
                 <XAxis
@@ -1211,7 +1210,7 @@ export default function LinearRegressionDemo() {
             Back to Projects
           </Link>
 
-          <div className="text-center mb-16">
+          <div className="mb-14 max-w-3xl">
             <motion.span
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -1224,19 +1223,21 @@ export default function LinearRegressionDemo() {
             <h1 className="display-heading text-5xl md:text-6xl lg:text-7xl mb-6">
               Linear <span className="ink-text">Regression</span>
             </h1>
-            <p className="apple-copy text-xl max-w-2xl mx-auto">
+            <p className="apple-copy max-w-2xl text-lg sm:text-xl">
               This is the same plain-language regression walkthrough I use with teams when we need to explain model fit and tradeoffs.
             </p>
           </div>
 
           {/* Navigation Tabs */}
-          <div className="flex flex-wrap justify-center gap-2 mb-12">
+          <div className="mb-12 flex flex-wrap gap-2" role="group" aria-label="Project sections">
             {sections.map((section) => {
               const Icon = section.icon
               return (
                 <button
+                  type="button"
                   key={section.id}
                   onClick={() => setActiveSection(section.id)}
+                  aria-pressed={activeSection === section.id}
                   className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-medium transition-all ${activeSection === section.id
                     ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 shadow-lg'
                     : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
@@ -1307,7 +1308,7 @@ export default function LinearRegressionDemo() {
               </p>
               <div className="h-80 bg-slate-100 dark:bg-slate-800/60 rounded-xl p-4 border border-slate-200 dark:border-slate-700/50">
                 <ResponsiveContainer width="100%" height="100%">
-                  <ComposedChart data={chartData} margin={{ top: 20, right: 40, bottom: 60, left: 70 }}>
+                  <ComposedChart data={chartData} margin={{ top: 20, right: 16, bottom: 60, left: 40 }}>
                     <defs>
                       <filter id="glow">
                         <feGaussianBlur stdDeviation="2" result="coloredBlur" />
@@ -1387,7 +1388,7 @@ export default function LinearRegressionDemo() {
                 <div className="mt-6 flex flex-wrap gap-4 justify-center">
                   <div className="bg-slate-100 dark:bg-slate-800/60 rounded-xl px-5 py-3 border border-slate-200 dark:border-slate-700">
                     <span className="text-slate-500 dark:text-slate-400 text-sm">Equation: </span>
-                    <span className="text-cyan-700 dark:text-cyan-400 font-mono font-bold">{result.equation}</span>
+                    <span className="font-mono font-bold text-[#1d1d1f] dark:text-[#f5f5f7]">{result.equation}</span>
                   </div>
                   <div className="bg-slate-100 dark:bg-slate-800/60 rounded-xl px-5 py-3 border border-slate-200 dark:border-slate-700">
                     <span className="text-slate-500 dark:text-slate-400 text-sm">R² Score: </span>
@@ -1409,19 +1410,19 @@ export default function LinearRegressionDemo() {
             <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-8 shadow-sm">
               <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">The Linear Equation</h2>
               <div className="apple-card-solid rounded-xl p-8 text-center mb-8 border hairline">
-                <p className="text-3xl md:text-4xl font-mono text-indigo-600 dark:text-indigo-400 font-bold">
+                <p className="font-mono text-3xl font-bold text-[#1d1d1f] dark:text-[#f5f5f7] md:text-4xl">
                   y = mx + b
                 </p>
                 <p className="text-slate-500 dark:text-slate-400 mt-4">or equivalently</p>
-                <p className="text-3xl md:text-4xl font-mono text-purple-600 dark:text-purple-400 font-bold mt-2">
+                <p className="mt-2 font-mono text-3xl font-bold text-[#6e6e73] dark:text-[#a1a1a6] md:text-4xl">
                   y = β₀ + β₁x
                 </p>
               </div>
 
               <div className="grid md:grid-cols-2 gap-6">
-                <div className="apple-card-solid rounded-xl p-6 border border-cyan-100 dark:border-cyan-800">
+                <div className="apple-card-solid rounded-xl border hairline p-6">
                   <h3 className="font-semibold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
-                    <span className="font-mono text-lg text-cyan-600 dark:text-cyan-400">m</span> or <span className="font-mono text-lg text-cyan-600 dark:text-cyan-400">β₁</span> — Slope
+                    <span className="font-mono text-lg font-semibold">m</span> or <span className="font-mono text-lg font-semibold">β₁</span> — Slope
                   </h3>
                   <p className="text-slate-600 dark:text-slate-400">
                     The slope tells you how much y changes for every one-unit increase in x. A positive slope means y increases as x increases; a negative slope means y decreases.
@@ -1441,11 +1442,11 @@ export default function LinearRegressionDemo() {
             <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-8 shadow-sm">
               <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">How It's Calculated</h2>
               <p className="text-slate-600 dark:text-slate-400 mb-6">
-                Linear regression uses the <strong className="text-indigo-600 dark:text-indigo-400">Ordinary Least Squares (OLS)</strong> method to find the line that minimizes the sum of squared residuals (errors).
+                Linear regression uses the <strong className="text-[#1d1d1f] dark:text-[#f5f5f7]">Ordinary Least Squares (OLS)</strong> method to find the line that minimizes the sum of squared residuals (errors).
               </p>
 
               <div className="space-y-4">
-                <div className="apple-card-solid rounded-xl p-6 border-l-4 border-indigo-500">
+                <div className="apple-card-solid rounded-xl border-l-4 border-l-[#1d1d1f] p-6 dark:border-l-[#f5f5f7]">
                   <div className="flex items-center gap-3 mb-3">
                     <span className="w-8 h-8 bg-[#1d1d1f] dark:bg-[#f5f5f7] dark:text-[#1d1d1f] text-white rounded-lg flex items-center justify-center font-bold text-sm">1</span>
                     <h3 className="font-semibold text-slate-900 dark:text-white">Calculate Means</h3>
@@ -1455,7 +1456,7 @@ export default function LinearRegressionDemo() {
                   </p>
                 </div>
 
-                <div className="apple-card-solid rounded-xl p-6 border-l-4 border-purple-500">
+                <div className="apple-card-solid rounded-xl border-l-4 border-l-[#6e6e73] p-6 dark:border-l-[#a1a1a6]">
                   <div className="flex items-center gap-3 mb-3">
                     <span className="w-8 h-8 bg-[#1d1d1f] dark:bg-[#f5f5f7] dark:text-[#1d1d1f] text-white rounded-lg flex items-center justify-center font-bold text-sm">2</span>
                     <h3 className="font-semibold text-slate-900 dark:text-white">Calculate Slope</h3>
@@ -1465,7 +1466,7 @@ export default function LinearRegressionDemo() {
                   </p>
                 </div>
 
-                <div className="apple-card-solid rounded-xl p-6 border-l-4 border-cyan-500">
+                <div className="apple-card-solid rounded-xl border-l-4 border-l-[#86868b] p-6">
                   <div className="flex items-center gap-3 mb-3">
                     <span className="w-8 h-8 bg-[#1d1d1f] dark:bg-[#f5f5f7] dark:text-[#1d1d1f] text-white rounded-lg flex items-center justify-center font-bold text-sm">3</span>
                     <h3 className="font-semibold text-slate-900 dark:text-white">Calculate Intercept</h3>
@@ -1561,7 +1562,7 @@ export default function LinearRegressionDemo() {
                       onClick={() => setSelectedDataset(key)}
                       className={`px-4 py-2 rounded-full text-sm font-medium transition-all border ${selectedDataset === key
                         ? 'apple-card-solid text-white hairline shadow-md'
-                        : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:border-indigo-400 hover:text-indigo-600'
+                        : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:border-slate-500 hover:text-slate-900 dark:hover:text-white'
                         }`}
                     >
                       {dataset.name}
@@ -1573,7 +1574,7 @@ export default function LinearRegressionDemo() {
               {isCustomMode && (
                 <div className="apple-card-solid rounded-xl p-4 mb-6 flex flex-wrap items-center justify-between gap-4 border hairline">
                   <div className="flex items-center gap-2 text-slate-700 dark:text-slate-300">
-                    <TouchAppIcon className="text-cyan-500" sx={{ fontSize: 20 }} />
+                    <TouchAppIcon className="text-[#6e6e73] dark:text-[#a1a1a6]" sx={{ fontSize: 20 }} />
                     <span>Click anywhere on the chart to add points.</span>
                     <span className="text-slate-500 dark:text-slate-400">({customPoints.length} points)</span>
                   </div>
@@ -1603,17 +1604,9 @@ export default function LinearRegressionDemo() {
                 <ResponsiveContainer width="100%" height="100%">
                   <ComposedChart
                     data={chartData}
-                    margin={{ top: 20, right: 40, bottom: 60, left: 70 }}
+                    margin={{ top: 20, right: 16, bottom: 60, left: 40 }}
                   >
                     <defs>
-                      <linearGradient id="lineGradientInteractive" x1="0" y1="0" x2="1" y2="0">
-                        <stop offset="0%" stopColor={colors.danger} />
-                        <stop offset="100%" stopColor={colors.warning} />
-                      </linearGradient>
-                      <linearGradient id="pointGradient" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor={colors.primary} />
-                        <stop offset="100%" stopColor={colors.secondary} />
-                      </linearGradient>
                       <filter id="glowInteractive">
                         <feGaussianBlur stdDeviation="2" result="coloredBlur" />
                         <feMerge>
@@ -1671,7 +1664,7 @@ export default function LinearRegressionDemo() {
                     <Scatter
                       name="Data Points"
                       dataKey="y"
-                      fill="url(#pointGradient)"
+                      fill={colors.primary}
                       stroke="#fff"
                       strokeWidth={2}
                       r={isCustomMode ? 10 : 8}
@@ -1681,7 +1674,7 @@ export default function LinearRegressionDemo() {
                         data={lineData}
                         type="monotone"
                         dataKey="y"
-                        stroke="url(#lineGradientInteractive)"
+                        stroke={colors.danger}
                         strokeWidth={3}
                         dot={false}
                         name="Regression Line"
@@ -1697,11 +1690,11 @@ export default function LinearRegressionDemo() {
                 <div className="mt-8 grid md:grid-cols-4 gap-4">
                   <div className="apple-card-solid rounded-xl p-5 text-center border hairline">
                     <p className="text-slate-500 dark:text-slate-400 text-sm mb-2">Equation</p>
-                    <p className="text-lg font-mono font-bold text-indigo-600 dark:text-indigo-400">{result.equation}</p>
+                    <p className="font-mono text-lg font-bold text-[#1d1d1f] dark:text-[#f5f5f7]">{result.equation}</p>
                   </div>
-                  <div className="apple-card-solid rounded-xl p-5 text-center border border-cyan-100 dark:border-cyan-800">
+                  <div className="apple-card-solid rounded-xl border hairline p-5 text-center">
                     <p className="text-slate-500 dark:text-slate-400 text-sm mb-2">Slope (m)</p>
-                    <p className="text-lg font-mono font-bold text-cyan-600 dark:text-cyan-400">{result.slope}</p>
+                    <p className="font-mono text-lg font-bold text-[#1d1d1f] dark:text-[#f5f5f7]">{result.slope}</p>
                   </div>
                   <div className="apple-card-solid rounded-xl p-5 text-center border border-amber-100 dark:border-amber-800">
                     <p className="text-slate-500 dark:text-slate-400 text-sm mb-2">Intercept (b)</p>
@@ -1726,7 +1719,7 @@ export default function LinearRegressionDemo() {
 
               {isCustomMode && customPoints.length < 2 && (
                 <div className="mt-6 text-center text-slate-500 dark:text-slate-400">
-                  Add at least <span className="font-semibold text-cyan-600 dark:text-cyan-400">2 points</span> to see the regression line
+                  Add at least <span className="font-semibold text-[#1d1d1f] dark:text-[#f5f5f7]">2 points</span> to see the regression line
                 </div>
               )}
             </div>
@@ -1746,18 +1739,8 @@ export default function LinearRegressionDemo() {
                         residual: d.residual,
                         isPositive: (d.residual || 0) >= 0
                       }))}
-                      margin={{ top: 20, right: 40, bottom: 60, left: 70 }}
+                      margin={{ top: 20, right: 16, bottom: 60, left: 40 }}
                     >
-                      <defs>
-                        <linearGradient id="positiveGradient" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor={colors.success} stopOpacity={0.8} />
-                          <stop offset="100%" stopColor={colors.success} stopOpacity={0.4} />
-                        </linearGradient>
-                        <linearGradient id="negativeGradient" x1="0" y1="1" x2="0" y2="0">
-                          <stop offset="0%" stopColor={colors.danger} stopOpacity={0.8} />
-                          <stop offset="100%" stopColor={colors.danger} stopOpacity={0.4} />
-                        </linearGradient>
-                      </defs>
                       <CartesianGrid strokeDasharray="3 3" stroke="rgba(148, 163, 184, 0.2)" vertical={false} />
                       <XAxis
                         dataKey="index"
@@ -1804,7 +1787,7 @@ export default function LinearRegressionDemo() {
                         {chartData.map((entry, index) => (
                           <Cell
                             key={`cell-${index}`}
-                            fill={(entry.residual || 0) >= 0 ? 'url(#positiveGradient)' : 'url(#negativeGradient)'}
+                            fill={(entry.residual || 0) >= 0 ? colors.success : colors.danger}
                           />
                         ))}
                       </Bar>

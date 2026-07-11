@@ -25,21 +25,20 @@ import HealthAndSafetyIcon from '@mui/icons-material/HealthAndSafety'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 import CancelIcon from '@mui/icons-material/Cancel'
 
-// Stormy morning / tech color palette
 const colors = {
-    primary: '#334155',       // Slate 700 - main elements
-    secondary: '#475569',     // Slate 600 - secondary elements
-    accent: '#0f172a',        // Slate 900 - deep accent
-    muted: '#64748b',         // Slate 500 - muted text
-    success: '#0d9488',       // Teal 600 - positive (muted)
-    warning: '#d97706',       // Amber 600 - warning (muted)
-    danger: '#dc2626',        // Red 600 - negative
-    neuron: '#475569',        // Slate 600 - default neuron
-    connection: '#64748b',    // Slate 500 - connections
-    activeNeuron: '#0d9488',  // Teal 600 - active state
-    inputNeuron: '#0891b2',   // Cyan 600 - input layer
-    hiddenNeuron: '#475569',  // Slate 600 - hidden layers
-    outputNeuron: '#0d9488',  // Teal 600 - output layer
+    primary: '#1d1d1f',
+    secondary: '#6e6e73',
+    accent: '#000000',
+    muted: '#86868b',
+    success: '#248a3d',
+    warning: '#b25000',
+    danger: '#d70015',
+    neuron: '#6e6e73',
+    connection: '#86868b',
+    activeNeuron: '#248a3d',
+    inputNeuron: '#1d1d1f',
+    hiddenNeuron: '#6e6e73',
+    outputNeuron: '#248a3d',
 }
 
 // Types
@@ -676,9 +675,9 @@ const NotebookSection = memo(() => {
                     <div>
                         <h4 className="font-semibold text-slate-900 dark:text-white mb-2">Why Neural Networks Work</h4>
                         <ul className="space-y-2 text-slate-600 dark:text-slate-400">
-                            <li className="flex items-center gap-2"><span className="text-violet-500 font-bold">1.</span><span>Non-linear activation functions enable complex pattern learning</span></li>
-                            <li className="flex items-center gap-2"><span className="text-violet-500 font-bold">2.</span><span>Multiple layers create hierarchical feature representations</span></li>
-                            <li className="flex items-center gap-2"><span className="text-violet-500 font-bold">3.</span><span>Backpropagation efficiently updates millions of parameters</span></li>
+                            <li className="flex items-center gap-2"><span className="font-bold">1.</span><span>Non-linear activation functions enable complex pattern learning</span></li>
+                            <li className="flex items-center gap-2"><span className="font-bold">2.</span><span>Multiple layers create hierarchical feature representations</span></li>
+                            <li className="flex items-center gap-2"><span className="font-bold">3.</span><span>Backpropagation efficiently updates millions of parameters</span></li>
                         </ul>
                     </div>
                     <div>
@@ -763,7 +762,7 @@ export default function NeuralNetworkDemo() {
                         Back to Projects
                     </Link>
 
-                    <div className="text-center mb-16">
+                    <div className="mb-14 max-w-3xl">
                         <motion.span initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="inline-flex items-center gap-2 rounded-full bg-black/5 px-4 py-2 text-sm font-medium text-[#6e6e73] dark:bg-white/10 dark:text-[#a1a1a6] mb-6">
                             <AutoGraphIcon sx={{ fontSize: 18 }} />
                             Project walkthrough
@@ -771,19 +770,21 @@ export default function NeuralNetworkDemo() {
                         <h1 className="display-heading text-5xl md:text-6xl lg:text-7xl mb-6">
                             Neural <span className="ink-text">Networks</span>
                         </h1>
-                        <p className="apple-copy text-xl max-w-2xl mx-auto">
+                        <p className="apple-copy max-w-2xl text-lg sm:text-xl">
                             A straightforward look at how network layers and activations behave, based on how I explain the topic to partners.
                         </p>
                     </div>
 
                     {/* Navigation Tabs */}
-                    <div className="flex flex-wrap justify-center gap-2 mb-12">
+                    <div className="mb-12 flex flex-wrap gap-2" role="group" aria-label="Project sections">
                         {sections.map((section) => {
                             const Icon = section.icon
                             return (
                                 <button
+                                    type="button"
                                     key={section.id}
                                     onClick={() => setActiveSection(section.id)}
+                                    aria-pressed={activeSection === section.id}
                                     className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-medium transition-all ${activeSection === section.id
                                         ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 shadow-lg'
                                         : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
@@ -876,20 +877,20 @@ export default function NeuralNetworkDemo() {
                             <p className="text-slate-600 dark:text-slate-400 mb-6">
                                 Each neuron computes a weighted sum of its inputs, adds a bias, and applies an activation function.
                             </p>
-                            <div className="apple-card-solid rounded-xl p-8 text-center mb-8 border border-violet-100 dark:border-violet-800">
-                                <p className="text-3xl md:text-4xl font-mono text-violet-600 dark:text-violet-400 font-bold">
+                            <div className="apple-card-solid mb-8 rounded-xl border hairline p-8 text-center">
+                                <p className="font-mono text-3xl font-bold text-[#1d1d1f] dark:text-[#f5f5f7] md:text-4xl">
                                     z = Wx + b
                                 </p>
                                 <p className="text-slate-500 dark:text-slate-400 mt-4">then apply activation</p>
-                                <p className="text-3xl md:text-4xl font-mono text-purple-600 dark:text-purple-400 font-bold mt-2">
+                                <p className="mt-2 font-mono text-3xl font-bold text-[#6e6e73] dark:text-[#a1a1a6] md:text-4xl">
                                     a = f(z)
                                 </p>
                             </div>
 
                             <div className="grid md:grid-cols-2 gap-6">
-                                <div className="apple-card-solid rounded-xl p-6 border border-blue-100 dark:border-blue-800">
+                                <div className="apple-card-solid rounded-xl border hairline p-6">
                                     <h3 className="font-semibold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
-                                        <span className="font-mono text-lg text-blue-600 dark:text-blue-400">W</span> - Weights
+                                        <span className="font-mono text-lg font-semibold">W</span> - Weights
                                     </h3>
                                     <p className="text-slate-600 dark:text-slate-400">
                                         Learnable parameters that determine how much influence each input has on the output. Adjusted during training via backpropagation.
@@ -918,12 +919,12 @@ export default function NeuralNetworkDemo() {
                                     <p className="text-slate-700 dark:text-slate-300 font-mono text-lg mb-2">f(x) = 1/(1+e^-x)</p>
                                     <p className="text-slate-600 dark:text-slate-400 text-sm">Output range: (0, 1). Good for binary classification output layers.</p>
                                 </div>
-                                <div className="apple-card-solid rounded-xl p-6 border border-blue-100 dark:border-blue-800">
+                                <div className="apple-card-solid rounded-xl border hairline p-6">
                                     <h3 className="font-semibold text-slate-900 dark:text-white mb-2">ReLU</h3>
                                     <p className="text-slate-700 dark:text-slate-300 font-mono text-lg mb-2">f(x) = max(0, x)</p>
                                     <p className="text-slate-600 dark:text-slate-400 text-sm">Most popular for hidden layers. Fast to compute, reduces vanishing gradients.</p>
                                 </div>
-                                <div className="apple-card-solid rounded-xl p-6 border border-purple-100 dark:border-purple-800">
+                                <div className="apple-card-solid rounded-xl border hairline p-6">
                                     <h3 className="font-semibold text-slate-900 dark:text-white mb-2">Tanh</h3>
                                     <p className="text-slate-700 dark:text-slate-300 font-mono text-lg mb-2">f(x) = tanh(x)</p>
                                     <p className="text-slate-600 dark:text-slate-400 text-sm">Output range: (-1, 1). Zero-centered, useful for hidden layers.</p>
@@ -1097,7 +1098,7 @@ export default function NeuralNetworkDemo() {
                         <div className="grid md:grid-cols-2 gap-6">
                             <div className="apple-card-solid rounded-2xl p-6 border hairline">
                                 <h3 className="font-semibold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
-                                    <PlayArrowIcon className="text-violet-500" />
+                                    <PlayArrowIcon className="text-[#6e6e73] dark:text-[#a1a1a6]" />
                                     Forward Pass
                                 </h3>
                                 <p className="text-slate-600 dark:text-slate-400 text-sm">
