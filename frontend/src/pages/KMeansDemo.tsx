@@ -36,27 +36,26 @@ import PeopleIcon from '@mui/icons-material/People'
 import StorefrontIcon from '@mui/icons-material/Storefront'
 import PlaceIcon from '@mui/icons-material/Place'
 
-// Stormy morning / tech color palette for clusters
 const clusterColors = [
-    '#0891b2', // Cyan 600
-    '#0d9488', // Teal 600
-    '#475569', // Slate 600
-    '#64748b', // Slate 500
-    '#334155', // Slate 700
-    '#0e7490', // Cyan 700
-    '#115e59', // Teal 800
-    '#1e293b', // Slate 800
+    '#1d1d1f',
+    '#248a3d',
+    '#b25000',
+    '#d70015',
+    '#6e6e73',
+    '#7a4f01',
+    '#3d7d47',
+    '#8e8e93',
 ]
 
 const centroidColors = [
-    '#0e7490', // Cyan 700
-    '#0f766e', // Teal 700
-    '#334155', // Slate 700
-    '#475569', // Slate 600
-    '#1e293b', // Slate 800
-    '#155e75', // Cyan 800
-    '#134e4a', // Teal 900
-    '#0f172a', // Slate 900
+    '#000000',
+    '#196c2e',
+    '#8a3d00',
+    '#a50011',
+    '#424245',
+    '#5c3a00',
+    '#245c2e',
+    '#636366',
 ]
 
 interface Point {
@@ -460,7 +459,7 @@ export default function KMeansDemo() {
                         Back to Projects
                     </Link>
 
-                    <div className="text-center mb-16">
+                    <div className="mb-14 max-w-3xl">
                         <motion.span
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -473,19 +472,21 @@ export default function KMeansDemo() {
                         <h1 className="display-heading text-5xl md:text-6xl lg:text-7xl mb-6">
                             K-Means <span className="ink-text">Clustering</span>
                         </h1>
-                        <p className="apple-copy text-xl max-w-2xl mx-auto">
+                        <p className="apple-copy max-w-2xl text-lg sm:text-xl">
                             I use this demo to explain clustering decisions in a practical way, including where k-means works well and where it does not.
                         </p>
                     </div>
 
                     {/* Navigation Tabs */}
-                    <div className="flex flex-wrap justify-center gap-2 mb-12">
+                    <div className="mb-12 flex flex-wrap gap-2" role="group" aria-label="Project sections">
                         {sections.map((section) => {
                             const Icon = section.icon
                             return (
                                 <button
+                                    type="button"
                                     key={section.id}
                                     onClick={() => setActiveSection(section.id)}
+                                    aria-pressed={activeSection === section.id}
                                     className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-medium transition-all ${activeSection === section.id
                                         ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 shadow-lg'
                                         : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
@@ -642,7 +643,7 @@ export default function KMeansDemo() {
                             <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">The Algorithm Steps</h2>
 
                             <div className="space-y-6">
-                                <div className="apple-card-solid rounded-xl p-6 border border-blue-100 dark:border-blue-800">
+                                <div className="apple-card-solid rounded-xl border hairline p-6">
                                     <div className="flex items-start gap-4">
                                         <div className="w-10 h-10 rounded-full bg-[#1d1d1f] dark:bg-[#f5f5f7] dark:text-[#1d1d1f] text-white flex items-center justify-center font-bold flex-shrink-0">
                                             1
@@ -691,7 +692,7 @@ export default function KMeansDemo() {
                                     </div>
                                 </div>
 
-                                <div className="apple-card-solid rounded-xl p-6 border border-purple-100 dark:border-purple-800">
+                                <div className="apple-card-solid rounded-xl border hairline p-6">
                                     <div className="flex items-start gap-4">
                                         <div className="w-10 h-10 rounded-full bg-[#1d1d1f] dark:bg-[#f5f5f7] dark:text-[#1d1d1f] text-white flex items-center justify-center font-bold flex-shrink-0">
                                             4
@@ -864,7 +865,7 @@ export default function KMeansDemo() {
                                 ref={chartRef}
                             >
                                 <ResponsiveContainer width="100%" height="100%">
-                                    <ScatterChart margin={{ top: 30, right: 40, bottom: 60, left: 80 }}>
+                                    <ScatterChart margin={{ top: 30, right: 16, bottom: 60, left: 40 }}>
                                         <CartesianGrid
                                             strokeDasharray="3 3"
                                             stroke="rgba(100, 116, 139, 0.15)"
@@ -950,7 +951,7 @@ export default function KMeansDemo() {
                                         <button
                                             onClick={() => setIsPlaying(!isPlaying)}
                                             disabled={currentIteration >= result.history.length - 1 && !isPlaying}
-                                            className="px-4 py-2 bg-[#1d1d1f] dark:bg-[#f5f5f7] dark:text-[#1d1d1f] text-white rounded-lg hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
+                                            className="flex items-center gap-2 rounded-lg bg-[#1d1d1f] px-4 py-2 text-white transition-colors hover:bg-black disabled:cursor-not-allowed disabled:opacity-50 dark:bg-[#f5f5f7] dark:text-[#1d1d1f] dark:hover:bg-white"
                                         >
                                             {isPlaying ? (
                                                 <>
@@ -1040,8 +1041,8 @@ export default function KMeansDemo() {
                             )}
 
                             {isCustomMode && customPoints.length < k && (
-                                <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 border hairline rounded-xl">
-                                    <p className="text-blue-800 dark:text-blue-300">
+                                <div className="mt-6 rounded-xl border hairline bg-black/[0.03] p-4 dark:bg-white/[0.06]">
+                                    <p className="text-[#424245] dark:text-[#d2d2d7]">
                                         Add {k - customPoints.length} more point{k - customPoints.length !== 1 ? 's' : ''} to run k-means clustering.
                                     </p>
                                 </div>
@@ -1205,7 +1206,7 @@ export default function KMeansDemo() {
                             <div className="grid md:grid-cols-3 gap-6">
                                 <div className="space-y-2">
                                     <h3 className="font-semibold text-slate-900 dark:text-white flex items-center gap-2">
-                                        <span className="text-blue-500">1.</span>
+                                        <span className="font-semibold text-[#1d1d1f] dark:text-[#f5f5f7]">1.</span>
                                         Normalize Your Data
                                     </h3>
                                     <p className="text-sm text-slate-600 dark:text-slate-400">
@@ -1214,7 +1215,7 @@ export default function KMeansDemo() {
                                 </div>
                                 <div className="space-y-2">
                                     <h3 className="font-semibold text-slate-900 dark:text-white flex items-center gap-2">
-                                        <span className="text-blue-500">2.</span>
+                                        <span className="font-semibold text-[#1d1d1f] dark:text-[#f5f5f7]">2.</span>
                                         Use the Elbow Method
                                     </h3>
                                     <p className="text-sm text-slate-600 dark:text-slate-400">
@@ -1223,7 +1224,7 @@ export default function KMeansDemo() {
                                 </div>
                                 <div className="space-y-2">
                                     <h3 className="font-semibold text-slate-900 dark:text-white flex items-center gap-2">
-                                        <span className="text-blue-500">3.</span>
+                                        <span className="font-semibold text-[#1d1d1f] dark:text-[#f5f5f7]">3.</span>
                                         Run Multiple Times
                                     </h3>
                                     <p className="text-sm text-slate-600 dark:text-slate-400">

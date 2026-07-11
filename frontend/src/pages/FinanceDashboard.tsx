@@ -596,7 +596,7 @@ export default function FinanceDashboard() {
                             <button
                                 onClick={fetchQuotes}
                                 disabled={isLoading}
-                                className="flex items-center gap-2 px-4 py-2 bg-[#1d1d1f] hover:bg-black dark:bg-[#f5f5f7] dark:hover:bg-white dark:text-[#1d1d1f] text-[#1d1d1f] dark:text-[#f5f5f7] rounded-lg transition-colors disabled:opacity-50"
+                                className="flex items-center gap-2 rounded-lg bg-[#1d1d1f] px-4 py-2 text-white transition-colors hover:bg-black disabled:opacity-50 dark:bg-[#f5f5f7] dark:text-[#1d1d1f] dark:hover:bg-white"
                             >
                                 <RefreshIcon
                                     className={isLoading ? 'animate-spin' : ''}
@@ -919,7 +919,7 @@ export default function FinanceDashboard() {
                                     <div className="mt-6 pt-6 border-t hairline">
                                         <div className="flex items-center justify-between mb-4">
                                             <div className="flex items-center gap-3">
-                                                <PsychologyIcon className="text-purple-400" />
+                                                <PsychologyIcon className="text-[#6e6e73] dark:text-[#a1a1a6]" />
                                                 <h3 className="text-lg font-semibold text-[#1d1d1f] dark:text-[#f5f5f7]">
                                                     ML Price Predictions
                                                 </h3>
@@ -927,7 +927,7 @@ export default function FinanceDashboard() {
                                             <button
                                                 onClick={() => setShowPredictions(!showPredictions)}
                                                 className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${showPredictions
-                                                        ? 'bg-purple-600 text-[#1d1d1f] dark:text-[#f5f5f7]'
+                                                        ? 'bg-[#1d1d1f] text-white dark:bg-[#f5f5f7] dark:text-[#1d1d1f]'
                                                         : 'bg-black/5 dark:bg-white/10 text-[#d2d2d7] hover:bg-[#1d1d1f] dark:bg-[#f5f5f7] dark:text-[#1d1d1f]'
                                                     }`}
                                             >
@@ -981,7 +981,7 @@ export default function FinanceDashboard() {
                                                             <select
                                                                 value={selectedModel}
                                                                 onChange={(e) => setSelectedModel(e.target.value)}
-                                                                className="w-full px-4 py-2 bg-black/5 dark:bg-white/10 border hairline rounded-lg text-[#1d1d1f] dark:text-[#f5f5f7] focus:outline-none focus:border-purple-500"
+                                                                className="w-full rounded-lg border hairline bg-black/5 px-4 py-2 text-[#1d1d1f] focus:outline-none focus:ring-2 focus:ring-black/30 dark:bg-white/10 dark:text-[#f5f5f7] dark:focus:ring-white/30"
                                                             >
                                                                 {Object.entries(mlModels).map(([key, model]) => (
                                                                     <option key={key} value={key}>
@@ -1002,7 +1002,7 @@ export default function FinanceDashboard() {
                                                             <select
                                                                 value={forecastHorizon}
                                                                 onChange={(e) => setForecastHorizon(Number(e.target.value))}
-                                                                className="w-full px-4 py-2 bg-black/5 dark:bg-white/10 border hairline rounded-lg text-[#1d1d1f] dark:text-[#f5f5f7] focus:outline-none focus:border-purple-500"
+                                                                className="w-full rounded-lg border hairline bg-black/5 px-4 py-2 text-[#1d1d1f] focus:outline-none focus:ring-2 focus:ring-black/30 dark:bg-white/10 dark:text-[#f5f5f7] dark:focus:ring-white/30"
                                                             >
                                                                 {FORECAST_HORIZONS.map((horizon) => (
                                                                     <option key={horizon.value} value={horizon.value}>
@@ -1020,7 +1020,7 @@ export default function FinanceDashboard() {
                                                             <button
                                                                 onClick={fetchPredictions}
                                                                 disabled={isPredicting}
-                                                                className="flex items-center justify-center gap-2 px-6 py-2 bg-purple-600 hover:bg-purple-500 disabled:bg-purple-800 disabled:cursor-not-allowed text-[#1d1d1f] dark:text-[#f5f5f7] rounded-lg font-medium transition-colors"
+                                                                className="flex items-center justify-center gap-2 rounded-lg bg-[#1d1d1f] px-6 py-2 font-medium text-white transition-colors hover:bg-black disabled:cursor-not-allowed disabled:opacity-50 dark:bg-[#f5f5f7] dark:text-[#1d1d1f] dark:hover:bg-white"
                                                             >
                                                                 {isPredicting ? (
                                                                     <>
@@ -1082,7 +1082,7 @@ export default function FinanceDashboard() {
                                                                                         min={config.min}
                                                                                         max={config.max}
                                                                                         step={config.step || 1}
-                                                                                        className="w-full px-3 py-1.5 bg-[#1d1d1f] dark:bg-[#f5f5f7] dark:text-[#1d1d1f] border hairline rounded text-[#1d1d1f] dark:text-[#f5f5f7] text-sm focus:outline-none focus:border-purple-500"
+                                                                                        className="w-full rounded border hairline bg-white px-3 py-1.5 text-sm text-[#1d1d1f] focus:outline-none focus:ring-2 focus:ring-black/30 dark:bg-[#161617] dark:text-[#f5f5f7] dark:focus:ring-white/30"
                                                                                     />
                                                                                     <p className="text-xs text-[#86868b] mt-0.5">
                                                                                         Range: {config.min} - {config.max}
@@ -1153,7 +1153,7 @@ export default function FinanceDashboard() {
                                                                                                 )}
                                                                                                 {data.predicted && (
                                                                                                     <>
-                                                                                                        <p className="text-purple-400 font-semibold">
+                                                                                                        <p className="font-semibold text-[#1d1d1f] dark:text-[#f5f5f7]">
                                                                                                             Predicted: ${data.predicted?.toFixed(2)}
                                                                                                         </p>
                                                                                                         <p className="text-[#86868b] text-xs mt-1">
@@ -1182,24 +1182,24 @@ export default function FinanceDashboard() {
                                                                                 type="monotone"
                                                                                 dataKey="confidenceUpper"
                                                                                 stroke="transparent"
-                                                                                fill="#a855f7"
+                                                                                fill="#86868b"
                                                                                 fillOpacity={0.1}
                                                                             />
                                                                             <Area
                                                                                 type="monotone"
                                                                                 dataKey="confidenceLower"
                                                                                 stroke="transparent"
-                                                                                fill="#1e1b4b"
+                                                                                fill="#f5f5f7"
                                                                                 fillOpacity={1}
                                                                             />
                                                                             {/* Predicted Price */}
                                                                             <Area
                                                                                 type="monotone"
                                                                                 dataKey="predicted"
-                                                                                stroke="#a855f7"
+                                                                                stroke="#1d1d1f"
                                                                                 strokeWidth={2}
                                                                                 strokeDasharray="5 5"
-                                                                                fill="#a855f7"
+                                                                                fill="#1d1d1f"
                                                                                 fillOpacity={0.2}
                                                                                 name="Predicted"
                                                                             />
@@ -1212,11 +1212,11 @@ export default function FinanceDashboard() {
                                                                         <span className="text-[#86868b] dark:text-[#a1a1a6]">Historical</span>
                                                                     </div>
                                                                     <div className="flex items-center gap-2">
-                                                                        <div className="w-4 h-0.5 bg-purple-500 border-dashed" style={{ borderTop: '2px dashed #a855f7' }} />
+                                                                        <div className="h-0.5 w-4 border-t-2 border-dashed border-[#1d1d1f] dark:border-[#f5f5f7]" />
                                                                         <span className="text-[#86868b] dark:text-[#a1a1a6]">Predicted</span>
                                                                     </div>
                                                                     <div className="flex items-center gap-2">
-                                                                        <div className="w-4 h-3 bg-purple-500/20 rounded" />
+                                                                        <div className="h-3 w-4 rounded bg-black/10 dark:bg-white/15" />
                                                                         <span className="text-[#86868b] dark:text-[#a1a1a6]">95% Confidence</span>
                                                                     </div>
                                                                 </div>
@@ -1238,7 +1238,7 @@ export default function FinanceDashboard() {
                                                                         </div>
                                                                         <div className="flex justify-between">
                                                                             <span className="text-[#86868b] dark:text-[#a1a1a6]">Final Predicted:</span>
-                                                                            <span className="text-purple-400 font-medium">
+                                                                            <span className="font-medium text-[#1d1d1f] dark:text-[#f5f5f7]">
                                                                                 ${predictionResult.predictions[predictionResult.predictions.length - 1]?.predicted_price.toFixed(2)}
                                                                             </span>
                                                                         </div>
@@ -1299,7 +1299,7 @@ export default function FinanceDashboard() {
                                                                                         day: 'numeric',
                                                                                     })}
                                                                                 </td>
-                                                                                <td className="py-2 text-right text-purple-400 font-medium">
+                                                                                <td className="py-2 text-right font-medium text-[#1d1d1f] dark:text-[#f5f5f7]">
                                                                                     ${pred.predicted_price.toFixed(2)}
                                                                                 </td>
                                                                                 <td className="py-2 text-right text-[#86868b]">
