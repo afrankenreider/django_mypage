@@ -529,12 +529,8 @@ const CodeCell = memo(({ cell, isExpanded, onToggle }: { cell: NotebookCell; isE
       {/* Cell header */}
       <div className="flex items-center justify-between px-4 py-2 bg-white dark:bg-black/[0.045] border-b border-black/[0.08] dark:border-white/[0.14]">
         <div className="flex items-center gap-2">
-          <div className="flex gap-1">
-            <div className="w-3 h-3 rounded-full bg-red-400" />
-            <div className="w-3 h-3 rounded-full bg-yellow-400" />
-            <div className="w-3 h-3 rounded-full bg-green-400" />
-          </div>
-          <span className="text-xs font-mono text-[#86868b] dark:text-[#a1a1a6] ml-2">
+          <CodeIcon sx={{ fontSize: 15 }} className="text-[#86868b]" />
+          <span className="font-mono text-xs text-[#86868b] dark:text-[#a1a1a6]">
             Python
           </span>
         </div>
@@ -1382,7 +1378,7 @@ export default function LinearRegressionDemo() {
                   </div>
                   <div className="bg-black/[0.045] dark:bg-black/[0.055] rounded-xl px-5 py-3 border border-black/[0.08] dark:border-white/[0.14]">
                     <span className="text-[#86868b] dark:text-[#a1a1a6] text-sm">R² Score: </span>
-                    <span className="text-teal-700 dark:text-teal-400 font-mono font-bold">{result.r_squared}</span>
+                    <span className="font-mono font-bold text-[#248a3d]">{result.r_squared}</span>
                   </div>
                 </div>
               )}
@@ -1669,25 +1665,25 @@ export default function LinearRegressionDemo() {
               {result && (
                 <dl className="mt-8 grid gap-px overflow-hidden rounded-2xl border hairline bg-black/[0.06] dark:bg-white/[0.10] md:grid-cols-4">
                   <div className="bg-white p-5 text-center dark:bg-[#161617]">
-                    <p className="text-[#86868b] dark:text-[#a1a1a6] text-sm mb-2">Equation</p>
-                    <p className="font-mono text-lg font-bold text-[#1d1d1f] dark:text-[#f5f5f7]">{result.equation}</p>
+                    <dt className="mb-2 text-sm text-[#86868b] dark:text-[#a1a1a6]">Equation</dt>
+                    <dd className="font-mono text-lg font-bold text-[#1d1d1f] dark:text-[#f5f5f7]">{result.equation}</dd>
                   </div>
                   <div className="bg-white p-5 text-center dark:bg-[#161617]">
-                    <p className="text-[#86868b] dark:text-[#a1a1a6] text-sm mb-2">Slope (m)</p>
-                    <p className="font-mono text-lg font-bold text-[#1d1d1f] dark:text-[#f5f5f7]">{result.slope}</p>
+                    <dt className="mb-2 text-sm text-[#86868b] dark:text-[#a1a1a6]">Slope (m)</dt>
+                    <dd className="font-mono text-lg font-bold text-[#1d1d1f] dark:text-[#f5f5f7]">{result.slope}</dd>
                   </div>
                   <div className="bg-white p-5 text-center dark:bg-[#161617]">
-                    <p className="text-[#86868b] dark:text-[#a1a1a6] text-sm mb-2">Intercept (b)</p>
-                    <p className="text-lg font-mono font-bold text-amber-600 dark:text-amber-400">{result.intercept}</p>
+                    <dt className="mb-2 text-sm text-[#86868b] dark:text-[#a1a1a6]">Intercept (b)</dt>
+                    <dd className="font-mono text-lg font-bold text-[#b25000]">{result.intercept}</dd>
                   </div>
                   <div className="bg-white p-5 text-center dark:bg-[#161617]">
-                    <p className="text-[#86868b] dark:text-[#a1a1a6] text-sm mb-2">R² Score</p>
-                    <p className={`text-lg font-mono font-bold ${result.r_squared >= 0.7 ? 'text-emerald-600 dark:text-emerald-400' :
+                    <dt className="mb-2 text-sm text-[#86868b] dark:text-[#a1a1a6]">R² Score</dt>
+                    <dd className={`text-lg font-mono font-bold ${result.r_squared >= 0.7 ? 'text-emerald-600 dark:text-emerald-400' :
                       result.r_squared >= 0.3 ? 'text-amber-600 dark:text-amber-400' :
                         'text-red-600 dark:text-red-400'
                       }`}>
                       {result.r_squared}
-                    </p>
+                    </dd>
                   </div>
                 </dl>
               )}
