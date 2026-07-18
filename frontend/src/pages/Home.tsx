@@ -14,16 +14,16 @@ const stats = [
 
 const focusAreas = [
   {
-    title: 'Analytics platforms',
-    description: 'Reporting, apps, and models in one place.',
+    title: 'ML models',
+    description: 'Forecasting and classification models for finance and S&OP.',
   },
   {
-    title: 'Automation',
-    description: 'APIs, pipelines, and dashboards.',
+    title: 'Dashboards and automation',
+    description: 'Power BI reporting and RPA that removes manual work from accounting processes.',
   },
   {
-    title: 'Full-stack delivery',
-    description: 'Python, Django, Airflow, Snowflake, PostgreSQL, Power BI.',
+    title: 'Web applications',
+    description: 'Django and React apps backed by Airflow, Snowflake, and PostgreSQL.',
   },
 ]
 
@@ -45,15 +45,15 @@ export default function Home() {
         >
           <div className="grid items-center gap-12 lg:grid-cols-[1.15fr_0.85fr]">
             <div>
-              <p className="eyebrow mb-6">Analytics & Data Science Leadership</p>
+              <p className="eyebrow mb-6">Data Science & Analytics Manager</p>
               <h1 className="display-heading max-w-4xl text-6xl sm:text-7xl lg:text-8xl">
                 Andrew Frankenreider
               </h1>
               <p className="apple-copy mt-7 max-w-2xl text-xl sm:text-2xl">
-                Analytics and data science manager building practical data products.
+                Data science and analytics manager at Caterpillar, Inc.
               </p>
               <p className="mt-6 max-w-xl text-lg leading-relaxed text-[#424245] dark:text-[#d2d2d7]">
-                I lead analytics platforms, automation, reporting, and ML delivery for operations and finance teams.
+                I manage a team in our financial services division that builds ML models, analytics dashboards, web applications, and process automation for accounting, finance, and sales and operations planning.
               </p>
               <div className="mt-9 flex flex-wrap items-center gap-3">
                 <Link to="/projects" className="quiet-link">
@@ -97,7 +97,7 @@ export default function Home() {
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 + index * 0.08, duration: 0.5 }}
-                className="bg-[#f5f5f7] px-7 py-8 dark:bg-black"
+                className="bg-[#f5f5f7] px-7 py-8 dark:bg-[#0a0a0c]"
               >
                 <p className="text-4xl font-semibold tracking-tight sm:text-5xl">{stat.value}</p>
                 <p className="apple-copy mt-3 text-sm">{stat.label}</p>
@@ -133,7 +133,7 @@ export default function Home() {
             <div>
               <p className="text-sm font-medium uppercase tracking-[0.22em] text-white/50">Selected work</p>
               <h2 className="mt-4 max-w-3xl text-4xl font-semibold tracking-[-0.04em] sm:text-5xl">
-                Analytics, automation, reporting.
+                Interactive demos of the methods I use at work.
               </h2>
             </div>
             <Link to="/projects" className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-medium text-[#1d1d1f] transition-colors hover:bg-[#f5f5f7]">
@@ -147,10 +147,10 @@ export default function Home() {
       <section className="apple-section pb-28">
         <div className="flex flex-col gap-6 border-t hairline pt-8 sm:flex-row sm:items-center sm:justify-between">
           <p className="max-w-xl text-2xl font-semibold tracking-tight">
-            Better data. Faster decisions.
+            Questions about the work or the demos?
           </p>
           <a href="mailto:afrankenreider@gmail.com" className="quiet-link self-start">
-            Get in touch
+            Email me
             <ArrowForwardIcon sx={{ fontSize: 17 }} />
           </a>
         </div>

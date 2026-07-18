@@ -56,14 +56,14 @@ export default function Projects() {
           className="grid gap-10 border-b hairline pb-14 sm:pb-16 lg:grid-cols-[1.35fr_0.65fr] lg:items-end"
         >
           <div>
-            <p className="eyebrow mb-6">Selected work</p>
+            <p className="eyebrow mb-6">Projects</p>
             <h1 className="display-heading max-w-4xl text-5xl sm:text-6xl lg:text-7xl">
-              Projects built to explain, not impress.
+              Interactive demos.
             </h1>
           </div>
           <p className="apple-copy max-w-xl text-lg sm:text-xl lg:pb-1">
-            Focused, browser-based tools that make statistical and financial
-            concepts easier to inspect, test, and understand.
+            Browser-based walkthroughs of methods I use at work: regression,
+            clustering, neural networks, and market data analysis.
           </p>
         </motion.header>
 
@@ -86,13 +86,13 @@ export default function Projects() {
         <div className="mt-16 sm:mt-20">
           <div className="mb-8 flex items-end justify-between gap-6">
             <div>
-              <p className="eyebrow">Case studies</p>
+              <p className="eyebrow">Demos</p>
               <h2 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
-                Explore the work.
+                Four interactive demos.
               </h2>
             </div>
             <p className="hidden text-sm text-[#86868b] sm:block">
-              Interactive experiences
+              Built with React and TypeScript
             </p>
           </div>
 
@@ -146,9 +146,9 @@ export default function Projects() {
                 <Link
                   to={project.link}
                   className="text-link mt-10 self-start rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4"
-                  aria-label={`Explore ${project.title}`}
+                  aria-label={`Open ${project.title} demo`}
                 >
-                  Explore project
+                  Open demo
                   <ArrowForwardIcon
                     className="transition-transform group-hover:translate-x-1 group-focus-within:translate-x-1"
                     sx={{ fontSize: 17 }}
@@ -161,16 +161,16 @@ export default function Projects() {
 
         <div className="mt-20 flex flex-col gap-6 border-t hairline pt-8 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <p className="eyebrow">Built with purpose</p>
+            <p className="eyebrow">Contact</p>
             <p className="mt-3 max-w-2xl text-2xl font-semibold tracking-tight">
-              Clear interfaces for complex analytical work.
+              Questions about any of these? I'm happy to talk through the code.
             </p>
           </div>
           <a
             href="mailto:afrankenreider@gmail.com"
             className="quiet-link self-start focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4"
           >
-            Start a conversation
+            Email me
             <ArrowForwardIcon sx={{ fontSize: 17 }} />
           </a>
         </div>

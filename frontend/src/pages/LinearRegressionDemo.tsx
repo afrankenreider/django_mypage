@@ -527,7 +527,7 @@ const CodeCell = memo(({ cell, isExpanded, onToggle }: { cell: NotebookCell; isE
   return (
     <div className="bg-white dark:bg-[#1d1d1f] rounded-xl border border-black/[0.08] dark:border-white/[0.14] overflow-hidden shadow-sm">
       {/* Cell header */}
-      <div className="flex items-center justify-between px-4 py-2 bg-white dark:bg-black/[0.045] border-b border-black/[0.08] dark:border-white/[0.14]">
+      <div className="flex items-center justify-between px-4 py-2 bg-white dark:bg-[#0a0a0c]/[0.045] border-b border-black/[0.08] dark:border-white/[0.14]">
         <div className="flex items-center gap-2">
           <CodeIcon sx={{ fontSize: 15 }} className="text-[#86868b]" />
           <span className="font-mono text-xs text-[#86868b] dark:text-[#a1a1a6]">
@@ -573,7 +573,7 @@ const CodeCell = memo(({ cell, isExpanded, onToggle }: { cell: NotebookCell; isE
           <div className="px-4 py-1.5 bg-black/[0.045] dark:bg-[#2c2c2e] border-b border-black/[0.08] dark:border-white/[0.14]">
             <span className="text-xs font-medium text-[#86868b] dark:text-[#a1a1a6]">Output</span>
           </div>
-          <pre className="p-4 text-sm font-mono overflow-x-auto bg-white dark:bg-black/[0.04] text-[#424245] dark:text-[#d2d2d7] whitespace-pre-wrap">
+          <pre className="p-4 text-sm font-mono overflow-x-auto bg-white dark:bg-[#0a0a0c]/[0.04] text-[#424245] dark:text-[#d2d2d7] whitespace-pre-wrap">
             {cell.output}
           </pre>
         </div>
@@ -1372,11 +1372,11 @@ export default function LinearRegressionDemo() {
               </div>
               {result && (
                 <div className="mt-6 flex flex-wrap gap-4 justify-center">
-                  <div className="bg-black/[0.045] dark:bg-black/[0.055] rounded-xl px-5 py-3 border border-black/[0.08] dark:border-white/[0.14]">
+                  <div className="bg-black/[0.045] dark:bg-[#0a0a0c]/[0.055] rounded-xl px-5 py-3 border border-black/[0.08] dark:border-white/[0.14]">
                     <span className="text-[#86868b] dark:text-[#a1a1a6] text-sm">Equation: </span>
                     <span className="font-mono font-bold text-[#1d1d1f] dark:text-[#f5f5f7]">{result.equation}</span>
                   </div>
-                  <div className="bg-black/[0.045] dark:bg-black/[0.055] rounded-xl px-5 py-3 border border-black/[0.08] dark:border-white/[0.14]">
+                  <div className="bg-black/[0.045] dark:bg-[#0a0a0c]/[0.055] rounded-xl px-5 py-3 border border-black/[0.08] dark:border-white/[0.14]">
                     <span className="text-[#86868b] dark:text-[#a1a1a6] text-sm">R² Score: </span>
                     <span className="font-mono font-bold text-[#248a3d]">{result.r_squared}</span>
                   </div>
@@ -1851,15 +1851,15 @@ export default function LinearRegressionDemo() {
             </div>
 
             <div className="border-y hairline py-10 text-center">
-              <h2 className="mb-4 text-2xl font-semibold text-[#1d1d1f] dark:text-[#f5f5f7]">Ready to Explore?</h2>
+              <h2 className="mb-4 text-2xl font-semibold text-[#1d1d1f] dark:text-[#f5f5f7]">Try the playground</h2>
               <p className="apple-copy mx-auto mb-6 max-w-xl">
-                Head to the Interactive Demo section to experiment with different datasets or create your own visualizations!
+                Head to the interactive demo to fit lines against different datasets and inspect the residuals.
               </p>
               <button
                 onClick={() => setActiveSection('interactive')}
                 className="quiet-link"
               >
-                Try Interactive Demo →
+                Open interactive demo →
               </button>
             </div>
           </motion.div>

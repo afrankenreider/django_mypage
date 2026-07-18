@@ -18,7 +18,7 @@ const socialLinks = [
 
 export default function Footer() {
   return (
-    <footer className="bg-[#f5f5f7] dark:bg-black">
+    <footer className="bg-[#f5f5f7] dark:bg-[#0a0a0c]">
       <div className="apple-section py-12">
         <div className="soft-rule mb-8" />
         <div className="grid gap-10 md:grid-cols-[1.6fr_1fr_1fr]">
@@ -27,7 +27,7 @@ export default function Footer() {
               Andrew Frankenreider
             </Link>
             <p className="apple-copy mt-3 max-w-md text-sm">
-              Analytics and data science manager building reporting platforms, automation, and machine learning tools that teams actually use.
+              Data science and analytics manager at Caterpillar, Inc., leading a team that builds ML models, dashboards, web apps, and RPA for finance.
             </p>
           </div>
 

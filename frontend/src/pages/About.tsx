@@ -2,10 +2,10 @@ import { motion } from 'framer-motion'
 
 const timeline = [
   {
-    title: 'Analytics & Data Science Manager',
+    title: 'Data Science & Analytics Manager',
     company: 'Caterpillar, Inc.',
     period: 'May 2024 - Present',
-    summary: 'Analytics and automation for finance, S&OP, and operations.',
+    summary: 'Manage a team building ML models, dashboards, web apps, and RPA for accounting, finance, and S&OP in the financial services division.',
   },
   {
     title: 'Data Scientist',
@@ -57,19 +57,19 @@ export default function About() {
           <div className="grid gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
             <div>
               <h1 className="display-heading text-5xl sm:text-6xl lg:text-7xl">
-                Data products for business operations.
+                Data science and analytics for finance.
               </h1>
-              <p className="apple-copy mt-8 max-w-md text-lg">Andrew Frankenreider · Analytics & Data Science Manager</p>
+              <p className="apple-copy mt-8 max-w-md text-lg">Andrew Frankenreider · Data Science & Analytics Manager</p>
             </div>
             <div className="space-y-6 pt-2 text-lg leading-relaxed text-[#424245] dark:text-[#d2d2d7]">
               <p>
-                I build analytics platforms, ML tools, APIs, and automation for finance, operations, pricing, and leadership reporting.
+                I manage a data science and analytics team in Caterpillar's financial services division. We build ML models, analytics dashboards, web applications, and process automation (RPA) for accounting and finance and for sales and operations planning.
               </p>
               <p>
-                At Caterpillar, I developed Earthmoving Mission Control. At C.H. Robinson, I built pricing APIs, ETL pipelines, dashboards, and automation bots.
+                Before this role, I developed Earthmoving Mission Control at Caterpillar. At C.H. Robinson, I built pricing APIs, ETL pipelines, dashboards, and automation bots.
               </p>
               <p>
-                This site is a concise record of the practical data work I enjoy building.
+                This site is where I keep my resume and a few interactive demos of the methods I use.
               </p>
             </div>
           </div>

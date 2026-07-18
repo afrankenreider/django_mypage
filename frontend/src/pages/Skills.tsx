@@ -27,15 +27,15 @@ const skills: Skill[] = [
 const expertiseAreas = [
   {
     title: 'Data science and ML',
-    description: 'Modeling, statistics, interpretation.',
+    description: 'Forecasting, classification, and model deployment.',
   },
   {
     title: 'Process automation',
-    description: 'Systems that reduce repetitive work.',
+    description: 'RPA and scripting that take repetitive work off the team.',
   },
   {
     title: 'Full-stack delivery',
-    description: 'APIs, interfaces, deployment.',
+    description: 'Django APIs, React frontends, and CI/CD deployment.',
   },
 ]
 
@@ -53,10 +53,10 @@ export default function Skills() {
           <p className="eyebrow mb-6">Skills</p>
           <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
             <h1 className="display-heading text-5xl sm:text-6xl lg:text-7xl">
-              Practical analytics stack.
+              What I work with.
             </h1>
             <p className="apple-copy max-w-2xl text-xl">
-              Tools I use across data science, automation, and web delivery.
+              Tools I use day to day across data science, automation, and web development.
             </p>
           </div>
         </motion.div>
