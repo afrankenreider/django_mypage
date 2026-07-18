@@ -10,17 +10,19 @@
     --text-primary: #1d1d1f;
     --text-secondary: #6e6e73;
     --hairline: rgba(0, 0, 0, 0.08);
+    --accent: #a16207;
 }
 
 :root.dark,
 .dark {
     color-scheme: dark;
-    --page-bg: #000000;
+    --page-bg: #0a0a0c;
     --surface: rgba(29, 29, 31, 0.74);
     --surface-strong: #161617;
     --text-primary: #f5f5f7;
     --text-secondary: #a1a1a6;
     --hairline: rgba(255, 255, 255, 0.14);
+    --accent: #eab308;
 }
 
 * {
@@ -85,7 +87,7 @@ a {
 
 @layer components {
     .apple-page {
-        @apply min-h-screen bg-[#f5f5f7] text-[#1d1d1f] dark:bg-black dark:text-[#f5f5f7];
+        @apply min-h-screen bg-[#f5f5f7] text-[#1d1d1f] dark:bg-[#0a0a0c] dark:text-[#f5f5f7];
     }
 
     .apple-section {
@@ -93,7 +95,8 @@ a {
     }
 
     .eyebrow {
-        @apply text-xs font-semibold uppercase tracking-[0.22em] text-neutral-500 dark:text-neutral-400;
+        @apply text-xs font-semibold uppercase tracking-[0.22em];
+        color: var(--accent);
     }
 
     .display-heading {

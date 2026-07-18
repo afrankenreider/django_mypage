@@ -753,9 +753,9 @@ export default function KMeansDemo() {
                         </div>
 
                         <div className="bg-slate-900 dark:bg-white rounded-2xl p-8 text-center shadow-xl">
-                            <h2 className="text-2xl font-bold text-white dark:text-slate-900 mb-4">See It In Action</h2>
+                            <h2 className="text-2xl font-bold text-white dark:text-slate-900 mb-4">See it run</h2>
                             <p className="text-slate-300 dark:text-slate-600 mb-6 max-w-xl mx-auto">
-                                Watch the algorithm iterate step-by-step in the interactive demo!
+                                Watch the algorithm iterate step by step in the interactive demo.
                             </p>
                             <button
                                 onClick={() => setActiveSection('interactive')}
@@ -1235,7 +1235,7 @@ export default function KMeansDemo() {
                         </div>
 
                         <div className="bg-slate-900 dark:bg-white rounded-2xl p-8 text-center shadow-xl">
-                            <h2 className="text-2xl font-bold text-white dark:text-slate-900 mb-4">Try It Yourself!</h2>
+                            <h2 className="text-2xl font-bold text-white dark:text-slate-900 mb-4">Try it in the playground</h2>
                             <p className="text-slate-300 dark:text-slate-600 mb-6 max-w-xl mx-auto">
                                 Experiment with different datasets and K values to see how the algorithm behaves.
                             </p>
@@ -1243,7 +1243,7 @@ export default function KMeansDemo() {
                                 onClick={() => setActiveSection('interactive')}
                                 className="px-8 py-3 bg-white dark:bg-slate-900 text-slate-900 dark:text-white rounded-xl font-semibold hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors shadow-lg"
                             >
-                                Launch Interactive Demo →
+                                Open interactive demo →
                             </button>
                         </div>
                     </motion.div>

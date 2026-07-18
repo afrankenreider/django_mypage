@@ -40,7 +40,7 @@ export default function Navbar() {
       className={`fixed top-0 left-0 right-0 z-50 border-b transition-all duration-300 ${
         scrolled
           ? 'liquid-surface hairline shadow-[0_10px_30px_rgba(0,0,0,0.04)]'
-          : 'border-transparent bg-[#f5f5f7]/70 backdrop-blur-xl dark:bg-black/60'
+          : 'border-transparent bg-[#f5f5f7]/70 backdrop-blur-xl dark:bg-[#0a0a0c]/60'
       }`}
     >
       <div className="apple-section">
