@@ -555,8 +555,8 @@ export default function FinanceDashboard() {
 
     // Chart color based on period performance
     const chartColor = periodPerformance.isPositive
-        ? '#10b981'  // Emerald 500 - positive
-        : '#ef4444'  // Red 500 - negative
+        ? '#248a3d'  // System green - positive
+        : '#d70015'  // System red - negative
 
     return (
         <section className="apple-page pt-28 pb-16">
@@ -666,7 +666,7 @@ export default function FinanceDashboard() {
                                                     }
                                                     onKeyDown={(e) => e.key === 'Enter' && addStock()}
                                                     placeholder="Enter symbol..."
-                                                    className="w-full pl-10 pr-4 py-2 bg-black/5 dark:bg-white/10 border hairline rounded-lg text-[#1d1d1f] dark:text-[#f5f5f7] placeholder-slate-500 focus:outline-none focus:hairline"
+                                                    className="w-full pl-10 pr-4 py-2 bg-black/5 dark:bg-white/10 border hairline rounded-lg text-[#1d1d1f] dark:text-[#f5f5f7] placeholder-[#86868b] focus:outline-none focus:hairline"
                                                     autoFocus
                                                 />
                                             </div>
@@ -703,7 +703,7 @@ export default function FinanceDashboard() {
                                                     initial={{ opacity: 0 }}
                                                     animate={{ opacity: 1 }}
                                                     exit={{ opacity: 0 }}
-                                                    className="p-4 bg-slate-900/50 border hairline rounded-xl"
+                                                    className="p-4 bg-[#1d1d1f]/50 border hairline rounded-xl"
                                                 >
                                                     <div className="flex justify-between items-center">
                                                         <span className="text-[#86868b] dark:text-[#a1a1a6]">{symbol}</span>
@@ -811,7 +811,7 @@ export default function FinanceDashboard() {
                                     <div className="h-[400px] w-full">
                                         {isChartLoading ? (
                                             <div className="h-full flex items-center justify-center">
-                                                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-slate-500" />
+                                                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#86868b]" />
                                             </div>
                                         ) : historicalData.length > 0 ? (
                                             <ResponsiveContainer width="100%" height="100%">
@@ -821,19 +821,19 @@ export default function FinanceDashboard() {
                                                 >
                                                     <CartesianGrid
                                                         strokeDasharray="3 3"
-                                                        stroke="#334155"
+                                                        stroke="var(--hairline)"
                                                         opacity={0.4}
                                                     />
                                                     <XAxis
                                                         dataKey="date"
-                                                        stroke="#475569"
-                                                        tick={{ fill: '#64748b', fontSize: 12 }}
-                                                        tickLine={{ stroke: '#475569' }}
+                                                        stroke="var(--text-secondary)"
+                                                        tick={{ fill: 'var(--text-secondary)', fontSize: 12 }}
+                                                        tickLine={{ stroke: 'var(--hairline)' }}
                                                     />
                                                     <YAxis
-                                                        stroke="#475569"
-                                                        tick={{ fill: '#64748b', fontSize: 12 }}
-                                                        tickLine={{ stroke: '#475569' }}
+                                                        stroke="var(--text-secondary)"
+                                                        tick={{ fill: 'var(--text-secondary)', fontSize: 12 }}
+                                                        tickLine={{ stroke: 'var(--hairline)' }}
                                                         domain={['auto', 'auto']}
                                                         tickFormatter={(value) => `$${value.toFixed(0)}`}
                                                     />
@@ -1123,19 +1123,19 @@ export default function FinanceDashboard() {
                                                                         >
                                                                             <CartesianGrid
                                                                                 strokeDasharray="3 3"
-                                                                                stroke="#334155"
+                                                                                stroke="var(--hairline)"
                                                                                 opacity={0.4}
                                                                             />
                                                                             <XAxis
                                                                                 dataKey="date"
-                                                                                stroke="#475569"
-                                                                                tick={{ fill: '#64748b', fontSize: 11 }}
-                                                                                tickLine={{ stroke: '#475569' }}
+                                                                                stroke="var(--text-secondary)"
+                                                                                tick={{ fill: 'var(--text-secondary)', fontSize: 11 }}
+                                                                                tickLine={{ stroke: 'var(--hairline)' }}
                                                                             />
                                                                             <YAxis
-                                                                                stroke="#475569"
-                                                                                tick={{ fill: '#64748b', fontSize: 11 }}
-                                                                                tickLine={{ stroke: '#475569' }}
+                                                                                stroke="var(--text-secondary)"
+                                                                                tick={{ fill: 'var(--text-secondary)', fontSize: 11 }}
+                                                                                tickLine={{ stroke: 'var(--hairline)' }}
                                                                                 domain={['auto', 'auto']}
                                                                                 tickFormatter={(value) => `$${value.toFixed(0)}`}
                                                                             />
@@ -1171,9 +1171,9 @@ export default function FinanceDashboard() {
                                                                             <Area
                                                                                 type="monotone"
                                                                                 dataKey="price"
-                                                                                stroke="#10b981"
+                                                                                stroke="#248a3d"
                                                                                 strokeWidth={2}
-                                                                                fill="#10b981"
+                                                                                fill="#248a3d"
                                                                                 fillOpacity={0.1}
                                                                                 name="Historical"
                                                                             />
@@ -1343,7 +1343,7 @@ export default function FinanceDashboard() {
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5, delay: 0.4 }}
-                            className="mt-6 p-4 bg-slate-900/30 border hairline rounded-xl flex items-start gap-3"
+                            className="mt-6 p-4 bg-[#1d1d1f]/30 border hairline rounded-xl flex items-start gap-3"
                         >
                             <InfoIcon className="text-[#86868b] shrink-0 mt-0.5" />
                             <div className="text-sm text-[#86868b] dark:text-[#a1a1a6]">

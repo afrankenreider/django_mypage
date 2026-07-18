@@ -129,8 +129,8 @@ export default function NeuralNetwork() {
     ctx.clearRect(0, 0, width, height)
 
     // Update and draw connections
-    const lineColor = isDarkMode ? '148, 163, 184' : '100, 116, 139'
-    const pulseColor = isDarkMode ? '248, 250, 252' : '15, 23, 42'
+    const lineColor = isDarkMode ? '161, 161, 166' : '110, 110, 115'
+    const pulseColor = isDarkMode ? '245, 245, 247' : '29, 29, 31'
 
     connections.forEach((conn) => {
       const fromNode = nodes[conn.from]
@@ -170,8 +170,8 @@ export default function NeuralNetwork() {
     })
 
     // Update and draw nodes
-    const nodeColor = isDarkMode ? '148, 163, 184' : '71, 85, 105'
-    const nodeGlow = isDarkMode ? '248, 250, 252' : '15, 23, 42'
+    const nodeColor = isDarkMode ? '161, 161, 166' : '110, 110, 115'
+    const nodeGlow = isDarkMode ? '245, 245, 247' : '29, 29, 31'
 
     nodes.forEach((node) => {
       // Update position

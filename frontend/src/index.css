@@ -200,20 +200,6 @@ a {
 
 }
 
-.apple-page [class*="text-blue"],
-.apple-page [class*="text-cyan"],
-.apple-page [class*="text-indigo"],
-.apple-page [class*="text-purple"] {
-    color: var(--text-primary) !important;
-}
-
-.apple-page [class*="border-blue"],
-.apple-page [class*="border-cyan"],
-.apple-page [class*="border-indigo"],
-.apple-page [class*="border-purple"] {
-    border-color: var(--hairline) !important;
-}
-
 .line-clamp-2 {
     display: -webkit-box;
     -webkit-line-clamp: 2;

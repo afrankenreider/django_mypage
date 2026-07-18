@@ -174,34 +174,34 @@ const CodeCell = memo(({ cell, isExpanded, onToggle }: { cell: NotebookCell; isE
     }, [cell.content])
 
     return (
-        <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm">
-            <div className="flex items-center justify-between px-4 py-2 bg-slate-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-700">
+        <div className="bg-white dark:bg-[#1d1d1f] rounded-xl border border-[#d2d2d7] dark:border-[#2c2c2e] overflow-hidden shadow-sm">
+            <div className="flex items-center justify-between px-4 py-2 bg-[#f5f5f7] dark:bg-[#2c2c2e]/50 border-b border-[#d2d2d7] dark:border-[#424245]">
                 <div className="flex items-center gap-2">
                     <div className="flex gap-1">
                         <div className="w-3 h-3 rounded-full bg-red-400" />
                         <div className="w-3 h-3 rounded-full bg-yellow-400" />
                         <div className="w-3 h-3 rounded-full bg-green-400" />
                     </div>
-                    <span className="text-xs font-mono text-slate-500 dark:text-slate-400 ml-2">Python</span>
+                    <span className="text-xs font-mono text-[#86868b] dark:text-[#a1a1a6] ml-2">Python</span>
                 </div>
                 <div className="flex items-center gap-2">
-                    <button onClick={copyCode} className="p-1.5 rounded-md hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors" title="Copy code">
-                        {copied ? <CheckIcon sx={{ fontSize: 16 }} className="text-green-500" /> : <ContentCopyIcon sx={{ fontSize: 16 }} className="text-slate-400" />}
+                    <button onClick={copyCode} className="p-1.5 rounded-md hover:bg-[#d2d2d7] dark:hover:bg-[#424245] transition-colors" title="Copy code">
+                        {copied ? <CheckIcon sx={{ fontSize: 16 }} className="text-green-500" /> : <ContentCopyIcon sx={{ fontSize: 16 }} className="text-[#a1a1a6]" />}
                     </button>
-                    <button onClick={onToggle} className="p-1.5 rounded-md hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors" title={isExpanded ? "Collapse" : "Expand"}>
-                        {isExpanded ? <ExpandLessIcon sx={{ fontSize: 18 }} className="text-slate-400" /> : <ExpandMoreIcon sx={{ fontSize: 18 }} className="text-slate-400" />}
+                    <button onClick={onToggle} className="p-1.5 rounded-md hover:bg-[#d2d2d7] dark:hover:bg-[#424245] transition-colors" title={isExpanded ? "Collapse" : "Expand"}>
+                        {isExpanded ? <ExpandLessIcon sx={{ fontSize: 18 }} className="text-[#a1a1a6]" /> : <ExpandMoreIcon sx={{ fontSize: 18 }} className="text-[#a1a1a6]" />}
                     </button>
                 </div>
             </div>
             <div className={`transition-all duration-300 ${isExpanded ? 'max-h-[1000px]' : 'max-h-32 overflow-hidden'}`}>
-                <pre className="p-4 text-sm font-mono overflow-x-auto bg-slate-950 text-slate-100"><code>{cell.content}</code></pre>
+                <pre className="p-4 text-sm font-mono overflow-x-auto bg-[#0a0a0c] text-[#e8e8ed]"><code>{cell.content}</code></pre>
             </div>
             {cell.output && (
-                <div className="border-t border-slate-200 dark:border-slate-700">
-                    <div className="px-4 py-1.5 bg-slate-100 dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700">
-                        <span className="text-xs font-medium text-slate-500 dark:text-slate-400">Output</span>
+                <div className="border-t border-[#d2d2d7] dark:border-[#424245]">
+                    <div className="px-4 py-1.5 bg-[#e8e8ed] dark:bg-[#2c2c2e] border-b border-[#d2d2d7] dark:border-[#424245]">
+                        <span className="text-xs font-medium text-[#86868b] dark:text-[#a1a1a6]">Output</span>
                     </div>
-                    <pre className="p-4 text-sm font-mono overflow-x-auto bg-slate-50 dark:bg-slate-900/50 text-slate-700 dark:text-slate-300 whitespace-pre-wrap">{cell.output}</pre>
+                    <pre className="p-4 text-sm font-mono overflow-x-auto bg-[#f5f5f7] dark:bg-[#1d1d1f]/50 text-[#424245] dark:text-[#d2d2d7] whitespace-pre-wrap">{cell.output}</pre>
                 </div>
             )}
         </div>
@@ -248,7 +248,7 @@ const NetworkVisualization = memo(({
     }
 
     return (
-        <svg width={width} height={height} className="bg-slate-100 dark:bg-slate-800/60 rounded-xl border border-slate-200 dark:border-slate-700/50">
+        <svg width={width} height={height} className="bg-[#e8e8ed] dark:bg-[#2c2c2e]/60 rounded-xl border border-[#d2d2d7] dark:border-[#424245]/50">
             <defs>
                 <filter id="neuronGlow" x="-50%" y="-50%" width="200%" height="200%">
                     <feGaussianBlur stdDeviation="3" result="coloredBlur" />
@@ -335,7 +335,7 @@ const NetworkVisualization = memo(({
                         x={x}
                         y={height - 15}
                         textAnchor="middle"
-                        className="text-sm font-medium fill-slate-500 dark:fill-slate-400"
+                        className="text-sm font-medium fill-[#86868b] dark:fill-[#a1a1a6]"
                     >
                         {label}
                     </text>
@@ -587,15 +587,15 @@ const NotebookSection = memo(() => {
     return (
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-8">
             {/* Header Card */}
-            <div className="apple-card-solid rounded-3xl p-8 shadow-xl border border-slate-700">
+            <div className="apple-card-solid rounded-3xl p-8 shadow-xl border border-[#424245]">
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                     <div>
                         <h2 className="text-2xl font-bold text-white mb-2">Binary Classification with Neural Networks</h2>
-                        <p className="text-slate-300">A complete neural network workflow using PyTorch on the moons dataset.</p>
+                        <p className="text-[#d2d2d7]">A complete neural network workflow using PyTorch on the moons dataset.</p>
                     </div>
                     <div className="flex gap-2">
-                        <button onClick={expandAll} className="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white text-sm font-medium rounded-lg transition-colors">Expand All</button>
-                        <button onClick={collapseAll} className="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white text-sm font-medium rounded-lg transition-colors">Collapse All</button>
+                        <button onClick={expandAll} className="px-4 py-2 bg-[#424245] hover:bg-[#6e6e73] text-white text-sm font-medium rounded-lg transition-colors">Expand All</button>
+                        <button onClick={collapseAll} className="px-4 py-2 bg-[#424245] hover:bg-[#6e6e73] text-white text-sm font-medium rounded-lg transition-colors">Collapse All</button>
                     </div>
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
@@ -605,8 +605,8 @@ const NotebookSection = memo(() => {
                         { label: 'Test Accuracy', value: '96.5%' },
                         { label: 'Parameters', value: '61' }
                     ].map((stat, i) => (
-                        <div key={i} className="bg-slate-800/50 rounded-xl p-4 border border-slate-700/50">
-                            <p className="text-slate-400 text-sm">{stat.label}</p>
+                        <div key={i} className="bg-[#2c2c2e]/50 rounded-xl p-4 border border-[#424245]/50">
+                            <p className="text-[#a1a1a6] text-sm">{stat.label}</p>
                             <p className="text-white font-semibold font-mono">{stat.value}</p>
                         </div>
                     ))}
@@ -616,48 +616,48 @@ const NotebookSection = memo(() => {
             {/* Notebook Steps */}
             <div className="space-y-6">
                 <div>
-                    <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
-                        <span className="w-7 h-7 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-lg flex items-center justify-center text-sm font-bold">1</span>
+                    <h3 className="text-lg font-semibold text-[#1d1d1f] dark:text-[#f5f5f7] mb-3 flex items-center gap-2">
+                        <span className="w-7 h-7 bg-[#1d1d1f] dark:bg-white text-white dark:text-[#1d1d1f] rounded-lg flex items-center justify-center text-sm font-bold">1</span>
                         Import Libraries
                     </h3>
                     <CodeCell cell={notebookCells[0]} isExpanded={expandedCells.has(notebookCells[0].id)} onToggle={() => toggleCell(notebookCells[0].id)} />
                 </div>
 
                 <div>
-                    <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
-                        <span className="w-7 h-7 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-lg flex items-center justify-center text-sm font-bold">2</span>
+                    <h3 className="text-lg font-semibold text-[#1d1d1f] dark:text-[#f5f5f7] mb-3 flex items-center gap-2">
+                        <span className="w-7 h-7 bg-[#1d1d1f] dark:bg-white text-white dark:text-[#1d1d1f] rounded-lg flex items-center justify-center text-sm font-bold">2</span>
                         Create Dataset
                     </h3>
                     <CodeCell cell={notebookCells[1]} isExpanded={expandedCells.has(notebookCells[1].id)} onToggle={() => toggleCell(notebookCells[1].id)} />
                 </div>
 
                 <div>
-                    <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
-                        <span className="w-7 h-7 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-lg flex items-center justify-center text-sm font-bold">3</span>
+                    <h3 className="text-lg font-semibold text-[#1d1d1f] dark:text-[#f5f5f7] mb-3 flex items-center gap-2">
+                        <span className="w-7 h-7 bg-[#1d1d1f] dark:bg-white text-white dark:text-[#1d1d1f] rounded-lg flex items-center justify-center text-sm font-bold">3</span>
                         Define Neural Network
                     </h3>
                     <CodeCell cell={notebookCells[2]} isExpanded={expandedCells.has(notebookCells[2].id)} onToggle={() => toggleCell(notebookCells[2].id)} />
                 </div>
 
                 <div>
-                    <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
-                        <span className="w-7 h-7 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-lg flex items-center justify-center text-sm font-bold">4</span>
+                    <h3 className="text-lg font-semibold text-[#1d1d1f] dark:text-[#f5f5f7] mb-3 flex items-center gap-2">
+                        <span className="w-7 h-7 bg-[#1d1d1f] dark:bg-white text-white dark:text-[#1d1d1f] rounded-lg flex items-center justify-center text-sm font-bold">4</span>
                         Training Setup
                     </h3>
                     <CodeCell cell={notebookCells[3]} isExpanded={expandedCells.has(notebookCells[3].id)} onToggle={() => toggleCell(notebookCells[3].id)} />
                 </div>
 
                 <div>
-                    <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
-                        <span className="w-7 h-7 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-lg flex items-center justify-center text-sm font-bold">5</span>
+                    <h3 className="text-lg font-semibold text-[#1d1d1f] dark:text-[#f5f5f7] mb-3 flex items-center gap-2">
+                        <span className="w-7 h-7 bg-[#1d1d1f] dark:bg-white text-white dark:text-[#1d1d1f] rounded-lg flex items-center justify-center text-sm font-bold">5</span>
                         Training Loop
                     </h3>
                     <CodeCell cell={notebookCells[4]} isExpanded={expandedCells.has(notebookCells[4].id)} onToggle={() => toggleCell(notebookCells[4].id)} />
                 </div>
 
                 <div>
-                    <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
-                        <span className="w-7 h-7 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-lg flex items-center justify-center text-sm font-bold">6</span>
+                    <h3 className="text-lg font-semibold text-[#1d1d1f] dark:text-[#f5f5f7] mb-3 flex items-center gap-2">
+                        <span className="w-7 h-7 bg-[#1d1d1f] dark:bg-white text-white dark:text-[#1d1d1f] rounded-lg flex items-center justify-center text-sm font-bold">6</span>
                         Evaluation & Summary
                     </h3>
                     <div className="space-y-4">
@@ -670,19 +670,19 @@ const NotebookSection = memo(() => {
 
             {/* Key Insights Card */}
             <div className="apple-card-solid rounded-3xl p-8 border hairline">
-                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-4">Key Insights</h3>
+                <h3 className="text-xl font-bold text-[#1d1d1f] dark:text-[#f5f5f7] mb-4">Key Insights</h3>
                 <div className="grid md:grid-cols-2 gap-6">
                     <div>
-                        <h4 className="font-semibold text-slate-900 dark:text-white mb-2">Why Neural Networks Work</h4>
-                        <ul className="space-y-2 text-slate-600 dark:text-slate-400">
+                        <h4 className="font-semibold text-[#1d1d1f] dark:text-[#f5f5f7] mb-2">Why Neural Networks Work</h4>
+                        <ul className="space-y-2 text-[#6e6e73] dark:text-[#a1a1a6]">
                             <li className="flex items-center gap-2"><span className="font-bold">1.</span><span>Non-linear activation functions enable complex pattern learning</span></li>
                             <li className="flex items-center gap-2"><span className="font-bold">2.</span><span>Multiple layers create hierarchical feature representations</span></li>
                             <li className="flex items-center gap-2"><span className="font-bold">3.</span><span>Backpropagation efficiently updates millions of parameters</span></li>
                         </ul>
                     </div>
                     <div>
-                        <h4 className="font-semibold text-slate-900 dark:text-white mb-2">Training Tips</h4>
-                        <ul className="space-y-2 text-slate-600 dark:text-slate-400">
+                        <h4 className="font-semibold text-[#1d1d1f] dark:text-[#f5f5f7] mb-2">Training Tips</h4>
+                        <ul className="space-y-2 text-[#6e6e73] dark:text-[#a1a1a6]">
                             <li className="flex items-start gap-2"><span className="text-amber-500 mt-1">!</span><span>Start with small learning rates and increase if needed</span></li>
                             <li className="flex items-start gap-2"><span className="text-amber-500 mt-1">!</span><span>Monitor validation loss to prevent overfitting</span></li>
                             <li className="flex items-start gap-2"><span className="text-amber-500 mt-1">!</span><span>Use batch normalization for deeper networks</span></li>
@@ -692,12 +692,12 @@ const NotebookSection = memo(() => {
             </div>
 
             {/* Download CTA */}
-            <div className="bg-slate-100 dark:bg-slate-800/50 rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="bg-[#e8e8ed] dark:bg-[#2c2c2e]/50 rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div>
-                    <h3 className="font-semibold text-slate-900 dark:text-white">Want to run this yourself?</h3>
-                    <p className="text-slate-600 dark:text-slate-400 text-sm">Download the complete Jupyter notebook and experiment with the code.</p>
+                    <h3 className="font-semibold text-[#1d1d1f] dark:text-[#f5f5f7]">Want to run this yourself?</h3>
+                    <p className="text-[#6e6e73] dark:text-[#a1a1a6] text-sm">Download the complete Jupyter notebook and experiment with the code.</p>
                 </div>
-                <a href="/notebooks/neural_network_intro.ipynb" download className="px-6 py-3 bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-semibold rounded-xl hover:bg-slate-800 dark:hover:bg-slate-100 transition-colors shadow-lg flex items-center gap-2">
+                <a href="/notebooks/neural_network_intro.ipynb" download className="px-6 py-3 bg-[#1d1d1f] dark:bg-white text-white dark:text-[#1d1d1f] font-semibold rounded-xl hover:bg-[#2c2c2e] dark:hover:bg-[#e8e8ed] transition-colors shadow-lg flex items-center gap-2">
                     <CodeIcon sx={{ fontSize: 20 }} />
                     Download Notebook
                 </a>
@@ -786,8 +786,8 @@ export default function NeuralNetworkDemo() {
                                     onClick={() => setActiveSection(section.id)}
                                     aria-pressed={activeSection === section.id}
                                     className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-medium transition-all ${activeSection === section.id
-                                        ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 shadow-lg'
-                                        : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
+                                        ? 'bg-[#1d1d1f] dark:bg-white text-white dark:text-[#1d1d1f] shadow-lg'
+                                        : 'bg-[#e8e8ed] dark:bg-[#2c2c2e] text-[#6e6e73] dark:text-[#a1a1a6] hover:bg-[#d2d2d7] dark:hover:bg-[#424245]'
                                         }`}
                                 >
                                     <Icon sx={{ fontSize: 18 }} />
@@ -801,46 +801,46 @@ export default function NeuralNetworkDemo() {
                 {/* Introduction Section */}
                 {activeSection === 'intro' && (
                     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-8">
-                        <div className="bg-slate-50 dark:bg-slate-900/50 backdrop-blur-sm rounded-3xl border border-slate-200/50 dark:border-slate-800/50 p-8 shadow-sm">
-                            <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">What is a Neural Network?</h2>
+                        <div className="bg-[#f5f5f7] dark:bg-[#1d1d1f]/50 backdrop-blur-sm rounded-3xl border border-[#d2d2d7]/50 dark:border-[#2c2c2e]/50 p-8 shadow-sm">
+                            <h2 className="text-2xl font-bold text-[#1d1d1f] dark:text-[#f5f5f7] mb-6">What is a Neural Network?</h2>
                             <div className="prose dark:prose-invert max-w-none">
-                                <p className="text-slate-600 dark:text-slate-400 text-lg leading-relaxed mb-6">
+                                <p className="text-[#6e6e73] dark:text-[#a1a1a6] text-lg leading-relaxed mb-6">
                                     A neural network is a layered model that learns relationships from data by tuning weights between connected nodes.
                                 </p>
-                                <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
+                                <p className="text-[#6e6e73] dark:text-[#a1a1a6] leading-relaxed mb-6">
                                     This page focuses on the mechanics: what each layer does, how values move through the network, and what changes when you adjust inputs.
                                 </p>
 
                                 <div className="grid md:grid-cols-3 gap-6 mt-8">
-                                    <div className="bg-slate-100 dark:bg-slate-800/50 rounded-xl p-6 border border-slate-200 dark:border-slate-700">
+                                    <div className="bg-[#e8e8ed] dark:bg-[#2c2c2e]/50 rounded-xl p-6 border border-[#d2d2d7] dark:border-[#424245]">
                                         <div className="w-12 h-12 bg-[#1d1d1f] dark:bg-[#f5f5f7] dark:text-[#1d1d1f] rounded-xl flex items-center justify-center mb-4 shadow-lg text-white">
                                             <LayersIcon sx={{ fontSize: 24 }} />
                                         </div>
-                                        <h3 className="font-semibold text-slate-900 dark:text-white mb-2">Input Layer</h3>
-                                        <p className="text-slate-600 dark:text-slate-400 text-sm">Receives raw data features. Each neuron represents one input feature.</p>
+                                        <h3 className="font-semibold text-[#1d1d1f] dark:text-[#f5f5f7] mb-2">Input Layer</h3>
+                                        <p className="text-[#6e6e73] dark:text-[#a1a1a6] text-sm">Receives raw data features. Each neuron represents one input feature.</p>
                                     </div>
-                                    <div className="bg-slate-100 dark:bg-slate-800/50 rounded-xl p-6 border border-slate-200 dark:border-slate-700">
+                                    <div className="bg-[#e8e8ed] dark:bg-[#2c2c2e]/50 rounded-xl p-6 border border-[#d2d2d7] dark:border-[#424245]">
                                         <div className="w-12 h-12 bg-[#1d1d1f] dark:bg-[#f5f5f7] dark:text-[#1d1d1f] rounded-xl flex items-center justify-center mb-4 shadow-lg text-white">
                                             <AccountTreeIcon sx={{ fontSize: 24 }} />
                                         </div>
-                                        <h3 className="font-semibold text-slate-900 dark:text-white mb-2">Hidden Layers</h3>
-                                        <p className="text-slate-600 dark:text-slate-400 text-sm">Process and transform data. More layers enable learning complex patterns.</p>
+                                        <h3 className="font-semibold text-[#1d1d1f] dark:text-[#f5f5f7] mb-2">Hidden Layers</h3>
+                                        <p className="text-[#6e6e73] dark:text-[#a1a1a6] text-sm">Process and transform data. More layers enable learning complex patterns.</p>
                                     </div>
-                                    <div className="bg-slate-100 dark:bg-slate-800/50 rounded-xl p-6 border border-slate-200 dark:border-slate-700">
+                                    <div className="bg-[#e8e8ed] dark:bg-[#2c2c2e]/50 rounded-xl p-6 border border-[#d2d2d7] dark:border-[#424245]">
                                         <div className="w-12 h-12 bg-[#1d1d1f] dark:bg-[#f5f5f7] dark:text-[#1d1d1f] rounded-xl flex items-center justify-center mb-4 shadow-lg text-white">
                                             <PsychologyIcon sx={{ fontSize: 24 }} />
                                         </div>
-                                        <h3 className="font-semibold text-slate-900 dark:text-white mb-2">Output Layer</h3>
-                                        <p className="text-slate-600 dark:text-slate-400 text-sm">Produces final predictions. Number of neurons depends on the task.</p>
+                                        <h3 className="font-semibold text-[#1d1d1f] dark:text-[#f5f5f7] mb-2">Output Layer</h3>
+                                        <p className="text-[#6e6e73] dark:text-[#a1a1a6] text-sm">Produces final predictions. Number of neurons depends on the task.</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         {/* Visual Preview */}
-                        <div className="bg-slate-50 dark:bg-slate-900/50 backdrop-blur-sm rounded-3xl border border-slate-200/50 dark:border-slate-800/50 p-8 shadow-sm">
-                            <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">Network Architecture</h2>
-                            <p className="text-slate-600 dark:text-slate-400 mb-6">A simple feedforward neural network with input, hidden, and output layers. Hover over neurons to see their connections.</p>
+                        <div className="bg-[#f5f5f7] dark:bg-[#1d1d1f]/50 backdrop-blur-sm rounded-3xl border border-[#d2d2d7]/50 dark:border-[#2c2c2e]/50 p-8 shadow-sm">
+                            <h2 className="text-2xl font-bold text-[#1d1d1f] dark:text-[#f5f5f7] mb-2">Network Architecture</h2>
+                            <p className="text-[#6e6e73] dark:text-[#a1a1a6] mb-6">A simple feedforward neural network with input, hidden, and output layers. Hover over neurons to see their connections.</p>
                             <div className="flex justify-center">
                                 <NetworkVisualization
                                     neurons={animatedNeurons}
@@ -854,15 +854,15 @@ export default function NeuralNetworkDemo() {
                             <div className="mt-6 flex flex-wrap gap-4 justify-center">
                                 <div className="flex items-center gap-2">
                                     <div className="w-4 h-4 rounded-full" style={{ backgroundColor: colors.inputNeuron }} />
-                                    <span className="text-slate-600 dark:text-slate-400 text-sm">Input Neurons</span>
+                                    <span className="text-[#6e6e73] dark:text-[#a1a1a6] text-sm">Input Neurons</span>
                                 </div>
                                 <div className="flex items-center gap-2">
                                     <div className="w-4 h-4 rounded-full" style={{ backgroundColor: colors.hiddenNeuron }} />
-                                    <span className="text-slate-600 dark:text-slate-400 text-sm">Hidden Neurons</span>
+                                    <span className="text-[#6e6e73] dark:text-[#a1a1a6] text-sm">Hidden Neurons</span>
                                 </div>
                                 <div className="flex items-center gap-2">
                                     <div className="w-4 h-4 rounded-full" style={{ backgroundColor: colors.outputNeuron }} />
-                                    <span className="text-slate-600 dark:text-slate-400 text-sm">Output Neurons</span>
+                                    <span className="text-[#6e6e73] dark:text-[#a1a1a6] text-sm">Output Neurons</span>
                                 </div>
                             </div>
                         </div>
@@ -872,16 +872,16 @@ export default function NeuralNetworkDemo() {
                 {/* Math Section */}
                 {activeSection === 'math' && (
                     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-8">
-                        <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-8 shadow-sm">
-                            <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">Forward Propagation</h2>
-                            <p className="text-slate-600 dark:text-slate-400 mb-6">
+                        <div className="bg-white dark:bg-[#1d1d1f] rounded-2xl border border-[#d2d2d7] dark:border-[#2c2c2e] p-8 shadow-sm">
+                            <h2 className="text-2xl font-bold text-[#1d1d1f] dark:text-[#f5f5f7] mb-6">Forward Propagation</h2>
+                            <p className="text-[#6e6e73] dark:text-[#a1a1a6] mb-6">
                                 Each neuron computes a weighted sum of its inputs, adds a bias, and applies an activation function.
                             </p>
                             <div className="apple-card-solid mb-8 rounded-xl border hairline p-8 text-center">
                                 <p className="font-mono text-3xl font-bold text-[#1d1d1f] dark:text-[#f5f5f7] md:text-4xl">
                                     z = Wx + b
                                 </p>
-                                <p className="text-slate-500 dark:text-slate-400 mt-4">then apply activation</p>
+                                <p className="text-[#86868b] dark:text-[#a1a1a6] mt-4">then apply activation</p>
                                 <p className="mt-2 font-mono text-3xl font-bold text-[#6e6e73] dark:text-[#a1a1a6] md:text-4xl">
                                     a = f(z)
                                 </p>
@@ -889,78 +889,78 @@ export default function NeuralNetworkDemo() {
 
                             <div className="grid md:grid-cols-2 gap-6">
                                 <div className="apple-card-solid rounded-xl border hairline p-6">
-                                    <h3 className="font-semibold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
+                                    <h3 className="font-semibold text-[#1d1d1f] dark:text-[#f5f5f7] mb-3 flex items-center gap-2">
                                         <span className="font-mono text-lg font-semibold">W</span> - Weights
                                     </h3>
-                                    <p className="text-slate-600 dark:text-slate-400">
+                                    <p className="text-[#6e6e73] dark:text-[#a1a1a6]">
                                         Learnable parameters that determine how much influence each input has on the output. Adjusted during training via backpropagation.
                                     </p>
                                 </div>
                                 <div className="apple-card-solid rounded-xl p-6 border border-amber-100 dark:border-amber-800">
-                                    <h3 className="font-semibold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
+                                    <h3 className="font-semibold text-[#1d1d1f] dark:text-[#f5f5f7] mb-3 flex items-center gap-2">
                                         <span className="font-mono text-lg text-amber-600 dark:text-amber-400">b</span> - Bias
                                     </h3>
-                                    <p className="text-slate-600 dark:text-slate-400">
+                                    <p className="text-[#6e6e73] dark:text-[#a1a1a6]">
                                         An offset term that allows the neuron to shift its activation. Helps the network fit data that doesn't pass through the origin.
                                     </p>
                                 </div>
                             </div>
                         </div>
 
-                        <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-8 shadow-sm">
-                            <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">Activation Functions</h2>
-                            <p className="text-slate-600 dark:text-slate-400 mb-6">
+                        <div className="bg-white dark:bg-[#1d1d1f] rounded-2xl border border-[#d2d2d7] dark:border-[#2c2c2e] p-8 shadow-sm">
+                            <h2 className="text-2xl font-bold text-[#1d1d1f] dark:text-[#f5f5f7] mb-6">Activation Functions</h2>
+                            <p className="text-[#6e6e73] dark:text-[#a1a1a6] mb-6">
                                 Activation functions introduce non-linearity, enabling networks to learn complex patterns.
                             </p>
 
                             <div className="grid md:grid-cols-3 gap-6">
                                 <div className="apple-card-solid rounded-xl p-6 border border-emerald-100 dark:border-emerald-800">
-                                    <h3 className="font-semibold text-slate-900 dark:text-white mb-2">Sigmoid</h3>
-                                    <p className="text-slate-700 dark:text-slate-300 font-mono text-lg mb-2">f(x) = 1/(1+e^-x)</p>
-                                    <p className="text-slate-600 dark:text-slate-400 text-sm">Output range: (0, 1). Good for binary classification output layers.</p>
+                                    <h3 className="font-semibold text-[#1d1d1f] dark:text-[#f5f5f7] mb-2">Sigmoid</h3>
+                                    <p className="text-[#424245] dark:text-[#d2d2d7] font-mono text-lg mb-2">f(x) = 1/(1+e^-x)</p>
+                                    <p className="text-[#6e6e73] dark:text-[#a1a1a6] text-sm">Output range: (0, 1). Good for binary classification output layers.</p>
                                 </div>
                                 <div className="apple-card-solid rounded-xl border hairline p-6">
-                                    <h3 className="font-semibold text-slate-900 dark:text-white mb-2">ReLU</h3>
-                                    <p className="text-slate-700 dark:text-slate-300 font-mono text-lg mb-2">f(x) = max(0, x)</p>
-                                    <p className="text-slate-600 dark:text-slate-400 text-sm">Most popular for hidden layers. Fast to compute, reduces vanishing gradients.</p>
+                                    <h3 className="font-semibold text-[#1d1d1f] dark:text-[#f5f5f7] mb-2">ReLU</h3>
+                                    <p className="text-[#424245] dark:text-[#d2d2d7] font-mono text-lg mb-2">f(x) = max(0, x)</p>
+                                    <p className="text-[#6e6e73] dark:text-[#a1a1a6] text-sm">Most popular for hidden layers. Fast to compute, reduces vanishing gradients.</p>
                                 </div>
                                 <div className="apple-card-solid rounded-xl border hairline p-6">
-                                    <h3 className="font-semibold text-slate-900 dark:text-white mb-2">Tanh</h3>
-                                    <p className="text-slate-700 dark:text-slate-300 font-mono text-lg mb-2">f(x) = tanh(x)</p>
-                                    <p className="text-slate-600 dark:text-slate-400 text-sm">Output range: (-1, 1). Zero-centered, useful for hidden layers.</p>
+                                    <h3 className="font-semibold text-[#1d1d1f] dark:text-[#f5f5f7] mb-2">Tanh</h3>
+                                    <p className="text-[#424245] dark:text-[#d2d2d7] font-mono text-lg mb-2">f(x) = tanh(x)</p>
+                                    <p className="text-[#6e6e73] dark:text-[#a1a1a6] text-sm">Output range: (-1, 1). Zero-centered, useful for hidden layers.</p>
                                 </div>
                             </div>
                         </div>
 
-                        <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-8 shadow-sm">
-                            <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">Backpropagation</h2>
-                            <p className="text-slate-600 dark:text-slate-400 mb-6">
+                        <div className="bg-white dark:bg-[#1d1d1f] rounded-2xl border border-[#d2d2d7] dark:border-[#2c2c2e] p-8 shadow-sm">
+                            <h2 className="text-2xl font-bold text-[#1d1d1f] dark:text-[#f5f5f7] mb-6">Backpropagation</h2>
+                            <p className="text-[#6e6e73] dark:text-[#a1a1a6] mb-6">
                                 The algorithm that trains neural networks by computing gradients and updating weights.
                             </p>
 
                             <div className="space-y-4">
-                                <div className="apple-card-solid rounded-xl p-6 border-l-4 border-red-500">
+                                <div className="apple-card-solid rounded-xl p-6">
                                     <div className="flex items-center gap-3 mb-3">
                                         <span className="w-8 h-8 bg-[#1d1d1f] dark:bg-[#f5f5f7] dark:text-[#1d1d1f] text-white rounded-lg flex items-center justify-center font-bold text-sm">1</span>
-                                        <h3 className="font-semibold text-slate-900 dark:text-white">Compute Loss</h3>
+                                        <h3 className="font-semibold text-[#1d1d1f] dark:text-[#f5f5f7]">Compute Loss</h3>
                                     </div>
-                                    <p className="text-slate-700 dark:text-slate-300 font-mono text-lg pl-11">L = (1/n) * sum((y - y_pred)^2)</p>
+                                    <p className="text-[#424245] dark:text-[#d2d2d7] font-mono text-lg pl-11">L = (1/n) * sum((y - y_pred)^2)</p>
                                 </div>
 
-                                <div className="apple-card-solid rounded-xl p-6 border-l-4 border-amber-500">
+                                <div className="apple-card-solid rounded-xl p-6">
                                     <div className="flex items-center gap-3 mb-3">
                                         <span className="w-8 h-8 bg-[#1d1d1f] dark:bg-[#f5f5f7] dark:text-[#1d1d1f] text-white rounded-lg flex items-center justify-center font-bold text-sm">2</span>
-                                        <h3 className="font-semibold text-slate-900 dark:text-white">Compute Gradients</h3>
+                                        <h3 className="font-semibold text-[#1d1d1f] dark:text-[#f5f5f7]">Compute Gradients</h3>
                                     </div>
-                                    <p className="text-slate-700 dark:text-slate-300 font-mono text-lg pl-11">dL/dW = dL/da * da/dz * dz/dW</p>
+                                    <p className="text-[#424245] dark:text-[#d2d2d7] font-mono text-lg pl-11">dL/dW = dL/da * da/dz * dz/dW</p>
                                 </div>
 
-                                <div className="apple-card-solid rounded-xl p-6 border-l-4 border-emerald-500">
+                                <div className="apple-card-solid rounded-xl p-6">
                                     <div className="flex items-center gap-3 mb-3">
                                         <span className="w-8 h-8 bg-[#1d1d1f] dark:bg-[#f5f5f7] dark:text-[#1d1d1f] text-white rounded-lg flex items-center justify-center font-bold text-sm">3</span>
-                                        <h3 className="font-semibold text-slate-900 dark:text-white">Update Weights</h3>
+                                        <h3 className="font-semibold text-[#1d1d1f] dark:text-[#f5f5f7]">Update Weights</h3>
                                     </div>
-                                    <p className="text-slate-700 dark:text-slate-300 font-mono text-lg pl-11">W = W - learning_rate * dL/dW</p>
+                                    <p className="text-[#424245] dark:text-[#d2d2d7] font-mono text-lg pl-11">W = W - learning_rate * dL/dW</p>
                                 </div>
                             </div>
                         </div>
@@ -972,9 +972,9 @@ export default function NeuralNetworkDemo() {
                 {/* Interactive Demo Section */}
                 {activeSection === 'interactive' && (
                     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-8">
-                        <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-8 shadow-sm">
+                        <div className="bg-white dark:bg-[#1d1d1f] rounded-2xl border border-[#d2d2d7] dark:border-[#2c2c2e] p-8 shadow-sm">
                             <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
-                                <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Interactive Playground</h2>
+                                <h2 className="text-2xl font-bold text-[#1d1d1f] dark:text-[#f5f5f7]">Interactive Playground</h2>
                                 <div className="flex gap-2">
                                     <button
                                         onClick={runForwardPass}
@@ -986,7 +986,7 @@ export default function NeuralNetworkDemo() {
                                     </button>
                                     <button
                                         onClick={resetNetwork}
-                                        className="px-4 py-2 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 rounded-lg font-medium hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors flex items-center gap-2"
+                                        className="px-4 py-2 bg-[#e8e8ed] dark:bg-[#2c2c2e] text-[#6e6e73] dark:text-[#a1a1a6] rounded-lg font-medium hover:bg-[#d2d2d7] dark:hover:bg-[#424245] transition-colors flex items-center gap-2"
                                     >
                                         <RestartAltIcon sx={{ fontSize: 18 }} />
                                         Reset
@@ -996,20 +996,20 @@ export default function NeuralNetworkDemo() {
 
                             {/* Controls */}
                             <div className="grid md:grid-cols-3 gap-4 mb-6">
-                                <div className="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-4">
-                                    <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Activation Function</label>
+                                <div className="bg-[#f5f5f7] dark:bg-[#2c2c2e]/50 rounded-xl p-4">
+                                    <label className="block text-sm font-medium text-[#424245] dark:text-[#d2d2d7] mb-2">Activation Function</label>
                                     <select
                                         value={activationFn}
                                         onChange={(e) => setActivationFn(e.target.value as 'sigmoid' | 'relu' | 'tanh')}
-                                        className="w-full px-3 py-2 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg text-slate-900 dark:text-white"
+                                        className="w-full px-3 py-2 bg-white dark:bg-[#424245] border border-[#d2d2d7] dark:border-[#6e6e73] rounded-lg text-[#1d1d1f] dark:text-[#f5f5f7]"
                                     >
                                         <option value="sigmoid">Sigmoid</option>
                                         <option value="relu">ReLU</option>
                                         <option value="tanh">Tanh</option>
                                     </select>
                                 </div>
-                                <div className="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-4">
-                                    <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Hidden Layer 1 Size</label>
+                                <div className="bg-[#f5f5f7] dark:bg-[#2c2c2e]/50 rounded-xl p-4">
+                                    <label className="block text-sm font-medium text-[#424245] dark:text-[#d2d2d7] mb-2">Hidden Layer 1 Size</label>
                                     <input
                                         type="range"
                                         min="2"
@@ -1021,10 +1021,10 @@ export default function NeuralNetworkDemo() {
                                         }))}
                                         className="w-full"
                                     />
-                                    <span className="text-slate-600 dark:text-slate-400 text-sm">{networkConfig.hiddenLayers[0]} neurons</span>
+                                    <span className="text-[#6e6e73] dark:text-[#a1a1a6] text-sm">{networkConfig.hiddenLayers[0]} neurons</span>
                                 </div>
-                                <div className="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-4">
-                                    <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Hidden Layer 2 Size</label>
+                                <div className="bg-[#f5f5f7] dark:bg-[#2c2c2e]/50 rounded-xl p-4">
+                                    <label className="block text-sm font-medium text-[#424245] dark:text-[#d2d2d7] mb-2">Hidden Layer 2 Size</label>
                                     <input
                                         type="range"
                                         min="2"
@@ -1036,17 +1036,17 @@ export default function NeuralNetworkDemo() {
                                         }))}
                                         className="w-full"
                                     />
-                                    <span className="text-slate-600 dark:text-slate-400 text-sm">{networkConfig.hiddenLayers[1]} neurons</span>
+                                    <span className="text-[#6e6e73] dark:text-[#a1a1a6] text-sm">{networkConfig.hiddenLayers[1]} neurons</span>
                                 </div>
                             </div>
 
                             {/* Input Controls */}
                             <div className="apple-card-solid rounded-xl p-4 mb-6 border hairline">
-                                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-3">Input Values</label>
+                                <label className="block text-sm font-medium text-[#424245] dark:text-[#d2d2d7] mb-3">Input Values</label>
                                 <div className="flex flex-wrap gap-4">
                                     {inputs.map((val, i) => (
                                         <div key={i} className="flex items-center gap-2">
-                                            <span className="text-slate-600 dark:text-slate-400 text-sm font-mono">x{i + 1}:</span>
+                                            <span className="text-[#6e6e73] dark:text-[#a1a1a6] text-sm font-mono">x{i + 1}:</span>
                                             <input
                                                 type="range"
                                                 min="0"
@@ -1060,7 +1060,7 @@ export default function NeuralNetworkDemo() {
                                                 }}
                                                 className="w-24"
                                             />
-                                            <span className="text-slate-900 dark:text-white font-mono text-sm w-8">{val.toFixed(1)}</span>
+                                            <span className="text-[#1d1d1f] dark:text-[#f5f5f7] font-mono text-sm w-8">{val.toFixed(1)}</span>
                                         </div>
                                     ))}
                                 </div>
@@ -1082,14 +1082,14 @@ export default function NeuralNetworkDemo() {
                             <div className="mt-6 flex flex-wrap gap-6 justify-center text-sm">
                                 <div className="flex items-center gap-2">
                                     <div className="w-8 h-1 rounded" style={{ backgroundColor: colors.success }} />
-                                    <span className="text-slate-600 dark:text-slate-400">Positive Weight</span>
+                                    <span className="text-[#6e6e73] dark:text-[#a1a1a6]">Positive Weight</span>
                                 </div>
                                 <div className="flex items-center gap-2">
                                     <div className="w-8 h-1 rounded" style={{ backgroundColor: colors.danger }} />
-                                    <span className="text-slate-600 dark:text-slate-400">Negative Weight</span>
+                                    <span className="text-[#6e6e73] dark:text-[#a1a1a6]">Negative Weight</span>
                                 </div>
                                 <div className="flex items-center gap-2">
-                                    <span className="text-slate-600 dark:text-slate-400">Brighter = Higher Activation</span>
+                                    <span className="text-[#6e6e73] dark:text-[#a1a1a6]">Brighter = Higher Activation</span>
                                 </div>
                             </div>
                         </div>
@@ -1097,20 +1097,20 @@ export default function NeuralNetworkDemo() {
                         {/* Info Cards */}
                         <div className="grid md:grid-cols-2 gap-6">
                             <div className="apple-card-solid rounded-2xl p-6 border hairline">
-                                <h3 className="font-semibold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
+                                <h3 className="font-semibold text-[#1d1d1f] dark:text-[#f5f5f7] mb-3 flex items-center gap-2">
                                     <PlayArrowIcon className="text-[#6e6e73] dark:text-[#a1a1a6]" />
                                     Forward Pass
                                 </h3>
-                                <p className="text-slate-600 dark:text-slate-400 text-sm">
+                                <p className="text-[#6e6e73] dark:text-[#a1a1a6] text-sm">
                                     Click "Forward Pass" to see how input values propagate through the network. Each neuron computes its weighted sum, adds bias, and applies the activation function.
                                 </p>
                             </div>
                             <div className="apple-card-solid rounded-2xl p-6 border border-amber-200 dark:border-amber-800">
-                                <h3 className="font-semibold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
+                                <h3 className="font-semibold text-[#1d1d1f] dark:text-[#f5f5f7] mb-3 flex items-center gap-2">
                                     <TouchAppIcon className="text-amber-500" />
                                     Interact
                                 </h3>
-                                <p className="text-slate-600 dark:text-slate-400 text-sm">
+                                <p className="text-[#6e6e73] dark:text-[#a1a1a6] text-sm">
                                     Hover over neurons to highlight their connections. Adjust input sliders and network architecture to see how the activations change throughout the network.
                                 </p>
                             </div>
@@ -1124,8 +1124,8 @@ export default function NeuralNetworkDemo() {
                 {/* Use Cases Section */}
                 {activeSection === 'usecases' && (
                     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-8">
-                        <div className="bg-slate-50 dark:bg-slate-900/50 backdrop-blur-sm rounded-3xl border border-slate-200/50 dark:border-slate-800/50 p-8 shadow-sm">
-                            <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">Real-World Applications</h2>
+                        <div className="bg-[#f5f5f7] dark:bg-[#1d1d1f]/50 backdrop-blur-sm rounded-3xl border border-[#d2d2d7]/50 dark:border-[#2c2c2e]/50 p-8 shadow-sm">
+                            <h2 className="text-2xl font-bold text-[#1d1d1f] dark:text-[#f5f5f7] mb-6">Real-World Applications</h2>
                             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                                 {[
                                     { Icon: ImageIcon, title: 'Computer Vision', desc: 'Image classification, object detection, facial recognition, and medical image analysis.' },
@@ -1135,23 +1135,23 @@ export default function NeuralNetworkDemo() {
                                     { Icon: MemoryIcon, title: 'Recommendation', desc: 'Personalized content, product recommendations, and user behavior prediction.' },
                                     { Icon: PsychologyIcon, title: 'Generative Models', desc: 'Image, text, and audio generation tools built from learned patterns.' },
                                 ].map((item, i) => (
-                                    <div key={i} className="bg-slate-100 dark:bg-slate-800/50 rounded-xl p-6 border border-slate-200 dark:border-slate-700 hover:shadow-lg transition-shadow">
+                                    <div key={i} className="bg-[#e8e8ed] dark:bg-[#2c2c2e]/50 rounded-xl p-6 border border-[#d2d2d7] dark:border-[#424245] hover:shadow-lg transition-shadow">
                                         <div className="flex items-center gap-3 mb-4">
-                                            <div className="w-10 h-10 bg-slate-900 dark:bg-white rounded-lg flex items-center justify-center text-white dark:text-slate-900">
+                                            <div className="w-10 h-10 bg-[#1d1d1f] dark:bg-white rounded-lg flex items-center justify-center text-white dark:text-[#1d1d1f]">
                                                 <item.Icon sx={{ fontSize: 22 }} />
                                             </div>
-                                            <h3 className="text-lg font-semibold text-slate-900 dark:text-white">{item.title}</h3>
+                                            <h3 className="text-lg font-semibold text-[#1d1d1f] dark:text-[#f5f5f7]">{item.title}</h3>
                                         </div>
-                                        <p className="text-slate-600 dark:text-slate-400 text-sm">{item.desc}</p>
+                                        <p className="text-[#6e6e73] dark:text-[#a1a1a6] text-sm">{item.desc}</p>
                                     </div>
                                 ))}
                             </div>
                         </div>
 
-                        <div className="bg-slate-50 dark:bg-slate-900/50 backdrop-blur-sm rounded-3xl border border-slate-200/50 dark:border-slate-800/50 p-8 shadow-sm">
-                            <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">When to Use Neural Networks</h2>
+                        <div className="bg-[#f5f5f7] dark:bg-[#1d1d1f]/50 backdrop-blur-sm rounded-3xl border border-[#d2d2d7]/50 dark:border-[#2c2c2e]/50 p-8 shadow-sm">
+                            <h2 className="text-2xl font-bold text-[#1d1d1f] dark:text-[#f5f5f7] mb-6">When to Use Neural Networks</h2>
                             <div className="grid md:grid-cols-2 gap-8">
-                                <div className="bg-slate-100 dark:bg-slate-800/50 rounded-xl p-6 border border-slate-200 dark:border-slate-700">
+                                <div className="bg-[#e8e8ed] dark:bg-[#2c2c2e]/50 rounded-xl p-6 border border-[#d2d2d7] dark:border-[#424245]">
                                     <h3 className="font-semibold text-emerald-600 dark:text-emerald-400 mb-4 flex items-center gap-2 text-lg">
                                         <CheckCircleIcon sx={{ fontSize: 22 }} />
                                         Good For
@@ -1163,14 +1163,14 @@ export default function NeuralNetworkDemo() {
                                             'Unstructured data (images, text, audio)',
                                             'Tasks where accuracy is more important than interpretability',
                                         ].map((item, i) => (
-                                            <li key={i} className="flex items-start gap-3 text-slate-600 dark:text-slate-400">
+                                            <li key={i} className="flex items-start gap-3 text-[#6e6e73] dark:text-[#a1a1a6]">
                                                 <span className="text-emerald-500 mt-0.5">-</span>
                                                 {item}
                                             </li>
                                         ))}
                                     </ul>
                                 </div>
-                                <div className="bg-slate-100 dark:bg-slate-800/50 rounded-xl p-6 border border-slate-200 dark:border-slate-700">
+                                <div className="bg-[#e8e8ed] dark:bg-[#2c2c2e]/50 rounded-xl p-6 border border-[#d2d2d7] dark:border-[#424245]">
                                     <h3 className="font-semibold text-red-600 dark:text-red-400 mb-4 flex items-center gap-2 text-lg">
                                         <CancelIcon sx={{ fontSize: 22 }} />
                                         Consider Alternatives When
@@ -1182,7 +1182,7 @@ export default function NeuralNetworkDemo() {
                                             'Simple linear relationships exist (use regression)',
                                             'Computational resources are constrained',
                                         ].map((item, i) => (
-                                            <li key={i} className="flex items-start gap-3 text-slate-600 dark:text-slate-400">
+                                            <li key={i} className="flex items-start gap-3 text-[#6e6e73] dark:text-[#a1a1a6]">
                                                 <span className="text-red-500 mt-0.5">-</span>
                                                 {item}
                                             </li>
@@ -1192,14 +1192,14 @@ export default function NeuralNetworkDemo() {
                             </div>
                         </div>
 
-                        <div className="bg-slate-900 dark:bg-white rounded-2xl p-8 text-center shadow-xl">
-                            <h2 className="text-2xl font-bold text-white dark:text-slate-900 mb-4">Ready to Experiment?</h2>
-                            <p className="text-slate-300 dark:text-slate-600 mb-6 max-w-xl mx-auto">
+                        <div className="bg-[#1d1d1f] dark:bg-white rounded-2xl p-8 text-center shadow-xl">
+                            <h2 className="text-2xl font-bold text-white dark:text-[#1d1d1f] mb-4">Ready to Experiment?</h2>
+                            <p className="text-[#d2d2d7] dark:text-[#6e6e73] mb-6 max-w-xl mx-auto">
                                 Head to the Interactive Demo section to build and visualize your own neural network architecture!
                             </p>
                             <button
                                 onClick={() => setActiveSection('interactive')}
-                                className="px-8 py-3 bg-white dark:bg-slate-900 text-slate-900 dark:text-white rounded-xl font-semibold hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors shadow-lg"
+                                className="px-8 py-3 bg-white dark:bg-[#1d1d1f] text-[#1d1d1f] dark:text-[#f5f5f7] rounded-xl font-semibold hover:bg-[#e8e8ed] dark:hover:bg-[#2c2c2e] transition-colors shadow-lg"
                             >
                                 Try Interactive Demo
                             </button>
