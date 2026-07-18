@@ -43,29 +43,29 @@ export default class ErrorBoundary extends Component<Props, State> {
             }
 
             return (
-                <div className="flex flex-col items-center justify-center p-8 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-200 dark:border-slate-800">
+                <div className="flex flex-col items-center justify-center p-8 bg-[#f5f5f7] dark:bg-[#1d1d1f]/50 rounded-2xl border border-[#d2d2d7] dark:border-[#2c2c2e]">
                     <div className="w-16 h-16 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center mb-4">
                         <ErrorOutlineIcon className="text-red-500" sx={{ fontSize: 32 }} />
                     </div>
-                    <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-2">
+                    <h3 className="text-lg font-semibold text-[#1d1d1f] dark:text-[#f5f5f7] mb-2">
                         Something went wrong
                     </h3>
-                    <p className="text-slate-600 dark:text-slate-400 text-center mb-4 max-w-md">
+                    <p className="text-[#6e6e73] dark:text-[#a1a1a6] text-center mb-4 max-w-md">
                         An error occurred while rendering this component. Please try refreshing.
                     </p>
                     {this.state.error && (
                         <details className="mb-4 w-full max-w-md">
-                            <summary className="text-sm text-slate-500 dark:text-slate-400 cursor-pointer hover:text-slate-700 dark:hover:text-slate-300">
+                            <summary className="text-sm text-[#86868b] dark:text-[#a1a1a6] cursor-pointer hover:text-[#424245] dark:hover:text-[#d2d2d7]">
                                 View error details
                             </summary>
-                            <pre className="mt-2 p-3 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs text-slate-600 dark:text-slate-400 overflow-x-auto">
+                            <pre className="mt-2 p-3 bg-[#e8e8ed] dark:bg-[#2c2c2e] rounded-lg text-xs text-[#6e6e73] dark:text-[#a1a1a6] overflow-x-auto">
                                 {this.state.error.message}
                             </pre>
                         </details>
                     )}
                     <button
                         onClick={this.handleReset}
-                        className="inline-flex items-center gap-2 px-4 py-2 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-lg font-medium hover:bg-slate-800 dark:hover:bg-slate-100 transition-colors"
+                        className="inline-flex items-center gap-2 px-4 py-2 bg-[#1d1d1f] dark:bg-white text-white dark:text-[#1d1d1f] rounded-lg font-medium hover:bg-[#2c2c2e] dark:hover:bg-[#e8e8ed] transition-colors"
                     >
                         <RefreshIcon sx={{ fontSize: 18 }} />
                         Try Again
