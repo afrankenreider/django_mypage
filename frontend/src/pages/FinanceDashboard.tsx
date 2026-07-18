@@ -811,7 +811,7 @@ export default function FinanceDashboard() {
                                     <div className="h-[300px] w-full sm:h-[400px]">
                                         {isChartLoading ? (
                                             <div className="h-full flex items-center justify-center">
-                                                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#86868b]" />
+                                                <div className="animate-spin rounded-full h-8 w-8 border-2 border-[#6e6e73] border-t-transparent" />
                                             </div>
                                         ) : historicalData.length > 0 ? (
                                             <ResponsiveContainer width="100%" height="100%">
@@ -1024,7 +1024,7 @@ export default function FinanceDashboard() {
                                                             >
                                                                 {isPredicting ? (
                                                                     <>
-                                                                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white" />
+                                                                        <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent" />
                                                                         Running...
                                                                     </>
                                                                 ) : (
