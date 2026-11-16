@@ -1,4 +1,3 @@
-import { usePageTitle } from '../hooks/usePageTitle'
 import { enterIndex } from '../utils/motion'
 
 interface Skill {
@@ -46,8 +45,6 @@ const categories = [...new Set(skills.map((skill) => skill.category))]
 const chipClass = 'inline-flex min-h-11 items-center rounded-full border px-4 text-sm text-body'
 
 export default function Skills() {
-  usePageTitle('Skills')
-
   return (
     <div className="apple-page pb-24 pt-14 sm:pt-16">
       <div className="apple-section">

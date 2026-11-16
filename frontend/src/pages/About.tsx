@@ -1,4 +1,3 @@
-import { usePageTitle } from '../hooks/usePageTitle'
 import { enterIndex } from '../utils/motion'
 
 const timeline = [
@@ -46,8 +45,6 @@ const capabilities = [
 ]
 
 export default function About() {
-  usePageTitle('About')
-
   return (
     <div className="apple-page pb-24 pt-14 sm:pt-16">
       <div className="apple-section">

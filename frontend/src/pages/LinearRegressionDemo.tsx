@@ -39,7 +39,6 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy'
 import CheckIcon from '@mui/icons-material/Check'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import ExpandLessIcon from '@mui/icons-material/ExpandLess'
-import { usePageTitle } from '../hooks/usePageTitle'
 
 const colors = {
   primary: '#1d1d1f',
@@ -1065,8 +1064,6 @@ const NotebookSection = memo(() => {
 NotebookSection.displayName = 'NotebookSection'
 
 export default function LinearRegressionDemo() {
-  usePageTitle('Linear regression')
-
   const [selectedDataset, setSelectedDataset] = useState<string>('housing')
   const [result, setResult] = useState<RegressionResult | null>(null)
   const [customPoints, setCustomPoints] = useState<DataPoint[]>([])

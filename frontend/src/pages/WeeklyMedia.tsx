@@ -10,7 +10,6 @@ import OpenInNewIcon from '@mui/icons-material/OpenInNew'
 import ContentCopyIcon from '@mui/icons-material/ContentCopy'
 import CheckIcon from '@mui/icons-material/Check'
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline'
-import { usePageTitle } from '../hooks/usePageTitle'
 import { enterIndex } from '../utils/motion'
 
 type MediaType = 'podcast' | 'article' | 'whitepaper' | 'video' | 'book'
@@ -164,8 +163,6 @@ function MediaRow({ item, index }: MediaRowProps) {
 }
 
 export default function WeeklyMedia() {
-    usePageTitle('Weekly media')
-
     const searchId = useId()
     const [mediaItems, setMediaItems] = useState<MediaItem[]>([])
     const [isLoading, setIsLoading] = useState(true)

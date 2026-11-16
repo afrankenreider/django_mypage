@@ -28,7 +28,6 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow'
 import CloseIcon from '@mui/icons-material/Close'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import ExpandLessIcon from '@mui/icons-material/ExpandLess'
-import { usePageTitle } from '../hooks/usePageTitle'
 
 // Types
 interface StockQuote {
@@ -278,8 +277,6 @@ StockCard.displayName = 'StockCard'
 
 // Main Component
 export default function FinanceDashboard() {
-    usePageTitle('Finance dashboard')
-
     // State
     const [watchlist, setWatchlist] = useState<string[]>(() => {
         const saved = localStorage.getItem('stockWatchlist')

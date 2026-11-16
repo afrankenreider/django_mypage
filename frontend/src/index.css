@@ -8,8 +8,8 @@
  * Raw light and dark values live in their own custom properties. The
  * semantic tokens resolve through light-dark(), which follows the computed
  * color-scheme, so the system preference and the header toggle both work
- * without a JS-applied class. Browsers without light-dark() fall back to
- * the prefers-color-scheme media query.
+ * without a JS-applied class. Browsers without light-dark() get the same
+ * result from the selector-based fallback below.
  */
 :root {
     --page-bg-light: #f5f5f7;
@@ -61,9 +61,44 @@
     accent-color: var(--text-primary);
 }
 
-/* Fallback for browsers without light-dark(). */
-@media (prefers-color-scheme: dark) {
-    :root {
+/*
+ * Fallback for browsers without light-dark(): follow the system preference,
+ * then let a pinned scheme from the header toggle win in either direction.
+ */
+@supports not (color: light-dark(white, black)) {
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --page-bg: var(--page-bg-dark);
+            --surface: var(--surface-dark);
+            --surface-strong: var(--surface-strong-dark);
+            --text-primary: var(--text-primary-dark);
+            --text-body: var(--text-body-dark);
+            --text-secondary: var(--text-secondary-dark);
+            --hairline: var(--hairline-dark);
+            --control-border: var(--control-border-dark);
+            --accent: var(--accent-dark);
+            --tile: var(--tile-dark);
+            --hover: var(--hover-dark);
+            --cta-hover: var(--cta-hover-dark);
+        }
+
+        :root:has(> head > meta[name="color-scheme"][content="light"]) {
+            --page-bg: var(--page-bg-light);
+            --surface: var(--surface-light);
+            --surface-strong: var(--surface-strong-light);
+            --text-primary: var(--text-primary-light);
+            --text-body: var(--text-body-light);
+            --text-secondary: var(--text-secondary-light);
+            --hairline: var(--hairline-light);
+            --control-border: var(--control-border-light);
+            --accent: var(--accent-light);
+            --tile: var(--tile-light);
+            --hover: var(--hover-light);
+            --cta-hover: var(--cta-hover-light);
+        }
+    }
+
+    :root:has(> head > meta[name="color-scheme"][content="dark"]) {
         --page-bg: var(--page-bg-dark);
         --surface: var(--surface-dark);
         --surface-strong: var(--surface-strong-dark);
@@ -638,6 +673,9 @@ progress.loading-spinner-sm:indeterminate {
         background: #1d1d1f;
         color: #f5f5f7;
         --focus-ring: #f5f5f7;
+        --text-primary: var(--text-primary-dark);
+        --page-bg: var(--page-bg-dark);
+        --cta-hover: var(--cta-hover-dark);
     }
 }
 
