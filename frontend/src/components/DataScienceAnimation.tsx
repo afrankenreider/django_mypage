@@ -1,5 +1,9 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import PauseIcon from '@mui/icons-material/Pause'
+import PlayArrowIcon from '@mui/icons-material/PlayArrow'
 import { useTheme } from '../context/ThemeContext'
+
+const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)'
 
 type Point = {
   x: number
@@ -13,7 +17,12 @@ export default function DataScienceAnimation() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const animationRef = useRef<number>()
   const pointsRef = useRef<Point[]>([])
+  const seededSizeRef = useRef('')
   const { theme } = useTheme()
+  // Static by default for visitors who ask for reduced motion; they can opt in.
+  const [isPlaying, setIsPlaying] = useState(
+    () => !window.matchMedia(REDUCED_MOTION_QUERY).matches,
+  )
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -22,19 +31,12 @@ export default function DataScienceAnimation() {
     const context = canvas.getContext('2d')
     if (!context) return
 
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     const isDark = theme === 'dark'
     const ink = isDark ? '245, 245, 247' : '29, 29, 31'
     const muted = isDark ? '161, 161, 166' : '110, 110, 115'
-    const resize = () => {
-      const rect = canvas.getBoundingClientRect()
-      const dpr = Math.min(window.devicePixelRatio || 1, 2)
-      canvas.width = rect.width * dpr
-      canvas.height = rect.height * dpr
-      context.setTransform(dpr, 0, 0, dpr, 0, 0)
+    let isVisible = true
 
-      const width = rect.width
-      const height = rect.height
+    const seedPoints = (width: number, height: number) => {
       pointsRef.current = Array.from({ length: width < 520 ? 34 : 52 }, (_, index) => {
         const baseX = 28 + Math.random() * (width - 56)
         const trend = height * 0.72 - (baseX / width) * height * 0.42
@@ -75,7 +77,7 @@ export default function DataScienceAnimation() {
 
       pointsRef.current.forEach((point, index) => {
         point.phase += 0.018
-        if (!prefersReducedMotion) {
+        if (isPlaying) {
           point.x += point.vx
           point.y += point.vy + Math.sin(point.phase) * 0.02
         }
@@ -83,7 +85,7 @@ export default function DataScienceAnimation() {
         if (point.x < 24 || point.x > width - 24) point.vx *= -1
         if (point.y < 24 || point.y > height - 24) point.vy *= -1
 
-        const pulse = prefersReducedMotion ? 1 : 0.72 + Math.sin(time / 700 + point.phase) * 0.28
+        const pulse = !isPlaying ? 1 : 0.72 + Math.sin(time / 700 + point.phase) * 0.28
         context.beginPath()
         context.arc(point.x, point.y, 2.2 + pulse * 1.2, 0, Math.PI * 2)
         context.fillStyle = `rgba(${ink}, ${0.24 + pulse * 0.28})`
@@ -106,24 +108,68 @@ export default function DataScienceAnimation() {
       context.fillStyle = `rgba(${muted}, 0.8)`
       context.fillText('R² .91', width - 76, 34)
 
-      if (!prefersReducedMotion) {
+      if (isPlaying && isVisible) {
         animationRef.current = requestAnimationFrame(draw)
       }
     }
 
+    const restart = () => {
+      if (animationRef.current) cancelAnimationFrame(animationRef.current)
+      draw()
+    }
+
+    const resize = () => {
+      const rect = canvas.getBoundingClientRect()
+      if (rect.width === 0 || rect.height === 0) return
+      const dpr = Math.min(window.devicePixelRatio || 1, 2)
+      canvas.width = rect.width * dpr
+      canvas.height = rect.height * dpr
+      context.setTransform(dpr, 0, 0, dpr, 0, 0)
+      // Keep the existing points across theme and play/pause changes.
+      const size = `${rect.width}x${rect.height}`
+      if (seededSizeRef.current !== size) {
+        seededSizeRef.current = size
+        seedPoints(rect.width, rect.height)
+      }
+      // Resizing clears the canvas, so repaint even while paused.
+      restart()
+    }
+
+    // Stop the render loop while the canvas is scrolled out of view.
+    const visibilityObserver = new IntersectionObserver(([entry]) => {
+      const wasVisible = isVisible
+      isVisible = entry.isIntersecting
+      if (isVisible && !wasVisible) restart()
+    })
+    const resizeObserver = new ResizeObserver(resize)
+
     resize()
-    draw()
-    window.addEventListener('resize', resize)
+    visibilityObserver.observe(canvas)
+    resizeObserver.observe(canvas)
 
     return () => {
-      window.removeEventListener('resize', resize)
+      visibilityObserver.disconnect()
+      resizeObserver.disconnect()
       if (animationRef.current) cancelAnimationFrame(animationRef.current)
     }
-  }, [theme])
+  }, [theme, isPlaying])
 
   return (
-    <div className="relative h-[22rem] overflow-hidden rounded-[2rem] border hairline bg-white/70 shadow-[0_24px_80px_-52px_rgba(0,0,0,0.55)] dark:bg-white/[0.06]">
+    <div className="relative h-72 overflow-hidden rounded-[2rem] border hairline bg-white/70 shadow-[0_24px_80px_-52px_rgba(0,0,0,0.55)] dark:bg-white/[0.06] dark:shadow-none sm:h-[22rem]">
       <canvas ref={canvasRef} className="h-full w-full" aria-hidden="true" />
+      {/* The animation runs indefinitely, so it needs a control to stop it. */}
+      <button
+        type="button"
+        onClick={() => setIsPlaying((playing) => !playing)}
+        className="icon-button absolute bottom-3 left-3"
+      >
+        {isPlaying ? (
+          <PauseIcon aria-hidden="true" sx={{ fontSize: 18 }} />
+        ) : (
+          <PlayArrowIcon aria-hidden="true" sx={{ fontSize: 18 }} />
+        )}
+        <span className="visually-hidden">{isPlaying ? 'Pause animation' : 'Play animation'}</span>
+      </button>
     </div>
   )
 }

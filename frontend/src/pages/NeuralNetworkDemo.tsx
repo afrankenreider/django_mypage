@@ -24,6 +24,7 @@ import SmartToyIcon from '@mui/icons-material/SmartToy'
 import HealthAndSafetyIcon from '@mui/icons-material/HealthAndSafety'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 import CancelIcon from '@mui/icons-material/Cancel'
+import { usePageTitle } from '../hooks/usePageTitle'
 
 const colors = {
     primary: '#1d1d1f',
@@ -182,7 +183,7 @@ const CodeCell = memo(({ cell, isExpanded, onToggle }: { cell: NotebookCell; isE
                         <div className="w-3 h-3 rounded-full bg-yellow-400" />
                         <div className="w-3 h-3 rounded-full bg-green-400" />
                     </div>
-                    <span className="text-xs font-mono text-[#86868b] dark:text-[#a1a1a6] ml-2">Python</span>
+                    <span className="text-xs font-mono text-muted dark:text-[#a1a1a6] ml-2">Python</span>
                 </div>
                 <div className="flex items-center gap-2">
                     <button onClick={copyCode} className="p-1.5 rounded-md hover:bg-[#d2d2d7] dark:hover:bg-[#424245] transition-colors" title="Copy code">
@@ -199,7 +200,7 @@ const CodeCell = memo(({ cell, isExpanded, onToggle }: { cell: NotebookCell; isE
             {cell.output && (
                 <div className="border-t border-[#d2d2d7] dark:border-[#424245]">
                     <div className="px-4 py-1.5 bg-[#e8e8ed] dark:bg-[#2c2c2e] border-b border-[#d2d2d7] dark:border-[#424245]">
-                        <span className="text-xs font-medium text-[#86868b] dark:text-[#a1a1a6]">Output</span>
+                        <span className="text-xs font-medium text-muted dark:text-[#a1a1a6]">Output</span>
                     </div>
                     <pre className="p-4 text-sm font-mono overflow-x-auto bg-[#f5f5f7] dark:bg-[#1d1d1f]/50 text-[#424245] dark:text-[#d2d2d7] whitespace-pre-wrap">{cell.output}</pre>
                 </div>
@@ -709,6 +710,8 @@ NotebookSection.displayName = 'NotebookSection'
 
 // Main component
 export default function NeuralNetworkDemo() {
+    usePageTitle('Neural networks')
+
     const [activeSection, setActiveSection] = useState<string>('intro')
     const [networkConfig, setNetworkConfig] = useState<NetworkConfig>({
         inputSize: 3,
@@ -751,7 +754,7 @@ export default function NeuralNetworkDemo() {
     ]
 
     return (
-        <section className="apple-page pt-28 pb-24 relative overflow-hidden">
+        <section className="apple-page pt-14 pb-24 relative overflow-hidden">
             <div className="absolute inset-0 studio-grid opacity-50" />
 
             <div className="apple-section max-w-7xl relative z-10">
@@ -767,7 +770,7 @@ export default function NeuralNetworkDemo() {
                             <AutoGraphIcon sx={{ fontSize: 18 }} />
                             Project walkthrough
                         </motion.span>
-                        <h1 className="display-heading text-5xl md:text-6xl lg:text-7xl mb-6">
+                        <h1 className="display-heading display-page mb-6">
                             Neural <span className="ink-text">Networks</span>
                         </h1>
                         <p className="apple-copy max-w-2xl text-lg sm:text-xl">
@@ -881,7 +884,7 @@ export default function NeuralNetworkDemo() {
                                 <p className="font-mono text-3xl font-bold text-[#1d1d1f] dark:text-[#f5f5f7] md:text-4xl">
                                     z = Wx + b
                                 </p>
-                                <p className="text-[#86868b] dark:text-[#a1a1a6] mt-4">then apply activation</p>
+                                <p className="text-muted dark:text-[#a1a1a6] mt-4">then apply activation</p>
                                 <p className="mt-2 font-mono text-3xl font-bold text-[#6e6e73] dark:text-[#a1a1a6] md:text-4xl">
                                     a = f(z)
                                 </p>
@@ -997,8 +1000,9 @@ export default function NeuralNetworkDemo() {
                             {/* Controls */}
                             <div className="grid md:grid-cols-3 gap-4 mb-6">
                                 <div className="bg-[#f5f5f7] dark:bg-[#2c2c2e]/50 rounded-xl p-4">
-                                    <label className="block text-sm font-medium text-[#424245] dark:text-[#d2d2d7] mb-2">Activation Function</label>
+                                    <label htmlFor="nn-activation" className="block text-sm font-medium text-[#424245] dark:text-[#d2d2d7] mb-2">Activation Function</label>
                                     <select
+                                        id="nn-activation"
                                         value={activationFn}
                                         onChange={(e) => setActivationFn(e.target.value as 'sigmoid' | 'relu' | 'tanh')}
                                         className="w-full px-3 py-2 bg-white dark:bg-[#424245] border border-[#d2d2d7] dark:border-[#6e6e73] rounded-lg text-[#1d1d1f] dark:text-[#f5f5f7]"
@@ -1009,8 +1013,9 @@ export default function NeuralNetworkDemo() {
                                     </select>
                                 </div>
                                 <div className="bg-[#f5f5f7] dark:bg-[#2c2c2e]/50 rounded-xl p-4">
-                                    <label className="block text-sm font-medium text-[#424245] dark:text-[#d2d2d7] mb-2">Hidden Layer 1 Size</label>
+                                    <label htmlFor="nn-hidden-1" className="block text-sm font-medium text-[#424245] dark:text-[#d2d2d7] mb-2">Hidden Layer 1 Size</label>
                                     <input
+                                        id="nn-hidden-1"
                                         type="range"
                                         min="2"
                                         max="6"
@@ -1024,8 +1029,9 @@ export default function NeuralNetworkDemo() {
                                     <span className="text-[#6e6e73] dark:text-[#a1a1a6] text-sm">{networkConfig.hiddenLayers[0]} neurons</span>
                                 </div>
                                 <div className="bg-[#f5f5f7] dark:bg-[#2c2c2e]/50 rounded-xl p-4">
-                                    <label className="block text-sm font-medium text-[#424245] dark:text-[#d2d2d7] mb-2">Hidden Layer 2 Size</label>
+                                    <label htmlFor="nn-hidden-2" className="block text-sm font-medium text-[#424245] dark:text-[#d2d2d7] mb-2">Hidden Layer 2 Size</label>
                                     <input
+                                        id="nn-hidden-2"
                                         type="range"
                                         min="2"
                                         max="5"
@@ -1042,13 +1048,14 @@ export default function NeuralNetworkDemo() {
 
                             {/* Input Controls */}
                             <div className="apple-card-solid rounded-xl p-4 mb-6 border hairline">
-                                <label className="block text-sm font-medium text-[#424245] dark:text-[#d2d2d7] mb-3">Input Values</label>
-                                <div className="flex flex-wrap gap-4">
+                                <p id="nn-inputs-label" className="block text-sm font-medium text-[#424245] dark:text-[#d2d2d7] mb-3">Input Values</p>
+                                <div className="flex flex-wrap gap-4" role="group" aria-labelledby="nn-inputs-label">
                                     {inputs.map((val, i) => (
                                         <div key={i} className="flex items-center gap-2">
                                             <span className="text-[#6e6e73] dark:text-[#a1a1a6] text-sm font-mono">x{i + 1}:</span>
                                             <input
                                                 type="range"
+                                                aria-label={`Input x${i + 1}`}
                                                 min="0"
                                                 max="1"
                                                 step="0.1"

@@ -39,6 +39,7 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy'
 import CheckIcon from '@mui/icons-material/Check'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import ExpandLessIcon from '@mui/icons-material/ExpandLess'
+import { usePageTitle } from '../hooks/usePageTitle'
 
 const colors = {
   primary: '#1d1d1f',
@@ -529,8 +530,8 @@ const CodeCell = memo(({ cell, isExpanded, onToggle }: { cell: NotebookCell; isE
       {/* Cell header */}
       <div className="flex items-center justify-between px-4 py-2 bg-white dark:bg-[#0a0a0c]/[0.045] border-b border-black/[0.08] dark:border-white/[0.14]">
         <div className="flex items-center gap-2">
-          <CodeIcon sx={{ fontSize: 15 }} className="text-[#86868b]" />
-          <span className="font-mono text-xs text-[#86868b] dark:text-[#a1a1a6]">
+          <CodeIcon sx={{ fontSize: 15 }} className="text-muted" />
+          <span className="font-mono text-xs text-muted dark:text-[#a1a1a6]">
             Python
           </span>
         </div>
@@ -571,7 +572,7 @@ const CodeCell = memo(({ cell, isExpanded, onToggle }: { cell: NotebookCell; isE
       {cell.output && (
         <div className="border-t border-black/[0.08] dark:border-white/[0.14]">
           <div className="px-4 py-1.5 bg-black/[0.045] dark:bg-[#2c2c2e] border-b border-black/[0.08] dark:border-white/[0.14]">
-            <span className="text-xs font-medium text-[#86868b] dark:text-[#a1a1a6]">Output</span>
+            <span className="text-xs font-medium text-muted dark:text-[#a1a1a6]">Output</span>
           </div>
           <pre className="p-4 text-sm font-mono overflow-x-auto bg-white dark:bg-[#0a0a0c]/[0.04] text-[#424245] dark:text-[#d2d2d7] whitespace-pre-wrap">
             {cell.output}
@@ -1064,6 +1065,8 @@ const NotebookSection = memo(() => {
 NotebookSection.displayName = 'NotebookSection'
 
 export default function LinearRegressionDemo() {
+  usePageTitle('Linear regression')
+
   const [selectedDataset, setSelectedDataset] = useState<string>('housing')
   const [result, setResult] = useState<RegressionResult | null>(null)
   const [customPoints, setCustomPoints] = useState<DataPoint[]>([])
@@ -1188,7 +1191,7 @@ export default function LinearRegressionDemo() {
   ]
 
   return (
-    <section className="apple-page pb-24 pt-28">
+    <section className="apple-page pb-24 pt-14">
       <div className="apple-section max-w-6xl">
         {/* Header */}
         <motion.div
@@ -1215,7 +1218,7 @@ export default function LinearRegressionDemo() {
               <TimelineIcon sx={{ fontSize: 18 }} />
               Project walkthrough
             </motion.span>
-            <h1 className="display-heading text-5xl md:text-6xl lg:text-7xl mb-6">
+            <h1 className="display-heading display-page mb-6">
               Linear <span className="ink-text">Regression</span>
             </h1>
             </div>
@@ -1373,11 +1376,11 @@ export default function LinearRegressionDemo() {
               {result && (
                 <div className="mt-6 flex flex-wrap gap-4 justify-center">
                   <div className="bg-black/[0.045] dark:bg-[#0a0a0c]/[0.055] rounded-xl px-5 py-3 border border-black/[0.08] dark:border-white/[0.14]">
-                    <span className="text-[#86868b] dark:text-[#a1a1a6] text-sm">Equation: </span>
+                    <span className="text-muted dark:text-[#a1a1a6] text-sm">Equation: </span>
                     <span className="font-mono font-bold text-[#1d1d1f] dark:text-[#f5f5f7]">{result.equation}</span>
                   </div>
                   <div className="bg-black/[0.045] dark:bg-[#0a0a0c]/[0.055] rounded-xl px-5 py-3 border border-black/[0.08] dark:border-white/[0.14]">
-                    <span className="text-[#86868b] dark:text-[#a1a1a6] text-sm">R² Score: </span>
+                    <span className="text-muted dark:text-[#a1a1a6] text-sm">R² Score: </span>
                     <span className="font-mono font-bold text-[#248a3d]">{result.r_squared}</span>
                   </div>
                 </div>
@@ -1399,7 +1402,7 @@ export default function LinearRegressionDemo() {
                 <p className="font-mono text-3xl font-bold text-[#1d1d1f] dark:text-[#f5f5f7] md:text-4xl">
                   y = mx + b
                 </p>
-                <p className="text-[#86868b] dark:text-[#a1a1a6] mt-4">or equivalently</p>
+                <p className="text-muted dark:text-[#a1a1a6] mt-4">or equivalently</p>
                 <p className="mt-2 font-mono text-3xl font-bold text-[#6e6e73] dark:text-[#a1a1a6] md:text-4xl">
                   y = β₀ + β₁x
                 </p>
@@ -1562,7 +1565,7 @@ export default function LinearRegressionDemo() {
                   <div className="flex items-center gap-2 text-[#424245] dark:text-[#d2d2d7]">
                     <TouchAppIcon className="text-[#6e6e73] dark:text-[#a1a1a6]" sx={{ fontSize: 20 }} />
                     <span>Click anywhere on the chart to add points.</span>
-                    <span className="text-[#86868b] dark:text-[#a1a1a6]">({customPoints.length} points)</span>
+                    <span className="text-muted dark:text-[#a1a1a6]">({customPoints.length} points)</span>
                   </div>
                   <div className="flex gap-2">
                     <button
@@ -1665,19 +1668,19 @@ export default function LinearRegressionDemo() {
               {result && (
                 <dl className="mt-8 grid gap-px overflow-hidden rounded-2xl border hairline bg-black/[0.06] dark:bg-white/[0.10] md:grid-cols-4">
                   <div className="bg-white p-5 text-center dark:bg-[#161617]">
-                    <dt className="mb-2 text-sm text-[#86868b] dark:text-[#a1a1a6]">Equation</dt>
+                    <dt className="mb-2 text-sm text-muted dark:text-[#a1a1a6]">Equation</dt>
                     <dd className="font-mono text-lg font-bold text-[#1d1d1f] dark:text-[#f5f5f7]">{result.equation}</dd>
                   </div>
                   <div className="bg-white p-5 text-center dark:bg-[#161617]">
-                    <dt className="mb-2 text-sm text-[#86868b] dark:text-[#a1a1a6]">Slope (m)</dt>
+                    <dt className="mb-2 text-sm text-muted dark:text-[#a1a1a6]">Slope (m)</dt>
                     <dd className="font-mono text-lg font-bold text-[#1d1d1f] dark:text-[#f5f5f7]">{result.slope}</dd>
                   </div>
                   <div className="bg-white p-5 text-center dark:bg-[#161617]">
-                    <dt className="mb-2 text-sm text-[#86868b] dark:text-[#a1a1a6]">Intercept (b)</dt>
+                    <dt className="mb-2 text-sm text-muted dark:text-[#a1a1a6]">Intercept (b)</dt>
                     <dd className="font-mono text-lg font-bold text-[#b25000]">{result.intercept}</dd>
                   </div>
                   <div className="bg-white p-5 text-center dark:bg-[#161617]">
-                    <dt className="mb-2 text-sm text-[#86868b] dark:text-[#a1a1a6]">R² Score</dt>
+                    <dt className="mb-2 text-sm text-muted dark:text-[#a1a1a6]">R² Score</dt>
                     <dd className={`text-lg font-mono font-bold ${result.r_squared >= 0.7 ? 'text-emerald-600 dark:text-emerald-400' :
                       result.r_squared >= 0.3 ? 'text-amber-600 dark:text-amber-400' :
                         'text-red-600 dark:text-red-400'
@@ -1689,7 +1692,7 @@ export default function LinearRegressionDemo() {
               )}
 
               {isCustomMode && customPoints.length < 2 && (
-                <div className="mt-6 text-center text-[#86868b] dark:text-[#a1a1a6]">
+                <div className="mt-6 text-center text-muted dark:text-[#a1a1a6]">
                   Add at least <span className="font-semibold text-[#1d1d1f] dark:text-[#f5f5f7]">2 points</span> to see the regression line
                 </div>
               )}

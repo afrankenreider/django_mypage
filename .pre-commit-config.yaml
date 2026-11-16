@@ -2,6 +2,10 @@
 # Install with: pre-commit install
 # Run manually: pre-commit run --all-files
 
+# Vendored agent skills are installed verbatim and pinned by hash
+# (skills-lock.json), so the whitespace fixers must not rewrite them.
+exclude: '^(\.agents/skills/|\.github/skills/)'
+
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.5.0

@@ -1,11 +1,12 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useLayoutEffect, useRef } from 'react'
+import type { HTMLAttributes } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { motion, AnimatePresence } from 'framer-motion'
 import MenuIcon from '@mui/icons-material/Menu'
-import CloseIcon from '@mui/icons-material/Close'
 import LightModeIcon from '@mui/icons-material/LightMode'
 import DarkModeIcon from '@mui/icons-material/DarkMode'
 import { useTheme } from '../context/ThemeContext'
+
+const MENU_ID = 'site-menu'
 
 const navItems = [
   { name: 'Home', path: '/' },
@@ -15,102 +16,134 @@ const navItems = [
   { name: 'Media', path: '/weekly-media' },
 ]
 
-export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
-  const location = useLocation()
-  const { theme, toggleTheme } = useTheme()
+// Popover attributes are newer than this project's React typings.
+const popoverTrigger = {
+  popovertarget: MENU_ID,
+  popovertargetaction: 'toggle',
+} as HTMLAttributes<HTMLButtonElement>
+const popoverMenu = { popover: 'auto' } as HTMLAttributes<HTMLUListElement>
 
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 12)
-    handleScroll()
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
+function isPopoverOpen(element: HTMLElement): boolean {
+  try {
+    return element.matches(':popover-open')
+  } catch {
+    // Polyfilled browsers expose the open state as a class instead.
+    return element.classList.contains(':popover-open')
+  }
+}
+
+function isCurrent(pathname: string, path: string): boolean {
+  return path === '/' ? pathname === '/' : pathname === path || pathname.startsWith(`${path}/`)
+}
+
+/**
+ * Site header with one navigation list at every width. The list is a native
+ * popover while collapsed and an inline row when it fits. There is no
+ * breakpoint: the row is measured, so longer labels or larger text move the
+ * switch point on their own.
+ */
+export default function Navbar() {
+  const headerRef = useRef<HTMLElement>(null)
+  const innerRef = useRef<HTMLDivElement>(null)
+  const menuRef = useRef<HTMLUListElement>(null)
+  const { pathname } = useLocation()
+  const { toggleTheme } = useTheme()
+
+  useLayoutEffect(() => {
+    const header = headerRef.current
+    const inner = innerRef.current
+    const menu = menuRef.current
+    if (!header || !inner || !menu) return
+
+    let lastWidth = 0
+    let frame = 0
+
+    const syncLayout = () => {
+      const width = header.clientWidth
+      const wasWide = header.classList.contains('is-wide')
+      // While collapsed, only remeasure when there is more room than before.
+      if (!wasWide && lastWidth !== 0 && width <= lastWidth) return
+      lastWidth = width
+
+      const wasOpen = menu.hasAttribute('popover') && isPopoverOpen(menu)
+
+      header.classList.add('is-measuring', 'is-wide')
+      const fits = inner.scrollWidth <= inner.clientWidth
+      header.classList.toggle('is-wide', fits)
+      cancelAnimationFrame(frame)
+      frame = requestAnimationFrame(() => header.classList.remove('is-measuring'))
+
+      if (fits) {
+        menu.removeAttribute('popover')
+      } else if (!menu.hasAttribute('popover')) {
+        menu.setAttribute('popover', 'auto')
+      }
+      if (!fits && wasOpen && !isPopoverOpen(menu)) menu.showPopover()
+    }
+
+    syncLayout()
+    const observer = new ResizeObserver(syncLayout)
+    observer.observe(header)
+    observer.observe(menu)
+
+    return () => {
+      observer.disconnect()
+      cancelAnimationFrame(frame)
+    }
   }, [])
 
+  // Close the collapsed menu after navigating.
   useEffect(() => {
-    setIsOpen(false)
-  }, [location])
+    const menu = menuRef.current
+    if (menu?.hasAttribute('popover') && isPopoverOpen(menu)) menu.hidePopover()
+  }, [pathname])
 
   return (
-    <motion.nav
-      initial={{ y: -24, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.45, ease: 'easeOut' }}
-      className={`fixed top-0 left-0 right-0 z-50 border-b transition-all duration-300 ${
-        scrolled
-          ? 'liquid-surface hairline shadow-[0_10px_30px_rgba(0,0,0,0.04)]'
-          : 'border-transparent bg-[#f5f5f7]/70 backdrop-blur-xl dark:bg-[#0a0a0c]/60'
-      }`}
-    >
-      <div className="apple-section">
-        <div className="flex h-14 items-center justify-between gap-4">
-          <Link to="/" className="min-w-0 truncate py-2 text-sm font-semibold tracking-tight" aria-label="Andrew Frankenreider home">
+    <header ref={headerRef} className="site-header">
+      <div className="site-header-bar">
+        <div ref={innerRef} className="apple-section site-header-inner">
+          <Link to="/" className="py-2 text-sm font-semibold tracking-tight">
             Andrew Frankenreider
           </Link>
 
-          <div className="hidden md:flex items-center gap-8">
-            {navItems.map((item) => {
-              const isActive = location.pathname === item.path
-              return (
-                <Link
-                  key={item.path}
-                  to={item.path}
-                  className={`text-sm transition-colors ${
-                    isActive
-                      ? 'text-[#1d1d1f] dark:text-[#f5f5f7]'
-                      : 'text-[#6e6e73] hover:text-[#1d1d1f] dark:text-[#a1a1a6] dark:hover:text-white'
-                  }`}
-                >
-                  {item.name}
-                </Link>
-              )
-            })}
-          </div>
+          <nav className="site-nav" aria-label="Primary">
+            <button
+              type="button"
+              className="icon-button site-menu-button"
+              aria-controls={MENU_ID}
+              {...popoverTrigger}
+            >
+              <MenuIcon aria-hidden="true" sx={{ fontSize: 20 }} />
+              <span className="visually-hidden">Menu</span>
+            </button>
 
-          <div className="flex shrink-0 items-center gap-1">
-            <button
-              onClick={toggleTheme}
-              className="inline-flex h-11 w-11 items-center justify-center rounded-full text-[#6e6e73] transition-colors hover:bg-black/5 hover:text-[#1d1d1f] dark:text-[#a1a1a6] dark:hover:bg-white/10 dark:hover:text-white md:h-9 md:w-9"
-              aria-label="Toggle theme"
-            >
-              {theme === 'dark' ? <LightModeIcon sx={{ fontSize: 18 }} /> : <DarkModeIcon sx={{ fontSize: 18 }} />}
-            </button>
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="inline-flex h-11 w-11 items-center justify-center rounded-full text-[#6e6e73] transition-colors hover:bg-black/5 hover:text-[#1d1d1f] dark:text-[#a1a1a6] dark:hover:bg-white/10 dark:hover:text-white md:hidden"
-              aria-label="Toggle navigation"
-              aria-expanded={isOpen}
-            >
-              {isOpen ? <CloseIcon sx={{ fontSize: 20 }} /> : <MenuIcon sx={{ fontSize: 20 }} />}
-            </button>
-          </div>
+            <ul ref={menuRef} id={MENU_ID} className="site-menu" {...popoverMenu}>
+              {navItems.map((item) => (
+                <li key={item.path}>
+                  <Link
+                    to={item.path}
+                    aria-current={isCurrent(pathname, item.path) ? 'page' : undefined}
+                  >
+                    {item.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          {/* Both labels stay in the markup; CSS shows the one for the rendered scheme. */}
+          <button type="button" onClick={toggleTheme} className="icon-button">
+            <span className="contents dark:hidden">
+              <DarkModeIcon aria-hidden="true" sx={{ fontSize: 18 }} />
+              <span className="visually-hidden">Switch to dark theme</span>
+            </span>
+            <span className="hidden dark:contents">
+              <LightModeIcon aria-hidden="true" sx={{ fontSize: 18 }} />
+              <span className="visually-hidden">Switch to light theme</span>
+            </span>
+          </button>
         </div>
       </div>
-
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.2 }}
-            className="md:hidden overflow-hidden border-t hairline liquid-surface"
-          >
-            <div className="apple-section py-2">
-              {navItems.map((item) => (
-                <Link
-                  key={item.path}
-                  to={item.path}
-                  className="block rounded-xl py-3 text-lg font-medium text-[#1d1d1f] dark:text-[#f5f5f7]"
-                >
-                  {item.name}
-                </Link>
-              ))}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.nav>
+    </header>
   )
 }

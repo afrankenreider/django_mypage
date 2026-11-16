@@ -35,6 +35,7 @@ import CancelIcon from '@mui/icons-material/Cancel'
 import PeopleIcon from '@mui/icons-material/People'
 import StorefrontIcon from '@mui/icons-material/Storefront'
 import PlaceIcon from '@mui/icons-material/Place'
+import { usePageTitle } from '../hooks/usePageTitle'
 
 const clusterColors = [
     '#1d1d1f',
@@ -110,11 +111,11 @@ const CustomTooltip = memo(({ active, payload, datasetKey }: any) => {
                 </div>
                 <div className="space-y-1.5">
                     <p className="text-[#d2d2d7] text-sm flex justify-between gap-4">
-                        <span className="text-[#86868b]">{labels.x}:</span>
+                        <span className="text-muted">{labels.x}:</span>
                         <span className="font-mono font-medium">{point.x.toFixed(1)}</span>
                     </p>
                     <p className="text-[#d2d2d7] text-sm flex justify-between gap-4">
-                        <span className="text-[#86868b]">{labels.y}:</span>
+                        <span className="text-muted">{labels.y}:</span>
                         <span className="font-mono font-medium">{point.y.toFixed(1)}</span>
                     </p>
                 </div>
@@ -304,6 +305,8 @@ const datasetLabels: Record<string, { x: string; y: string }> = {
 }
 
 export default function KMeansDemo() {
+    usePageTitle('K-means clustering')
+
     const [selectedDataset, setSelectedDataset] = useState<string>('customer_segments')
     const [result, setResult] = useState<KMeansResult | null>(null)
     const [customPoints, setCustomPoints] = useState<Point[]>([])
@@ -440,7 +443,7 @@ export default function KMeansDemo() {
     ]
 
     return (
-        <section className="apple-page pt-28 pb-24 relative overflow-hidden">
+        <section className="apple-page pt-14 pb-24 relative overflow-hidden">
             {/* Ambient analytics backdrop */}
             <div className="absolute inset-0 studio-grid opacity-50" />
 
@@ -469,7 +472,7 @@ export default function KMeansDemo() {
                             <TimelineIcon sx={{ fontSize: 18 }} />
                             Project walkthrough
                         </motion.span>
-                        <h1 className="display-heading text-5xl md:text-6xl lg:text-7xl mb-6">
+                        <h1 className="display-heading display-page mb-6">
                             K-Means <span className="ink-text">Clustering</span>
                         </h1>
                         <p className="apple-copy max-w-2xl text-lg sm:text-xl">
@@ -720,7 +723,7 @@ export default function KMeansDemo() {
                                     <div className="bg-white dark:bg-[#1d1d1f] rounded-lg p-4 font-mono text-sm text-[#424245] dark:text-[#d2d2d7] mb-3">
                                         WCSS = Σ (distance to centroid)²
                                     </div>
-                                    <p className="text-xs text-[#86868b] dark:text-[#a1a1a6]">
+                                    <p className="text-xs text-muted dark:text-[#a1a1a6]">
                                         Used in the "elbow method" to find optimal K
                                     </p>
                                 </div>
@@ -821,10 +824,11 @@ export default function KMeansDemo() {
                             {isCustomMode && (
                                 <div className="mb-6 space-y-4">
                                     <div className="flex items-center gap-4">
-                                        <label className="text-[#424245] dark:text-[#d2d2d7] font-medium">
+                                        <label htmlFor="kmeans-k" className="text-[#424245] dark:text-[#d2d2d7] font-medium">
                                             Number of clusters (K):
                                         </label>
                                         <input
+                                            id="kmeans-k"
                                             type="number"
                                             min="1"
                                             max="8"
@@ -998,6 +1002,7 @@ export default function KMeansDemo() {
 
                                     <input
                                         type="range"
+                                        aria-label="Iteration"
                                         min="0"
                                         max={result.history.length - 1}
                                         value={currentIteration}

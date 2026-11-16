@@ -3,16 +3,20 @@
 
 <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Andrew Frankenreider - Data Science Leader & Full-Stack Developer" />
+    <!-- Declares both schemes before first paint. The script applies a stored override from the header toggle. -->
+    <meta name="color-scheme" content="light dark" />
+    <script>
+        try {
+            document.querySelector('meta[name="color-scheme"]').content = localStorage.getItem('color-scheme') ?? 'light dark';
+        } catch (error) { /* Storage blocked: keep following the system preference. */ }
+    </script>
+    <meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0a0a0c" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" type="image/svg+xml" href="/static/favicon.svg" />
+    <meta name="description" content="Andrew Frankenreider is a data science and analytics manager at Caterpillar, Inc. Resume, skills, and interactive demos of regression, clustering, and neural networks." />
     <meta name="author" content="Andrew Frankenreider" />
-    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
-    <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)">
-    <title>Andrew Frankenreider | Data Science & Development</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <title>Andrew Frankenreider</title>
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-L9XR41T4TF"></script>
     <script>
@@ -24,11 +28,12 @@
         gtag('js', new Date());
         gtag('config', 'G-L9XR41T4TF');
     </script>
-  <script type="module" crossorigin src="/static/assets/index-BnGYbpBb.js"></script>
-  <link rel="stylesheet" crossorigin href="/static/assets/index-BLUvAVXU.css">
+  <script type="module" crossorigin src="/static/assets/index-HXaxnsBZ.js"></script>
+  <link rel="stylesheet" crossorigin href="/static/assets/index-DIrRUIwz.css">
 </head>
 
 <body>
+    <noscript>This site needs JavaScript to run its interactive demos. You can reach me at afrankenreider@gmail.com.</noscript>
     <div id="root"></div>
 </body>
 

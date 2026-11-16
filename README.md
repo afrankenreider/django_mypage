@@ -8,7 +8,7 @@ A modern personal portfolio website built with React/TypeScript frontend and Dja
 - **React 18** with TypeScript
 - **Vite** - Fast build tool
 - **Tailwind CSS** - Utility-first CSS framework
-- **Framer Motion** - Animation library
+- **Framer Motion** - Animation library (interactive demos only)
 - **React Router** - Client-side routing
 - **Material UI** - Component library
 
@@ -152,6 +152,28 @@ Run linting manually:
 uv run ruff check --fix .
 uv run ruff format .
 ```
+
+### Agent Skills
+
+Two skills guide AI coding agents working on the frontend:
+
+- `.github/skills/impeccable` - visual design direction, read together with
+  `PRODUCT.md` and `DESIGN.md`.
+- `.agents/skills/modern-web-guidance` - Google Chrome's
+  [Modern Web Guidance](https://developer.chrome.com/docs/modern-web-guidance):
+  current web platform practices for HTML, CSS, accessibility, and performance.
+  `skills-lock.json` pins the installed copy.
+
+```bash
+# Update Modern Web Guidance to the latest release
+npx modern-web-guidance@latest update
+
+# Look up guidance by hand
+npx modern-web-guidance@latest search "dark mode toggle"
+```
+
+The CLI sends anonymous usage data to Google, including the search queries.
+Set `DISABLE_TELEMETRY=1` to opt out.
 
 ### Jupyter Notebooks
 

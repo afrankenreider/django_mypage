@@ -6,6 +6,11 @@ import { ThemeProvider } from './context/ThemeContext'
 import ScrollToTop from './components/ScrollToTop'
 import './index.css'
 
+// Popover is not yet in every supported browser: load the polyfill only where it is missing.
+if (!Object.prototype.hasOwnProperty.call(HTMLElement.prototype, 'popover')) {
+  import('@oddbird/popover-polyfill')
+}
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <BrowserRouter>

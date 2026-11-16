@@ -1,5 +1,4 @@
-import { useState, useEffect, useCallback } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { useState, useEffect, useCallback, useId, useRef } from 'react'
 import SearchIcon from '@mui/icons-material/Search'
 import ShareIcon from '@mui/icons-material/Share'
 import PodcastsIcon from '@mui/icons-material/Podcasts'
@@ -11,6 +10,8 @@ import OpenInNewIcon from '@mui/icons-material/OpenInNew'
 import ContentCopyIcon from '@mui/icons-material/ContentCopy'
 import CheckIcon from '@mui/icons-material/Check'
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline'
+import { usePageTitle } from '../hooks/usePageTitle'
+import { enterIndex } from '../utils/motion'
 
 type MediaType = 'podcast' | 'article' | 'whitepaper' | 'video' | 'book'
 
@@ -39,11 +40,11 @@ interface ApiMediaItem {
 const API_BASE_URL = import.meta.env.VITE_API_URL || ''
 
 const mediaTypeConfig: Record<MediaType, { label: string; icon: React.ReactNode }> = {
-    podcast: { label: 'Podcast', icon: <PodcastsIcon sx={{ fontSize: 18 }} /> },
-    article: { label: 'Article', icon: <ArticleIcon sx={{ fontSize: 18 }} /> },
-    whitepaper: { label: 'Whitepaper', icon: <DescriptionIcon sx={{ fontSize: 18 }} /> },
-    video: { label: 'Video', icon: <VideocamIcon sx={{ fontSize: 18 }} /> },
-    book: { label: 'Book', icon: <MenuBookIcon sx={{ fontSize: 18 }} /> },
+    podcast: { label: 'Podcast', icon: <PodcastsIcon aria-hidden="true" sx={{ fontSize: 18 }} /> },
+    article: { label: 'Article', icon: <ArticleIcon aria-hidden="true" sx={{ fontSize: 18 }} /> },
+    whitepaper: { label: 'Whitepaper', icon: <DescriptionIcon aria-hidden="true" sx={{ fontSize: 18 }} /> },
+    video: { label: 'Video', icon: <VideocamIcon aria-hidden="true" sx={{ fontSize: 18 }} /> },
+    book: { label: 'Book', icon: <MenuBookIcon aria-hidden="true" sx={{ fontSize: 18 }} /> },
 }
 
 function transformApiItem(apiItem: ApiMediaItem): MediaItem {
@@ -59,61 +60,78 @@ function transformApiItem(apiItem: ApiMediaItem): MediaItem {
     }
 }
 
+const mediaTypes: Array<{ value: MediaType | 'all'; label: string }> = [
+    { value: 'all', label: 'All' },
+    { value: 'podcast', label: 'Podcasts' },
+    { value: 'article', label: 'Articles' },
+    { value: 'whitepaper', label: 'Whitepapers' },
+    { value: 'video', label: 'Videos' },
+    { value: 'book', label: 'Books' },
+]
+
+const canShare = typeof navigator !== 'undefined' && 'share' in navigator
+const FEEDBACK_DURATION_MS = 2000
+
 interface MediaRowProps {
     item: MediaItem
     index: number
 }
 
 function MediaRow({ item, index }: MediaRowProps) {
-    const [copied, setCopied] = useState(false)
+    const [feedback, setFeedback] = useState<'copied' | 'failed' | null>(null)
+    const feedbackTimer = useRef<number>()
     const config = mediaTypeConfig[item.type]
-    const shareIcon = copied
-        ? <CheckIcon sx={{ fontSize: 18 }} />
-        : 'share' in navigator
-            ? <ShareIcon sx={{ fontSize: 18 }} />
-            : <ContentCopyIcon sx={{ fontSize: 18 }} />
+
+    useEffect(() => () => window.clearTimeout(feedbackTimer.current), [])
+
+    const report = (result: 'copied' | 'failed') => {
+        // Restart the timer on repeat clicks instead of stacking timeouts.
+        window.clearTimeout(feedbackTimer.current)
+        setFeedback(result)
+        feedbackTimer.current = window.setTimeout(() => setFeedback(null), FEEDBACK_DURATION_MS)
+    }
 
     const handleShare = async () => {
         try {
-            if (navigator.share) {
+            if (canShare) {
                 await navigator.share({ title: item.title, text: item.description, url: item.url })
             } else {
                 await navigator.clipboard.writeText(item.url)
-                setCopied(true)
-                setTimeout(() => setCopied(false), 2000)
+                report('copied')
             }
         } catch (error) {
+            // Dismissing the share sheet is not a failure.
+            if (error instanceof DOMException && error.name === 'AbortError') return
             console.error('Share failed:', error)
+            report('failed')
         }
     }
 
+    const ShareActionIcon = feedback === 'copied' ? CheckIcon : canShare ? ShareIcon : ContentCopyIcon
+
     return (
-        <motion.article
-            layout
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -12 }}
-            transition={{ delay: index * 0.03, duration: 0.35 }}
-            className="grid gap-5 py-7 md:grid-cols-[150px_1fr_auto] md:items-start"
+        <li
+            className="enter grid gap-5 py-7 md:grid-cols-[150px_1fr_auto] md:items-start"
+            style={enterIndex(Math.min(index, 8))}
         >
-            <div className="flex items-center gap-2 text-sm text-[#86868b]">
+            <p className="flex items-center gap-2 text-sm text-muted">
                 {config.icon}
-                <span>{config.label}</span>
-            </div>
+                {config.label}
+            </p>
             <div>
-                <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
                     <h2 className="text-xl font-semibold tracking-tight">{item.title}</h2>
-                    <span className="text-sm text-[#86868b]">{item.source}</span>
+                    <p className="text-sm text-muted">{item.source}</p>
                 </div>
-                <p className="apple-copy mt-3 max-w-3xl">{item.description}</p>
+                <p className="apple-copy mt-3 max-w-[70ch]">{item.description}</p>
                 {item.tags.length > 0 && (
-                    <div className="mt-4 flex flex-wrap gap-2">
+                    <ul className="mt-4 flex flex-wrap gap-2" aria-label="Tags">
                         {item.tags.slice(0, 4).map((tag) => (
-                            <span key={tag} className="rounded-full bg-black/5 px-3 py-1 text-xs text-[#6e6e73] dark:bg-white/10 dark:text-[#a1a1a6]">
+                            <li key={tag} className="rounded-full bg-[var(--hover)] px-3 py-1 text-xs text-body">
                                 {tag}
-                            </span>
+                            </li>
                         ))}
-                    </div>
+                    </ul>
                 )}
             </div>
             <div className="flex items-center gap-2 md:justify-end">
@@ -121,24 +139,34 @@ function MediaRow({ item, index }: MediaRowProps) {
                     href={item.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-link rounded-full px-2 py-2"
+                    className="text-link min-h-11 rounded-full px-2"
                 >
                     Open
-                    <OpenInNewIcon sx={{ fontSize: 16 }} />
+                    <span className="visually-hidden">: {item.title} (opens in a new tab)</span>
+                    <OpenInNewIcon aria-hidden="true" sx={{ fontSize: 16 }} />
                 </a>
                 <button
+                    type="button"
                     onClick={handleShare}
-                    className="inline-flex h-10 w-10 items-center justify-center rounded-full border hairline text-[#6e6e73] transition-colors hover:bg-white hover:text-[#1d1d1f] dark:text-[#a1a1a6] dark:hover:bg-white/10 dark:hover:text-white"
-                    aria-label="Share"
+                    className="social-link"
+                    aria-label={`${canShare ? 'Share' : 'Copy link to'} ${item.title}`}
                 >
-                    {shareIcon}
+                    <ShareActionIcon aria-hidden="true" sx={{ fontSize: 18 }} />
                 </button>
+                {/* Live region sits outside the button so the result is announced reliably. */}
+                <span role="status" className={feedback ? 'text-sm text-muted' : 'visually-hidden'}>
+                    {feedback === 'copied' && 'Link copied'}
+                    {feedback === 'failed' && 'Could not copy'}
+                </span>
             </div>
-        </motion.article>
+        </li>
     )
 }
 
 export default function WeeklyMedia() {
+    usePageTitle('Weekly media')
+
+    const searchId = useId()
     const [mediaItems, setMediaItems] = useState<MediaItem[]>([])
     const [isLoading, setIsLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
@@ -187,110 +215,108 @@ export default function WeeklyMedia() {
         fetchMediaItems()
     }, [fetchMediaItems])
 
-    const mediaTypes: Array<{ value: MediaType | 'all'; label: string }> = [
-        { value: 'all', label: 'All' },
-        { value: 'podcast', label: 'Podcasts' },
-        { value: 'article', label: 'Articles' },
-        { value: 'whitepaper', label: 'Whitepapers' },
-        { value: 'video', label: 'Videos' },
-        { value: 'book', label: 'Books' },
-    ]
-
     return (
-        <section className="apple-page pt-28 pb-24">
+        <div className="apple-page pb-24 pt-14 sm:pt-16">
             <div className="apple-section">
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
-                    className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-end"
-                >
-                    <div>
-                        <p className="eyebrow mb-6">Weekly media</p>
-                        <h1 className="display-heading text-5xl sm:text-6xl lg:text-7xl">
-                            A running list of useful things.
-                        </h1>
-                    </div>
+                <header className="enter grid gap-6 lg:grid-cols-[0.95fr_1.05fr] lg:items-end lg:gap-10">
+                    <h1 className="display-heading display-page">A running list of useful things.</h1>
                     <p className="apple-copy max-w-2xl text-xl">
                         Podcasts, articles, whitepapers, videos, and books worth saving for another read.
                     </p>
-                </motion.div>
+                </header>
 
-                <div className="mt-14 space-y-5">
+                <search className="enter mt-12 block space-y-5" style={enterIndex(1)}>
                     <div className="relative max-w-2xl">
-                        <SearchIcon className="absolute left-4 top-1/2 -translate-y-1/2 text-[#86868b]" sx={{ fontSize: 19 }} />
+                        <label htmlFor={searchId} className="visually-hidden">
+                            Search media by title, source, or tag
+                        </label>
+                        <SearchIcon
+                            aria-hidden="true"
+                            className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-muted"
+                            sx={{ fontSize: 19 }}
+                        />
                         <input
-                            type="text"
+                            id={searchId}
+                            type="search"
                             placeholder="Search title, source, or tag"
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="w-full rounded-full border hairline bg-white/70 py-3 pl-11 pr-4 text-[#1d1d1f] outline-none transition-colors placeholder:text-[#86868b] focus:bg-white dark:bg-white/10 dark:text-white dark:focus:bg-white/15"
+                            className="min-h-12 w-full rounded-full border border-control bg-[var(--surface-strong)] py-3 pl-11 pr-4 text-ink placeholder:text-muted"
                         />
                     </div>
 
-                    <div className="flex flex-wrap gap-2">
-                        {mediaTypes.map((type) => (
-                            <button
-                                key={type.value}
-                                onClick={() => setSelectedType(type.value)}
-                                className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
-                                    selectedType === type.value
-                                        ? 'bg-[#1d1d1f] text-white dark:bg-[#f5f5f7] dark:text-[#1d1d1f]'
-                                        : 'border hairline text-[#6e6e73] hover:bg-white hover:text-[#1d1d1f] dark:text-[#a1a1a6] dark:hover:bg-white/10 dark:hover:text-white'
-                                }`}
-                            >
-                                {type.label}
-                            </button>
-                        ))}
+                    <div className="flex flex-wrap gap-2" role="group" aria-label="Filter by type">
+                        {mediaTypes.map((type) => {
+                            const isSelected = selectedType === type.value
+                            return (
+                                <button
+                                    key={type.value}
+                                    type="button"
+                                    aria-pressed={isSelected}
+                                    onClick={() => setSelectedType(type.value)}
+                                    className={`min-h-11 rounded-full border px-4 text-sm font-medium transition-colors ${
+                                        isSelected
+                                            ? 'border-transparent bg-ink text-page'
+                                            : 'border-control text-body hover:bg-[var(--hover)] hover:text-ink'
+                                    }`}
+                                >
+                                    {type.label}
+                                </button>
+                            )
+                        })}
                     </div>
-                </div>
+                </search>
 
-                <div className="mt-10 flex items-center justify-between border-b hairline pb-4 text-sm text-[#86868b]">
-                    <span>{isLoading ? 'Loading' : `${mediaItems.length} items`}</span>
-                    <span>Updated from the Django API</span>
+                <div className="mt-10 flex items-center justify-between gap-4 border-b hairline pb-4 text-sm text-muted">
+                    <p>
+                        {/* Only the result count is announced; "Loading" is not worth a live update. */}
+                        <span role="status">
+                            {!isLoading && !error && `${mediaItems.length} ${mediaItems.length === 1 ? 'item' : 'items'}`}
+                        </span>
+                        {isLoading && 'Loading'}
+                    </p>
+                    <p>Updated from the Django API</p>
                 </div>
 
                 {error && (
-                    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="py-16 text-center">
-                        <ErrorOutlineIcon className="text-red-500" sx={{ fontSize: 34 }} />
-                        <h3 className="mt-4 text-xl font-semibold">Failed to load content</h3>
+                    <div role="alert" className="py-16 text-center">
+                        <ErrorOutlineIcon aria-hidden="true" className="text-red-600 dark:text-red-400" sx={{ fontSize: 34 }} />
+                        <h2 className="mt-4 text-xl font-semibold">Failed to load content</h2>
                         <p className="apple-copy mt-2">{error}</p>
-                        <button onClick={fetchMediaItems} className="quiet-link mt-6">
+                        <button type="button" onClick={fetchMediaItems} className="quiet-link mt-6">
                             Try again
                         </button>
-                    </motion.div>
+                    </div>
                 )}
 
                 {isLoading && !error && (
-                    <div className="divide-y divide-black/10 dark:divide-white/10">
+                    <div className="divide-y divide-[var(--hairline)]" aria-hidden="true">
                         {[...Array(5)].map((_, index) => (
                             <div key={index} className="py-7">
-                                <div className="h-4 w-32 animate-pulse rounded-full bg-black/10 dark:bg-white/10" />
-                                <div className="mt-4 h-6 max-w-xl animate-pulse rounded-full bg-black/10 dark:bg-white/10" />
-                                <div className="mt-3 h-4 max-w-3xl animate-pulse rounded-full bg-black/10 dark:bg-white/10" />
+                                <div className="h-4 w-32 animate-pulse rounded-full bg-[var(--hairline)]" />
+                                <div className="mt-4 h-6 max-w-xl animate-pulse rounded-full bg-[var(--hairline)]" />
+                                <div className="mt-3 h-4 max-w-3xl animate-pulse rounded-full bg-[var(--hairline)]" />
                             </div>
                         ))}
                     </div>
                 )}
 
-                {!isLoading && !error && (
-                    <AnimatePresence mode="popLayout">
-                        {mediaItems.length > 0 ? (
-                            <motion.div layout className="divide-y divide-black/10 dark:divide-white/10">
-                                {mediaItems.map((item, index) => (
-                                    <MediaRow key={item.id} item={item} index={index} />
-                                ))}
-                            </motion.div>
-                        ) : (
-                            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="py-16 text-center">
-                                <SearchIcon className="text-[#86868b]" sx={{ fontSize: 34 }} />
-                                <h3 className="mt-4 text-xl font-semibold">No results found</h3>
-                                <p className="apple-copy mt-2">Try adjusting your search or filter criteria.</p>
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
+                {!isLoading && !error && mediaItems.length > 0 && (
+                    <ul className="divide-y divide-[var(--hairline)]">
+                        {mediaItems.map((item, index) => (
+                            <MediaRow key={item.id} item={item} index={index} />
+                        ))}
+                    </ul>
+                )}
+
+                {!isLoading && !error && mediaItems.length === 0 && (
+                    <div className="py-16 text-center">
+                        <SearchIcon aria-hidden="true" className="text-muted" sx={{ fontSize: 34 }} />
+                        <h2 className="mt-4 text-xl font-semibold">No results found</h2>
+                        <p className="apple-copy mt-2">Try a different search term or type.</p>
+                    </div>
                 )}
             </div>
-        </section>
+        </div>
     )
 }
