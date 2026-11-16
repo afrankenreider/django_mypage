@@ -24,7 +24,6 @@ import SmartToyIcon from '@mui/icons-material/SmartToy'
 import HealthAndSafetyIcon from '@mui/icons-material/HealthAndSafety'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 import CancelIcon from '@mui/icons-material/Cancel'
-import { usePageTitle } from '../hooks/usePageTitle'
 
 const colors = {
     primary: '#1d1d1f',
@@ -710,8 +709,6 @@ NotebookSection.displayName = 'NotebookSection'
 
 // Main component
 export default function NeuralNetworkDemo() {
-    usePageTitle('Neural networks')
-
     const [activeSection, setActiveSection] = useState<string>('intro')
     const [networkConfig, setNetworkConfig] = useState<NetworkConfig>({
         inputSize: 3,

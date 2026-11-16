@@ -4,9 +4,12 @@ import Navbar from './Navbar'
 import Footer from './Footer'
 import ErrorBoundary from './ErrorBoundary'
 import LoadingFallback from './LoadingFallback'
+import { usePageTitle } from '../hooks/usePageTitle'
 import { usePageTracking } from '../hooks/usePageTracking'
 
 export default function Layout() {
+  // Order matters: the page view reads the title set just before it.
+  usePageTitle()
   usePageTracking()
 
   return (

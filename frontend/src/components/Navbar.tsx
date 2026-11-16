@@ -33,7 +33,9 @@ function isPopoverOpen(element: HTMLElement): boolean {
 }
 
 function isCurrent(pathname: string, path: string): boolean {
-  return path === '/' ? pathname === '/' : pathname === path || pathname.startsWith(`${path}/`)
+  if (path === '/') return pathname === '/'
+  // Section links stay current on their child routes (and with a trailing slash).
+  return pathname === path || pathname.startsWith(`${path}/`)
 }
 
 /**
@@ -59,13 +61,15 @@ export default function Navbar() {
     let frame = 0
 
     const syncLayout = () => {
+      // An open popover sits in the top layer, outside the row, so the row
+      // cannot be measured. Stay collapsed and remeasure when it closes.
+      if (menu.hasAttribute('popover') && isPopoverOpen(menu)) return
+
       const width = header.clientWidth
       const wasWide = header.classList.contains('is-wide')
       // While collapsed, only remeasure when there is more room than before.
       if (!wasWide && lastWidth !== 0 && width <= lastWidth) return
       lastWidth = width
-
-      const wasOpen = menu.hasAttribute('popover') && isPopoverOpen(menu)
 
       header.classList.add('is-measuring', 'is-wide')
       const fits = inner.scrollWidth <= inner.clientWidth
@@ -78,15 +82,22 @@ export default function Navbar() {
       } else if (!menu.hasAttribute('popover')) {
         menu.setAttribute('popover', 'auto')
       }
-      if (!fits && wasOpen && !isPopoverOpen(menu)) menu.showPopover()
+    }
+
+    const handleToggle = () => {
+      if (isPopoverOpen(menu)) return
+      lastWidth = 0
+      syncLayout()
     }
 
     syncLayout()
     const observer = new ResizeObserver(syncLayout)
     observer.observe(header)
     observer.observe(menu)
+    menu.addEventListener('toggle', handleToggle)
 
     return () => {
+      menu.removeEventListener('toggle', handleToggle)
       observer.disconnect()
       cancelAnimationFrame(frame)
     }

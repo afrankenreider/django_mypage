@@ -35,7 +35,6 @@ import CancelIcon from '@mui/icons-material/Cancel'
 import PeopleIcon from '@mui/icons-material/People'
 import StorefrontIcon from '@mui/icons-material/Storefront'
 import PlaceIcon from '@mui/icons-material/Place'
-import { usePageTitle } from '../hooks/usePageTitle'
 
 const clusterColors = [
     '#1d1d1f',
@@ -305,8 +304,6 @@ const datasetLabels: Record<string, { x: string; y: string }> = {
 }
 
 export default function KMeansDemo() {
-    usePageTitle('K-means clustering')
-
     const [selectedDataset, setSelectedDataset] = useState<string>('customer_segments')
     const [result, setResult] = useState<KMeansResult | null>(null)
     const [customPoints, setCustomPoints] = useState<Point[]>([])

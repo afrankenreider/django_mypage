@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import { CONTACT_EMAIL } from '../components/SocialLinks'
-import { usePageTitle } from '../hooks/usePageTitle'
 import { enterIndex } from '../utils/motion'
 
 interface Project {
@@ -48,8 +47,6 @@ const projects: Project[] = [
 ]
 
 export default function Projects() {
-  usePageTitle('Projects')
-
   return (
     <div className="apple-page pb-24 pt-14 sm:pt-16">
       <div className="apple-section">

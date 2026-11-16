@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import DataScienceAnimation from '../components/DataScienceAnimation'
 import SocialLinks, { CONTACT_EMAIL } from '../components/SocialLinks'
-import { usePageTitle } from '../hooks/usePageTitle'
 import { enterIndex } from '../utils/motion'
 
 const stats = [
@@ -27,8 +26,6 @@ const focusAreas = [
 ]
 
 export default function Home() {
-  usePageTitle()
-
   return (
     <div className="apple-page">
       <section className="apple-section pb-20 pt-14 sm:pt-20 lg:pt-24">
