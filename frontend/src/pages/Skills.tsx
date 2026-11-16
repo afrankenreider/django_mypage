@@ -1,9 +1,11 @@
-import { motion } from 'framer-motion'
+import { usePageTitle } from '../hooks/usePageTitle'
+import { enterIndex } from '../utils/motion'
 
 interface Skill {
   name: string
   category: string
-  url: string
+  /** Reference site for the tool. Omitted for general disciplines. */
+  url?: string
 }
 
 const skills: Skill[] = [
@@ -16,9 +18,9 @@ const skills: Skill[] = [
   { name: 'Kubernetes', category: 'DevOps', url: 'https://kubernetes.io/' },
   { name: 'Git', category: 'DevOps', url: 'https://git-scm.com/' },
   { name: 'Jenkins', category: 'DevOps', url: 'https://www.jenkins.io/' },
-  { name: 'Machine Learning', category: 'Data Science', url: '#' },
-  { name: 'Data Pipelines', category: 'Data Science', url: '#' },
-  { name: 'Analytics', category: 'Data Science', url: '#' },
+  { name: 'Machine Learning', category: 'Data Science' },
+  { name: 'Data Pipelines', category: 'Data Science' },
+  { name: 'Analytics', category: 'Data Science' },
   { name: 'HTML5', category: 'Web', url: 'https://developer.mozilla.org/en-US/docs/Web/HTML' },
   { name: 'CSS3', category: 'Web', url: 'https://developer.mozilla.org/en-US/docs/Web/CSS' },
   { name: 'TypeScript', category: 'Web', url: 'https://www.typescriptlang.org/' },
@@ -41,69 +43,59 @@ const expertiseAreas = [
 
 const categories = [...new Set(skills.map((skill) => skill.category))]
 
+const chipClass = 'inline-flex min-h-11 items-center rounded-full border px-4 text-sm text-body'
+
 export default function Skills() {
+  usePageTitle('Skills')
+
   return (
-    <section className="apple-page pt-28 pb-24">
+    <div className="apple-page pb-24 pt-14 sm:pt-16">
       <div className="apple-section">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          <p className="eyebrow mb-6">Skills</p>
-          <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
-            <h1 className="display-heading text-5xl sm:text-6xl lg:text-7xl">
-              What I work with.
-            </h1>
-            <p className="apple-copy max-w-2xl text-xl">
-              Tools I use day to day across data science, automation, and web development.
-            </p>
-          </div>
-        </motion.div>
+        <header className="enter grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-end lg:gap-10">
+          <h1 className="display-heading display-page">What I work with.</h1>
+          <p className="apple-copy max-w-2xl text-xl">
+            Tools I use day to day across data science, automation, and web development.
+          </p>
+        </header>
 
-        <div className="mt-20 grid gap-8 md:grid-cols-3">
-          {expertiseAreas.map((area, index) => (
-            <motion.div
-              key={area.title}
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.12 + index * 0.08, duration: 0.5 }}
-              className="border-t hairline pt-6"
-            >
-              <span className="text-sm text-[#86868b]">0{index + 1}</span>
-              <h2 className="mt-5 text-2xl font-semibold tracking-tight">{area.title}</h2>
-              <p className="apple-copy mt-4">{area.description}</p>
-            </motion.div>
+        <ul className="enter mt-14 grid gap-x-10 sm:mt-20 md:grid-cols-3" style={enterIndex(1)}>
+          {expertiseAreas.map((area) => (
+            <li key={area.title} className="border-t hairline py-6">
+              <h2 className="text-2xl font-semibold tracking-tight">{area.title}</h2>
+              <p className="apple-copy mt-3 max-w-[40ch]">{area.description}</p>
+            </li>
           ))}
-        </div>
+        </ul>
 
-        <div className="mt-20 divide-y divide-black/10 dark:divide-white/10">
+        <div className="enter mt-10 divide-y divide-[var(--hairline)] border-t hairline sm:mt-14" style={enterIndex(2)}>
           {categories.map((category) => (
-            <section key={category} className="grid gap-6 py-8 md:grid-cols-[220px_1fr]">
-              <h2 className="text-lg font-semibold tracking-tight">{category}</h2>
-              <div className="flex flex-wrap gap-3">
+            <section key={category} className="grid gap-4 py-7 md:grid-cols-[220px_1fr] md:gap-6">
+              <h2 className="text-lg font-semibold tracking-tight md:pt-2">{category}</h2>
+              <ul className="flex flex-wrap gap-2.5">
                 {skills
                   .filter((skill) => skill.category === category)
-                  .map((skill) => {
-                    const isPlaceholder = skill.url === '#'
-
-                    return (
-                      <a
-                        key={skill.name}
-                        href={skill.url}
-                        target={isPlaceholder ? undefined : '_blank'}
-                        rel={isPlaceholder ? undefined : 'noopener noreferrer'}
-                        className="rounded-full border hairline px-4 py-2 text-sm text-[#424245] transition-colors hover:bg-white hover:text-[#1d1d1f] dark:text-[#d2d2d7] dark:hover:bg-white/10 dark:hover:text-white"
-                      >
-                        {skill.name}
-                      </a>
-                    )
-                  })}
-              </div>
+                  .map((skill) => (
+                    <li key={skill.name}>
+                      {skill.url ? (
+                        <a
+                          href={skill.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={`${chipClass} border-control transition-colors hover:bg-[var(--hover)] hover:text-ink`}
+                        >
+                          {skill.name}
+                          <span className="visually-hidden"> (opens in a new tab)</span>
+                        </a>
+                      ) : (
+                        <span className={`${chipClass} border-[var(--hairline)]`}>{skill.name}</span>
+                      )}
+                    </li>
+                  ))}
+              </ul>
             </section>
           ))}
         </div>
       </div>
-    </section>
+    </div>
   )
 }

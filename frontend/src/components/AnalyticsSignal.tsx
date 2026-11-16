@@ -69,7 +69,7 @@ export default function AnalyticsSignal({
           ].map(([label, value, width]) => (
             <div key={label} className="metric-tile">
               <div className="flex items-baseline justify-between gap-3">
-                <span className="text-sm text-[#86868b]">{label}</span>
+                <span className="text-sm text-muted">{label}</span>
                 <span className="text-xl font-semibold tracking-tight">{value}</span>
               </div>
               <div className="signal-strip mt-4">

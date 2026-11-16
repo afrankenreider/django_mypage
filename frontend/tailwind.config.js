@@ -1,35 +1,37 @@
+/*
+ * The dark variant follows the computed color scheme instead of a
+ * JS-applied class: the OS preference, unless the header toggle has pinned
+ * a scheme through <meta name="color-scheme"> (see src/index.css).
+ */
+const pinned = (scheme) =>
+    `:root:has(> head > meta[name="color-scheme"][content="${scheme}"])`
+
 /** @type {import('tailwindcss').Config} */
 export default {
-    darkMode: 'class',
+    darkMode: [
+        'variant',
+        [
+            `@media (prefers-color-scheme: dark) { &:not(${pinned('light')} *) }`,
+            `&:is(${pinned('dark')} *)`,
+        ],
+    ],
     content: [
         "./index.html",
         "./src/**/*.{js,ts,jsx,tsx}",
     ],
     theme: {
         extend: {
+            colors: {
+                ink: 'var(--text-primary)',
+                body: 'var(--text-body)',
+                muted: 'var(--text-secondary)',
+                page: 'var(--page-bg)',
+                control: 'var(--control-border)',
+            },
             fontFamily: {
-                sans: ['-apple-system', 'BlinkMacSystemFont', 'SF Pro Text', 'Inter', 'Segoe UI', 'sans-serif'],
-                display: ['-apple-system', 'BlinkMacSystemFont', 'SF Pro Display', 'Inter', 'Segoe UI', 'sans-serif'],
-                mono: ['JetBrains Mono', 'Menlo', 'monospace'],
-            },
-            animation: {
-                'fade-in': 'fadeIn 0.6s ease-out',
-                'fade-in-up': 'fadeInUp 0.6s ease-out',
-                'slide-up': 'slideUp 0.5s ease-out',
-            },
-            keyframes: {
-                fadeIn: {
-                    '0%': { opacity: '0' },
-                    '100%': { opacity: '1' },
-                },
-                fadeInUp: {
-                    '0%': { opacity: '0', transform: 'translateY(20px)' },
-                    '100%': { opacity: '1', transform: 'translateY(0)' },
-                },
-                slideUp: {
-                    '0%': { opacity: '0', transform: 'translateY(16px)' },
-                    '100%': { opacity: '1', transform: 'translateY(0)' },
-                },
+                sans: ['system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'],
+                display: ['system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'],
+                mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Consolas', 'monospace'],
             },
         },
     },

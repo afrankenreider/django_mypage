@@ -2,27 +2,117 @@
 @tailwind components;
 @tailwind utilities;
 
+/*
+ * Color tokens.
+ *
+ * Raw light and dark values live in their own custom properties. The
+ * semantic tokens resolve through light-dark(), which follows the computed
+ * color-scheme, so the system preference and the header toggle both work
+ * without a JS-applied class. Browsers without light-dark() fall back to
+ * the prefers-color-scheme media query.
+ */
 :root {
+    --page-bg-light: #f5f5f7;
+    --page-bg-dark: #0a0a0c;
+    --surface-light: rgba(255, 255, 255, 0.82);
+    --surface-dark: rgba(29, 29, 31, 0.74);
+    --surface-strong-light: #ffffff;
+    --surface-strong-dark: #161617;
+    --text-primary-light: #1d1d1f;
+    --text-primary-dark: #f5f5f7;
+    --text-body-light: #424245;
+    --text-body-dark: #d2d2d7;
+    --text-secondary-light: #6e6e73;
+    --text-secondary-dark: #a1a1a6;
+    --hairline-light: rgba(0, 0, 0, 0.1);
+    --hairline-dark: rgba(255, 255, 255, 0.14);
+    --control-border-light: #86868b;
+    --control-border-dark: #8e8e93;
+    --accent-light: #a16207;
+    --accent-dark: #eab308;
+    --tile-light: rgba(255, 255, 255, 0.68);
+    --tile-dark: rgba(255, 255, 255, 0.055);
+    --hover-light: rgba(0, 0, 0, 0.05);
+    --hover-dark: rgba(255, 255, 255, 0.1);
+    --cta-hover-light: #000000;
+    --cta-hover-dark: #ffffff;
+
+    --page-bg: var(--page-bg-light);
+    --surface: var(--surface-light);
+    --surface-strong: var(--surface-strong-light);
+    --text-primary: var(--text-primary-light);
+    --text-body: var(--text-body-light);
+    --text-secondary: var(--text-secondary-light);
+    --hairline: var(--hairline-light);
+    --control-border: var(--control-border-light);
+    --accent: var(--accent-light);
+    --tile: var(--tile-light);
+    --hover: var(--hover-light);
+    --cta-hover: var(--cta-hover-light);
+
+    --header-height: 3.5rem;
+    --target-size: 24px;
+
+    /* Semantic stacking order: sticky chrome, then the skip link. */
+    --z-sticky: 20;
+    --z-skip-link: 30;
+
     color-scheme: light dark;
-    --page-bg: #f5f5f7;
-    --surface: rgba(255, 255, 255, 0.82);
-    --surface-strong: #ffffff;
-    --text-primary: #1d1d1f;
-    --text-secondary: #6e6e73;
-    --hairline: rgba(0, 0, 0, 0.08);
-    --accent: #a16207;
+    accent-color: var(--text-primary);
 }
 
-:root.dark,
-.dark {
+/* Fallback for browsers without light-dark(). */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --page-bg: var(--page-bg-dark);
+        --surface: var(--surface-dark);
+        --surface-strong: var(--surface-strong-dark);
+        --text-primary: var(--text-primary-dark);
+        --text-body: var(--text-body-dark);
+        --text-secondary: var(--text-secondary-dark);
+        --hairline: var(--hairline-dark);
+        --control-border: var(--control-border-dark);
+        --accent: var(--accent-dark);
+        --tile: var(--tile-dark);
+        --hover: var(--hover-dark);
+        --cta-hover: var(--cta-hover-dark);
+    }
+}
+
+@supports (color: light-dark(white, black)) {
+    :root {
+        --page-bg: light-dark(var(--page-bg-light), var(--page-bg-dark));
+        --surface: light-dark(var(--surface-light), var(--surface-dark));
+        --surface-strong: light-dark(var(--surface-strong-light), var(--surface-strong-dark));
+        --text-primary: light-dark(var(--text-primary-light), var(--text-primary-dark));
+        --text-body: light-dark(var(--text-body-light), var(--text-body-dark));
+        --text-secondary: light-dark(var(--text-secondary-light), var(--text-secondary-dark));
+        --hairline: light-dark(var(--hairline-light), var(--hairline-dark));
+        --control-border: light-dark(var(--control-border-light), var(--control-border-dark));
+        --accent: light-dark(var(--accent-light), var(--accent-dark));
+        --tile: light-dark(var(--tile-light), var(--tile-dark));
+        --hover: light-dark(var(--hover-light), var(--hover-dark));
+        --cta-hover: light-dark(var(--cta-hover-light), var(--cta-hover-dark));
+    }
+}
+
+/*
+ * The header toggle writes its override to <meta name="color-scheme">.
+ * Author CSS beats that meta, so map it back onto the property. The base
+ * declaration stays "light dark": with no override the site follows the OS.
+ */
+:root:has(> head > meta[name="color-scheme"][content="dark"]) {
     color-scheme: dark;
-    --page-bg: #0a0a0c;
-    --surface: rgba(29, 29, 31, 0.74);
-    --surface-strong: #161617;
-    --text-primary: #f5f5f7;
-    --text-secondary: #a1a1a6;
-    --hairline: rgba(255, 255, 255, 0.14);
-    --accent: #eab308;
+}
+
+:root:has(> head > meta[name="color-scheme"][content="light"]) {
+    color-scheme: light;
+}
+
+@media (pointer: coarse) {
+    :root {
+        --target-size: 44px;
+    }
 }
 
 * {
@@ -32,28 +122,31 @@
 }
 
 html {
-    scroll-behavior: smooth;
-    overscroll-behavior: none;
     background: var(--page-bg);
+    /* Keeps focused controls and in-page targets clear of the sticky header. */
+    scroll-padding-top: calc(var(--header-height) + 1rem);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    html {
+        scroll-behavior: smooth;
+    }
 }
 
 body {
     min-width: 320px;
     background: var(--page-bg);
     color: var(--text-primary);
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter", "Segoe UI", sans-serif;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.5;
+    overflow-wrap: break-word;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     -webkit-text-size-adjust: 100%;
-    -webkit-tap-highlight-color: transparent;
 }
 
 ::selection {
-    background: rgba(0, 0, 0, 0.12);
-}
-
-.dark ::selection {
-    background: rgba(255, 255, 255, 0.18);
+    background: color-mix(in oklab, var(--text-primary) 16%, transparent);
 }
 
 button,
@@ -61,33 +154,366 @@ a {
     color: inherit;
 }
 
+h1,
+h2,
+h3 {
+    text-wrap: balance;
+}
+
+p,
+li {
+    text-wrap: pretty;
+}
+
 :focus-visible {
-    outline: 2px solid var(--text-primary);
+    outline: 2px solid var(--focus-ring, var(--text-primary));
     outline-offset: 3px;
 }
 
-@media (max-width: 768px) {
-    button,
-    [role="button"] {
-        min-height: 44px;
-        min-width: 44px;
+/* Programmatic focus targets (route changes, skip link) need no ring. */
+[tabindex="-1"]:focus {
+    outline: none;
+}
+
+:where(button, select, [role="button"], nav a) {
+    min-block-size: var(--target-size);
+    min-inline-size: var(--target-size);
+}
+
+/*
+ * Reduced motion is handled where each animation is declared. These two
+ * cover Tailwind's built-in utilities, which the demos use for busy states:
+ * keep the spinner turning slowly so it still reads as active, and hold
+ * skeleton placeholders still.
+ */
+@media (prefers-reduced-motion: reduce) {
+    .animate-spin {
+        animation-duration: 6s;
+    }
+
+    .animate-pulse {
+        animation: none;
     }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
+    ::view-transition-group(*),
+    ::view-transition-old(*),
+    ::view-transition-new(*) {
+        animation: none !important;
+    }
+}
+
+/* Hides content visually but keeps it in the accessibility tree. */
+.visually-hidden:where(:not(:focus-within, :active)) {
+    position: absolute !important;
+    clip-path: inset(50%) !important;
+    overflow: hidden !important;
+    width: 1px !important;
+    height: 1px !important;
+    margin: -1px !important;
+    padding: 0 !important;
+    border: 0 !important;
+    white-space: nowrap !important;
+}
+
+.skip-link:focus-visible {
+    position: fixed;
+    inset-block-start: 0.5rem;
+    inset-inline-start: 0.5rem;
+    z-index: var(--z-skip-link);
+    padding: 0.75rem 1.25rem;
+    border-radius: 9999px;
+    background: var(--text-primary);
+    color: var(--page-bg);
+    font-size: 0.875rem;
+    font-weight: 500;
+    outline-offset: 2px;
+}
+
+/*
+ * Site header. One <nav> at every width: the link list is a native popover
+ * while collapsed and an inline row once Navbar.tsx has measured that the
+ * row fits and added .is-wide.
+ */
+.site-header {
+    position: sticky;
+    inset-block-start: 0;
+    z-index: var(--z-sticky);
+    container-type: scroll-state;
+    container-name: site-header;
+}
+
+.site-header-bar {
+    background: color-mix(in oklab, var(--page-bg) 82%, transparent);
+    border-block-end: 1px solid var(--hairline);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    transition: border-color 200ms ease-out;
+}
+
+/* Where scroll-state queries exist, the rule only appears once stuck. */
+@supports (container-type: scroll-state) {
+    .site-header-bar {
+        border-block-end-color: transparent;
+    }
+
+    @container site-header scroll-state(stuck: top) {
+        .site-header-bar {
+            border-block-end-color: var(--hairline);
+        }
+    }
+}
+
+.site-header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-block-size: var(--header-height);
+}
+
+/* Keep the row's natural width measurable. */
+.site-header-inner > * {
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+.site-header.is-measuring * {
+    transition: none !important;
+}
+
+.site-nav {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.icon-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    inline-size: 2.75rem;
+    block-size: 2.75rem;
+    border-radius: 9999px;
+    color: var(--text-secondary);
+    transition: background-color 100ms ease-out, color 100ms ease-out;
+}
+
+.icon-button:hover {
+    background: var(--hover);
+    color: var(--text-primary);
+}
+
+.site-menu-button {
+    anchor-name: --site-menu-button;
+}
+
+.site-menu {
+    position: fixed;
+    inset: auto;
+    /* Roughly the header height; browsers with anchor() use the next line. */
+    inset-block-start: 3.75rem;
+    inset-block-start: anchor(--site-menu-button bottom);
+    inset-inline-end: 1rem;
+    inline-size: min(80dvw, 18rem);
+    max-inline-size: calc(100dvw - 2rem);
+    block-size: fit-content;
+    max-block-size: calc(100dvh - 6rem);
+    margin: 0;
+    margin-block-start: 0.5rem;
+    padding: 0.5rem;
+    overflow: auto;
+    border: 1px solid var(--hairline);
+    border-radius: 1.25rem;
+    background: var(--surface-strong);
+    color: var(--text-primary);
+    box-shadow: 0 24px 60px -32px rgba(0, 0, 0, 0.45);
+    list-style: none;
+}
+
+.site-menu:not(:is(:popover-open, .\:popover-open)) {
+    display: none;
+}
+
+.site-menu a {
+    display: flex;
+    align-items: center;
+    min-block-size: 2.75rem;
+    padding-inline: 0.875rem;
+    border-radius: 0.75rem;
+    color: var(--text-secondary);
+    font-size: 1rem;
+    transition: background-color 100ms ease-out, color 100ms ease-out;
+}
+
+.site-menu a:hover {
+    background: var(--hover);
+    color: var(--text-primary);
+}
+
+/* Current page: weight and a rule, not color alone. */
+.site-menu a[aria-current="page"] {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .site-menu:is(:popover-open, .\:popover-open) {
+        opacity: 1;
+        translate: 0 0;
+        transition: opacity 160ms ease-out, translate 160ms ease-out, display 160ms, overlay 160ms;
+        transition-behavior: allow-discrete;
+    }
+
+    @starting-style {
+        .site-menu:is(:popover-open, .\:popover-open) {
+            opacity: 0;
+            translate: 0 -0.5rem;
+        }
+    }
+}
+
+.site-header.is-wide .site-menu-button {
+    display: none;
+}
+
+.site-header.is-wide .site-menu {
+    position: static;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    inline-size: auto;
+    max-inline-size: none;
+    block-size: auto;
+    max-block-size: none;
+    overflow: visible;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    opacity: 1;
+    translate: none;
+    transition: none;
+}
+
+.site-header.is-wide .site-menu::backdrop {
+    display: none;
+}
+
+.site-header.is-wide .site-menu a {
+    min-block-size: 2.25rem;
+    padding-inline: 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+}
+
+.site-header.is-wide .site-menu a[aria-current="page"] {
+    font-weight: 500;
+    box-shadow: inset 0 -2px 0 -0.5px var(--text-primary);
+    border-radius: 0;
+}
+
+@media (forced-colors: active) {
+    .site-menu {
+        border-color: CanvasText;
+    }
+
+    .site-header.is-wide .site-menu a[aria-current="page"] {
+        box-shadow: none;
+        border-block-end: 2px solid LinkText;
+    }
+}
+
+/*
+ * Loading spinner: a native indeterminate <progress>, so assistive tech
+ * announces a busy state without a live region.
+ */
+progress.loading-spinner:indeterminate::-webkit-progress-bar,
+progress.loading-spinner:indeterminate::-webkit-progress-value {
+    display: none;
+    background: none;
+}
+
+progress.loading-spinner:indeterminate::-moz-progress-bar {
+    display: none;
+    background: none;
+}
+
+progress.loading-spinner:indeterminate {
+    --size: 2.5rem;
+    --thickness: 2px;
+    --spinner-color: var(--text-primary);
+    --track-color: var(--hairline);
+    --clip-boundary: calc(100% - var(--thickness));
+
+    display: block;
+    inline-size: var(--size);
+    block-size: var(--size);
+    border: 0;
+    border-radius: 50%;
+    appearance: none;
+    background:
+        conic-gradient(from 90deg, var(--spinner-color) 158deg, transparent 0)
+        var(--track-color);
+    mask-image: radial-gradient(
+        farthest-side,
+        transparent var(--clip-boundary),
+        black var(--clip-boundary)
+    );
+    animation: progress-spin 1.5s linear infinite;
+}
+
+progress.loading-spinner-sm:indeterminate {
+    --size: 1rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    /* Slow down instead of stopping, so the busy state stays visible. */
+    progress.loading-spinner:indeterminate {
+        animation-duration: 6s;
+    }
+}
+
+@media (forced-colors: active) {
+    progress.loading-spinner:indeterminate {
+        forced-color-adjust: none;
+        --spinner-color: CanvasText;
+        --track-color: Canvas;
+    }
+}
+
+@keyframes progress-spin {
+    to {
+        rotate: 1turn;
+    }
+}
+
+/*
+ * Entrances. Content is visible by default; the animation only runs when
+ * the user has not asked for reduced motion. Stagger with --enter-index.
+ */
+@media (prefers-reduced-motion: no-preference) {
+    .enter {
+        animation: enter 500ms cubic-bezier(0.22, 1, 0.36, 1) both;
+        animation-delay: calc(var(--enter-index, 0) * 70ms);
+    }
+}
+
+@keyframes enter {
+    from {
+        opacity: 0;
+        translate: 0 1rem;
     }
 }
 
 @layer components {
     .apple-page {
-        @apply min-h-screen bg-[#f5f5f7] text-[#1d1d1f] dark:bg-[#0a0a0c] dark:text-[#f5f5f7];
+        min-block-size: 100dvh;
+        background: var(--page-bg);
+        color: var(--text-primary);
     }
 
     .apple-section {
@@ -100,17 +526,29 @@ a {
     }
 
     .display-heading {
-        @apply font-semibold tracking-[-0.055em] text-[#1d1d1f] dark:text-[#f5f5f7];
+        @apply font-semibold;
+        color: var(--text-primary);
+        letter-spacing: -0.04em;
+        line-height: 1.02;
+    }
+
+    /* Fluid display sizes. Rem bounds keep browser zoom working. */
+    .display-hero {
+        font-size: clamp(2.25rem, 0.75rem + 5.5vw, 5rem);
+    }
+
+    .display-page {
+        font-size: clamp(2.25rem, 1.25rem + 4vw, 4.5rem);
     }
 
     .apple-copy {
-        @apply text-[#6e6e73] dark:text-[#a1a1a6] leading-relaxed;
+        color: var(--text-secondary);
+        line-height: 1.625;
     }
 
-    .studio-grid {
-        background-color: transparent;
-        background-image: none;
-        opacity: 0.26;
+    .body-copy {
+        color: var(--text-body);
+        line-height: 1.625;
     }
 
     .ink-text {
@@ -133,18 +571,14 @@ a {
 
     .metric-tile {
         @apply rounded-3xl border p-5;
-        background: rgba(255, 255, 255, 0.68);
+        background: var(--tile);
         border-color: var(--hairline);
-    }
-
-    .dark .metric-tile {
-        background: rgba(255, 255, 255, 0.055);
     }
 
     .signal-strip {
         @apply overflow-hidden rounded-full border;
         height: 8px;
-        background: rgba(0, 0, 0, 0.08);
+        background: var(--hairline);
         border-color: var(--hairline);
     }
 
@@ -153,10 +587,6 @@ a {
         height: 100%;
         border-radius: 9999px;
         background: var(--text-primary);
-    }
-
-    .dark .signal-strip {
-        background: rgba(255, 255, 255, 0.14);
     }
 
     .hairline {
@@ -172,25 +602,29 @@ a {
 
     .quiet-link {
         @apply inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-medium transition-colors;
-        background: #1d1d1f;
-        color: #ffffff;
+        min-block-size: 2.75rem;
+        background: var(--text-primary);
+        color: var(--page-bg);
     }
 
     .quiet-link:hover {
-        background: #000000;
-    }
-
-    .dark .quiet-link {
-        background: #f5f5f7;
-        color: #1d1d1f;
-    }
-
-    .dark .quiet-link:hover {
-        background: #ffffff;
+        background: var(--cta-hover);
     }
 
     .text-link {
-        @apply inline-flex items-center gap-1 font-medium text-[#1d1d1f] transition-colors hover:text-black dark:text-[#f5f5f7] dark:hover:text-white;
+        @apply inline-flex items-center gap-1 font-medium underline-offset-4 hover:underline;
+        color: var(--text-primary);
+    }
+
+    .social-link {
+        @apply inline-flex h-11 w-11 items-center justify-center rounded-full border transition-colors;
+        border-color: var(--control-border);
+        color: var(--text-secondary);
+    }
+
+    .social-link:hover {
+        background: var(--hover);
+        color: var(--text-primary);
     }
 
     .soft-rule {
@@ -198,6 +632,13 @@ a {
         background: var(--hairline);
     }
 
+    /* Always-dark band. Pins its own scheme so tokens and focus rings follow. */
+    .ink-band {
+        color-scheme: dark;
+        background: #1d1d1f;
+        color: #f5f5f7;
+        --focus-ring: #f5f5f7;
+    }
 }
 
 .line-clamp-2 {

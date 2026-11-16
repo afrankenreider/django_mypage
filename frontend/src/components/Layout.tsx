@@ -1,18 +1,26 @@
+import { Suspense } from 'react'
 import { Outlet } from 'react-router-dom'
 import Navbar from './Navbar'
 import Footer from './Footer'
 import ErrorBoundary from './ErrorBoundary'
+import LoadingFallback from './LoadingFallback'
 import { usePageTracking } from '../hooks/usePageTracking'
 
 export default function Layout() {
   usePageTracking()
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#f5f5f7] text-[#1d1d1f] dark:bg-[#0a0a0c] dark:text-[#f5f5f7]">
+    <div className="flex min-h-dvh flex-col bg-page text-ink">
+      <a href="#main" className="skip-link visually-hidden">
+        Skip to main content
+      </a>
       <Navbar />
-      <main className="flex-grow">
+      <main id="main" tabIndex={-1} className="flex-grow">
         <ErrorBoundary>
-          <Outlet />
+          {/* Suspend inside the shell so the header and footer stay put while a route loads. */}
+          <Suspense fallback={<LoadingFallback />}>
+            <Outlet />
+          </Suspense>
         </ErrorBoundary>
       </main>
       <Footer />

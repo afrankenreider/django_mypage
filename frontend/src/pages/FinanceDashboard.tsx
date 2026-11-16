@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useMemo, memo } from 'react'
+import type { CSSProperties } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import {
@@ -27,6 +28,7 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow'
 import CloseIcon from '@mui/icons-material/Close'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import ExpandLessIcon from '@mui/icons-material/ExpandLess'
+import { usePageTitle } from '../hooks/usePageTitle'
 
 // Types
 interface StockQuote {
@@ -276,6 +278,8 @@ StockCard.displayName = 'StockCard'
 
 // Main Component
 export default function FinanceDashboard() {
+    usePageTitle('Finance dashboard')
+
     // State
     const [watchlist, setWatchlist] = useState<string[]>(() => {
         const saved = localStorage.getItem('stockWatchlist')
@@ -559,7 +563,7 @@ export default function FinanceDashboard() {
         : '#d70015'  // System red - negative
 
     return (
-        <section className="apple-page pt-24 pb-16 sm:pt-28">
+        <section className="apple-page pt-10 pb-16 sm:pt-14">
             <div className="apple-section max-w-7xl">
                 {/* Header */}
                 <motion.div
@@ -665,8 +669,9 @@ export default function FinanceDashboard() {
                                                         setSearchQuery(e.target.value.toUpperCase())
                                                     }
                                                     onKeyDown={(e) => e.key === 'Enter' && addStock()}
+                                                    aria-label="Stock symbol"
                                                     placeholder="Enter symbol..."
-                                                    className="w-full pl-10 pr-4 py-2 bg-black/5 dark:bg-white/10 border hairline rounded-lg text-[#1d1d1f] dark:text-[#f5f5f7] placeholder-[#86868b] focus:outline-none focus:border-[var(--hairline)]"
+                                                    className="w-full pl-10 pr-4 py-2 bg-black/5 dark:bg-white/10 border hairline rounded-lg text-[#1d1d1f] dark:text-[#f5f5f7] placeholder:text-muted"
                                                     autoFocus
                                                 />
                                             </div>
@@ -811,7 +816,7 @@ export default function FinanceDashboard() {
                                     <div className="h-[300px] w-full sm:h-[400px]">
                                         {isChartLoading ? (
                                             <div className="h-full flex items-center justify-center">
-                                                <div className="animate-spin rounded-full h-8 w-8 border-2 border-[#6e6e73] border-t-transparent" />
+                                                <progress className="loading-spinner" aria-label="Loading chart" />
                                             </div>
                                         ) : historicalData.length > 0 ? (
                                             <ResponsiveContainer width="100%" height="100%">
@@ -975,13 +980,14 @@ export default function FinanceDashboard() {
                                                     <div className="grid md:grid-cols-3 gap-4 mb-6">
                                                         {/* Model Selection */}
                                                         <div>
-                                                            <label className="block text-sm font-medium text-[#6e6e73] dark:text-[#a1a1a6] mb-2">
+                                                            <label htmlFor="forecast-model" className="block text-sm font-medium text-[#6e6e73] dark:text-[#a1a1a6] mb-2">
                                                                 ML Model
                                                             </label>
                                                             <select
+                                                                id="forecast-model"
                                                                 value={selectedModel}
                                                                 onChange={(e) => setSelectedModel(e.target.value)}
-                                                                className="min-h-11 w-full rounded-lg border hairline bg-black/5 px-4 py-2 text-[#1d1d1f] focus:outline-none focus:ring-2 focus:ring-black/30 dark:bg-white/10 dark:text-[#f5f5f7] dark:focus:ring-white/30"
+                                                                className="min-h-11 w-full rounded-lg border hairline bg-black/5 px-4 py-2 text-[#1d1d1f] dark:bg-white/10 dark:text-[#f5f5f7]"
                                                             >
                                                                 {Object.entries(mlModels).map(([key, model]) => (
                                                                     <option key={key} value={key}>
@@ -996,13 +1002,14 @@ export default function FinanceDashboard() {
 
                                                         {/* Forecast Horizon */}
                                                         <div>
-                                                            <label className="block text-sm font-medium text-[#6e6e73] dark:text-[#a1a1a6] mb-2">
+                                                            <label htmlFor="forecast-horizon" className="block text-sm font-medium text-[#6e6e73] dark:text-[#a1a1a6] mb-2">
                                                                 Forecast Horizon
                                                             </label>
                                                             <select
+                                                                id="forecast-horizon"
                                                                 value={forecastHorizon}
                                                                 onChange={(e) => setForecastHorizon(Number(e.target.value))}
-                                                                className="min-h-11 w-full rounded-lg border hairline bg-black/5 px-4 py-2 text-[#1d1d1f] focus:outline-none focus:ring-2 focus:ring-black/30 dark:bg-white/10 dark:text-[#f5f5f7] dark:focus:ring-white/30"
+                                                                className="min-h-11 w-full rounded-lg border hairline bg-black/5 px-4 py-2 text-[#1d1d1f] dark:bg-white/10 dark:text-[#f5f5f7]"
                                                             >
                                                                 {FORECAST_HORIZONS.map((horizon) => (
                                                                     <option key={horizon.value} value={horizon.value}>
@@ -1024,7 +1031,7 @@ export default function FinanceDashboard() {
                                                             >
                                                                 {isPredicting ? (
                                                                     <>
-                                                                        <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent" />
+                                                                        <progress className="loading-spinner loading-spinner-sm" aria-hidden="true" style={{ '--spinner-color': 'currentColor' } as CSSProperties} />
                                                                         Running...
                                                                     </>
                                                                 ) : (
@@ -1067,10 +1074,11 @@ export default function FinanceDashboard() {
                                                                         {Object.entries(mlModels[selectedModel]?.hyperparameters || {}).map(
                                                                             ([key, config]) => (
                                                                                 <div key={key}>
-                                                                                    <label className="block text-xs font-medium text-[#6e6e73] dark:text-[#a1a1a6] mb-1">
+                                                                                    <label htmlFor={`hyperparameter-${key}`} className="block text-xs font-medium text-[#6e6e73] dark:text-[#a1a1a6] mb-1">
                                                                                         {config.name}
                                                                                     </label>
                                                                                     <input
+                                                                                        id={`hyperparameter-${key}`}
                                                                                         type="number"
                                                                                         value={hyperparameters[key] ?? config.default}
                                                                                         onChange={(e) =>
@@ -1082,7 +1090,7 @@ export default function FinanceDashboard() {
                                                                                         min={config.min}
                                                                                         max={config.max}
                                                                                         step={config.step || 1}
-                                                                                        className="min-h-9 w-full rounded-lg border hairline bg-white px-3 py-1.5 text-sm text-[#1d1d1f] focus:outline-none focus:ring-2 focus:ring-black/30 dark:bg-[#161617] dark:text-[#f5f5f7] dark:focus:ring-white/30"
+                                                                                        className="min-h-9 w-full rounded-lg border hairline bg-white px-3 py-1.5 text-sm text-[#1d1d1f] dark:bg-[#161617] dark:text-[#f5f5f7]"
                                                                                     />
                                                                                     <p className="text-xs text-[#6e6e73] mt-0.5">
                                                                                         Range: {config.min} - {config.max}

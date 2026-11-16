@@ -1,6 +1,8 @@
-import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
+import { CONTACT_EMAIL } from '../components/SocialLinks'
+import { usePageTitle } from '../hooks/usePageTitle'
+import { enterIndex } from '../utils/motion'
 
 interface Project {
   title: string
@@ -46,135 +48,68 @@ const projects: Project[] = [
 ]
 
 export default function Projects() {
+  usePageTitle('Projects')
+
   return (
-    <section className="apple-page pb-24 pt-28">
+    <div className="apple-page pb-24 pt-14 sm:pt-16">
       <div className="apple-section">
-        <motion.header
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
-          className="grid gap-10 border-b hairline pb-14 sm:pb-16 lg:grid-cols-[1.35fr_0.65fr] lg:items-end"
-        >
-          <div>
-            <p className="eyebrow mb-6">Projects</p>
-            <h1 className="display-heading max-w-4xl text-5xl sm:text-6xl lg:text-7xl">
-              Interactive demos.
-            </h1>
-          </div>
+        <header className="enter grid gap-6 lg:grid-cols-[1.35fr_0.65fr] lg:items-end lg:gap-10">
+          <h1 className="display-heading display-page">Interactive demos.</h1>
           <p className="apple-copy max-w-xl text-lg sm:text-xl lg:pb-1">
             Browser-based walkthroughs of methods I use at work: regression,
             clustering, neural networks, and market data analysis.
           </p>
-        </motion.header>
+        </header>
 
-        <div className="mt-8 grid gap-px overflow-hidden rounded-3xl border hairline bg-black/[0.06] dark:bg-white/[0.08] sm:mt-10 sm:grid-cols-3">
-          {[
-            ['04', 'interactive demos'],
-            ['03', 'data disciplines'],
-            ['100%', 'browser based'],
-          ].map(([value, label]) => (
-            <div
-              key={label}
-              className="bg-white px-6 py-6 dark:bg-[#161617] sm:px-7 sm:py-7"
-            >
-              <p className="text-2xl font-semibold tracking-tight">{value}</p>
-              <p className="apple-copy mt-1 text-sm">{label}</p>
-            </div>
-          ))}
-        </div>
-
-        <div className="mt-16 sm:mt-20">
-          <div className="mb-8 flex items-end justify-between gap-6">
-            <div>
-              <p className="eyebrow">Demos</p>
-              <h2 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
-                Four interactive demos.
-              </h2>
-            </div>
-            <p className="hidden text-sm text-[#86868b] sm:block">
-              Built with React and TypeScript
-            </p>
-          </div>
-
-          <div className="grid gap-5 lg:grid-cols-2">
-            {projects.map((project, index) => (
-              <motion.article
-                key={project.title}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-60px' }}
-                transition={{
-                  delay: (index % 2) * 0.06,
-                  duration: 0.45,
-                  ease: 'easeOut',
-                }}
-                className="apple-card-solid group flex min-h-full flex-col p-6 sm:p-8"
-              >
-                <div className="flex items-center justify-between gap-4">
-                  <p className="text-sm font-medium text-[#6e6e73] dark:text-[#a1a1a6]">
-                    {project.category}
-                  </p>
-                  <span
-                    className="text-sm tabular-nums text-[#86868b]"
-                    aria-hidden="true"
-                  >
-                    {String(index + 1).padStart(2, '0')}
-                  </span>
+        <ul className="enter mt-14 border-t hairline sm:mt-20" style={enterIndex(1)}>
+          {projects.map((project) => (
+            <li key={project.title} className="border-b hairline">
+              <article className="group relative grid gap-x-10 gap-y-5 py-9 sm:py-11 lg:grid-cols-[0.9fr_1.1fr]">
+                <div>
+                  <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
+                    {/* The link's pseudo-element stretches over the row, so the whole row is the target. */}
+                    <Link
+                      to={project.link}
+                      className="rounded-sm after:absolute after:inset-0 after:content-['']"
+                    >
+                      {project.title}
+                    </Link>
+                  </h2>
+                  <p className="mt-2 text-sm font-medium text-muted">{project.category}</p>
                 </div>
 
-                <h3 className="mt-10 text-3xl font-semibold tracking-tight sm:text-4xl">
-                  {project.title}
-                </h3>
-                <p className="apple-copy mt-4 max-w-xl text-base sm:text-lg">
-                  {project.description}
-                </p>
+                <div>
+                  <p className="apple-copy max-w-[60ch] text-base sm:text-lg">{project.description}</p>
+                  <ul className="mt-5 flex flex-wrap gap-x-5 gap-y-1 text-sm text-body">
+                    {project.capabilities.map((capability) => (
+                      <li key={capability}>{capability}</li>
+                    ))}
+                  </ul>
+                  <p className="text-link mt-6 group-hover:underline" aria-hidden="true">
+                    Open demo
+                    <ArrowForwardIcon
+                      className="transition-transform group-hover:translate-x-1 motion-reduce:transition-none"
+                      sx={{ fontSize: 17 }}
+                    />
+                  </p>
+                </div>
+              </article>
+            </li>
+          ))}
+        </ul>
 
-                <ul
-                  className="mt-7 flex flex-wrap gap-x-5 gap-y-2 border-t hairline pt-5"
-                  aria-label={`${project.title} capabilities`}
-                >
-                  {project.capabilities.map((capability) => (
-                    <li
-                      key={capability}
-                      className="text-sm text-[#6e6e73] dark:text-[#a1a1a6]"
-                    >
-                      {capability}
-                    </li>
-                  ))}
-                </ul>
+        <p className="mt-6 text-sm text-muted">Built with React and TypeScript.</p>
 
-                <Link
-                  to={project.link}
-                  className="text-link mt-10 self-start rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4"
-                  aria-label={`Open ${project.title} demo`}
-                >
-                  Open demo
-                  <ArrowForwardIcon
-                    className="transition-transform group-hover:translate-x-1 group-focus-within:translate-x-1"
-                    sx={{ fontSize: 17 }}
-                  />
-                </Link>
-              </motion.article>
-            ))}
-          </div>
-        </div>
-
-        <div className="mt-20 flex flex-col gap-6 border-t hairline pt-8 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <p className="eyebrow">Contact</p>
-            <p className="mt-3 max-w-2xl text-2xl font-semibold tracking-tight">
-              Questions about any of these? I'm happy to talk through the code.
-            </p>
-          </div>
-          <a
-            href="mailto:afrankenreider@gmail.com"
-            className="quiet-link self-start focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4"
-          >
+        <div className="mt-16 flex flex-col gap-6 sm:mt-20 sm:flex-row sm:items-center sm:justify-between">
+          <h2 className="max-w-2xl text-2xl font-semibold tracking-tight">
+            Questions about any of these? I'm happy to talk through the code.
+          </h2>
+          <a href={`mailto:${CONTACT_EMAIL}`} className="quiet-link self-start">
             Email me
-            <ArrowForwardIcon sx={{ fontSize: 17 }} />
+            <ArrowForwardIcon aria-hidden="true" sx={{ fontSize: 17 }} />
           </a>
         </div>
       </div>
-    </section>
+    </div>
   )
 }
