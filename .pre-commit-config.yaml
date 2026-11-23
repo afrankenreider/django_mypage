@@ -4,7 +4,7 @@
 
 # Vendored agent skills are installed verbatim and pinned by hash
 # (skills-lock.json), so the whitespace fixers must not rewrite them.
-exclude: '^(\.agents/skills/|\.github/skills/)'
+exclude: '^(\.agents/skills/|\.github/skills/|\.claude/skills/)'
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks

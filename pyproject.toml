@@ -30,21 +30,11 @@ dependencies = [
     "lightgbm>=4.0",
 ]
 
-[project.optional-dependencies]
-dev = [
-    "pytest>=8.3",
-    "pytest-django>=4.9",
-    "pre-commit>=4.0",
-    "ruff>=0.8",
-    "ipykernel>=6.29",
-    "jupyter>=1.1",
-    "notebook>=7.3",
-]
-
 [dependency-groups]
 dev = [
     "pytest>=8.3",
     "pytest-django>=4.9",
+    "pytest-cov>=6.0",
     "pre-commit>=4.0",
     "ruff>=0.8",
     "ipykernel>=6.29",
@@ -63,6 +53,11 @@ packages = ["src"]
 DJANGO_SETTINGS_MODULE = "src.apps.base_app.settings"
 python_files = ["test_*.py", "*_test.py", "tests.py"]
 testpaths = ["tests", "src/apps"]
+addopts = "-ra"
+
+[tool.coverage.run]
+source = ["src"]
+omit = ["*/migrations/*", "*/tests.py", "src/notebooks/*"]
 
 [tool.ruff]
 target-version = "py313"
@@ -75,6 +70,10 @@ exclude = [
     "migrations",
     "node_modules",
     "frontend",
+    # Vendored agent skills, pinned by skills-lock.json
+    ".agents",
+    ".claude",
+    ".github/skills",
 ]
 
 [tool.ruff.lint]
