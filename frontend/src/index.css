@@ -12,46 +12,48 @@
  * result from the selector-based fallback below.
  */
 :root {
-    --page-bg-light: #f1f4ee;
-    --page-bg-dark: #0d1410;
-    --surface-light: rgba(255, 255, 255, 0.78);
-    --surface-dark: rgba(24, 34, 28, 0.74);
-    --surface-strong-light: #fbfcf9;
-    --surface-strong-dark: #151e18;
-    --text-primary-light: #15221a;
-    --text-primary-dark: #eef2ea;
-    --text-body-light: #38463d;
-    --text-body-dark: #cdd7cd;
-    --text-secondary-light: #56655b;
-    --text-secondary-dark: #9fb1a4;
-    --hairline-light: rgba(21, 34, 26, 0.12);
-    --hairline-dark: rgba(238, 242, 234, 0.13);
-    --control-border-light: #7b8a80;
-    --control-border-dark: #7f9185;
-    --accent-light: #8a6408;
-    --accent-dark: #e2b54a;
-    --tile-light: rgba(255, 255, 255, 0.6);
-    --tile-dark: rgba(238, 242, 234, 0.05);
-    --hover-light: rgba(21, 34, 26, 0.06);
-    --hover-dark: rgba(238, 242, 234, 0.09);
-    --cta-hover-light: #0b130e;
+    --page-bg-light: #f8f8f6;
+    --page-bg-dark: #121413;
+    --surface-light: rgba(255, 255, 255, 0.82);
+    --surface-dark: rgba(27, 30, 28, 0.78);
+    --surface-strong-light: #ffffff;
+    --surface-strong-dark: #1b1e1c;
+    --text-primary-light: #191b1a;
+    --text-primary-dark: #f2f0ea;
+    --text-body-light: #3c403d;
+    --text-body-dark: #d2cfc7;
+    --text-secondary-light: #5f6561;
+    --text-secondary-dark: #a3a29a;
+    --hairline-light: rgba(25, 27, 26, 0.1);
+    --hairline-dark: rgba(242, 240, 234, 0.12);
+    --control-border-light: #7d837f;
+    --control-border-dark: #858a85;
+    --accent-light: #8a5f0c;
+    --accent-dark: #eec07a;
+    --tile-light: rgba(255, 255, 255, 0.7);
+    --tile-dark: rgba(242, 240, 234, 0.05);
+    --hover-light: rgba(25, 27, 26, 0.05);
+    --hover-dark: rgba(242, 240, 234, 0.08);
+    --cta-hover-light: #000000;
     --cta-hover-dark: #ffffff;
-    --signal-light: #a9441a;
-    --signal-dark: #ee8b55;
+    --signal-light: #a8512c;
+    --signal-dark: #e2936a;
     --signal-ink-light: #ffffff;
-    --signal-ink-dark: #1d0c04;
-    --signal-hover-light: #8d3712;
-    --signal-hover-dark: #f5a577;
-    --data-teal-light: #2e6a3c;
-    --data-teal-dark: #86c493;
-    --data-blue-light: #33627d;
-    --data-blue-dark: #93bdd6;
-    --well-light: #e5ebe2;
-    --well-dark: #1c2821;
-    --line-light: #cdd6ca;
-    --line-dark: #2d3b32;
-    --negative-light: #a3243a;
-    --negative-dark: #f08a9a;
+    --signal-ink-dark: #1f0d05;
+    --signal-hover-light: #8e4222;
+    --signal-hover-dark: #ecaa86;
+    --data-teal-light: #4f6b58;
+    --data-teal-dark: #a3bfa8;
+    --data-blue-light: #4c6390;
+    --data-blue-dark: #aebde3;
+    --well-light: #eeefeb;
+    --well-dark: #1f2320;
+    --line-light: #dcded8;
+    --line-dark: #2e3330;
+    --negative-light: #b0262f;
+    --negative-dark: #f29a9e;
+    --cedar-light: #8c5f36;
+    --cedar-dark: #d6a872;
 
     --page-bg: var(--page-bg-light);
     --surface: var(--surface-light);
@@ -73,12 +75,16 @@
     --well: var(--well-light);
     --line: var(--line-light);
     --negative: var(--negative-light);
+    --cedar: var(--cedar-light);
 
-    /* Always-dark spruce band. Same in both schemes. */
-    --band-bg: #163126;
-    --band-text: #eef2ea;
-    --band-muted: #a9c2b2;
-    --band-line: rgba(169, 194, 178, 0.2);
+    /* Black steel: window mullions and frames. Same in both schemes. */
+    --steel: #191b1a;
+
+    /* Always-dark pine band. Same in both schemes. */
+    --band-bg: #18231e;
+    --band-text: #f2f0ea;
+    --band-muted: #aab7ae;
+    --band-line: rgba(170, 183, 174, 0.2);
 
     /* Motion curves. */
     --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
@@ -122,6 +128,7 @@
         --well: var(--well-dark);
         --line: var(--line-dark);
         --negative: var(--negative-dark);
+        --cedar: var(--cedar-dark);
         }
 
         :root:has(> head > meta[name="color-scheme"][content="light"]) {
@@ -145,6 +152,7 @@
         --well: var(--well-light);
         --line: var(--line-light);
         --negative: var(--negative-light);
+        --cedar: var(--cedar-light);
         }
     }
 
@@ -169,6 +177,7 @@
     --well: var(--well-dark);
     --line: var(--line-dark);
     --negative: var(--negative-dark);
+    --cedar: var(--cedar-dark);
     }
 }
 
@@ -194,6 +203,7 @@
         --well: light-dark(var(--well-light), var(--well-dark));
         --line: light-dark(var(--line-light), var(--line-dark));
         --negative: light-dark(var(--negative-light), var(--negative-dark));
+        --cedar: light-dark(var(--cedar-light), var(--cedar-dark));
     }
 }
 
@@ -751,6 +761,26 @@ progress.loading-spinner-sm:indeterminate {
     }
 }
 
+@keyframes window-drift {
+    from {
+        translate: 0 -5%;
+    }
+
+    to {
+        translate: 0 5%;
+    }
+}
+
+@keyframes glass-sheen {
+    from {
+        background-position: 100% 0;
+    }
+
+    to {
+        background-position: 0% 0;
+    }
+}
+
 @keyframes drop-in {
     from {
         opacity: 0;
@@ -804,21 +834,22 @@ progress.loading-spinner-sm:indeterminate {
     }
 
     /*
-     * Display headings set in Young Serif, which ships one weight. Never
-     * let the browser fake a bold.
+     * Display headings set in Bodoni Moda (variable, with an optical-size
+     * axis): finer hairlines at hero size, sturdier at section size.
      */
     .display-heading {
-        font-family: "Young Serif", Georgia, "Times New Roman", serif;
-        font-weight: 400;
-        font-synthesis: none;
+        font-family: "Bodoni Moda Variable", "Bodoni 72", Didot, Georgia, serif;
+        font-weight: 560;
+        font-optical-sizing: auto;
+        font-kerning: normal;
         color: var(--text-primary);
-        letter-spacing: -0.015em;
-        line-height: 1.04;
+        letter-spacing: -0.02em;
+        line-height: 1.02;
     }
 
     /* Fluid display sizes. Rem bounds keep browser zoom working. */
     .display-hero {
-        font-size: clamp(2.25rem, 0.75rem + 5.5vw, 5rem);
+        font-size: clamp(2.5rem, 0.9rem + 6vw, 5.75rem);
     }
 
     .display-page {
@@ -914,11 +945,11 @@ progress.loading-spinner-sm:indeterminate {
     }
 
     @media (prefers-reduced-motion: no-preference) {
-        :is(.quiet-link, .ghost-link, .text-link) svg {
+        :is(.quiet-link, .ghost-link, .text-link, .steel-link) svg {
             transition: translate 200ms var(--ease-out-quart);
         }
 
-        :is(.quiet-link, .ghost-link, .text-link):hover svg {
+        :is(.quiet-link, .ghost-link, .text-link, .steel-link):hover svg {
             translate: 0.2rem 0;
         }
     }
@@ -1099,9 +1130,162 @@ progress.loading-spinner-sm:indeterminate {
     .step-badge.step-badge {
         background: color-mix(in oklab, var(--data-teal) 16%, transparent);
         color: var(--data-teal);
-        font-family: "Young Serif", Georgia, serif;
+        font-family: "Bodoni Moda Variable", Georgia, serif;
         font-weight: 400;
         box-shadow: none;
+    }
+
+    /*
+     * Picture window: a photo behind black-steel framing (outer frame, two
+     * mullions, a transom). The steel is the same in both schemes.
+     */
+    .picture-window {
+        position: relative;
+        isolation: isolate;
+        overflow: hidden;
+        aspect-ratio: 4 / 3;
+        border: 6px solid var(--steel);
+        border-radius: 1.5rem;
+        background: var(--band-bg);
+        box-shadow: 0 50px 90px -60px rgba(0, 0, 0, 0.55);
+    }
+
+    @media (min-width: 640px) {
+        .picture-window {
+            aspect-ratio: 16 / 7;
+            border-width: 10px;
+            border-radius: 2rem;
+        }
+    }
+
+    .picture-window-photo {
+        position: absolute;
+        inset: -8% 0;
+        inline-size: 100%;
+        block-size: 116%;
+        object-fit: cover;
+        object-position: center 40%;
+    }
+
+    /* Glass: a faint reflection across the panes. */
+    .picture-window-glass {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(115deg, rgba(255, 255, 255, 0.12) 0%, transparent 28%, transparent 58%, rgba(255, 255, 255, 0.07) 70%, transparent 82%);
+        background-size: 220% 100%;
+        background-position: 100% 0;
+        pointer-events: none;
+    }
+
+    .picture-window-mullion,
+    .picture-window-transom {
+        position: absolute;
+        background: var(--steel);
+        box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.06);
+    }
+
+    .picture-window-mullion {
+        inset-block: 0;
+        inline-size: 6px;
+        translate: -50% 0;
+    }
+
+    .picture-window-transom {
+        inset-inline: 0;
+        inset-block-start: 26%;
+        block-size: 6px;
+    }
+
+    @media (min-width: 640px) {
+        .picture-window-mullion {
+            inline-size: 9px;
+        }
+
+        .picture-window-transom {
+            block-size: 9px;
+        }
+    }
+
+    /* As the window scrolls past, the view drifts and the reflection slides. */
+    @media (prefers-reduced-motion: no-preference) {
+        @supports (animation-timeline: view()) {
+            .on-scroll .picture-window-photo {
+                animation: window-drift linear both;
+                animation-timeline: --reveal;
+                animation-range: cover 0% cover 100%;
+            }
+
+            .on-scroll .picture-window-glass {
+                animation: glass-sheen linear both;
+                animation-timeline: --reveal;
+                animation-range: cover 0% cover 100%;
+            }
+        }
+    }
+
+    /*
+     * Cedar slat panel, after a plank ceiling. Horizontal boards of varying
+     * tone with fine shadow gaps; text and the steel button sit on top.
+     */
+    .cedar-panel {
+        --plank: 15px;
+        --wood: #c99a68;
+        --wood-dark: #c1915f;
+        --wood-light: #cfa272;
+        --gap: rgba(70, 42, 18, 0.2);
+        --text-primary: #191b1a;
+        --text-secondary: #2e2013;
+        --focus-ring: #191b1a;
+        --steel-button-bg: #191b1a;
+        --steel-button-text: #f8f8f6;
+        color-scheme: light;
+        color: var(--text-primary);
+        background:
+            linear-gradient(180deg, rgba(255, 244, 228, 0.18), rgba(60, 35, 15, 0.14)),
+            repeating-linear-gradient(180deg, transparent 0 calc(var(--plank) - 1.5px), var(--gap) calc(var(--plank) - 1.5px) var(--plank)),
+            repeating-linear-gradient(180deg, var(--wood) 0 var(--plank), var(--wood-dark) var(--plank) calc(var(--plank) * 2), var(--wood-light) calc(var(--plank) * 2) calc(var(--plank) * 3), var(--wood) calc(var(--plank) * 3) calc(var(--plank) * 4), var(--wood-dark) calc(var(--plank) * 4) calc(var(--plank) * 5));
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root:not(:has(> head > meta[name="color-scheme"][content="light"])) .cedar-panel {
+            --wood: #4a3220;
+            --wood-dark: #46301e;
+            --wood-light: #523825;
+            --gap: rgba(0, 0, 0, 0.3);
+            --text-primary: #f2f0ea;
+            --text-secondary: #e3d3bd;
+            --focus-ring: #f2f0ea;
+            --steel-button-bg: #f2f0ea;
+            --steel-button-text: #191b1a;
+            color-scheme: dark;
+        }
+    }
+
+    :root:has(> head > meta[name="color-scheme"][content="dark"]) .cedar-panel {
+        --wood: #4a3220;
+        --wood-dark: #46301e;
+        --wood-light: #523825;
+        --gap: rgba(0, 0, 0, 0.3);
+        --text-primary: #f2f0ea;
+        --text-secondary: #e3d3bd;
+        --focus-ring: #f2f0ea;
+        --steel-button-bg: #f2f0ea;
+        --steel-button-text: #191b1a;
+        color-scheme: dark;
+    }
+
+    /* Black-steel button, for use on cedar. */
+    .steel-link {
+        @apply inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-medium;
+        min-block-size: 2.75rem;
+        background: var(--steel-button-bg, var(--steel));
+        color: var(--steel-button-text, #f8f8f6);
+        box-shadow: 0 12px 28px -14px rgba(0, 0, 0, 0.6);
+        transition: box-shadow 200ms ease-out, translate 200ms var(--ease-out-quart);
+    }
+
+    .steel-link:hover {
+        box-shadow: 0 16px 34px -14px rgba(0, 0, 0, 0.7);
     }
 
     .soft-rule {
@@ -1135,6 +1319,7 @@ progress.loading-spinner-sm:indeterminate {
         --well: rgba(255, 255, 255, 0.06);
         --line: var(--band-line);
         --negative: var(--negative-dark);
+        --cedar: var(--cedar-dark);
         --surface-strong: rgba(255, 255, 255, 0.05);
     }
 

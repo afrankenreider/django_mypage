@@ -3,6 +3,7 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import CareerTimeline from '../components/CareerTimeline'
 import DataScienceAnimation from '../components/DataScienceAnimation'
 import DemoGlyph from '../components/DemoGlyph'
+import PictureWindow from '../components/PictureWindow'
 import PlatformStack, { type StackLayer } from '../components/PlatformStack'
 import SocialLinks, { CONTACT_EMAIL } from '../components/SocialLinks'
 import TopoLines from '../components/TopoLines'
@@ -83,6 +84,10 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="apple-section pb-24 sm:pb-32">
+        <PictureWindow />
+      </section>
+
       <section className="pb-24 sm:pb-32">
         <div className="apple-section">
           <div className="ink-band on-scroll relative isolate overflow-hidden rounded-[2rem] px-6 py-12 sm:px-10 sm:py-14 lg:px-14 lg:py-16">
@@ -119,16 +124,14 @@ export default function Home() {
       </section>
 
       <section className="apple-section pb-28">
-        <div className="grid gap-8 border-t hairline pt-10 sm:grid-cols-[1fr_auto] sm:items-end">
+        <div className="cedar-panel grid gap-8 overflow-hidden rounded-[2rem] px-6 py-12 sm:grid-cols-[1fr_auto] sm:items-end sm:px-10 sm:py-14 lg:px-14">
           <div>
-            <h2 className="display-heading text-3xl sm:text-5xl">
-              Want to talk shop<span className="signal-text">?</span>
-            </h2>
-            <p className="apple-copy mt-4 max-w-[48ch] text-lg">
+            <h2 className="display-heading text-4xl sm:text-6xl">Want to talk shop?</h2>
+            <p className="mt-4 max-w-[48ch] text-lg text-[var(--text-secondary)]">
               Analytics platforms, data engineering, or any of the demos.
             </p>
           </div>
-          <a href={`mailto:${CONTACT_EMAIL}`} className="quiet-link self-start sm:self-end">
+          <a href={`mailto:${CONTACT_EMAIL}`} className="steel-link self-start justify-self-start sm:self-end">
             Email me
             <ArrowForwardIcon aria-hidden="true" sx={{ fontSize: 17 }} />
           </a>

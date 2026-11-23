@@ -5,20 +5,32 @@ impeccable design skill (`.github/skills/impeccable`) alongside PRODUCT.md.
 
 ## Theme
 
-Old clubhouse and mountain lodge: think a Jackson Hole trail map, a
-vintage golf scorecard, a park poster of the Tetons. Large serif display
-type over a quiet sans body, hairline rules, and generous space on a faintly
-sage neutral. Color comes from the landscape and is carried by data
-visuals: Blaze (rust) for action and emphasis, Spruce for the dark band and
-footer, and Fairway, Snake River, and Aspen inside charts and diagrams.
-Warmth lives in the accents and type, never in a cream page background.
+Modern mountain luxury: a lodge built from black steel, cedar, and glass,
+looking out at snow and pines at dusk. Old-money restraint with crisp,
+architectural detail. Large Bodoni display type over a quiet sans body,
+hairline rules, and generous space on a crisp Snow page (or a charcoal
+Night page in dark mode).
 
-Signature marks: a Blaze period after each page title (and a question mark
-on the home contact heading), the Blaze underline on the current nav item,
-the "currently" status dot on the home hero, the flagstick marking today on
-the career timeline, topographic contours on the Spruce band, and the Teton
-ridgeline the footer rises out of. Each motif appears once; do not repeat
-them as decoration elsewhere.
+Materials, each with one job:
+
+- **Steel** — ink and window framing. Thin, black, precise.
+- **Pine** — the deep green of the demos band, the demo headers, and the
+  footer.
+- **Cedar** — warm wood: the plank panel on the home contact section and
+  small labels (demo categories).
+- **Terracotta** — the pillows by the fire: the one accent. Buttons, title
+  periods, trend lines, the current-page marker.
+- **Sage, Alpenglow, Lantern** — sagebrush, dusk sky, and window glow; they
+  live inside data visuals.
+
+Warmth comes from cedar, terracotta, and type, never from a cream page.
+
+Signature moments, each used once: the Terracotta period after page titles,
+the "currently" status dot, the career-timeline flagstick (old-money golf),
+the picture window on the home page (a dusk photo behind black-steel
+mullions), the cedar plank contact panel with its steel button, topographic
+contours on Pine bands, and the ridgeline the footer rises out of. Do not
+repeat them as decoration elsewhere.
 
 ## Color
 
@@ -29,24 +41,26 @@ keeps its raw light and dark values and resolves through `light-dark()`, with a
 
 | Token | Name | Light | Dark | Role |
 |---|---|---|---|---|
-| `--page-bg` | | `#f1f4ee` | `#0d1410` | Page background: faint sage, near-black spruce |
-| `--surface` | | `rgba(255,255,255,0.78)` | `rgba(24,34,28,0.74)` | Translucent card surface |
-| `--surface-strong` | | `#fbfcf9` | `#151e18` | Solid card surface |
-| `--text-primary` | | `#15221a` | `#eef2ea` | Ink |
-| `--text-body` | | `#38463d` | `#cdd7cd` | Running copy |
-| `--text-secondary` | | `#56655b` | `#9fb1a4` | Muted copy |
-| `--hairline` | | `rgba(21,34,26,0.12)` | `rgba(238,242,234,0.13)` | Decorative rules |
-| `--control-border` | | `#7b8a80` | `#7f9185` | Control boundaries (3:1) |
-| `--signal` | Blaze | `#a9441a` | `#ee8b55` | Primary CTA fill, current-page marker, title marks, trend lines |
-| `--signal-ink` | | `#ffffff` | `#1d0c04` | Text on a Blaze fill |
-| `--signal-hover` | | `#8d3712` | `#f5a577` | Blaze CTA hover |
-| `--data-teal` | Fairway | `#2e6a3c` | `#86c493` | Data green: the application layer, the Web skill group |
-| `--data-blue` | Snake River | `#33627d` | `#93bdd6` | Data slate-blue: infrastructure, C.H. Robinson |
-| `--accent` | Aspen | `#8a6408` | `#e2b54a` | Data gold: small markers, the Data skill group |
-| `--band-bg` | Spruce | `#163126` | same | Always-dark band and footer (`.ink-band`) |
-| `--well` | | `#e5ebe2` | `#1c2821` | Sunken backgrounds: tab tracks, demo panels, chips |
-| `--line` | | `#cdd6ca` | `#2d3b32` | Solid decorative borders (cards, panels); never a control edge |
-| `--negative` | Cranberry | `#a3243a` | `#f08a9a` | Losses, negative coefficients, errors |
+| `--page-bg` | Snow / Night | `#f8f8f6` | `#121413` | Page background |
+| `--surface` | | `rgba(255,255,255,0.82)` | `rgba(27,30,28,0.78)` | Translucent card surface |
+| `--surface-strong` | | `#ffffff` | `#1b1e1c` | Solid card surface |
+| `--text-primary` | Steel | `#191b1a` | `#f2f0ea` | Ink |
+| `--text-body` | | `#3c403d` | `#d2cfc7` | Running copy |
+| `--text-secondary` | | `#5f6561` | `#a3a29a` | Muted copy |
+| `--hairline` | | `rgba(25,27,26,0.1)` | `rgba(242,240,234,0.12)` | Decorative rules |
+| `--control-border` | | `#7d837f` | `#858a85` | Control boundaries (3:1) |
+| `--signal` | Terracotta | `#a8512c` | `#e2936a` | The accent: CTAs, title marks, fit lines, current page |
+| `--signal-ink` | | `#ffffff` | `#1f0d05` | Text on a Terracotta fill |
+| `--signal-hover` | | `#8e4222` | `#ecaa86` | Terracotta CTA hover |
+| `--cedar` | Cedar | `#8c5f36` | `#d6a872` | Wood: category labels; the plank panel has its own tones |
+| `--data-teal` | Sage | `#4f6b58` | `#a3bfa8` | Data green: application layer, positive values |
+| `--data-blue` | Alpenglow | `#4c6390` | `#aebde3` | Data blue: infrastructure, C.H. Robinson, data series |
+| `--accent` | Lantern | `#8a5f0c` | `#eec07a` | Data gold: small markers, the Data skill group |
+| `--negative` | Red | `#b0262f` | `#f29a9e` | Negative values and errors (after the red lodge mullions) |
+| `--well` | | `#eeefeb` | `#1f2320` | Sunken backgrounds: tab tracks, demo panels |
+| `--line` | | `#dcded8` | `#2e3330` | Solid decorative borders; never a control edge |
+| `--steel` | Steel | `#191b1a` | same | Window mullions and frames |
+| `--band-bg` | Pine | `#18231e` | same | Always-dark band, demo headers, footer (`.ink-band`) |
 
 Tailwind aliases every semantic token through `color-mix()`, so opacity
 modifiers work: `text-ink`, `text-body`, `text-muted`, `bg-page`,
@@ -54,7 +68,7 @@ modifiers work: `text-ink`, `text-body`, `text-muted`, `bg-page`,
 `text-signal-ink`, `bg-signal-hover`, `text-fairway`, `text-river`,
 `text-aspen`, `text-negative`, `bg-spruce`, and so on. Never write raw hex or
 Tailwind palette colors (`text-red-500`) in components; status colors are
-Fairway (positive), Aspen (warning), and Cranberry (negative).
+Sage (positive), Lantern (warning), and Red (negative).
 
 Recharts accepts CSS variables in `stroke` and `fill`, so chart colors are
 written as `var(--signal)` and follow the scheme with no JavaScript.
@@ -64,16 +78,19 @@ the data colors as RGB triples. Keep it in sync with the tokens.
 
 Rules:
 
-- Never use pure `#000000` page backgrounds; tint dark surfaces toward spruce.
+- Never use pure `#000000` page backgrounds; Night is a warm charcoal.
 - Signal is for one primary action per view and for small marks. It never
   fills a page background, and body text never uses it.
 - Data colors encode meaning (a layer, a company, a skill group) and should
   map the same way wherever they appear. Caterpillar is signal and C.H.
   Robinson is blue in every timeline and list.
 - Every pairing above meets AA as text on its own page background; white on
-  Blaze is 5.9:1, and Blaze and Aspen both pass on Spruce.
-- The token names `--data-teal` and `--data-blue` predate the lodge palette;
-  they now hold Fairway and Snake River.
+  Terracotta is 5.4:1, and Terracotta and Cedar both pass on Pine. Steel
+  text on the light cedar planks is at least 5.5:1.
+- Token names `--data-teal`, `--data-blue`, and `--accent` predate this
+  palette; they hold Sage, Alpenglow, and Lantern. Tailwind aliases:
+  `fairway` (Sage), `river` (Alpenglow), `aspen` (Lantern), `pine`/`spruce`,
+  `cedar`, `steel`.
 - Muted gray copy must keep at least 4.5:1 contrast against its background.
   `#86868b` fails this as text on the light page (3.3:1); use `text-muted`.
 - Hairlines are decoration only. Anything that marks the edge of a control
@@ -90,13 +107,15 @@ In JavaScript (canvas, charts), read the rendered scheme from `useTheme()`.
 
 ## Typography
 
-- Display: Young Serif (self-hosted via `@fontsource/young-serif`, Latin
-  subset, imported in `main.tsx`). A sturdy old-style serif with the feel of
-  a clubhouse sign. It ships one weight, so `.display-heading` sets weight
-  400 and `font-synthesis: none`; never bold it. Tailwind: `font-display`.
+- Display: Bodoni Moda (self-hosted variable font via
+  `@fontsource-variable/bodoni-moda`, optical-size axis, imported in
+  `main.tsx`). Crisp high-contrast hairlines read as quiet luxury;
+  `font-optical-sizing: auto` keeps them sturdy at section sizes. Weight 560:
+  lighter weights lose the hairline hyphen ("K-Means"). Tailwind:
+  `font-display`.
 - Body and UI: the system stack (`system-ui`, SF Pro, Segoe UI). The serif
   and sans pair on a contrast axis; do not add a second serif or sans.
-- Display headings: `.display-heading` — Young Serif, tracking `-0.015em`.
+- Display headings: `.display-heading` — Bodoni Moda, tracking `-0.02em`.
   Demo section headings (h2) use it too, at `text-3xl`. Size
   comes from `.display-hero` (home) or `.display-page` (every other page),
   both `clamp()` scales with rem bounds so browser zoom still works and long
@@ -107,7 +126,7 @@ In JavaScript (canvas, charts), read the rendered scheme from `useTheme()`.
   text. Measure capped around 60–70ch via `max-w-[..ch]` utilities.
 - Headings use `text-wrap: balance`; paragraphs and list items use
   `text-wrap: pretty`.
-- Young Serif is the only web font.
+- Bodoni Moda is the only web font.
 
 ## Layout
 
@@ -154,32 +173,41 @@ the interactive demos and loads with them through `DemoLayout`.
   controls carry a `.visually-hidden` text label.
 - `.loading-spinner` — a native indeterminate `<progress>`; add
   `.loading-spinner-sm` inside buttons.
-- `.ink-band` — the always-dark Spruce band (home demos section, footer). It
+- `.ink-band` — the always-dark Pine band (home demos section, footer). It
   remaps the text, hairline, and signal tokens so anything inside it reads
   correctly.
-- `TopoLines` — procedural contour lines behind the home Spruce band; they
-  draw in on scroll.
+- `TopoLines` — procedural contour lines behind Pine bands (home demos band
+  and demo headers); they draw in on load or scroll.
 - `Ridgeline` — layered Teton silhouette at the top of the footer. Its front
   ridge is filled with `--band-bg`, so it flows into the footer band.
 - `.ghost-link` — outlined secondary CTA beside a `.quiet-link`.
-- `DataScienceAnimation` — the home hero canvas: live k-means with Snake
-  River, Fairway, and Aspen clusters and a Blaze trend line.
-- `CareerTimeline` — one bar from 2018 to today, colored by company, with a
+- `.steel-link` — black-steel pill CTA for use on cedar (inverts to warm
+  white on the dark walnut planks).
+- `PictureWindow` — the home page's single photograph (Unsplash, credited
+  in its caption) behind a steel frame, two mullions, and a transom. The
+  photo drifts and the glass reflection slides on scroll. Swap the photo
+  for your own by changing the constants at the top of the component.
+- `.cedar-panel` — horizontal cedar planks (light honey, or dark walnut in
+  dark mode) with fine shadow gaps; sets its own text and button colors.
+- `DataScienceAnimation` — the home hero canvas: live k-means with
+  Alpenglow, Sage, and Lantern clusters and a Terracotta trend line.
+- `CareerTimeline` — one bar from 2018 to today, colored by company
+  (Terracotta for Caterpillar, Alpenglow for C.H. Robinson), with a
   flagstick at today.
 - `PlatformStack` — isometric layer diagram with a matching list.
 - `DemoGlyph` — small SVG illustration per demo (home band, projects list,
   demo headers).
-- `DemoHeader` — opening Spruce band on every demo page: back link, category
-  in Aspen, serif title with the Blaze period, lede, optional actions, and
+- `DemoHeader` — opening Pine band on every demo page: back link, category
+  in Cedar, serif title with the Terracotta period, lede, optional actions, and
   the demo's glyph (hidden on phones) over contour lines.
 - `DemoTabs` / `.demo-tab` — section switcher on a sunken track; the active
-  tab is Blaze. Scrolls sideways on narrow screens.
-- `.demo-icon` — Blaze-tinted icon mark beside demo headings (never a black
-  tile). `.step-badge` — numbered steps as Young Serif numerals on a
-  Fairway tint, like a scorecard.
-- Demo chart conventions: data series in Snake River, fitted and forecast
-  lines in Blaze, positive values in Fairway, negative in Cranberry, k-means
-  clusters cycle Blaze, Fairway, Snake River, Aspen, Cranberry. Centroids are
+  tab is Terracotta. Scrolls sideways on narrow screens.
+- `.demo-icon` — Terracotta-tinted icon mark beside demo headings (never a black
+  tile). `.step-badge` — numbered steps as Bodoni numerals on a
+  Sage tint, like a scorecard.
+- Demo chart conventions: data series in Alpenglow, fitted and forecast
+  lines in Terracotta, positive values in Sage, negative in Red, k-means
+  clusters cycle Terracotta, Sage, Alpenglow, Lantern, Red. Centroids are
   ring markers.
   The demo list itself lives in `src/data/demos.ts`.
 - `.metric-tile`, `.signal-strip` — dashboard widgets for the demos.

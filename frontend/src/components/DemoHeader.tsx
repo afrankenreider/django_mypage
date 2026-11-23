@@ -39,7 +39,7 @@ export default function DemoHeader({ kind, lede, actions }: DemoHeaderProps) {
       <div className="mt-8 grid items-end gap-8 lg:grid-cols-[1.3fr_0.7fr] lg:gap-12">
         <div>
           {demo && (
-            <p className="enter text-sm font-medium text-[var(--accent)]" style={enterIndex(1)}>
+            <p className="enter text-sm font-medium text-cedar" style={enterIndex(1)}>
               {demo.category}
             </p>
           )}

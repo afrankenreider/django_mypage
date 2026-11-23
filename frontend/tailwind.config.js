@@ -44,6 +44,9 @@ export default {
                     aspen: '--accent',
                     negative: '--negative',
                     spruce: '--band-bg',
+                    pine: '--band-bg',
+                    cedar: '--cedar',
+                    steel: '--steel',
                 }).map(([name, token]) => [
                     name,
                     `color-mix(in oklab, var(${token}) calc(<alpha-value> * 100%), transparent)`,
@@ -51,7 +54,7 @@ export default {
             ),
             fontFamily: {
                 sans: ['system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'],
-                display: ['"Young Serif"', 'Georgia', '"Times New Roman"', 'serif'],
+                display: ['"Bodoni Moda Variable"', '"Bodoni 72"', 'Didot', 'Georgia', 'serif'],
                 mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Consolas', 'monospace'],
             },
         },

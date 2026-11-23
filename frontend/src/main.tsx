@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom'
 import App from './App'
 import { ThemeProvider } from './context/ThemeContext'
 import ScrollToTop from './components/ScrollToTop'
-import '@fontsource/young-serif/latin-400.css'
+import '@fontsource-variable/bodoni-moda/opsz.css'
 import './index.css'
 
 // Popover is not yet in every supported browser: load the polyfill only where it is missing.

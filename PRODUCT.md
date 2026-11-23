@@ -58,8 +58,9 @@ read like it was written by the person it describes.
 ## Design Principles
 
 1. Content first: experience, demos, and contact details carry the site.
-2. Precise neutral surfaces; color and motion come from data visuals
-   (charts, diagrams, the demos), not decoration.
+2. Modern mountain luxury: crisp neutral surfaces with steel, cedar, pine,
+   and terracotta details. Color and motion come from data visuals and one
+   landscape photograph, not decoration.
 3. Every sentence must survive the question "would Andrew actually say this?"
 
 ## Accessibility & Inclusion
