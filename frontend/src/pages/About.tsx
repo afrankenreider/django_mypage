@@ -1,4 +1,10 @@
+import CareerTimeline from '../components/CareerTimeline'
 import { enterIndex } from '../utils/motion'
+
+const COMPANY_COLOR: Record<string, string> = {
+  Caterpillar: 'var(--signal)',
+  'C.H. Robinson': 'var(--data-blue)',
+}
 
 const timeline = [
   {
@@ -59,7 +65,7 @@ export default function About() {
         <header className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-start lg:gap-12">
           <div className="enter">
             <h1 className="display-heading display-page">
-              About me.
+              About me<span className="signal-text">.</span>
             </h1>
             <p className="apple-copy mt-6 max-w-md text-lg">
               Senior Manager, Digital Architecture at Caterpillar
@@ -78,7 +84,9 @@ export default function About() {
           </div>
         </header>
 
-        <div className="enter mt-16 grid gap-14 sm:mt-20 lg:grid-cols-2" style={enterIndex(2)}>
+        <CareerTimeline className="enter mt-16 border-t hairline pt-8 sm:mt-20" style={enterIndex(2)} />
+
+        <div className="enter mt-16 grid gap-14 sm:mt-20 lg:grid-cols-2" style={enterIndex(3)}>
           <section>
             <div className="flex items-end justify-between gap-4 border-b hairline pb-4">
               <h2 className="text-2xl font-semibold tracking-tight">Experience</h2>
@@ -89,7 +97,14 @@ export default function About() {
                 <li key={`${item.title}-${item.period}`} className="grid gap-2 py-6 sm:grid-cols-[1fr_auto] sm:gap-6">
                   <div>
                     <h3 className="font-semibold tracking-tight">{item.title}</h3>
-                    <p className="apple-copy mt-1 text-sm">{item.company}</p>
+                    <p className="apple-copy mt-1 inline-flex items-center gap-2 text-sm">
+                      <span
+                        aria-hidden="true"
+                        className="inline-block h-2 w-2 rounded-full"
+                        style={{ background: COMPANY_COLOR[item.company] }}
+                      />
+                      {item.company}
+                    </p>
                     <p className="body-copy mt-3 text-sm">{item.summary}</p>
                   </div>
                   <p className="text-sm tabular-nums text-muted sm:text-right">{item.period}</p>

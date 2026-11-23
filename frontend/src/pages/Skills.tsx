@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react'
 import { enterIndex } from '../utils/motion'
 
 interface Skill {
@@ -48,6 +49,15 @@ const expertiseAreas = [
 
 const categories = [...new Set(skills.map((skill) => skill.category))]
 
+const CATEGORY_COLOR: Record<string, string> = {
+  Languages: 'var(--signal)',
+  Web: 'var(--data-teal)',
+  Data: 'var(--accent)',
+  Infrastructure: 'var(--data-blue)',
+}
+
+const AREA_COLOR = ['var(--data-blue)', 'var(--data-teal)', 'var(--signal)']
+
 const chipClass = 'inline-flex min-h-11 items-center rounded-full border px-4 text-sm text-body'
 
 export default function Skills() {
@@ -55,15 +65,20 @@ export default function Skills() {
     <div className="apple-page pb-24 pt-14 sm:pt-16">
       <div className="apple-section">
         <header className="enter grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-end lg:gap-10">
-          <h1 className="display-heading display-page">Skills.</h1>
+          <h1 className="display-heading display-page">Skills<span className="signal-text">.</span></h1>
           <p className="apple-copy max-w-2xl text-xl">
             The languages and tools I've used to ship real work.
           </p>
         </header>
 
         <ul className="enter mt-14 grid gap-x-10 sm:mt-20 md:grid-cols-3" style={enterIndex(1)}>
-          {expertiseAreas.map((area) => (
-            <li key={area.title} className="border-t hairline py-6">
+          {expertiseAreas.map((area, index) => (
+            <li key={area.title} className="relative border-t hairline py-6">
+              <span
+                aria-hidden="true"
+                className="grow-x absolute -top-px left-0 h-[3px] w-16 rounded-full"
+                style={{ ...enterIndex(index), background: AREA_COLOR[index] }}
+              />
               <h2 className="text-2xl font-semibold tracking-tight">{area.title}</h2>
               <p className="apple-copy mt-3 max-w-[40ch]">{area.description}</p>
             </li>
@@ -73,7 +88,14 @@ export default function Skills() {
         <div className="enter mt-10 divide-y divide-[var(--hairline)] border-t hairline sm:mt-14" style={enterIndex(2)}>
           {categories.map((category) => (
             <section key={category} className="grid gap-4 py-7 md:grid-cols-[220px_1fr] md:gap-6">
-              <h2 className="text-lg font-semibold tracking-tight md:pt-2">{category}</h2>
+              <h2 className="inline-flex items-center gap-2.5 text-lg font-semibold tracking-tight md:pt-2">
+                <span
+                  aria-hidden="true"
+                  className="inline-block h-2.5 w-2.5 rounded-full"
+                  style={{ background: CATEGORY_COLOR[category] }}
+                />
+                {category}
+              </h2>
               <ul className="flex flex-wrap gap-2.5">
                 {skills
                   .filter((skill) => skill.category === category)
@@ -84,7 +106,8 @@ export default function Skills() {
                           href={skill.url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className={`${chipClass} border-control transition-colors hover:bg-[var(--hover)] hover:text-ink`}
+                          className={`${chipClass} skill-chip border-control`}
+                          style={{ '--chip-color': CATEGORY_COLOR[category] } as CSSProperties}
                         >
                           {skill.name}
                           <span className="visually-hidden"> (opens in a new tab)</span>

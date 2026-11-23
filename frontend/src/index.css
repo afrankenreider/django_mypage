@@ -36,6 +36,16 @@
     --hover-dark: rgba(255, 255, 255, 0.1);
     --cta-hover-light: #000000;
     --cta-hover-dark: #ffffff;
+    --signal-light: #c2401d;
+    --signal-dark: #ff8159;
+    --signal-ink-light: #ffffff;
+    --signal-ink-dark: #1a0904;
+    --signal-hover-light: #a83414;
+    --signal-hover-dark: #ff9d7e;
+    --data-teal-light: #0e7a6b;
+    --data-teal-dark: #3fd0b9;
+    --data-blue-light: #2f56c8;
+    --data-blue-dark: #8eaaff;
 
     --page-bg: var(--page-bg-light);
     --surface: var(--surface-light);
@@ -49,6 +59,21 @@
     --tile: var(--tile-light);
     --hover: var(--hover-light);
     --cta-hover: var(--cta-hover-light);
+    --signal: var(--signal-light);
+    --signal-ink: var(--signal-ink-light);
+    --signal-hover: var(--signal-hover-light);
+    --data-teal: var(--data-teal-light);
+    --data-blue: var(--data-blue-light);
+
+    /* Always-dark ink-blue band. Same in both schemes. */
+    --band-bg: #101b3d;
+    --band-text: #f5f5f7;
+    --band-muted: #aab4d4;
+    --band-line: rgba(170, 180, 212, 0.22);
+
+    /* Motion curves. */
+    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
 
     --header-height: 3.5rem;
     --target-size: 24px;
@@ -58,7 +83,7 @@
     --z-skip-link: 30;
 
     color-scheme: light dark;
-    accent-color: var(--text-primary);
+    accent-color: var(--signal);
 }
 
 /*
@@ -80,6 +105,11 @@
             --tile: var(--tile-dark);
             --hover: var(--hover-dark);
             --cta-hover: var(--cta-hover-dark);
+        --signal: var(--signal-dark);
+        --signal-ink: var(--signal-ink-dark);
+        --signal-hover: var(--signal-hover-dark);
+        --data-teal: var(--data-teal-dark);
+        --data-blue: var(--data-blue-dark);
         }
 
         :root:has(> head > meta[name="color-scheme"][content="light"]) {
@@ -95,6 +125,11 @@
             --tile: var(--tile-light);
             --hover: var(--hover-light);
             --cta-hover: var(--cta-hover-light);
+        --signal: var(--signal-light);
+        --signal-ink: var(--signal-ink-light);
+        --signal-hover: var(--signal-hover-light);
+        --data-teal: var(--data-teal-light);
+        --data-blue: var(--data-blue-light);
         }
     }
 
@@ -111,6 +146,11 @@
         --tile: var(--tile-dark);
         --hover: var(--hover-dark);
         --cta-hover: var(--cta-hover-dark);
+    --signal: var(--signal-dark);
+    --signal-ink: var(--signal-ink-dark);
+    --signal-hover: var(--signal-hover-dark);
+    --data-teal: var(--data-teal-dark);
+    --data-blue: var(--data-blue-dark);
     }
 }
 
@@ -128,6 +168,11 @@
         --tile: light-dark(var(--tile-light), var(--tile-dark));
         --hover: light-dark(var(--hover-light), var(--hover-dark));
         --cta-hover: light-dark(var(--cta-hover-light), var(--cta-hover-dark));
+        --signal: light-dark(var(--signal-light), var(--signal-dark));
+        --signal-ink: light-dark(var(--signal-ink-light), var(--signal-ink-dark));
+        --signal-hover: light-dark(var(--signal-hover-light), var(--signal-hover-dark));
+        --data-teal: light-dark(var(--data-teal-light), var(--data-teal-dark));
+        --data-blue: light-dark(var(--data-blue-light), var(--data-blue-dark));
     }
 }
 
@@ -181,7 +226,7 @@ body {
 }
 
 ::selection {
-    background: color-mix(in oklab, var(--text-primary) 16%, transparent);
+    background: color-mix(in oklab, var(--signal) 24%, transparent);
 }
 
 button,
@@ -393,6 +438,20 @@ li {
     font-weight: 600;
 }
 
+/* A signal dot beside the current page in the collapsed menu. */
+.site-menu a[aria-current="page"]::after {
+    content: "";
+    inline-size: 0.375rem;
+    block-size: 0.375rem;
+    margin-inline-start: auto;
+    border-radius: 9999px;
+    background: var(--signal);
+}
+
+.site-header.is-wide .site-menu a[aria-current="page"]::after {
+    display: none;
+}
+
 @media (prefers-reduced-motion: no-preference) {
     .site-menu:is(:popover-open, .\:popover-open) {
         opacity: 1;
@@ -447,7 +506,7 @@ li {
 
 .site-header.is-wide .site-menu a[aria-current="page"] {
     font-weight: 500;
-    box-shadow: inset 0 -2px 0 -0.5px var(--text-primary);
+    box-shadow: inset 0 -2px 0 -0.5px var(--signal);
     border-radius: 0;
 }
 
@@ -544,6 +603,154 @@ progress.loading-spinner-sm:indeterminate {
     }
 }
 
+/*
+ * Masked line reveal for display headings: each .reveal-line clips its
+ * inner span, which rises into place. Text is in place without motion.
+ */
+.reveal-line {
+    display: block;
+    overflow: clip;
+    /* Room for descenders inside the clip. */
+    padding-block-end: 0.08em;
+    margin-block-end: -0.08em;
+}
+
+.reveal-line > span {
+    display: inline-block;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .reveal-line > span {
+        animation: reveal-up 900ms var(--ease-out-expo) both;
+        animation-delay: calc(var(--enter-index, 0) * 90ms + 80ms);
+    }
+}
+
+@keyframes reveal-up {
+    from {
+        translate: 0 105%;
+    }
+}
+
+/*
+ * Stroke draw-in for SVG paths. Paths set pathLength="1". Runs on load,
+ * or as the element scrolls into view where scroll timelines exist.
+ */
+@media (prefers-reduced-motion: no-preference) {
+    .draw-in {
+        stroke-dasharray: 1;
+        animation: draw 1400ms var(--ease-out-quart) both;
+        animation-delay: calc(var(--enter-index, 0) * 120ms + 200ms);
+    }
+
+    .grow-x {
+        transform-box: fill-box;
+        transform-origin: left center;
+        animation: grow-x 1100ms var(--ease-out-expo) both;
+        animation-delay: calc(var(--enter-index, 0) * 110ms + 300ms);
+    }
+
+    .pop-in {
+        transform-box: fill-box;
+        transform-origin: center;
+        animation: pop-in 600ms var(--ease-out-expo) both;
+        animation-delay: calc(var(--enter-index, 0) * 60ms + 400ms);
+    }
+
+    .drop-in {
+        animation: drop-in 900ms var(--ease-out-expo) both;
+        animation-delay: calc(var(--enter-index, 0) * 140ms + 150ms);
+    }
+
+    /*
+     * Inside an .on-scroll container, the same animations follow the
+     * container's view timeline instead of page load. The timeline is
+     * named on the HTML container so SVG descendants can use it too.
+     */
+    @supports (animation-timeline: view()) {
+        .on-scroll {
+            view-timeline-name: --reveal;
+        }
+
+        .on-scroll :is(.draw-in, .grow-x, .pop-in, .drop-in, .scroll-reveal) {
+            animation-delay: 0s;
+            animation-timeline: --reveal;
+            animation-range:
+                entry calc(var(--enter-index, 0) * 6%)
+                cover calc(30% + var(--enter-index, 0) * 6%);
+            animation-fill-mode: both;
+        }
+
+        .on-scroll .scroll-reveal {
+            animation-name: enter;
+            animation-timing-function: var(--ease-out-quart);
+        }
+    }
+}
+
+@keyframes draw {
+    from {
+        stroke-dashoffset: 1;
+    }
+}
+
+@keyframes halo {
+    to {
+        opacity: 0;
+        scale: 3;
+    }
+}
+
+@keyframes unmask {
+    from {
+        opacity: 0;
+        clip-path: inset(12% 12% 12% 12% round 2rem);
+        scale: 0.97;
+    }
+
+    to {
+        opacity: 1;
+        clip-path: inset(0 0 0 0 round 2rem);
+        scale: 1;
+    }
+}
+
+@keyframes drop-in {
+    from {
+        opacity: 0;
+        translate: 0 -28px;
+    }
+}
+
+@keyframes grow-x {
+    from {
+        scale: 0 1;
+    }
+}
+
+@keyframes pop-in {
+    from {
+        opacity: 0;
+        scale: 0.4;
+    }
+}
+
+/*
+ * Flow along a dashed connector. Runs three cycles (under five seconds),
+ * so it needs no pause control, and not at all for reduced motion.
+ */
+@media (prefers-reduced-motion: no-preference) {
+    .flow-dash {
+        animation: flow 1.6s linear 3;
+    }
+}
+
+@keyframes flow {
+    to {
+        stroke-dashoffset: -16;
+    }
+}
+
 @layer components {
     .apple-page {
         min-block-size: 100dvh;
@@ -635,20 +842,54 @@ progress.loading-spinner-sm:indeterminate {
         -webkit-backdrop-filter: blur(24px) saturate(180%);
     }
 
+    /* Primary call to action: the signal color, with a small arrow nudge. */
     .quiet-link {
-        @apply inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-medium transition-colors;
+        @apply inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-medium;
         min-block-size: 2.75rem;
-        background: var(--text-primary);
-        color: var(--page-bg);
+        background: var(--signal);
+        color: var(--signal-ink);
+        box-shadow: 0 10px 30px -14px color-mix(in oklab, var(--signal) 70%, transparent);
+        transition: background-color 150ms ease-out, box-shadow 200ms ease-out;
     }
 
     .quiet-link:hover {
-        background: var(--cta-hover);
+        background: var(--signal-hover);
+        box-shadow: 0 14px 34px -12px color-mix(in oklab, var(--signal) 80%, transparent);
+    }
+
+    /* Secondary call to action: an ink outline. */
+    .ghost-link {
+        @apply inline-flex items-center gap-2 rounded-full border px-5 py-3 text-sm font-medium;
+        min-block-size: 2.75rem;
+        border-color: var(--control-border);
+        color: var(--text-primary);
+        transition: background-color 150ms ease-out, border-color 150ms ease-out;
+    }
+
+    .ghost-link:hover {
+        background: var(--hover);
+        border-color: var(--text-primary);
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+        :is(.quiet-link, .ghost-link, .text-link) svg {
+            transition: translate 200ms var(--ease-out-quart);
+        }
+
+        :is(.quiet-link, .ghost-link, .text-link):hover svg {
+            translate: 0.2rem 0;
+        }
     }
 
     .text-link {
         @apply inline-flex items-center gap-1 font-medium underline-offset-4 hover:underline;
         color: var(--text-primary);
+        text-decoration-color: var(--signal);
+        text-decoration-thickness: 2px;
+    }
+
+    .signal-text {
+        color: var(--signal);
     }
 
     .social-link {
@@ -659,6 +900,100 @@ progress.loading-spinner-sm:indeterminate {
 
     .social-link:hover {
         background: var(--hover);
+        border-color: var(--signal);
+        color: var(--text-primary);
+    }
+
+    /* Frame for the home hero canvas. */
+    .hero-visual {
+        background: var(--surface-strong);
+        box-shadow:
+            0 1px 0 0 var(--hairline),
+            0 40px 80px -48px color-mix(in oklab, var(--data-blue) 45%, transparent);
+    }
+
+    /* "Currently" marker: a signal dot with a soft halo. */
+    .status-dot {
+        position: relative;
+        inline-size: 0.5rem;
+        block-size: 0.5rem;
+        border-radius: 9999px;
+        background: var(--signal);
+        box-shadow: 0 0 0 4px color-mix(in oklab, var(--signal) 18%, transparent);
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+        .status-dot::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            background: var(--signal);
+            animation: halo 1.8s var(--ease-out-quart) 1s 2;
+        }
+    }
+
+    /* Home hero visual: unmasks from its center after the headline lands. */
+    @media (prefers-reduced-motion: no-preference) {
+        .enter-visual {
+            animation: unmask 1200ms var(--ease-out-expo) 250ms both;
+        }
+    }
+
+    /* Demo links on the ink-blue band. */
+    .demo-tile {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        block-size: 100%;
+        padding: 0.75rem 0.875rem 1rem;
+        border: 1px solid var(--band-line);
+        border-radius: 1.25rem;
+        background: rgba(255, 255, 255, 0.04);
+        transition: background-color 200ms ease-out, border-color 200ms ease-out, translate 300ms var(--ease-out-quart);
+    }
+
+    .demo-tile:hover {
+        background: rgba(255, 255, 255, 0.08);
+        border-color: color-mix(in oklab, var(--signal) 60%, transparent);
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+        .demo-tile:hover {
+            translate: 0 -3px;
+        }
+    }
+
+    .demo-tile-glyph {
+        inline-size: 100%;
+        aspect-ratio: 4 / 3;
+        border-radius: 0.75rem;
+        background: rgba(255, 255, 255, 0.03);
+    }
+
+    /* Demo thumbnails on the projects page. */
+    .project-glyph {
+        aspect-ratio: 4 / 3;
+        padding: 0.5rem;
+        border: 1px solid var(--hairline);
+        border-radius: 1.25rem;
+        background: var(--surface-strong);
+        transition: border-color 200ms ease-out, box-shadow 300ms ease-out;
+    }
+
+    .group:hover .project-glyph {
+        border-color: color-mix(in oklab, var(--signal) 55%, transparent);
+        box-shadow: 0 24px 50px -30px color-mix(in oklab, var(--signal) 55%, transparent);
+    }
+
+    /* Skill links pick up their category color on hover. */
+    .skill-chip {
+        transition: background-color 150ms ease-out, border-color 150ms ease-out, color 150ms ease-out;
+    }
+
+    .skill-chip:hover {
+        border-color: var(--chip-color, var(--text-primary));
+        background: color-mix(in oklab, var(--chip-color, var(--text-primary)) 12%, transparent);
         color: var(--text-primary);
     }
 
@@ -667,15 +1002,39 @@ progress.loading-spinner-sm:indeterminate {
         background: var(--hairline);
     }
 
-    /* Always-dark band. Pins its own scheme so tokens and focus rings follow. */
+    /*
+     * Always-dark ink-blue band. Pins its own scheme so tokens and focus
+     * rings follow, and remaps the muted and hairline tokens to the band.
+     */
     .ink-band {
         color-scheme: dark;
-        background: #1d1d1f;
-        color: #f5f5f7;
-        --focus-ring: #f5f5f7;
-        --text-primary: var(--text-primary-dark);
-        --page-bg: var(--page-bg-dark);
+        background: var(--band-bg);
+        color: var(--band-text);
+        --focus-ring: var(--band-text);
+        --text-primary: var(--band-text);
+        --text-body: var(--band-text);
+        --text-secondary: var(--band-muted);
+        --hairline: var(--band-line);
+        --control-border: var(--band-muted);
+        --hover: rgba(255, 255, 255, 0.08);
+        --page-bg: var(--band-bg);
         --cta-hover: var(--cta-hover-dark);
+        --signal: var(--signal-dark);
+        --signal-ink: var(--signal-ink-dark);
+        --signal-hover: var(--signal-hover-dark);
+        --data-teal: var(--data-teal-dark);
+        --data-blue: var(--data-blue-dark);
+        --accent: var(--accent-dark);
+    }
+
+    /* A faint chart grid on the band, masked so it fades toward the edges. */
+    .band-grid {
+        background-image:
+            linear-gradient(var(--band-line) 1px, transparent 1px),
+            linear-gradient(90deg, var(--band-line) 1px, transparent 1px);
+        background-size: 48px 48px;
+        mask-image: radial-gradient(ellipse at 70% 40%, black, transparent 70%);
+        opacity: 0.5;
     }
 }
 

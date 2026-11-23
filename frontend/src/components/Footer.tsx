@@ -16,7 +16,7 @@ export default function Footer() {
         <div className="grid gap-10 md:grid-cols-[1.6fr_1fr_1fr]">
           <div>
             <Link to="/" className="text-lg font-semibold tracking-tight">
-              Andrew Frankenreider
+              Andrew Frankenreider<span className="signal-text">.</span>
             </Link>
             <p className="apple-copy mt-3 max-w-md text-sm">
               Senior Manager, Digital Architecture at Caterpillar.
