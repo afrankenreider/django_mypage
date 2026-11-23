@@ -20,7 +20,7 @@ export default function AnalyticsSignal({
           <h3 className="mt-3 text-2xl font-semibold tracking-tight">{title}</h3>
           <p className="apple-copy mt-3 max-w-sm text-sm">{caption}</p>
         </div>
-        <div className="flex items-center gap-1.5 rounded-full border hairline px-3 py-1 text-xs text-muted">
+        <div className="flex items-center gap-1.5 rounded-sm border hairline px-3 py-1 text-xs text-muted">
           <span className="h-1.5 w-1.5 rounded-full bg-signal" />
           Live
         </div>

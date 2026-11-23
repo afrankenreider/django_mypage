@@ -3,7 +3,6 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import CareerTimeline from '../components/CareerTimeline'
 import DataScienceAnimation from '../components/DataScienceAnimation'
 import DemoGlyph from '../components/DemoGlyph'
-import PictureWindow from '../components/PictureWindow'
 import PlatformStack, { type StackLayer } from '../components/PlatformStack'
 import SocialLinks, { CONTACT_EMAIL } from '../components/SocialLinks'
 import TopoLines from '../components/TopoLines'
@@ -31,38 +30,34 @@ const layers: StackLayer[] = [
 export default function Home() {
   return (
     <div className="apple-page">
-      <section className="apple-section pb-16 pt-12 sm:pt-20 lg:pb-24 lg:pt-24">
-        <div className="grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-14">
+      <section className="apple-section pb-16 pt-14 sm:pt-20 lg:pb-24 lg:pt-28">
+        <div className="grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
           <div>
-            <h1 className="display-heading display-hero">
+            <p className="eyebrow enter" style={enterIndex(0)}>
+              Senior Manager, Digital Architecture &middot; Caterpillar
+            </p>
+            <h1 className="display-heading display-hero mt-5">
               <span className="reveal-line">
-                <span>Andrew</span>
+                <span style={enterIndex(1)}>Andrew</span>
               </span>
               <span className="reveal-line">
-                <span style={enterIndex(1)}>
+                <span style={enterIndex(2)}>
                   Frankenreider<span className="signal-text">.</span>
                 </span>
               </span>
             </h1>
-            <p
-              className="enter mt-7 inline-flex items-center gap-2.5 rounded-full border hairline py-1.5 pl-2.5 pr-4 text-sm font-medium text-body"
-              style={enterIndex(3)}
-            >
-              <span aria-hidden="true" className="status-dot" />
-              Senior Manager, Digital Architecture at Caterpillar
-            </p>
-            <p className="body-copy enter mt-6 max-w-[56ch] text-lg sm:text-xl" style={enterIndex(4)}>
+            <p className="body-copy enter mt-7 max-w-[54ch] text-lg" style={enterIndex(4)}>
               I lead the team building Caterpillar's enterprise analytics platform for global finance. We write the application, run the Azure infrastructure under it, and build the AI chat interface people use to work with it.
             </p>
-            <div className="enter mt-9 flex flex-wrap items-center gap-3" style={enterIndex(5)}>
+            <div className="enter mt-10 flex flex-wrap items-center gap-x-7 gap-y-4" style={enterIndex(5)}>
               <Link to="/projects" className="quiet-link">
                 View work
-                <ArrowForwardIcon aria-hidden="true" sx={{ fontSize: 17 }} />
+                <ArrowForwardIcon aria-hidden="true" sx={{ fontSize: 16 }} />
               </Link>
               <Link to="/about" className="ghost-link">
                 About me
               </Link>
-              <SocialLinks className="sm:ml-2" />
+              <SocialLinks />
             </div>
           </div>
 
@@ -71,11 +66,12 @@ export default function Home() {
           </div>
         </div>
 
-        <CareerTimeline className="enter mt-16 border-t hairline pt-8 sm:mt-20" style={enterIndex(6)} />
+        <CareerTimeline className="enter mt-16 border-t hairline pt-8 sm:mt-24" style={enterIndex(6)} />
       </section>
 
       <section className="apple-section pb-24 sm:pb-32">
-        <h2 className="display-heading max-w-2xl text-3xl sm:text-5xl">What my team owns</h2>
+        <p className="eyebrow">The platform</p>
+        <h2 className="display-heading mt-4 max-w-2xl text-4xl sm:text-[3.25rem]">What my team owns</h2>
         <p className="apple-copy mt-4 max-w-[52ch] text-lg">
           The whole platform, from the cloud resources up to the chat window.
         </p>
@@ -84,58 +80,51 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="apple-section pb-24 sm:pb-32">
-        <PictureWindow />
-      </section>
-
-      <section className="pb-24 sm:pb-32">
-        <div className="apple-section">
-          <div className="ink-band on-scroll relative isolate overflow-hidden rounded-[2rem] px-6 py-12 sm:px-10 sm:py-14 lg:px-14 lg:py-16">
-            <TopoLines className="pointer-events-none absolute inset-0 -z-10 h-full w-full" />
-            <div className="flex flex-wrap items-end justify-between gap-6">
-              <h2 className="display-heading max-w-xl text-3xl text-[var(--band-text)] sm:text-5xl">
+      <section className="ink-band on-scroll relative isolate overflow-hidden">
+        <TopoLines className="pointer-events-none absolute inset-0 -z-10 h-full w-full" />
+        <div className="apple-section py-20 sm:py-28">
+          <div className="flex flex-wrap items-end justify-between gap-8">
+            <div>
+              <p className="eyebrow">Side projects</p>
+              <h2 className="display-heading mt-4 max-w-xl text-4xl sm:text-[3.25rem]">
                 A few models I built to run in the browser.
               </h2>
-              <Link to="/projects" className="quiet-link">
-                Open the demos
-                <ArrowForwardIcon aria-hidden="true" sx={{ fontSize: 17 }} />
-              </Link>
             </div>
-
-            <ul className="mt-10 grid grid-cols-2 gap-3 sm:mt-12 lg:grid-cols-4 lg:gap-4">
-              {demos.map((demo) => (
-                <li key={demo.link}>
-                  <Link to={demo.link} className="demo-tile group">
-                    <DemoGlyph kind={demo.kind} className="demo-tile-glyph" />
-                    <span className="flex items-center justify-between gap-2 text-sm font-medium sm:text-base">
-                      {demo.title}
-                      <ArrowForwardIcon
-                        aria-hidden="true"
-                        className="shrink-0 opacity-60 transition group-hover:translate-x-0.5 group-hover:opacity-100 motion-reduce:transition-none"
-                        sx={{ fontSize: 16 }}
-                      />
-                    </span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            <Link to="/projects" className="quiet-link">
+              Open the demos
+              <ArrowForwardIcon aria-hidden="true" sx={{ fontSize: 16 }} />
+            </Link>
           </div>
+
+          <ul className="mt-12 grid grid-cols-2 gap-3 sm:mt-16 lg:grid-cols-4 lg:gap-5">
+            {demos.map((demo) => (
+              <li key={demo.link}>
+                <Link to={demo.link} className="demo-tile group">
+                  <DemoGlyph kind={demo.kind} className="demo-tile-glyph" />
+                  <span className="flex items-center justify-between gap-2 font-display text-lg sm:text-xl">
+                    {demo.title}
+                    <ArrowForwardIcon
+                      aria-hidden="true"
+                      className="shrink-0 opacity-60 transition group-hover:translate-x-0.5 group-hover:opacity-100 motion-reduce:transition-none"
+                      sx={{ fontSize: 16 }}
+                    />
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
-      <section className="apple-section pb-28">
-        <div className="cedar-panel grid gap-8 overflow-hidden rounded-[2rem] px-6 py-12 sm:grid-cols-[1fr_auto] sm:items-end sm:px-10 sm:py-14 lg:px-14">
-          <div>
-            <h2 className="display-heading text-4xl sm:text-6xl">Want to talk shop?</h2>
-            <p className="mt-4 max-w-[48ch] text-lg text-[var(--text-secondary)]">
-              Analytics platforms, data engineering, or any of the demos.
-            </p>
-          </div>
-          <a href={`mailto:${CONTACT_EMAIL}`} className="steel-link self-start justify-self-start sm:self-end">
-            Email me
-            <ArrowForwardIcon aria-hidden="true" sx={{ fontSize: 17 }} />
-          </a>
-        </div>
+      <section className="apple-section py-24 text-center sm:py-32">
+        <h2 className="display-heading text-4xl sm:text-[3.25rem]">Want to talk shop?</h2>
+        <p className="apple-copy mx-auto mt-4 max-w-[44ch] text-lg">
+          Analytics platforms, data engineering, or any of the demos.
+        </p>
+        <a href={`mailto:${CONTACT_EMAIL}`} className="quiet-link mt-9">
+          Email me
+          <ArrowForwardIcon aria-hidden="true" sx={{ fontSize: 16 }} />
+        </a>
       </section>
     </div>
   )

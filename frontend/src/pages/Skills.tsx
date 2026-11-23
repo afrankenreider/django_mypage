@@ -58,7 +58,7 @@ const CATEGORY_COLOR: Record<string, string> = {
 
 const AREA_COLOR = ['var(--data-blue)', 'var(--data-teal)', 'var(--signal)']
 
-const chipClass = 'inline-flex min-h-11 items-center rounded-full border px-4 text-sm text-body'
+const chipClass = 'inline-flex min-h-11 items-center rounded-sm border px-4 text-sm text-body'
 
 export default function Skills() {
   return (
@@ -79,7 +79,7 @@ export default function Skills() {
                 className="grow-x absolute -top-px left-0 h-[3px] w-16 rounded-full"
                 style={{ ...enterIndex(index), background: AREA_COLOR[index] }}
               />
-              <h2 className="text-2xl font-semibold tracking-tight">{area.title}</h2>
+              <h2 className="display-heading text-[1.75rem]">{area.title}</h2>
               <p className="apple-copy mt-3 max-w-[40ch]">{area.description}</p>
             </li>
           ))}

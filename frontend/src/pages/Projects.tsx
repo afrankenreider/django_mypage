@@ -24,7 +24,7 @@ export default function Projects() {
                   <DemoGlyph kind={project.kind} className="h-full w-full" />
                 </div>
                 <div>
-                  <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
+                  <h2 className="display-heading text-3xl sm:text-4xl">
                     {/* The link's pseudo-element stretches over the row, so the whole row is the target. */}
                     <Link
                       to={project.link}
@@ -33,7 +33,7 @@ export default function Projects() {
                       {project.title}
                     </Link>
                   </h2>
-                  <p className="mt-2 text-sm font-medium text-muted">{project.category}</p>
+                  <p className="eyebrow mt-3">{project.category}</p>
                 </div>
 
                 <div className="sm:col-start-2 lg:col-start-auto">

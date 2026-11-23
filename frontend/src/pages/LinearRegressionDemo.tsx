@@ -623,13 +623,13 @@ const NotebookSection = memo(() => {
           <div className="flex gap-2">
             <button
               onClick={expandAll}
-              className="rounded-full bg-signal px-4 py-2 text-sm font-medium text-signal-ink transition-colors hover:bg-signal-hover"
+              className="rounded-sm bg-signal px-4 py-2 text-sm font-medium text-signal-ink transition-colors hover:bg-signal-hover"
             >
               Expand All
             </button>
             <button
               onClick={collapseAll}
-              className="rounded-full border hairline px-4 py-2 text-sm font-medium transition-colors hover:bg-hover"
+              className="rounded-sm border hairline px-4 py-2 text-sm font-medium transition-colors hover:bg-hover"
             >
               Collapse All
             </button>

@@ -64,7 +64,7 @@ export default function CareerTimeline({ className = '', style }: CareerTimeline
   return (
     <figure className={className} style={style}>
       <figcaption className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
-        <span className="text-lg font-semibold tracking-tight">
+        <span className="display-heading text-2xl">
           {totalYears} years, two companies, six roles
         </span>
         <span className="flex gap-5 text-sm text-body">

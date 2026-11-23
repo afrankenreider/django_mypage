@@ -46,15 +46,28 @@ export default {
                     spruce: '--band-bg',
                     pine: '--band-bg',
                     cedar: '--cedar',
-                    steel: '--steel',
+                    sand: '--sand-line',
                 }).map(([name, token]) => [
                     name,
                     `color-mix(in oklab, var(${token}) calc(<alpha-value> * 100%), transparent)`,
                 ]),
             ),
+            /*
+             * Square corners: every rounded-* step resolves to the 2px
+             * radius token. rounded-full stays round for dots and markers.
+             */
+            borderRadius: {
+                sm: 'var(--radius)',
+                DEFAULT: 'var(--radius)',
+                md: 'var(--radius)',
+                lg: 'var(--radius)',
+                xl: 'var(--radius)',
+                '2xl': 'var(--radius)',
+                '3xl': 'var(--radius)',
+            },
             fontFamily: {
                 sans: ['system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'],
-                display: ['"Bodoni Moda Variable"', '"Bodoni 72"', 'Didot', 'Georgia', 'serif'],
+                display: ['"Libre Caslon Display"', 'Georgia', '"Times New Roman"', 'serif'],
                 mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Consolas', 'monospace'],
             },
         },

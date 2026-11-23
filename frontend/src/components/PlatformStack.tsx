@@ -110,7 +110,7 @@ export default function PlatformStack({ layers }: PlatformStackProps) {
               style={{ background: layer.color }}
             />
             <div>
-              <h3 className="text-2xl font-semibold tracking-tight">{layer.title}</h3>
+              <h3 className="display-heading text-[1.75rem]">{layer.title}</h3>
               <p className="apple-copy mt-2 max-w-[48ch]">{layer.description}</p>
             </div>
           </li>

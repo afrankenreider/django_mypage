@@ -11,7 +11,8 @@ interface ThemeContextType {
 const STORAGE_KEY = 'color-scheme'
 const SYSTEM_SCHEME = 'light dark'
 const DARK_QUERY = '(prefers-color-scheme: dark)'
-const PAGE_BACKGROUND: Record<Theme, string> = { light: '#f8f8f6', dark: '#121413' }
+/** Browser UI color: the slate header bar, the same in both schemes. */
+const BROWSER_UI_COLOR: Record<Theme, string> = { light: '#2e4042', dark: '#2e4042' }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
 
@@ -79,7 +80,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     // Browser UI color: pinned while overridden, per system preference otherwise.
     document.querySelectorAll<HTMLMetaElement>('meta[name="theme-color"]').forEach((meta) => {
       const metaTheme: Theme = meta.media.includes('dark') ? 'dark' : 'light'
-      meta.content = PAGE_BACKGROUND[override ?? metaTheme]
+      meta.content = BROWSER_UI_COLOR[override ?? metaTheme]
     })
   }, [override])
 

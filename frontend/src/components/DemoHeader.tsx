@@ -24,7 +24,7 @@ export default function DemoHeader({ kind, lede, actions }: DemoHeaderProps) {
   const title = demo?.title ?? ''
 
   return (
-    <header className="ink-band enter relative isolate mb-8 overflow-hidden rounded-[2rem] px-6 py-8 sm:px-10 sm:py-10 lg:px-12 lg:py-12">
+    <header className="ink-band enter relative isolate mb-8 overflow-hidden rounded-sm px-6 py-8 sm:px-10 sm:py-10 lg:px-12 lg:py-12">
       <TopoLines className="pointer-events-none absolute inset-0 -z-10 h-full w-full opacity-70" />
 
       <Link to="/projects" className="text-link group text-sm">

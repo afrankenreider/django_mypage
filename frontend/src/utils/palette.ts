@@ -15,19 +15,19 @@ export interface DataPalette {
 
 export const DATA_PALETTE: Record<'light' | 'dark', DataPalette> = {
   light: {
-    ink: '25, 27, 26',
-    muted: '95, 101, 97',
-    grid: '25, 27, 26',
-    signal: '168, 81, 44',
+    ink: '46, 64, 66',
+    muted: '92, 106, 104',
+    grid: '46, 64, 66',
+    signal: '173, 85, 36',
     teal: '79, 107, 88',
     blue: '76, 99, 144',
     amber: '138, 95, 12',
   },
   dark: {
-    ink: '242, 240, 234',
-    muted: '163, 162, 154',
-    grid: '242, 240, 234',
-    signal: '226, 147, 106',
+    ink: '246, 242, 228',
+    muted: '169, 176, 168',
+    grid: '246, 242, 228',
+    signal: '232, 150, 95',
     teal: '163, 191, 168',
     blue: '174, 189, 227',
     amber: '238, 192, 122',

@@ -14,25 +14,20 @@ export default function Footer() {
     <footer className="bg-page">
       <Ridgeline className="block h-16 w-full sm:h-24 lg:h-28" />
       <div className="ink-band -mt-px">
-      <div className="apple-section pb-12 pt-6">
-        <div className="grid gap-10 md:grid-cols-[1.6fr_1fr_1fr]">
-          <div>
-            <Link to="/" className="display-heading text-2xl">
-              Andrew Frankenreider<span className="signal-text">.</span>
-            </Link>
-            <p className="apple-copy mt-3 max-w-md text-sm">
-              Senior Manager, Digital Architecture at Caterpillar.
-            </p>
-          </div>
+        <div className="apple-section pb-10 pt-8 text-center">
+          <Link to="/" className="wordmark text-xl">
+            Andrew Frankenreider
+          </Link>
+          <p className="apple-copy mt-3 text-sm">Senior Manager, Digital Architecture at Caterpillar</p>
+          <SocialLinks className="mt-7 justify-center" />
 
-          <nav aria-labelledby="footer-explore">
-            <h2 id="footer-explore" className="text-sm font-semibold">Explore</h2>
-            <ul className="mt-3">
+          <nav aria-label="Footer" className="mt-8 border-t-2 border-dotted border-[var(--sand-line)] pt-6">
+            <ul className="flex flex-wrap justify-center gap-x-8 gap-y-1">
               {footerLinks.map((link) => (
                 <li key={link.path}>
                   <Link
                     to={link.path}
-                    className="inline-flex items-center py-1 text-sm text-muted transition-colors hover:text-ink"
+                    className="inline-flex min-h-11 items-center text-xs font-medium uppercase tracking-[0.22em] text-muted transition-colors hover:text-ink"
                   >
                     {link.name}
                   </Link>
@@ -41,17 +36,11 @@ export default function Footer() {
             </ul>
           </nav>
 
-          <div>
-            <h2 className="text-sm font-semibold">Contact</h2>
-            <SocialLinks className="mt-4" />
+          <div className="mt-8 flex flex-col gap-2 text-xs text-muted sm:flex-row sm:items-center sm:justify-between">
+            <p>&copy; {new Date().getFullYear()} Andrew Frankenreider</p>
+            <p>Built with React, TypeScript, and Django.</p>
           </div>
         </div>
-
-        <div className="mt-10 flex flex-col gap-2 text-xs text-muted sm:flex-row sm:items-center sm:justify-between">
-          <p>© {new Date().getFullYear()} Andrew Frankenreider. All rights reserved.</p>
-          <p>Built with React, TypeScript, and Django.</p>
-        </div>
-      </div>
       </div>
     </footer>
   )

@@ -243,7 +243,7 @@ export default function DataScienceAnimation() {
   }, [theme, isPlaying])
 
   return (
-    <div className="hero-visual relative h-80 overflow-hidden rounded-[2rem] border hairline sm:h-[26rem]">
+    <div className="hero-visual relative h-80 overflow-hidden rounded-sm border hairline sm:h-[26rem]">
       <canvas ref={canvasRef} className="h-full w-full" aria-hidden="true" />
       <button
         type="button"
