@@ -10,6 +10,18 @@ cmd="$(printf '%s' "$input" | jq -r '.tool_input.command // empty' 2>/dev/null)"
 cwd="$(printf '%s' "$input" | jq -r '.cwd // empty' 2>/dev/null)"
 [ -z "$cmd" ] && exit 0
 
+# Drop heredoc bodies (commit messages, PR text): they are data, not commands.
+cmd="$(printf '%s\n' "$cmd" | awk '
+  delim != "" { line = $0; sub(/^[\t ]+/, "", line); if (line == delim) delim = ""; next }
+  {
+    print
+    if (match($0, /<<-?[[:space:]]*["\047]?[A-Za-z_][A-Za-z0-9_]*["\047]?/)) {
+      d = substr($0, RSTART, RLENGTH)
+      sub(/^<<-?[[:space:]]*/, "", d); gsub(/["\047]/, "", d)
+      delim = d
+    }
+  }')"
+
 # "git", then global options (-C <dir>, -c <k=v>, --flag), then the subcommand.
 git_prefix='(^|[;&|(`[:space:]])git([[:space:]]+(-[Cc][[:space:]]+[^[:space:]]+|-[^[:space:]]+))*[[:space:]]+'
 runs() { printf '%s' "$cmd" | grep -Eq "${git_prefix}$1([[:space:]]|\$)"; }
@@ -41,7 +53,10 @@ case "$branch" in
 esac
 
 # From any branch, refuse pushes that name master/main as the destination.
-if runs push && printf '%s' "$cmd" | grep -Eq 'push.*([[:space:]]|:)(refs/heads/)?(master|main)([[:space:]]|$)'; then
+# Only the push's own arguments count, up to the next ; & | or newline, so a
+# chained `gh pr create --base master` is not mistaken for a push target.
+push_args="$(printf '%s' "$cmd" | tr '\n' ';' | grep -oE "${git_prefix}push[^;&|]*" || true)"
+if [ -n "$push_args" ] && printf '%s' "$push_args" | grep -Eq '([[:space:]]|:)(refs/heads/)?(master|main)([[:space:]]|$)'; then
   block "pushing to master/main. Open a pull request instead."
 fi
 
