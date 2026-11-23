@@ -12,40 +12,40 @@
  * result from the selector-based fallback below.
  */
 :root {
-    --page-bg-light: #f5f5f7;
-    --page-bg-dark: #0a0a0c;
-    --surface-light: rgba(255, 255, 255, 0.82);
-    --surface-dark: rgba(29, 29, 31, 0.74);
-    --surface-strong-light: #ffffff;
-    --surface-strong-dark: #161617;
-    --text-primary-light: #1d1d1f;
-    --text-primary-dark: #f5f5f7;
-    --text-body-light: #424245;
-    --text-body-dark: #d2d2d7;
-    --text-secondary-light: #6e6e73;
-    --text-secondary-dark: #a1a1a6;
-    --hairline-light: rgba(0, 0, 0, 0.1);
-    --hairline-dark: rgba(255, 255, 255, 0.14);
-    --control-border-light: #86868b;
-    --control-border-dark: #8e8e93;
-    --accent-light: #a16207;
-    --accent-dark: #eab308;
-    --tile-light: rgba(255, 255, 255, 0.68);
-    --tile-dark: rgba(255, 255, 255, 0.055);
-    --hover-light: rgba(0, 0, 0, 0.05);
-    --hover-dark: rgba(255, 255, 255, 0.1);
-    --cta-hover-light: #000000;
+    --page-bg-light: #f1f4ee;
+    --page-bg-dark: #0d1410;
+    --surface-light: rgba(255, 255, 255, 0.78);
+    --surface-dark: rgba(24, 34, 28, 0.74);
+    --surface-strong-light: #fbfcf9;
+    --surface-strong-dark: #151e18;
+    --text-primary-light: #15221a;
+    --text-primary-dark: #eef2ea;
+    --text-body-light: #38463d;
+    --text-body-dark: #cdd7cd;
+    --text-secondary-light: #56655b;
+    --text-secondary-dark: #9fb1a4;
+    --hairline-light: rgba(21, 34, 26, 0.12);
+    --hairline-dark: rgba(238, 242, 234, 0.13);
+    --control-border-light: #7b8a80;
+    --control-border-dark: #7f9185;
+    --accent-light: #8a6408;
+    --accent-dark: #e2b54a;
+    --tile-light: rgba(255, 255, 255, 0.6);
+    --tile-dark: rgba(238, 242, 234, 0.05);
+    --hover-light: rgba(21, 34, 26, 0.06);
+    --hover-dark: rgba(238, 242, 234, 0.09);
+    --cta-hover-light: #0b130e;
     --cta-hover-dark: #ffffff;
-    --signal-light: #c2401d;
-    --signal-dark: #ff8159;
+    --signal-light: #a9441a;
+    --signal-dark: #ee8b55;
     --signal-ink-light: #ffffff;
-    --signal-ink-dark: #1a0904;
-    --signal-hover-light: #a83414;
-    --signal-hover-dark: #ff9d7e;
-    --data-teal-light: #0e7a6b;
-    --data-teal-dark: #3fd0b9;
-    --data-blue-light: #2f56c8;
-    --data-blue-dark: #8eaaff;
+    --signal-ink-dark: #1d0c04;
+    --signal-hover-light: #8d3712;
+    --signal-hover-dark: #f5a577;
+    --data-teal-light: #2e6a3c;
+    --data-teal-dark: #86c493;
+    --data-blue-light: #33627d;
+    --data-blue-dark: #93bdd6;
 
     --page-bg: var(--page-bg-light);
     --surface: var(--surface-light);
@@ -65,11 +65,11 @@
     --data-teal: var(--data-teal-light);
     --data-blue: var(--data-blue-light);
 
-    /* Always-dark ink-blue band. Same in both schemes. */
-    --band-bg: #101b3d;
-    --band-text: #f5f5f7;
-    --band-muted: #aab4d4;
-    --band-line: rgba(170, 180, 212, 0.22);
+    /* Always-dark spruce band. Same in both schemes. */
+    --band-bg: #163126;
+    --band-text: #eef2ea;
+    --band-muted: #a9c2b2;
+    --band-line: rgba(169, 194, 178, 0.2);
 
     /* Motion curves. */
     --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
@@ -694,6 +694,21 @@ progress.loading-spinner-sm:indeterminate {
     }
 }
 
+/* The timeline flag lifts once in the breeze after it lands. */
+@media (prefers-reduced-motion: no-preference) {
+    .flag-wave {
+        transform-box: fill-box;
+        transform-origin: left center;
+        animation: flag-wave 1.6s var(--ease-out-quart) 1.6s 2;
+    }
+}
+
+@keyframes flag-wave {
+    40% {
+        scale: 0.82 1.06;
+    }
+}
+
 @keyframes halo {
     to {
         opacity: 0;
@@ -767,11 +782,17 @@ progress.loading-spinner-sm:indeterminate {
         color: var(--accent);
     }
 
+    /*
+     * Display headings set in Young Serif, which ships one weight. Never
+     * let the browser fake a bold.
+     */
     .display-heading {
-        @apply font-semibold;
+        font-family: "Young Serif", Georgia, "Times New Roman", serif;
+        font-weight: 400;
+        font-synthesis: none;
         color: var(--text-primary);
-        letter-spacing: -0.04em;
-        line-height: 1.02;
+        letter-spacing: -0.015em;
+        line-height: 1.04;
     }
 
     /* Fluid display sizes. Rem bounds keep browser zoom working. */
@@ -909,7 +930,7 @@ progress.loading-spinner-sm:indeterminate {
         background: var(--surface-strong);
         box-shadow:
             0 1px 0 0 var(--hairline),
-            0 40px 80px -48px color-mix(in oklab, var(--data-blue) 45%, transparent);
+            0 40px 80px -48px color-mix(in oklab, var(--band-bg) 60%, transparent);
     }
 
     /* "Currently" marker: a signal dot with a soft halo. */
@@ -1027,15 +1048,6 @@ progress.loading-spinner-sm:indeterminate {
         --accent: var(--accent-dark);
     }
 
-    /* A faint chart grid on the band, masked so it fades toward the edges. */
-    .band-grid {
-        background-image:
-            linear-gradient(var(--band-line) 1px, transparent 1px),
-            linear-gradient(90deg, var(--band-line) 1px, transparent 1px);
-        background-size: 48px 48px;
-        mask-image: radial-gradient(ellipse at 70% 40%, black, transparent 70%);
-        opacity: 0.5;
-    }
 }
 
 .line-clamp-2 {

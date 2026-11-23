@@ -5,16 +5,20 @@ impeccable design skill (`.github/skills/impeccable`) alongside PRODUCT.md.
 
 ## Theme
 
-Hardware-inspired minimalism with a charting palette. Large type, hairline
-rules, and generous negative space on a neutral base, with color carried by
-data: a vermilion signal color for action and emphasis, an ink-blue band,
-and teal, blue, and amber used inside visuals. The neutral base and system
-type are the committed identity; color lives in the visuals and a few
-deliberate marks, never in large page backgrounds.
+Old clubhouse and mountain lodge: think a Jackson Hole trail map, a
+vintage golf scorecard, a park poster of the Tetons. Large serif display
+type over a quiet sans body, hairline rules, and generous space on a faintly
+sage neutral. Color comes from the landscape and is carried by data
+visuals: Blaze (rust) for action and emphasis, Spruce for the dark band and
+footer, and Fairway, Snake River, and Aspen inside charts and diagrams.
+Warmth lives in the accents and type, never in a cream page background.
 
-Signature marks: a signal-colored period after each page title (and a
-question mark on the home contact heading), the signal underline on the
-current nav item, and the "currently" status dot on the home hero.
+Signature marks: a Blaze period after each page title (and a question mark
+on the home contact heading), the Blaze underline on the current nav item,
+the "currently" status dot on the home hero, the flagstick marking today on
+the career timeline, topographic contours on the Spruce band, and the Teton
+ridgeline the footer rises out of. Each motif appears once; do not repeat
+them as decoration elsewhere.
 
 ## Color
 
@@ -23,37 +27,39 @@ keeps its raw light and dark values and resolves through `light-dark()`, with a
 `prefers-color-scheme` fallback. Tailwind exposes them as `text-ink`,
 `text-body`, `text-muted`, `bg-page`, and `border-control`.
 
-| Token | Light | Dark | Role |
-|---|---|---|---|
-| `--page-bg` | `#f5f5f7` | `#0a0a0c` | Page background (tinted neutral, never pure black) |
-| `--surface` | `rgba(255,255,255,0.82)` | `rgba(29,29,31,0.74)` | Translucent card surface |
-| `--surface-strong` | `#ffffff` | `#161617` | Solid card surface |
-| `--text-primary` | `#1d1d1f` | `#f5f5f7` | Ink |
-| `--text-body` | `#424245` | `#d2d2d7` | Running copy |
-| `--text-secondary` | `#6e6e73` | `#a1a1a6` | Muted copy |
-| `--hairline` | `rgba(0,0,0,0.1)` | `rgba(255,255,255,0.14)` | Decorative rules and separators |
-| `--control-border` | `#86868b` | `#8e8e93` | Boundaries of inputs, chips, and icon buttons (3:1) |
-| `--accent` | `#a16207` | `#eab308` | Amber: eyebrows, small markers, the third data color |
-| `--signal` | `#c2401d` | `#ff8159` | Vermilion: primary CTA fill, current-page marker, title periods, trend lines |
-| `--signal-ink` | `#ffffff` | `#1a0904` | Text on a signal fill |
-| `--signal-hover` | `#a83414` | `#ff9d7e` | Signal CTA hover |
-| `--data-teal` | `#0e7a6b` | `#3fd0b9` | Data color: the application layer, the Web skill group |
-| `--data-blue` | `#2f56c8` | `#8eaaff` | Data color: infrastructure, C.H. Robinson in timelines |
-| `--band-bg` | `#101b3d` | same | Always-dark ink-blue band (`.ink-band`) |
+| Token | Name | Light | Dark | Role |
+|---|---|---|---|---|
+| `--page-bg` | | `#f1f4ee` | `#0d1410` | Page background: faint sage, near-black spruce |
+| `--surface` | | `rgba(255,255,255,0.78)` | `rgba(24,34,28,0.74)` | Translucent card surface |
+| `--surface-strong` | | `#fbfcf9` | `#151e18` | Solid card surface |
+| `--text-primary` | | `#15221a` | `#eef2ea` | Ink |
+| `--text-body` | | `#38463d` | `#cdd7cd` | Running copy |
+| `--text-secondary` | | `#56655b` | `#9fb1a4` | Muted copy |
+| `--hairline` | | `rgba(21,34,26,0.12)` | `rgba(238,242,234,0.13)` | Decorative rules |
+| `--control-border` | | `#7b8a80` | `#7f9185` | Control boundaries (3:1) |
+| `--signal` | Blaze | `#a9441a` | `#ee8b55` | Primary CTA fill, current-page marker, title marks, trend lines |
+| `--signal-ink` | | `#ffffff` | `#1d0c04` | Text on a Blaze fill |
+| `--signal-hover` | | `#8d3712` | `#f5a577` | Blaze CTA hover |
+| `--data-teal` | Fairway | `#2e6a3c` | `#86c493` | Data green: the application layer, the Web skill group |
+| `--data-blue` | Snake River | `#33627d` | `#93bdd6` | Data slate-blue: infrastructure, C.H. Robinson |
+| `--accent` | Aspen | `#8a6408` | `#e2b54a` | Data gold: small markers, the Data skill group |
+| `--band-bg` | Spruce | `#163126` | same | Always-dark band and footer (`.ink-band`) |
 
 Canvas code cannot resolve `light-dark()`, so `src/utils/palette.ts` mirrors
 the data colors as RGB triples. Keep it in sync with the tokens.
 
 Rules:
 
-- Never use pure `#000000` page backgrounds; tint dark surfaces.
+- Never use pure `#000000` page backgrounds; tint dark surfaces toward spruce.
 - Signal is for one primary action per view and for small marks. It never
   fills a page background, and body text never uses it.
 - Data colors encode meaning (a layer, a company, a skill group) and should
   map the same way wherever they appear. Caterpillar is signal and C.H.
   Robinson is blue in every timeline and list.
 - Every pairing above meets AA as text on its own page background; white on
-  `--signal-light` is 5.2:1.
+  Blaze is 5.9:1, and Blaze and Aspen both pass on Spruce.
+- The token names `--data-teal` and `--data-blue` predate the lodge palette;
+  they now hold Fairway and Snake River.
 - Muted gray copy must keep at least 4.5:1 contrast against its background.
   `#86868b` fails this as text on the light page (3.3:1); use `text-muted`.
 - Hairlines are decoration only. Anything that marks the edge of a control
@@ -70,10 +76,13 @@ In JavaScript (canvas, charts), read the rendered scheme from `useTheme()`.
 
 ## Typography
 
-- Family: system stack (`-apple-system`, SF Pro, Segoe UI). Intentional: the
-  site borrows Apple's hardware-catalog register, and the system stack is that
-  identity, not a default.
-- Display headings: `.display-heading` — semibold, tracking `-0.04em`. Size
+- Display: Young Serif (self-hosted via `@fontsource/young-serif`, Latin
+  subset, imported in `main.tsx`). A sturdy old-style serif with the feel of
+  a clubhouse sign. It ships one weight, so `.display-heading` sets weight
+  400 and `font-synthesis: none`; never bold it. Tailwind: `font-display`.
+- Body and UI: the system stack (`system-ui`, SF Pro, Segoe UI). The serif
+  and sans pair on a contrast axis; do not add a second serif or sans.
+- Display headings: `.display-heading` — Young Serif, tracking `-0.015em`. Size
   comes from `.display-hero` (home) or `.display-page` (every other page),
   both `clamp()` scales with rem bounds so browser zoom still works and long
   words fit at 320px.
@@ -83,7 +92,7 @@ In JavaScript (canvas, charts), read the rendered scheme from `useTheme()`.
   text. Measure capped around 60–70ch via `max-w-[..ch]` utilities.
 - Headings use `text-wrap: balance`; paragraphs and list items use
   `text-wrap: pretty`.
-- No web fonts are loaded.
+- Young Serif is the only web font.
 
 ## Layout
 
@@ -130,13 +139,18 @@ the interactive demos and loads with them through `DemoLayout`.
   controls carry a `.visually-hidden` text label.
 - `.loading-spinner` — a native indeterminate `<progress>`; add
   `.loading-spinner-sm` inside buttons.
-- `.ink-band` — the always-dark ink-blue band on the home page. It remaps the
-  text, hairline, and signal tokens so anything inside it reads correctly.
-  `.band-grid` adds a faint masked chart grid behind it.
+- `.ink-band` — the always-dark Spruce band (home demos section, footer). It
+  remaps the text, hairline, and signal tokens so anything inside it reads
+  correctly.
+- `TopoLines` — procedural contour lines behind the home Spruce band; they
+  draw in on scroll.
+- `Ridgeline` — layered Teton silhouette at the top of the footer. Its front
+  ridge is filled with `--band-bg`, so it flows into the footer band.
 - `.ghost-link` — outlined secondary CTA beside a `.quiet-link`.
-- `DataScienceAnimation` — the home hero canvas: live k-means with three
-  colored clusters and a signal trend line.
-- `CareerTimeline` — one bar from 2018 to today, colored by company.
+- `DataScienceAnimation` — the home hero canvas: live k-means with Snake
+  River, Fairway, and Aspen clusters and a Blaze trend line.
+- `CareerTimeline` — one bar from 2018 to today, colored by company, with a
+  flagstick at today.
 - `PlatformStack` — isometric layer diagram with a matching list.
 - `DemoGlyph` — small SVG illustration per demo (home band, projects list).
   The demo list itself lives in `src/data/demos.ts`.

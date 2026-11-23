@@ -105,13 +105,16 @@ export default function CareerTimeline({ className = '', style }: CareerTimeline
             style={{ ...enterIndex(index + 3), left: pct(toMonths(role.start)), background: 'var(--page-bg)' }}
           />
         ))}
-        {/* Today */}
-        <span
-          className="pop-in absolute top-2.5 -right-1"
+        {/* Today: a flagstick on the green. */}
+        <svg
+          viewBox="0 0 22 40"
+          className="pop-in absolute -right-1 -top-5 h-10 w-[1.375rem] overflow-visible"
           style={enterIndex(10)}
         >
-          <span className="block h-6 w-6 rounded-full border-2" style={{ borderColor: 'var(--signal)', background: 'var(--page-bg)' }} />
-        </span>
+          <ellipse cx="3" cy="35.5" rx="4.5" ry="1.6" style={{ fill: 'var(--data-teal)', opacity: 0.45 }} />
+          <line x1="3" y1="35" x2="3" y2="3" strokeWidth="1.75" strokeLinecap="round" style={{ stroke: 'var(--text-primary)' }} />
+          <path d="M3.9 3 L20 8.5 L3.9 14 Z" className="flag-wave" style={{ fill: 'var(--signal)' }} />
+        </svg>
         {/* Year ticks */}
         {years.map((year) => (
           <span

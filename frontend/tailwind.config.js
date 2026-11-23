@@ -30,7 +30,7 @@ export default {
             },
             fontFamily: {
                 sans: ['system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'],
-                display: ['system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'],
+                display: ['"Young Serif"', 'Georgia', '"Times New Roman"', 'serif'],
                 mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Consolas', 'monospace'],
             },
         },

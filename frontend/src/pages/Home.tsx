@@ -5,6 +5,7 @@ import DataScienceAnimation from '../components/DataScienceAnimation'
 import DemoGlyph from '../components/DemoGlyph'
 import PlatformStack, { type StackLayer } from '../components/PlatformStack'
 import SocialLinks, { CONTACT_EMAIL } from '../components/SocialLinks'
+import TopoLines from '../components/TopoLines'
 import { demos } from '../data/demos'
 import { enterIndex } from '../utils/motion'
 
@@ -84,10 +85,10 @@ export default function Home() {
 
       <section className="pb-24 sm:pb-32">
         <div className="apple-section">
-          <div className="ink-band relative isolate overflow-hidden rounded-[2rem] px-6 py-12 sm:px-10 sm:py-14 lg:px-14 lg:py-16">
-            <div aria-hidden="true" className="band-grid absolute inset-0 -z-10" />
+          <div className="ink-band on-scroll relative isolate overflow-hidden rounded-[2rem] px-6 py-12 sm:px-10 sm:py-14 lg:px-14 lg:py-16">
+            <TopoLines className="pointer-events-none absolute inset-0 -z-10 h-full w-full" />
             <div className="flex flex-wrap items-end justify-between gap-6">
-              <h2 className="max-w-xl text-3xl font-semibold tracking-[-0.03em] sm:text-5xl">
+              <h2 className="display-heading max-w-xl text-3xl text-[var(--band-text)] sm:text-5xl">
                 A few models I built to run in the browser.
               </h2>
               <Link to="/projects" className="quiet-link">
@@ -96,7 +97,7 @@ export default function Home() {
               </Link>
             </div>
 
-            <ul className="on-scroll mt-10 grid grid-cols-2 gap-3 sm:mt-12 lg:grid-cols-4 lg:gap-4">
+            <ul className="mt-10 grid grid-cols-2 gap-3 sm:mt-12 lg:grid-cols-4 lg:gap-4">
               {demos.map((demo) => (
                 <li key={demo.link}>
                   <Link to={demo.link} className="demo-tile group">

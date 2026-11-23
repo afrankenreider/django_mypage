@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import Ridgeline from './Ridgeline'
 import SocialLinks from './SocialLinks'
 
 const footerLinks = [
@@ -11,11 +12,12 @@ const footerLinks = [
 export default function Footer() {
   return (
     <footer className="bg-page">
-      <div className="apple-section py-12">
-        <div className="soft-rule mb-8" />
+      <Ridgeline className="block h-16 w-full sm:h-24 lg:h-28" />
+      <div className="ink-band -mt-px">
+      <div className="apple-section pb-12 pt-6">
         <div className="grid gap-10 md:grid-cols-[1.6fr_1fr_1fr]">
           <div>
-            <Link to="/" className="text-lg font-semibold tracking-tight">
+            <Link to="/" className="display-heading text-2xl">
               Andrew Frankenreider<span className="signal-text">.</span>
             </Link>
             <p className="apple-copy mt-3 max-w-md text-sm">
@@ -49,6 +51,7 @@ export default function Footer() {
           <p>© {new Date().getFullYear()} Andrew Frankenreider. All rights reserved.</p>
           <p>Built with React, TypeScript, and Django.</p>
         </div>
+      </div>
       </div>
     </footer>
   )

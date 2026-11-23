@@ -11,7 +11,7 @@ interface ThemeContextType {
 const STORAGE_KEY = 'color-scheme'
 const SYSTEM_SCHEME = 'light dark'
 const DARK_QUERY = '(prefers-color-scheme: dark)'
-const PAGE_BACKGROUND: Record<Theme, string> = { light: '#f5f5f7', dark: '#0a0a0c' }
+const PAGE_BACKGROUND: Record<Theme, string> = { light: '#f1f4ee', dark: '#0d1410' }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
 
