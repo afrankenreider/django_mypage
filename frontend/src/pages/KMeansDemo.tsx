@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useMemo, useCallback, useRef, memo } from 'react'
-import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import {
     ScatterChart,
@@ -11,12 +10,10 @@ import {
     ResponsiveContainer,
     Cell,
 } from 'recharts'
-import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import SchoolIcon from '@mui/icons-material/School'
 import CalculateIcon from '@mui/icons-material/Calculate'
 import TouchAppIcon from '@mui/icons-material/TouchApp'
 import TipsAndUpdatesIcon from '@mui/icons-material/TipsAndUpdates'
-import TimelineIcon from '@mui/icons-material/Timeline'
 import PlayArrowIcon from '@mui/icons-material/PlayArrow'
 import PauseIcon from '@mui/icons-material/Pause'
 import RestartAltIcon from '@mui/icons-material/RestartAlt'
@@ -35,28 +32,33 @@ import CancelIcon from '@mui/icons-material/Cancel'
 import PeopleIcon from '@mui/icons-material/People'
 import StorefrontIcon from '@mui/icons-material/Storefront'
 import PlaceIcon from '@mui/icons-material/Place'
+import DemoHeader from '../components/DemoHeader'
+import DemoTabs from '../components/DemoTabs'
 
+/* Cluster colors follow the site tokens, so they adapt to both schemes. */
 const clusterColors = [
-    '#1d1d1f',
-    '#248a3d',
-    '#b25000',
-    '#d70015',
-    '#6e6e73',
-    '#7a4f01',
-    '#3d7d47',
-    '#8e8e93',
+    'var(--signal)',
+    'var(--data-teal)',
+    'var(--data-blue)',
+    'var(--accent)',
+    'var(--negative)',
+    'var(--text-primary)',
+    'color-mix(in oklab, var(--data-teal) 50%, var(--data-blue))',
+    'var(--text-secondary)',
 ]
 
-const centroidColors = [
-    '#000000',
-    '#196c2e',
-    '#8a3d00',
-    '#a50011',
-    '#424245',
-    '#5c3a00',
-    '#245c2e',
-    '#636366',
-]
+/* Centroids reuse the cluster color; their outline sets them apart. */
+const centroidColors = clusterColors
+
+/** Centroid marker: a ring around a dot, matching the home hero. */
+function CentroidMarker({ cx = 0, cy = 0, fill }: { cx?: number; cy?: number; fill?: string }) {
+    return (
+        <g>
+            <circle cx={cx} cy={cy} r={11} fill="var(--page-bg)" fillOpacity={0.85} stroke={fill} strokeWidth={2.5} />
+            <circle cx={cx} cy={cy} r={3.5} fill={fill} />
+        </g>
+    )
+}
 
 interface Point {
     x: number
@@ -98,22 +100,22 @@ const CustomTooltip = memo(({ active, payload, datasetKey }: any) => {
         const point = payload[0].payload
         const labels = datasetLabels[datasetKey] || { x: 'X', y: 'Y' }
         return (
-            <div className="bg-[#1d1d1f]/95 backdrop-blur-sm border border-[#424245]/50 rounded-xl px-5 py-4 shadow-2xl">
-                <div className="flex items-center gap-2 mb-3 pb-2 border-b border-[#424245]/50">
+            <div className="bg-spruce/95 backdrop-blur-sm border border-line/50 rounded-xl px-5 py-4 shadow-2xl">
+                <div className="flex items-center gap-2 mb-3 pb-2 border-b border-line/50">
                     <div
                         className="w-3 h-3 rounded-full"
-                        style={{ backgroundColor: point.cluster !== undefined ? clusterColors[point.cluster % clusterColors.length] : '#a1a1a6' }}
+                        style={{ backgroundColor: point.cluster !== undefined ? clusterColors[point.cluster % clusterColors.length] : 'var(--control-border)' }}
                     />
-                    <p className="text-[#d2d2d7] font-semibold text-sm">
+                    <p className="text-body font-semibold text-sm">
                         {point.cluster !== undefined ? `Cluster ${point.cluster + 1}` : 'Unassigned'}
                     </p>
                 </div>
                 <div className="space-y-1.5">
-                    <p className="text-[#d2d2d7] text-sm flex justify-between gap-4">
+                    <p className="text-body text-sm flex justify-between gap-4">
                         <span className="text-muted">{labels.x}:</span>
                         <span className="font-mono font-medium">{point.x.toFixed(1)}</span>
                     </p>
-                    <p className="text-[#d2d2d7] text-sm flex justify-between gap-4">
+                    <p className="text-body text-sm flex justify-between gap-4">
                         <span className="text-muted">{labels.y}:</span>
                         <span className="font-mono font-medium">{point.y.toFixed(1)}</span>
                     </p>
@@ -445,60 +447,16 @@ export default function KMeansDemo() {
             <div className="absolute inset-0 studio-grid opacity-50" />
 
             <div className="apple-section max-w-7xl relative z-10">
-                {/* Header */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
-                >
-                    <Link
-                        to="/projects"
-                        className="text-link mb-8 group"
-                    >
-                        <ArrowBackIcon className="group-hover:-translate-x-1 transition-transform" sx={{ fontSize: 20 }} />
-                        Back to Projects
-                    </Link>
+                <DemoHeader
 
-                    <div className="mb-14 max-w-3xl">
-                        <motion.span
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.1 }}
-                            className="inline-flex items-center gap-2 rounded-full bg-black/5 px-4 py-2 text-sm font-medium text-[#6e6e73] dark:bg-white/10 dark:text-[#a1a1a6] mb-6"
-                        >
-                            <TimelineIcon sx={{ fontSize: 18 }} />
-                            Project walkthrough
-                        </motion.span>
-                        <h1 className="display-heading display-page mb-6">
-                            K-Means <span className="ink-text">Clustering</span>
-                        </h1>
-                        <p className="apple-copy max-w-2xl text-lg sm:text-xl">
-                            I use this demo to explain clustering decisions in a practical way, including where k-means works well and where it does not.
-                        </p>
-                    </div>
+                  kind="kmeans"
 
-                    {/* Navigation Tabs */}
-                    <div className="mb-12 flex flex-wrap gap-2" role="group" aria-label="Project sections">
-                        {sections.map((section) => {
-                            const Icon = section.icon
-                            return (
-                                <button
-                                    type="button"
-                                    key={section.id}
-                                    onClick={() => setActiveSection(section.id)}
-                                    aria-pressed={activeSection === section.id}
-                                    className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-medium transition-all ${activeSection === section.id
-                                        ? 'bg-[#1d1d1f] dark:bg-white text-white dark:text-[#1d1d1f] shadow-lg'
-                                        : 'bg-[#e8e8ed] dark:bg-[#2c2c2e] text-[#6e6e73] dark:text-[#a1a1a6] hover:bg-[#d2d2d7] dark:hover:bg-[#424245]'
-                                        }`}
-                                >
-                                    <Icon sx={{ fontSize: 18 }} />
-                                    {section.label}
-                                </button>
-                            )
-                        })}
-                    </div>
-                </motion.div>
+                  lede="I use this demo to explain clustering decisions in a practical way, including where k-means works well and where it does not."
+
+                />
+
+                <DemoTabs sections={sections} active={activeSection} onChange={setActiveSection} />
+
 
                 {/* Introduction Section */}
                 {activeSection === 'intro' && (
@@ -507,41 +465,41 @@ export default function KMeansDemo() {
                         animate={{ opacity: 1, y: 0 }}
                         className="space-y-8"
                     >
-                        <div className="bg-[#f5f5f7] dark:bg-[#1d1d1f]/50 backdrop-blur-sm rounded-3xl border border-[#d2d2d7]/50 dark:border-[#2c2c2e]/50 p-8 shadow-sm">
-                            <h2 className="text-2xl font-bold text-[#1d1d1f] dark:text-[#f5f5f7] mb-6">What is K-Means Clustering?</h2>
+                        <div className="bg-well backdrop-blur-sm rounded-3xl border border-line/50 p-8 shadow-sm">
+                            <h2 className="display-heading text-3xl mb-6">What is K-Means Clustering?</h2>
                             <div className="prose dark:prose-invert max-w-none">
-                                <p className="text-[#6e6e73] dark:text-[#a1a1a6] text-lg leading-relaxed mb-6">
+                                <p className="text-muted text-lg leading-relaxed mb-6">
                                     K-means clustering groups similar data points into K clusters. It is useful when you have unlabeled data and want a quick first pass at segmentation.
                                 </p>
-                                <p className="text-[#6e6e73] dark:text-[#a1a1a6] leading-relaxed mb-6">
+                                <p className="text-muted leading-relaxed mb-6">
                                     The algorithm works by iteratively assigning each point to the nearest cluster center (centroid) and then updating the centroids based on the points assigned to them. This process continues until the cluster assignments stabilize.
                                 </p>
 
                                 <div className="grid md:grid-cols-3 gap-6 mt-8">
-                                    <div className="bg-[#e8e8ed] dark:bg-[#2c2c2e]/50 rounded-xl p-6 border border-[#d2d2d7] dark:border-[#424245]">
-                                        <div className="w-12 h-12 bg-[#1d1d1f] dark:bg-white rounded-xl flex items-center justify-center mb-4 shadow-lg text-white dark:text-[#1d1d1f]">
+                                    <div className="bg-well rounded-xl p-6 border border-line">
+                                        <div className="w-12 h-12 demo-icon rounded-xl flex items-center justify-center mb-4 shadow-lg">
                                             <TrackChangesIcon sx={{ fontSize: 24 }} />
                                         </div>
-                                        <h3 className="text-lg font-semibold text-[#1d1d1f] dark:text-[#f5f5f7] mb-2">Goal</h3>
-                                        <p className="text-sm text-[#6e6e73] dark:text-[#a1a1a6]">
+                                        <h3 className="text-lg font-semibold text-ink mb-2">Goal</h3>
+                                        <p className="text-sm text-muted">
                                             Minimize the total distance between points and their assigned cluster centers
                                         </p>
                                     </div>
-                                    <div className="bg-[#e8e8ed] dark:bg-[#2c2c2e]/50 rounded-xl p-6 border border-[#d2d2d7] dark:border-[#424245]">
-                                        <div className="w-12 h-12 bg-[#1d1d1f] dark:bg-white rounded-xl flex items-center justify-center mb-4 shadow-lg text-white dark:text-[#1d1d1f]">
+                                    <div className="bg-well rounded-xl p-6 border border-line">
+                                        <div className="w-12 h-12 demo-icon rounded-xl flex items-center justify-center mb-4 shadow-lg">
                                             <BarChartIcon sx={{ fontSize: 24 }} />
                                         </div>
-                                        <h3 className="text-lg font-semibold text-[#1d1d1f] dark:text-[#f5f5f7] mb-2">Input</h3>
-                                        <p className="text-sm text-[#6e6e73] dark:text-[#a1a1a6]">
+                                        <h3 className="text-lg font-semibold text-ink mb-2">Input</h3>
+                                        <p className="text-sm text-muted">
                                             Data points and K (number of clusters you want to find)
                                         </p>
                                     </div>
-                                    <div className="bg-[#e8e8ed] dark:bg-[#2c2c2e]/50 rounded-xl p-6 border border-[#d2d2d7] dark:border-[#424245]">
-                                        <div className="w-12 h-12 bg-[#1d1d1f] dark:bg-white rounded-xl flex items-center justify-center mb-4 shadow-lg text-white dark:text-[#1d1d1f]">
+                                    <div className="bg-well rounded-xl p-6 border border-line">
+                                        <div className="w-12 h-12 demo-icon rounded-xl flex items-center justify-center mb-4 shadow-lg">
                                             <TrackChangesIcon sx={{ fontSize: 24 }} />
                                         </div>
-                                        <h3 className="text-lg font-semibold text-[#1d1d1f] dark:text-[#f5f5f7] mb-2">Output</h3>
-                                        <p className="text-sm text-[#6e6e73] dark:text-[#a1a1a6]">
+                                        <h3 className="text-lg font-semibold text-ink mb-2">Output</h3>
+                                        <p className="text-sm text-muted">
                                             Cluster assignments for each point and K cluster centroids
                                         </p>
                                     </div>
@@ -549,43 +507,43 @@ export default function KMeansDemo() {
                             </div>
                         </div>
 
-                        <div className="bg-[#f5f5f7] dark:bg-[#1d1d1f]/50 backdrop-blur-sm rounded-3xl border border-[#d2d2d7]/50 dark:border-[#2c2c2e]/50 p-8 shadow-sm">
-                            <h2 className="text-2xl font-bold text-[#1d1d1f] dark:text-[#f5f5f7] mb-2">Key Characteristics</h2>
-                            <p className="text-[#6e6e73] dark:text-[#a1a1a6] mb-6">
+                        <div className="bg-well backdrop-blur-sm rounded-3xl border border-line/50 p-8 shadow-sm">
+                            <h2 className="display-heading text-3xl mb-2">Key Characteristics</h2>
+                            <p className="text-muted mb-6">
                                 Understanding what makes k-means unique and when to use it.
                             </p>
 
                             <div className="grid md:grid-cols-2 gap-6">
                                 <div className="space-y-4">
                                     <div className="flex items-start gap-3">
-                                        <div className="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                                            <CheckCircleIcon className="text-green-600 dark:text-green-400" sx={{ fontSize: 16 }} />
+                                        <div className="w-6 h-6 rounded-full bg-fairway/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                            <CheckCircleIcon className="text-fairway" sx={{ fontSize: 16 }} />
                                         </div>
                                         <div>
-                                            <h4 className="font-semibold text-[#1d1d1f] dark:text-[#f5f5f7] mb-1">Fast & Scalable</h4>
-                                            <p className="text-sm text-[#6e6e73] dark:text-[#a1a1a6]">
+                                            <h4 className="font-semibold text-ink mb-1">Fast & Scalable</h4>
+                                            <p className="text-sm text-muted">
                                                 Computationally efficient, works well with large datasets
                                             </p>
                                         </div>
                                     </div>
                                     <div className="flex items-start gap-3">
-                                        <div className="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                                            <CheckCircleIcon className="text-green-600 dark:text-green-400" sx={{ fontSize: 16 }} />
+                                        <div className="w-6 h-6 rounded-full bg-fairway/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                            <CheckCircleIcon className="text-fairway" sx={{ fontSize: 16 }} />
                                         </div>
                                         <div>
-                                            <h4 className="font-semibold text-[#1d1d1f] dark:text-[#f5f5f7] mb-1">Simple to Understand</h4>
-                                            <p className="text-sm text-[#6e6e73] dark:text-[#a1a1a6]">
+                                            <h4 className="font-semibold text-ink mb-1">Simple to Understand</h4>
+                                            <p className="text-sm text-muted">
                                                 Intuitive concept—group similar things together
                                             </p>
                                         </div>
                                     </div>
                                     <div className="flex items-start gap-3">
-                                        <div className="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                                            <CheckCircleIcon className="text-green-600 dark:text-green-400" sx={{ fontSize: 16 }} />
+                                        <div className="w-6 h-6 rounded-full bg-fairway/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                            <CheckCircleIcon className="text-fairway" sx={{ fontSize: 16 }} />
                                         </div>
                                         <div>
-                                            <h4 className="font-semibold text-[#1d1d1f] dark:text-[#f5f5f7] mb-1">Guaranteed Convergence</h4>
-                                            <p className="text-sm text-[#6e6e73] dark:text-[#a1a1a6]">
+                                            <h4 className="font-semibold text-ink mb-1">Guaranteed Convergence</h4>
+                                            <p className="text-sm text-muted">
                                                 Algorithm always converges to a solution
                                             </p>
                                         </div>
@@ -594,34 +552,34 @@ export default function KMeansDemo() {
 
                                 <div className="space-y-4">
                                     <div className="flex items-start gap-3">
-                                        <div className="w-6 h-6 rounded-full bg-[#1d1d1f] dark:bg-[#f5f5f7] dark:text-[#1d1d1f]/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                                            <WarningIcon className="text-amber-600 dark:text-amber-400" sx={{ fontSize: 16 }} />
+                                        <div className="w-6 h-6 rounded-full step-badge flex items-center justify-center flex-shrink-0 mt-0.5">
+                                            <WarningIcon className="text-aspen" sx={{ fontSize: 16 }} />
                                         </div>
                                         <div>
-                                            <h4 className="font-semibold text-[#1d1d1f] dark:text-[#f5f5f7] mb-1">Must Choose K</h4>
-                                            <p className="text-sm text-[#6e6e73] dark:text-[#a1a1a6]">
+                                            <h4 className="font-semibold text-ink mb-1">Must Choose K</h4>
+                                            <p className="text-sm text-muted">
                                                 You need to specify the number of clusters beforehand
                                             </p>
                                         </div>
                                     </div>
                                     <div className="flex items-start gap-3">
-                                        <div className="w-6 h-6 rounded-full bg-[#1d1d1f] dark:bg-[#f5f5f7] dark:text-[#1d1d1f]/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                                            <WarningIcon className="text-amber-600 dark:text-amber-400" sx={{ fontSize: 16 }} />
+                                        <div className="w-6 h-6 rounded-full step-badge flex items-center justify-center flex-shrink-0 mt-0.5">
+                                            <WarningIcon className="text-aspen" sx={{ fontSize: 16 }} />
                                         </div>
                                         <div>
-                                            <h4 className="font-semibold text-[#1d1d1f] dark:text-[#f5f5f7] mb-1">Sensitive to Initialization</h4>
-                                            <p className="text-sm text-[#6e6e73] dark:text-[#a1a1a6]">
+                                            <h4 className="font-semibold text-ink mb-1">Sensitive to Initialization</h4>
+                                            <p className="text-sm text-muted">
                                                 Different starting centroids can give different results
                                             </p>
                                         </div>
                                     </div>
                                     <div className="flex items-start gap-3">
-                                        <div className="w-6 h-6 rounded-full bg-[#1d1d1f] dark:bg-[#f5f5f7] dark:text-[#1d1d1f]/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                                            <WarningIcon className="text-amber-600 dark:text-amber-400" sx={{ fontSize: 16 }} />
+                                        <div className="w-6 h-6 rounded-full step-badge flex items-center justify-center flex-shrink-0 mt-0.5">
+                                            <WarningIcon className="text-aspen" sx={{ fontSize: 16 }} />
                                         </div>
                                         <div>
-                                            <h4 className="font-semibold text-[#1d1d1f] dark:text-[#f5f5f7] mb-1">Assumes Spherical Clusters</h4>
-                                            <p className="text-sm text-[#6e6e73] dark:text-[#a1a1a6]">
+                                            <h4 className="font-semibold text-ink mb-1">Assumes Spherical Clusters</h4>
+                                            <p className="text-sm text-muted">
                                                 Works best when clusters are roughly circular/spherical
                                             </p>
                                         </div>
@@ -639,52 +597,52 @@ export default function KMeansDemo() {
                         animate={{ opacity: 1, y: 0 }}
                         className="space-y-8"
                     >
-                        <div className="bg-white dark:bg-[#1d1d1f] rounded-2xl border border-[#d2d2d7] dark:border-[#2c2c2e] p-8 shadow-sm">
-                            <h2 className="text-2xl font-bold text-[#1d1d1f] dark:text-[#f5f5f7] mb-6">The Algorithm Steps</h2>
+                        <div className="bg-surface rounded-2xl border border-line p-8 shadow-sm">
+                            <h2 className="display-heading text-3xl mb-6">The Algorithm Steps</h2>
 
                             <div className="space-y-6">
                                 <div className="apple-card-solid rounded-xl border hairline p-6">
                                     <div className="flex items-start gap-4">
-                                        <div className="w-10 h-10 rounded-full bg-[#1d1d1f] dark:bg-[#f5f5f7] dark:text-[#1d1d1f] text-white flex items-center justify-center font-bold flex-shrink-0">
+                                        <div className="w-10 h-10 rounded-full demo-icon flex items-center justify-center font-bold flex-shrink-0">
                                             1
                                         </div>
                                         <div>
-                                            <h3 className="text-lg font-semibold text-[#1d1d1f] dark:text-[#f5f5f7] mb-2">Initialize Centroids</h3>
-                                            <p className="text-[#6e6e73] dark:text-[#a1a1a6]">
+                                            <h3 className="text-lg font-semibold text-ink mb-2">Initialize Centroids</h3>
+                                            <p className="text-muted">
                                                 Randomly select K data points as initial cluster centers. This initialization affects the final result.
                                             </p>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div className="apple-card-solid rounded-xl p-6 border border-green-100 dark:border-green-800">
+                                <div className="apple-card-solid rounded-xl p-6 border border-fairway/30">
                                     <div className="flex items-start gap-4">
-                                        <div className="w-10 h-10 rounded-full bg-green-500 text-white flex items-center justify-center font-bold flex-shrink-0">
+                                        <div className="w-10 h-10 rounded-full bg-fairway text-signal-ink flex items-center justify-center font-bold flex-shrink-0">
                                             2
                                         </div>
                                         <div>
-                                            <h3 className="text-lg font-semibold text-[#1d1d1f] dark:text-[#f5f5f7] mb-2">Assign Points to Clusters</h3>
-                                            <p className="text-[#6e6e73] dark:text-[#a1a1a6] mb-3">
+                                            <h3 className="text-lg font-semibold text-ink mb-2">Assign Points to Clusters</h3>
+                                            <p className="text-muted mb-3">
                                                 For each data point, calculate the distance to all centroids and assign it to the nearest one.
                                             </p>
-                                            <div className="bg-white/60 dark:bg-[#2c2c2e]/60 rounded-lg p-4 font-mono text-sm text-[#424245] dark:text-[#d2d2d7]">
+                                            <div className="bg-surface rounded-lg p-4 font-mono text-sm text-body">
                                                 distance = √[(x₁ - x₂)² + (y₁ - y₂)²]
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div className="apple-card-solid rounded-xl p-6 border border-amber-100 dark:border-amber-800">
+                                <div className="apple-card-solid rounded-xl p-6 border border-aspen/30">
                                     <div className="flex items-start gap-4">
-                                        <div className="w-10 h-10 rounded-full bg-[#1d1d1f] dark:bg-[#f5f5f7] dark:text-[#1d1d1f] text-white flex items-center justify-center font-bold flex-shrink-0">
+                                        <div className="w-10 h-10 rounded-full demo-icon flex items-center justify-center font-bold flex-shrink-0">
                                             3
                                         </div>
                                         <div>
-                                            <h3 className="text-lg font-semibold text-[#1d1d1f] dark:text-[#f5f5f7] mb-2">Update Centroids</h3>
-                                            <p className="text-[#6e6e73] dark:text-[#a1a1a6] mb-3">
+                                            <h3 className="text-lg font-semibold text-ink mb-2">Update Centroids</h3>
+                                            <p className="text-muted mb-3">
                                                 Calculate new centroid positions as the mean of all points in each cluster.
                                             </p>
-                                            <div className="bg-white/60 dark:bg-[#2c2c2e]/60 rounded-lg p-4 font-mono text-sm text-[#424245] dark:text-[#d2d2d7]">
+                                            <div className="bg-surface rounded-lg p-4 font-mono text-sm text-body">
                                                 centroid_x = (Σ x_i) / n<br />
                                                 centroid_y = (Σ y_i) / n
                                             </div>
@@ -694,12 +652,12 @@ export default function KMeansDemo() {
 
                                 <div className="apple-card-solid rounded-xl border hairline p-6">
                                     <div className="flex items-start gap-4">
-                                        <div className="w-10 h-10 rounded-full bg-[#1d1d1f] dark:bg-[#f5f5f7] dark:text-[#1d1d1f] text-white flex items-center justify-center font-bold flex-shrink-0">
+                                        <div className="w-10 h-10 rounded-full demo-icon flex items-center justify-center font-bold flex-shrink-0">
                                             4
                                         </div>
                                         <div>
-                                            <h3 className="text-lg font-semibold text-[#1d1d1f] dark:text-[#f5f5f7] mb-2">Check Convergence</h3>
-                                            <p className="text-[#6e6e73] dark:text-[#a1a1a6]">
+                                            <h3 className="text-lg font-semibold text-ink mb-2">Check Convergence</h3>
+                                            <p className="text-muted">
                                                 If centroids haven't moved (or moved very little), the algorithm has converged. Otherwise, repeat steps 2-4.
                                             </p>
                                         </div>
@@ -708,58 +666,58 @@ export default function KMeansDemo() {
                             </div>
                         </div>
 
-                        <div className="bg-white dark:bg-[#1d1d1f] rounded-2xl border border-[#d2d2d7] dark:border-[#2c2c2e] p-8 shadow-sm">
-                            <h2 className="text-2xl font-bold text-[#1d1d1f] dark:text-[#f5f5f7] mb-6">Measuring Quality</h2>
+                        <div className="bg-surface rounded-2xl border border-line p-8 shadow-sm">
+                            <h2 className="display-heading text-3xl mb-6">Measuring Quality</h2>
 
                             <div className="grid md:grid-cols-2 gap-6">
-                                <div className="bg-[#f5f5f7] dark:bg-[#2c2c2e]/50 rounded-xl p-6 border border-[#d2d2d7] dark:border-[#424245]">
-                                    <h3 className="text-lg font-semibold text-[#1d1d1f] dark:text-[#f5f5f7] mb-3">Inertia (WCSS)</h3>
-                                    <p className="text-[#6e6e73] dark:text-[#a1a1a6] mb-4 text-sm">
+                                <div className="bg-well rounded-xl p-6 border border-line">
+                                    <h3 className="text-lg font-semibold text-ink mb-3">Inertia (WCSS)</h3>
+                                    <p className="text-muted mb-4 text-sm">
                                         <strong>Within-Cluster Sum of Squares</strong> measures how compact the clusters are. Lower is better.
                                     </p>
-                                    <div className="bg-white dark:bg-[#1d1d1f] rounded-lg p-4 font-mono text-sm text-[#424245] dark:text-[#d2d2d7] mb-3">
+                                    <div className="bg-surface rounded-lg p-4 font-mono text-sm text-body mb-3">
                                         WCSS = Σ (distance to centroid)²
                                     </div>
-                                    <p className="text-xs text-muted dark:text-[#a1a1a6]">
+                                    <p className="text-xs text-muted">
                                         Used in the "elbow method" to find optimal K
                                     </p>
                                 </div>
 
-                                <div className="bg-[#f5f5f7] dark:bg-[#2c2c2e]/50 rounded-xl p-6 border border-[#d2d2d7] dark:border-[#424245]">
-                                    <h3 className="text-lg font-semibold text-[#1d1d1f] dark:text-[#f5f5f7] mb-3">Silhouette Score</h3>
-                                    <p className="text-[#6e6e73] dark:text-[#a1a1a6] mb-4 text-sm">
+                                <div className="bg-well rounded-xl p-6 border border-line">
+                                    <h3 className="text-lg font-semibold text-ink mb-3">Silhouette Score</h3>
+                                    <p className="text-muted mb-4 text-sm">
                                         Measures how similar points are to their own cluster vs. other clusters. Range: -1 to 1.
                                     </p>
                                     <div className="space-y-2 text-sm">
                                         <div className="flex items-center gap-2">
-                                            <div className="w-3 h-3 rounded-full bg-green-500" />
-                                            <span className="text-[#6e6e73] dark:text-[#a1a1a6]">0.7 - 1.0: Excellent</span>
+                                            <div className="w-3 h-3 rounded-full bg-fairway" />
+                                            <span className="text-muted">0.7 - 1.0: Excellent</span>
                                         </div>
                                         <div className="flex items-center gap-2">
-                                            <div className="w-3 h-3 rounded-full bg-[#1d1d1f] dark:bg-[#f5f5f7] dark:text-[#1d1d1f]" />
-                                            <span className="text-[#6e6e73] dark:text-[#a1a1a6]">0.5 - 0.7: Good</span>
+                                            <div className="w-3 h-3 rounded-full bg-signal" />
+                                            <span className="text-muted">0.5 - 0.7: Good</span>
                                         </div>
                                         <div className="flex items-center gap-2">
-                                            <div className="w-3 h-3 rounded-full bg-[#1d1d1f] dark:bg-[#f5f5f7] dark:text-[#1d1d1f]" />
-                                            <span className="text-[#6e6e73] dark:text-[#a1a1a6]">0.25 - 0.5: Fair</span>
+                                            <div className="w-3 h-3 rounded-full bg-signal" />
+                                            <span className="text-muted">0.25 - 0.5: Fair</span>
                                         </div>
                                         <div className="flex items-center gap-2">
-                                            <div className="w-3 h-3 rounded-full bg-[#1d1d1f] dark:bg-[#f5f5f7] dark:text-[#1d1d1f]" />
-                                            <span className="text-[#6e6e73] dark:text-[#a1a1a6]">&lt; 0.25: Poor</span>
+                                            <div className="w-3 h-3 rounded-full bg-signal" />
+                                            <span className="text-muted">&lt; 0.25: Poor</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div className="bg-[#1d1d1f] dark:bg-white rounded-2xl p-8 text-center shadow-xl">
-                            <h2 className="text-2xl font-bold text-white dark:text-[#1d1d1f] mb-4">See it run</h2>
-                            <p className="text-[#d2d2d7] dark:text-[#6e6e73] mb-6 max-w-xl mx-auto">
+                        <div className="ink-band rounded-2xl p-8 text-center shadow-xl">
+                            <h2 className="display-heading text-3xl mb-4">See it run</h2>
+                            <p className="text-body mb-6 max-w-xl mx-auto">
                                 Watch the algorithm iterate step by step in the interactive demo.
                             </p>
                             <button
                                 onClick={() => setActiveSection('interactive')}
-                                className="px-8 py-3 bg-white dark:bg-[#1d1d1f] text-[#1d1d1f] dark:text-[#f5f5f7] rounded-xl font-semibold hover:bg-[#e8e8ed] dark:hover:bg-[#2c2c2e] transition-colors shadow-lg"
+                                className="quiet-link"
                             >
                                 Try Interactive Demo →
                             </button>
@@ -774,9 +732,9 @@ export default function KMeansDemo() {
                         animate={{ opacity: 1, y: 0 }}
                         className="space-y-8"
                     >
-                        <div className="bg-white dark:bg-[#1d1d1f] rounded-2xl border border-[#d2d2d7] dark:border-[#2c2c2e] p-8 shadow-sm">
+                        <div className="bg-surface rounded-2xl border border-line p-8 shadow-sm">
                             <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
-                                <h2 className="text-2xl font-bold text-[#1d1d1f] dark:text-[#f5f5f7]">
+                                <h2 className="display-heading text-3xl">
                                     {isCustomMode ? 'Custom Data' : currentDataset?.name}
                                 </h2>
 
@@ -790,7 +748,7 @@ export default function KMeansDemo() {
                                             }
                                             setIsPlaying(false)
                                         }}
-                                        className="px-4 py-2 bg-[#e8e8ed] dark:bg-[#2c2c2e] text-[#424245] dark:text-[#d2d2d7] rounded-lg hover:bg-[#d2d2d7] dark:hover:bg-[#424245] transition-colors font-medium"
+                                        className="px-4 py-2 bg-well text-body rounded-lg hover:bg-hover transition-colors font-medium"
                                     >
                                         {isCustomMode ? 'Use Sample Data' : 'Create Custom'}
                                     </button>
@@ -807,8 +765,8 @@ export default function KMeansDemo() {
                                                 setIsPlaying(false)
                                             }}
                                             className={`inline-flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all ${selectedDataset === key
-                                                ? 'bg-[#1d1d1f] dark:bg-white text-white dark:text-[#1d1d1f] shadow-lg'
-                                                : 'bg-[#e8e8ed] dark:bg-[#2c2c2e] text-[#6e6e73] dark:text-[#a1a1a6] hover:bg-[#d2d2d7] dark:hover:bg-[#424245]'
+                                                ? 'bg-signal text-signal-ink shadow-lg'
+                                                : 'bg-well text-muted hover:bg-hover'
                                                 }`}
                                         >
                                             {getDatasetIcon(key)}
@@ -821,7 +779,7 @@ export default function KMeansDemo() {
                             {isCustomMode && (
                                 <div className="mb-6 space-y-4">
                                     <div className="flex items-center gap-4">
-                                        <label htmlFor="kmeans-k" className="text-[#424245] dark:text-[#d2d2d7] font-medium">
+                                        <label htmlFor="kmeans-k" className="text-body font-medium">
                                             Number of clusters (K):
                                         </label>
                                         <input
@@ -831,7 +789,7 @@ export default function KMeansDemo() {
                                             max="8"
                                             value={k}
                                             onChange={(e) => setK(Math.max(1, Math.min(8, parseInt(e.target.value) || 1)))}
-                                            className="w-20 px-3 py-2 bg-[#e8e8ed] dark:bg-[#2c2c2e] border border-[#d2d2d7] dark:border-[#6e6e73] rounded-lg text-[#1d1d1f] dark:text-[#f5f5f7]"
+                                            className="w-20 px-3 py-2 bg-well border border-line rounded-lg text-ink"
                                         />
                                     </div>
 
@@ -839,20 +797,20 @@ export default function KMeansDemo() {
                                         <button
                                             onClick={removeLastPoint}
                                             disabled={customPoints.length === 0}
-                                            className="px-4 py-2 bg-[#1d1d1f] dark:bg-[#f5f5f7] dark:text-[#1d1d1f] text-white rounded-lg hover:bg-amber-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                                            className="px-4 py-2 bg-signal text-signal-ink rounded-lg hover:bg-signal-hover disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                                         >
                                             Remove Last Point
                                         </button>
                                         <button
                                             onClick={clearCustomPoints}
                                             disabled={customPoints.length === 0}
-                                            className="px-4 py-2 bg-[#1d1d1f] dark:bg-[#f5f5f7] dark:text-[#1d1d1f] text-white rounded-lg hover:bg-red-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                                            className="px-4 py-2 bg-signal text-signal-ink rounded-lg hover:bg-signal-hover disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                                         >
                                             Clear All Points
                                         </button>
                                     </div>
 
-                                    <p className="text-sm text-[#6e6e73] dark:text-[#a1a1a6]">
+                                    <p className="text-sm text-muted">
                                         Click on the chart to add points. You need at least {k} points to run k-means.
                                         {customPoints.length > 0 && ` (${customPoints.length} points added)`}
                                     </p>
@@ -860,7 +818,7 @@ export default function KMeansDemo() {
                             )}
 
                             <div
-                                className={`h-[500px] bg-[#e8e8ed] dark:bg-[#2c2c2e]/60 rounded-2xl p-4 border border-[#d2d2d7] dark:border-[#424245]/50 ${isCustomMode ? 'cursor-crosshair' : ''
+                                className={`h-[500px] bg-well rounded-2xl p-4 border border-line ${isCustomMode ? 'cursor-crosshair' : ''
                                     }`}
                                 onClick={handleChartClick}
                                 ref={chartRef}
@@ -879,7 +837,7 @@ export default function KMeansDemo() {
                                             domain={isCustomMode ? [customBounds.xMin, customBounds.xMax] : ['auto', 'auto']}
                                             stroke="var(--text-secondary)"
                                             tick={{ fill: 'var(--text-secondary)', fontSize: 12 }}
-                                            tickLine={{ stroke: '#a1a1a6' }}
+                                            tickLine={{ stroke: 'var(--control-border)' }}
                                             axisLine={{ stroke: 'var(--hairline)', strokeWidth: 1 }}
                                             label={{
                                                 value: isCustomMode ? 'X Value' : (datasetLabels[selectedDataset]?.x || 'X'),
@@ -897,7 +855,7 @@ export default function KMeansDemo() {
                                             domain={isCustomMode ? [customBounds.yMin, customBounds.yMax] : ['auto', 'auto']}
                                             stroke="var(--text-secondary)"
                                             tick={{ fill: 'var(--text-secondary)', fontSize: 12 }}
-                                            tickLine={{ stroke: '#a1a1a6' }}
+                                            tickLine={{ stroke: 'var(--control-border)' }}
                                             axisLine={{ stroke: 'var(--hairline)', strokeWidth: 1 }}
                                             label={{
                                                 value: isCustomMode ? 'Y Value' : (datasetLabels[selectedDataset]?.y || 'Y'),
@@ -916,7 +874,7 @@ export default function KMeansDemo() {
                                             {chartData.map((entry, index) => (
                                                 <Cell
                                                     key={`cell-${index}`}
-                                                    fill={entry.cluster !== undefined ? clusterColors[entry.cluster % clusterColors.length] : '#a1a1a6'}
+                                                    fill={entry.cluster !== undefined ? clusterColors[entry.cluster % clusterColors.length] : 'var(--control-border)'}
                                                     stroke={entry.cluster !== undefined ? centroidColors[entry.cluster % centroidColors.length] : 'var(--text-secondary)'}
                                                     strokeWidth={1.5}
                                                 />
@@ -928,15 +886,13 @@ export default function KMeansDemo() {
                                             <Scatter
                                                 name="Centroids"
                                                 data={centroidData}
-                                                shape="star"
-                                                legendType="star"
+                                                shape={CentroidMarker}
+                                                legendType="circle"
                                             >
                                                 {centroidData.map((entry, index) => (
                                                     <Cell
                                                         key={`centroid-${index}`}
                                                         fill={centroidColors[entry.cluster % centroidColors.length]}
-                                                        stroke="#ffffff"
-                                                        strokeWidth={2}
                                                     />
                                                 ))}
                                             </Scatter>
@@ -952,7 +908,7 @@ export default function KMeansDemo() {
                                         <button
                                             onClick={() => setIsPlaying(!isPlaying)}
                                             disabled={currentIteration >= result.history.length - 1 && !isPlaying}
-                                            className="flex items-center gap-2 rounded-lg bg-[#1d1d1f] px-4 py-2 text-white transition-colors hover:bg-black disabled:cursor-not-allowed disabled:opacity-50 dark:bg-[#f5f5f7] dark:text-[#1d1d1f] dark:hover:bg-white"
+                                            className="flex items-center gap-2 rounded-lg bg-signal px-4 py-2 text-signal-ink transition-colors hover:bg-signal-hover disabled:cursor-not-allowed disabled:opacity-50"
                                         >
                                             {isPlaying ? (
                                                 <>
@@ -973,7 +929,7 @@ export default function KMeansDemo() {
                                                 setIsPlaying(false)
                                             }}
                                             disabled={currentIteration >= result.history.length - 1}
-                                            className="px-4 py-2 bg-[#86868b] text-white rounded-lg hover:bg-[#6e6e73] disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
+                                            className="px-4 py-2 border border-control text-ink rounded-lg hover:bg-hover disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
                                         >
                                             <SkipNextIcon sx={{ fontSize: 20 }} />
                                             Next Step
@@ -984,7 +940,7 @@ export default function KMeansDemo() {
                                                 setCurrentIteration(0)
                                                 setIsPlaying(false)
                                             }}
-                                            className="px-4 py-2 bg-[#d2d2d7] dark:bg-[#424245] text-[#424245] dark:text-[#d2d2d7] rounded-lg hover:bg-[#a1a1a6] dark:hover:bg-[#6e6e73] transition-colors flex items-center gap-2"
+                                            className="px-4 py-2 bg-line text-body rounded-lg hover:bg-muted transition-colors flex items-center gap-2"
                                         >
                                             <RestartAltIcon sx={{ fontSize: 20 }} />
                                             Reset
@@ -992,7 +948,7 @@ export default function KMeansDemo() {
 
                                         <div className="flex-1" />
 
-                                        <div className="text-[#6e6e73] dark:text-[#a1a1a6] font-medium">
+                                        <div className="text-muted font-medium">
                                             Iteration {currentIteration} / {result.history.length - 1}
                                         </div>
                                     </div>
@@ -1015,27 +971,27 @@ export default function KMeansDemo() {
                             {/* Results */}
                             {result && (
                                 <div className="mt-6 grid md:grid-cols-4 gap-4">
-                                    <div className="bg-[#f5f5f7] dark:bg-[#2c2c2e]/50 rounded-xl p-4 border border-[#d2d2d7] dark:border-[#424245]">
-                                        <div className="text-sm text-[#6e6e73] dark:text-[#a1a1a6] mb-1">Iterations</div>
-                                        <div className="text-2xl font-bold text-[#1d1d1f] dark:text-[#f5f5f7]">{result.iterations}</div>
+                                    <div className="bg-well rounded-xl p-4 border border-line">
+                                        <div className="text-sm text-muted mb-1">Iterations</div>
+                                        <div className="text-2xl font-bold text-ink">{result.iterations}</div>
                                     </div>
-                                    <div className="bg-[#f5f5f7] dark:bg-[#2c2c2e]/50 rounded-xl p-4 border border-[#d2d2d7] dark:border-[#424245]">
-                                        <div className="text-sm text-[#6e6e73] dark:text-[#a1a1a6] mb-1">Converged</div>
-                                        <div className="text-2xl font-bold text-[#1d1d1f] dark:text-[#f5f5f7] flex items-center">
+                                    <div className="bg-well rounded-xl p-4 border border-line">
+                                        <div className="text-sm text-muted mb-1">Converged</div>
+                                        <div className="text-2xl font-bold text-ink flex items-center">
                                             {result.converged ? (
-                                                <CheckCircleIcon className="text-green-500" sx={{ fontSize: 28 }} />
+                                                <CheckCircleIcon className="text-fairway" sx={{ fontSize: 28 }} />
                                             ) : (
-                                                <CancelIcon className="text-red-500" sx={{ fontSize: 28 }} />
+                                                <CancelIcon className="text-negative" sx={{ fontSize: 28 }} />
                                             )}
                                         </div>
                                     </div>
-                                    <div className="bg-[#f5f5f7] dark:bg-[#2c2c2e]/50 rounded-xl p-4 border border-[#d2d2d7] dark:border-[#424245]">
-                                        <div className="text-sm text-[#6e6e73] dark:text-[#a1a1a6] mb-1">Inertia</div>
-                                        <div className="text-2xl font-bold text-[#1d1d1f] dark:text-[#f5f5f7]">{result.inertia.toFixed(2)}</div>
+                                    <div className="bg-well rounded-xl p-4 border border-line">
+                                        <div className="text-sm text-muted mb-1">Inertia</div>
+                                        <div className="text-2xl font-bold text-ink">{result.inertia.toFixed(2)}</div>
                                     </div>
-                                    <div className="bg-[#f5f5f7] dark:bg-[#2c2c2e]/50 rounded-xl p-4 border border-[#d2d2d7] dark:border-[#424245]">
-                                        <div className="text-sm text-[#6e6e73] dark:text-[#a1a1a6] mb-1">Silhouette</div>
-                                        <div className="text-2xl font-bold text-[#1d1d1f] dark:text-[#f5f5f7]">
+                                    <div className="bg-well rounded-xl p-4 border border-line">
+                                        <div className="text-sm text-muted mb-1">Silhouette</div>
+                                        <div className="text-2xl font-bold text-ink">
                                             {result.silhouette_score.toFixed(3)}
                                         </div>
                                     </div>
@@ -1043,8 +999,8 @@ export default function KMeansDemo() {
                             )}
 
                             {isCustomMode && customPoints.length < k && (
-                                <div className="mt-6 rounded-xl border hairline bg-black/[0.03] p-4 dark:bg-white/[0.06]">
-                                    <p className="text-[#424245] dark:text-[#d2d2d7]">
+                                <div className="mt-6 rounded-xl border hairline bg-hover p-4">
+                                    <p className="text-body">
                                         Add {k - customPoints.length} more point{k - customPoints.length !== 1 ? 's' : ''} to run k-means clustering.
                                     </p>
                                 </div>
@@ -1060,102 +1016,102 @@ export default function KMeansDemo() {
                         animate={{ opacity: 1, y: 0 }}
                         className="space-y-8"
                     >
-                        <div className="bg-[#f5f5f7] dark:bg-[#1d1d1f]/50 backdrop-blur-sm rounded-3xl border border-[#d2d2d7]/50 dark:border-[#2c2c2e]/50 p-8 shadow-sm">
-                            <h2 className="text-2xl font-bold text-[#1d1d1f] dark:text-[#f5f5f7] mb-6">Real-World Applications</h2>
+                        <div className="bg-well backdrop-blur-sm rounded-3xl border border-line/50 p-8 shadow-sm">
+                            <h2 className="display-heading text-3xl mb-6">Real-World Applications</h2>
                             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                <div className="bg-[#e8e8ed] dark:bg-[#2c2c2e]/50 rounded-xl p-6 border border-[#d2d2d7] dark:border-[#424245]">
-                                    <div className="w-12 h-12 bg-[#1d1d1f] dark:bg-white rounded-xl flex items-center justify-center mb-4 shadow-lg text-white dark:text-[#1d1d1f]">
+                                <div className="bg-well rounded-xl p-6 border border-line">
+                                    <div className="w-12 h-12 demo-icon rounded-xl flex items-center justify-center mb-4 shadow-lg">
                                         <ShoppingCartIcon sx={{ fontSize: 24 }} />
                                     </div>
-                                    <h3 className="text-lg font-semibold text-[#1d1d1f] dark:text-[#f5f5f7] mb-2">Customer Segmentation</h3>
-                                    <p className="text-sm text-[#6e6e73] dark:text-[#a1a1a6]">
+                                    <h3 className="text-lg font-semibold text-ink mb-2">Customer Segmentation</h3>
+                                    <p className="text-sm text-muted">
                                         Group customers by behavior, demographics, or purchase patterns for targeted marketing
                                     </p>
                                 </div>
-                                <div className="bg-[#e8e8ed] dark:bg-[#2c2c2e]/50 rounded-xl p-6 border border-[#d2d2d7] dark:border-[#424245]">
-                                    <div className="w-12 h-12 bg-[#1d1d1f] dark:bg-white rounded-xl flex items-center justify-center mb-4 shadow-lg text-white dark:text-[#1d1d1f]">
+                                <div className="bg-well rounded-xl p-6 border border-line">
+                                    <div className="w-12 h-12 demo-icon rounded-xl flex items-center justify-center mb-4 shadow-lg">
                                         <ImageIcon sx={{ fontSize: 24 }} />
                                     </div>
-                                    <h3 className="text-lg font-semibold text-[#1d1d1f] dark:text-[#f5f5f7] mb-2">Image Compression</h3>
-                                    <p className="text-sm text-[#6e6e73] dark:text-[#a1a1a6]">
+                                    <h3 className="text-lg font-semibold text-ink mb-2">Image Compression</h3>
+                                    <p className="text-sm text-muted">
                                         Reduce color palettes by clustering similar colors, decreasing file size
                                     </p>
                                 </div>
-                                <div className="bg-[#e8e8ed] dark:bg-[#2c2c2e]/50 rounded-xl p-6 border border-[#d2d2d7] dark:border-[#424245]">
-                                    <div className="w-12 h-12 bg-[#1d1d1f] dark:bg-white rounded-xl flex items-center justify-center mb-4 shadow-lg text-white dark:text-[#1d1d1f]">
+                                <div className="bg-well rounded-xl p-6 border border-line">
+                                    <div className="w-12 h-12 demo-icon rounded-xl flex items-center justify-center mb-4 shadow-lg">
                                         <ArticleIcon sx={{ fontSize: 24 }} />
                                     </div>
-                                    <h3 className="text-lg font-semibold text-[#1d1d1f] dark:text-[#f5f5f7] mb-2">Document Classification</h3>
-                                    <p className="text-sm text-[#6e6e73] dark:text-[#a1a1a6]">
+                                    <h3 className="text-lg font-semibold text-ink mb-2">Document Classification</h3>
+                                    <p className="text-sm text-muted">
                                         Organize articles, emails, or documents into topics automatically
                                     </p>
                                 </div>
-                                <div className="bg-[#e8e8ed] dark:bg-[#2c2c2e]/50 rounded-xl p-6 border border-[#d2d2d7] dark:border-[#424245]">
-                                    <div className="w-12 h-12 bg-[#1d1d1f] dark:bg-white rounded-xl flex items-center justify-center mb-4 shadow-lg text-white dark:text-[#1d1d1f]">
+                                <div className="bg-well rounded-xl p-6 border border-line">
+                                    <div className="w-12 h-12 demo-icon rounded-xl flex items-center justify-center mb-4 shadow-lg">
                                         <SearchIcon sx={{ fontSize: 24 }} />
                                     </div>
-                                    <h3 className="text-lg font-semibold text-[#1d1d1f] dark:text-[#f5f5f7] mb-2">Anomaly Detection</h3>
-                                    <p className="text-sm text-[#6e6e73] dark:text-[#a1a1a6]">
+                                    <h3 className="text-lg font-semibold text-ink mb-2">Anomaly Detection</h3>
+                                    <p className="text-sm text-muted">
                                         Identify outliers that don't fit well into any cluster (fraud, defects)
                                     </p>
                                 </div>
-                                <div className="bg-[#e8e8ed] dark:bg-[#2c2c2e]/50 rounded-xl p-6 border border-[#d2d2d7] dark:border-[#424245]">
-                                    <div className="w-12 h-12 bg-[#1d1d1f] dark:bg-white rounded-xl flex items-center justify-center mb-4 shadow-lg text-white dark:text-[#1d1d1f]">
+                                <div className="bg-well rounded-xl p-6 border border-line">
+                                    <div className="w-12 h-12 demo-icon rounded-xl flex items-center justify-center mb-4 shadow-lg">
                                         <LocationCityIcon sx={{ fontSize: 24 }} />
                                     </div>
-                                    <h3 className="text-lg font-semibold text-[#1d1d1f] dark:text-[#f5f5f7] mb-2">Geographic Clustering</h3>
-                                    <p className="text-sm text-[#6e6e73] dark:text-[#a1a1a6]">
+                                    <h3 className="text-lg font-semibold text-ink mb-2">Geographic Clustering</h3>
+                                    <p className="text-sm text-muted">
                                         Find optimal locations for stores, warehouses, or service centers
                                     </p>
                                 </div>
-                                <div className="bg-[#e8e8ed] dark:bg-[#2c2c2e]/50 rounded-xl p-6 border border-[#d2d2d7] dark:border-[#424245]">
-                                    <div className="w-12 h-12 bg-[#1d1d1f] dark:bg-white rounded-xl flex items-center justify-center mb-4 shadow-lg text-white dark:text-[#1d1d1f]">
+                                <div className="bg-well rounded-xl p-6 border border-line">
+                                    <div className="w-12 h-12 demo-icon rounded-xl flex items-center justify-center mb-4 shadow-lg">
                                         <BiotechIcon sx={{ fontSize: 24 }} />
                                     </div>
-                                    <h3 className="text-lg font-semibold text-[#1d1d1f] dark:text-[#f5f5f7] mb-2">Gene Expression</h3>
-                                    <p className="text-sm text-[#6e6e73] dark:text-[#a1a1a6]">
+                                    <h3 className="text-lg font-semibold text-ink mb-2">Gene Expression</h3>
+                                    <p className="text-sm text-muted">
                                         Group genes with similar expression patterns in biological research
                                     </p>
                                 </div>
                             </div>
                         </div>
 
-                        <div className="bg-[#f5f5f7] dark:bg-[#1d1d1f]/50 backdrop-blur-sm rounded-3xl border border-[#d2d2d7]/50 dark:border-[#2c2c2e]/50 p-8 shadow-sm">
-                            <h2 className="text-2xl font-bold text-[#1d1d1f] dark:text-[#f5f5f7] mb-6">When to Use K-Means</h2>
+                        <div className="bg-well backdrop-blur-sm rounded-3xl border border-line/50 p-8 shadow-sm">
+                            <h2 className="display-heading text-3xl mb-6">When to Use K-Means</h2>
                             <div className="grid md:grid-cols-2 gap-8">
                                 <div>
-                                    <h3 className="text-lg font-semibold text-green-600 dark:text-green-400 mb-4 flex items-center gap-2">
+                                    <h3 className="text-lg font-semibold text-fairway mb-4 flex items-center gap-2">
                                         <CheckCircleIcon sx={{ fontSize: 24 }} />
                                         Good Use Cases
                                     </h3>
                                     <ul className="space-y-3">
                                         <li className="flex items-start gap-2">
-                                            <span className="text-green-500 mt-1">•</span>
-                                            <span className="text-[#6e6e73] dark:text-[#a1a1a6]">
+                                            <span className="text-fairway mt-1">•</span>
+                                            <span className="text-muted">
                                                 You have a rough idea of how many groups exist
                                             </span>
                                         </li>
                                         <li className="flex items-start gap-2">
-                                            <span className="text-green-500 mt-1">•</span>
-                                            <span className="text-[#6e6e73] dark:text-[#a1a1a6]">
+                                            <span className="text-fairway mt-1">•</span>
+                                            <span className="text-muted">
                                                 Clusters are roughly spherical/circular in shape
                                             </span>
                                         </li>
                                         <li className="flex items-start gap-2">
-                                            <span className="text-green-500 mt-1">•</span>
-                                            <span className="text-[#6e6e73] dark:text-[#a1a1a6]">
+                                            <span className="text-fairway mt-1">•</span>
+                                            <span className="text-muted">
                                                 You need fast results on large datasets
                                             </span>
                                         </li>
                                         <li className="flex items-start gap-2">
-                                            <span className="text-green-500 mt-1">•</span>
-                                            <span className="text-[#6e6e73] dark:text-[#a1a1a6]">
+                                            <span className="text-fairway mt-1">•</span>
+                                            <span className="text-muted">
                                                 Features are on similar scales (or can be normalized)
                                             </span>
                                         </li>
                                         <li className="flex items-start gap-2">
-                                            <span className="text-green-500 mt-1">•</span>
-                                            <span className="text-[#6e6e73] dark:text-[#a1a1a6]">
+                                            <span className="text-fairway mt-1">•</span>
+                                            <span className="text-muted">
                                                 Cluster sizes are relatively balanced
                                             </span>
                                         </li>
@@ -1163,38 +1119,38 @@ export default function KMeansDemo() {
                                 </div>
 
                                 <div>
-                                    <h3 className="text-lg font-semibold text-red-600 dark:text-red-400 mb-4 flex items-center gap-2">
+                                    <h3 className="text-lg font-semibold text-negative mb-4 flex items-center gap-2">
                                         <CancelIcon sx={{ fontSize: 24 }} />
                                         Consider Alternatives When
                                     </h3>
                                     <ul className="space-y-3">
                                         <li className="flex items-start gap-2">
-                                            <span className="text-red-500 mt-1">•</span>
-                                            <span className="text-[#6e6e73] dark:text-[#a1a1a6]">
+                                            <span className="text-negative mt-1">•</span>
+                                            <span className="text-muted">
                                                 You don't know how many clusters to expect
                                             </span>
                                         </li>
                                         <li className="flex items-start gap-2">
-                                            <span className="text-red-500 mt-1">•</span>
-                                            <span className="text-[#6e6e73] dark:text-[#a1a1a6]">
+                                            <span className="text-negative mt-1">•</span>
+                                            <span className="text-muted">
                                                 Clusters have complex, non-spherical shapes
                                             </span>
                                         </li>
                                         <li className="flex items-start gap-2">
-                                            <span className="text-red-500 mt-1">•</span>
-                                            <span className="text-[#6e6e73] dark:text-[#a1a1a6]">
+                                            <span className="text-negative mt-1">•</span>
+                                            <span className="text-muted">
                                                 Clusters vary greatly in density or size
                                             </span>
                                         </li>
                                         <li className="flex items-start gap-2">
-                                            <span className="text-red-500 mt-1">•</span>
-                                            <span className="text-[#6e6e73] dark:text-[#a1a1a6]">
+                                            <span className="text-negative mt-1">•</span>
+                                            <span className="text-muted">
                                                 You need hierarchical relationships between clusters
                                             </span>
                                         </li>
                                         <li className="flex items-start gap-2">
-                                            <span className="text-red-500 mt-1">•</span>
-                                            <span className="text-[#6e6e73] dark:text-[#a1a1a6]">
+                                            <span className="text-negative mt-1">•</span>
+                                            <span className="text-muted">
                                                 Data contains many outliers or noise
                                             </span>
                                         </li>
@@ -1203,47 +1159,47 @@ export default function KMeansDemo() {
                             </div>
                         </div>
 
-                        <div className="bg-white dark:bg-[#1d1d1f] rounded-2xl border border-[#d2d2d7] dark:border-[#2c2c2e] p-8 shadow-sm">
-                            <h2 className="text-2xl font-bold text-[#1d1d1f] dark:text-[#f5f5f7] mb-6">Tips for Better Results</h2>
+                        <div className="bg-surface rounded-2xl border border-line p-8 shadow-sm">
+                            <h2 className="display-heading text-3xl mb-6">Tips for Better Results</h2>
                             <div className="grid md:grid-cols-3 gap-6">
                                 <div className="space-y-2">
-                                    <h3 className="font-semibold text-[#1d1d1f] dark:text-[#f5f5f7] flex items-center gap-2">
-                                        <span className="font-semibold text-[#1d1d1f] dark:text-[#f5f5f7]">1.</span>
+                                    <h3 className="font-semibold text-ink flex items-center gap-2">
+                                        <span className="font-semibold text-ink">1.</span>
                                         Normalize Your Data
                                     </h3>
-                                    <p className="text-sm text-[#6e6e73] dark:text-[#a1a1a6]">
+                                    <p className="text-sm text-muted">
                                         Scale features to similar ranges so no single feature dominates distance calculations
                                     </p>
                                 </div>
                                 <div className="space-y-2">
-                                    <h3 className="font-semibold text-[#1d1d1f] dark:text-[#f5f5f7] flex items-center gap-2">
-                                        <span className="font-semibold text-[#1d1d1f] dark:text-[#f5f5f7]">2.</span>
+                                    <h3 className="font-semibold text-ink flex items-center gap-2">
+                                        <span className="font-semibold text-ink">2.</span>
                                         Use the Elbow Method
                                     </h3>
-                                    <p className="text-sm text-[#6e6e73] dark:text-[#a1a1a6]">
+                                    <p className="text-sm text-muted">
                                         Plot inertia vs. K and look for the "elbow" point where improvement slows
                                     </p>
                                 </div>
                                 <div className="space-y-2">
-                                    <h3 className="font-semibold text-[#1d1d1f] dark:text-[#f5f5f7] flex items-center gap-2">
-                                        <span className="font-semibold text-[#1d1d1f] dark:text-[#f5f5f7]">3.</span>
+                                    <h3 className="font-semibold text-ink flex items-center gap-2">
+                                        <span className="font-semibold text-ink">3.</span>
                                         Run Multiple Times
                                     </h3>
-                                    <p className="text-sm text-[#6e6e73] dark:text-[#a1a1a6]">
+                                    <p className="text-sm text-muted">
                                         Try different random seeds and pick the result with the lowest inertia
                                     </p>
                                 </div>
                             </div>
                         </div>
 
-                        <div className="bg-[#1d1d1f] dark:bg-white rounded-2xl p-8 text-center shadow-xl">
-                            <h2 className="text-2xl font-bold text-white dark:text-[#1d1d1f] mb-4">Try it in the playground</h2>
-                            <p className="text-[#d2d2d7] dark:text-[#6e6e73] mb-6 max-w-xl mx-auto">
+                        <div className="ink-band rounded-2xl p-8 text-center shadow-xl">
+                            <h2 className="display-heading text-3xl mb-4">Try it in the playground</h2>
+                            <p className="text-body mb-6 max-w-xl mx-auto">
                                 Experiment with different datasets and K values to see how the algorithm behaves.
                             </p>
                             <button
                                 onClick={() => setActiveSection('interactive')}
-                                className="px-8 py-3 bg-white dark:bg-[#1d1d1f] text-[#1d1d1f] dark:text-[#f5f5f7] rounded-xl font-semibold hover:bg-[#e8e8ed] dark:hover:bg-[#2c2c2e] transition-colors shadow-lg"
+                                className="quiet-link"
                             >
                                 Open interactive demo →
                             </button>

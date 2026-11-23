@@ -25,11 +25,10 @@ web
 
 ## Product Purpose
 
-A personal portfolio and demo site for Andrew Frankenreider, a data science
-and analytics manager at Caterpillar, Inc. in the financial services division.
-His team builds ML models, analytics dashboards, web applications, and process
-automation (RPA) for accounting and finance and for sales and operations
-planning (S&OP).
+A personal portfolio and demo site for Andrew Frankenreider, Senior Manager,
+Digital Architecture at Caterpillar. His team builds and scales an enterprise
+analytics platform for global finance: the backend and frontend code, the AI
+chat interface and its harness, and the Azure infrastructure that hosts it.
 
 The site records his experience and hosts interactive, browser-based demos of
 core methods (linear regression, k-means clustering, neural networks, market
@@ -59,7 +58,9 @@ read like it was written by the person it describes.
 ## Design Principles
 
 1. Content first: experience, demos, and contact details carry the site.
-2. Quiet, precise surfaces; the interactive demos are where visual energy goes.
+2. Golf-resort calm: parchment and slate, one soft accent, a light serif,
+   square corners, generous space. Color and motion come from data visuals,
+   not decoration or stock photography.
 3. Every sentence must survive the question "would Andrew actually say this?"
 
 ## Accessibility & Inclusion

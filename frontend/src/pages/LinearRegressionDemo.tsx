@@ -1,6 +1,5 @@
 import { useState, useEffect, useMemo, useRef, useCallback, memo } from 'react'
 import { motion } from 'framer-motion'
-import { Link } from 'react-router-dom'
 import {
   Scatter,
   XAxis,
@@ -16,8 +15,6 @@ import {
   Legend,
   Cell,
 } from 'recharts'
-import ArrowBackIcon from '@mui/icons-material/ArrowBack'
-import TimelineIcon from '@mui/icons-material/Timeline'
 import SchoolIcon from '@mui/icons-material/School'
 import TipsAndUpdatesIcon from '@mui/icons-material/TipsAndUpdates'
 import CalculateIcon from '@mui/icons-material/Calculate'
@@ -39,18 +36,20 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy'
 import CheckIcon from '@mui/icons-material/Check'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import ExpandLessIcon from '@mui/icons-material/ExpandLess'
+import DemoHeader from '../components/DemoHeader'
+import DemoTabs from '../components/DemoTabs'
 
 const colors = {
-  primary: '#1d1d1f',
-  secondary: '#6e6e73',
-  accent: '#000000',
-  muted: '#86868b',
-  success: '#248a3d',
-  warning: '#b25000',
-  danger: '#d70015',
-  line: '#1d1d1f',
-  gridLight: 'rgba(0, 0, 0, 0.08)',
-  gridDark: 'rgba(255, 255, 255, 0.14)',
+  primary: 'var(--data-blue)',
+  secondary: 'var(--text-secondary)',
+  accent: 'var(--signal)',
+  muted: 'var(--control-border)',
+  success: 'var(--data-teal)',
+  warning: 'var(--accent)',
+  danger: 'var(--negative)',
+  line: 'var(--signal)',
+  gridLight: 'var(--hairline)',
+  gridDark: 'var(--hairline)',
 }
 
 const chartText = 'var(--text-secondary)'
@@ -86,11 +85,11 @@ interface DataPoint {
 const CustomTooltip = memo(({ active, payload }: any) => {
   if (active && payload && payload.length) {
     return (
-      <div className="rounded-xl border hairline bg-white px-4 py-3 shadow-lg dark:bg-[#161617]">
-        <p className="mb-2 text-sm font-semibold text-[#1d1d1f] dark:text-[#f5f5f7]">Point Data</p>
+      <div className="rounded-xl border hairline bg-surface px-4 py-3 shadow-lg">
+        <p className="mb-2 text-sm font-semibold text-ink">Point Data</p>
         {payload.map((entry: any, index: number) => (
-          <p key={index} className="text-sm text-[#1d1d1f] dark:text-[#f5f5f7]">
-            <span className="text-[#6e6e73] dark:text-[#a1a1a6]">{entry.name}: </span>
+          <p key={index} className="text-sm text-ink">
+            <span className="text-muted">{entry.name}: </span>
             <span className="font-semibold font-mono">{typeof entry.value === 'number' ? entry.value.toFixed(1) : entry.value}</span>
           </p>
         ))}
@@ -111,7 +110,7 @@ const CustomLegend = memo(({ payload }: any) => {
             className="w-3 h-3 rounded-full"
             style={{ backgroundColor: entry.color }}
           />
-          <span className="text-sm font-medium text-[#6e6e73] dark:text-[#a1a1a6]">
+          <span className="text-sm font-medium text-muted">
             {entry.value}
           </span>
         </div>
@@ -525,36 +524,36 @@ const CodeCell = memo(({ cell, isExpanded, onToggle }: { cell: NotebookCell; isE
   }, [cell.content])
 
   return (
-    <div className="bg-white dark:bg-[#1d1d1f] rounded-xl border border-black/[0.08] dark:border-white/[0.14] overflow-hidden shadow-sm">
+    <div className="bg-surface rounded-xl border border-line overflow-hidden shadow-sm">
       {/* Cell header */}
-      <div className="flex items-center justify-between px-4 py-2 bg-white dark:bg-[#0a0a0c]/[0.045] border-b border-black/[0.08] dark:border-white/[0.14]">
+      <div className="flex items-center justify-between px-4 py-2 bg-surface border-b border-line">
         <div className="flex items-center gap-2">
           <CodeIcon sx={{ fontSize: 15 }} className="text-muted" />
-          <span className="font-mono text-xs text-muted dark:text-[#a1a1a6]">
+          <span className="font-mono text-xs text-muted">
             Python
           </span>
         </div>
         <div className="flex items-center gap-2">
           <button
             onClick={copyCode}
-            className="p-1.5 rounded-md hover:bg-black/[0.08] dark:hover:bg-[#424245] transition-colors"
+            className="p-1.5 rounded-md hover:bg-hover transition-colors"
             title="Copy code"
           >
             {copied ? (
-              <CheckIcon sx={{ fontSize: 16 }} className="text-green-500" />
+              <CheckIcon sx={{ fontSize: 16 }} className="text-fairway" />
             ) : (
-              <ContentCopyIcon sx={{ fontSize: 16 }} className="text-[#a1a1a6]" />
+              <ContentCopyIcon sx={{ fontSize: 16 }} className="text-muted" />
             )}
           </button>
           <button
             onClick={onToggle}
-            className="p-1.5 rounded-md hover:bg-black/[0.08] dark:hover:bg-[#424245] transition-colors"
+            className="p-1.5 rounded-md hover:bg-hover transition-colors"
             title={isExpanded ? "Collapse" : "Expand"}
           >
             {isExpanded ? (
-              <ExpandLessIcon sx={{ fontSize: 18 }} className="text-[#a1a1a6]" />
+              <ExpandLessIcon sx={{ fontSize: 18 }} className="text-muted" />
             ) : (
-              <ExpandMoreIcon sx={{ fontSize: 18 }} className="text-[#a1a1a6]" />
+              <ExpandMoreIcon sx={{ fontSize: 18 }} className="text-muted" />
             )}
           </button>
         </div>
@@ -562,18 +561,18 @@ const CodeCell = memo(({ cell, isExpanded, onToggle }: { cell: NotebookCell; isE
 
       {/* Code content */}
       <div className={`transition-all duration-300 ${isExpanded ? 'max-h-[1000px]' : 'max-h-32 overflow-hidden'}`}>
-        <pre className="p-4 text-sm font-mono overflow-x-auto bg-[#111112] text-[#f5f5f7]">
+        <pre className="p-4 text-sm font-mono overflow-x-auto bg-page text-ink">
           <code>{cell.content}</code>
         </pre>
       </div>
 
       {/* Output */}
       {cell.output && (
-        <div className="border-t border-black/[0.08] dark:border-white/[0.14]">
-          <div className="px-4 py-1.5 bg-black/[0.045] dark:bg-[#2c2c2e] border-b border-black/[0.08] dark:border-white/[0.14]">
-            <span className="text-xs font-medium text-muted dark:text-[#a1a1a6]">Output</span>
+        <div className="border-t border-line">
+          <div className="px-4 py-1.5 bg-hover border-b border-line">
+            <span className="text-xs font-medium text-muted">Output</span>
           </div>
-          <pre className="p-4 text-sm font-mono overflow-x-auto bg-white dark:bg-[#0a0a0c]/[0.04] text-[#424245] dark:text-[#d2d2d7] whitespace-pre-wrap">
+          <pre className="p-4 text-sm font-mono overflow-x-auto bg-surface text-body whitespace-pre-wrap">
             {cell.output}
           </pre>
         </div>
@@ -616,7 +615,7 @@ const NotebookSection = memo(() => {
       <div className="border-y hairline py-8">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
-            <h2 className="mb-2 text-2xl font-semibold tracking-tight text-[#1d1d1f] dark:text-[#f5f5f7]">Diabetes Disease Progression Prediction</h2>
+            <h2 className="display-heading text-3xl mb-2">Diabetes Disease Progression Prediction</h2>
             <p className="apple-copy">
               A complete linear regression workflow using scikit-learn on real-world medical data.
             </p>
@@ -624,13 +623,13 @@ const NotebookSection = memo(() => {
           <div className="flex gap-2">
             <button
               onClick={expandAll}
-              className="rounded-full bg-[#1d1d1f] px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-black dark:bg-white dark:text-[#1d1d1f]"
+              className="rounded-sm bg-signal px-4 py-2 text-sm font-medium text-signal-ink transition-colors hover:bg-signal-hover"
             >
               Expand All
             </button>
             <button
               onClick={collapseAll}
-              className="rounded-full border hairline px-4 py-2 text-sm font-medium transition-colors hover:bg-black/[0.05] dark:hover:bg-white/[0.08]"
+              className="rounded-sm border hairline px-4 py-2 text-sm font-medium transition-colors hover:bg-hover"
             >
               Collapse All
             </button>
@@ -638,16 +637,16 @@ const NotebookSection = memo(() => {
         </div>
 
         {/* Key stats */}
-        <dl className="mt-8 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border hairline bg-black/[0.06] dark:bg-white/[0.10] md:grid-cols-4">
+        <dl className="mt-8 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border hairline bg-hover md:grid-cols-4">
           {[
             { label: 'Dataset', value: 'Diabetes' },
             { label: 'Samples', value: '442' },
             { label: 'R-squared', value: '0.453' },
             { label: 'RMSE', value: '53.85' }
           ].map((stat, i) => (
-            <div key={i} className="bg-white p-4 dark:bg-[#161617]">
-              <dt className="text-sm text-[#6e6e73] dark:text-[#a1a1a6]">{stat.label}</dt>
-              <dd className="font-mono font-semibold text-[#1d1d1f] dark:text-[#f5f5f7]">{stat.value}</dd>
+            <div key={i} className="bg-surface p-4">
+              <dt className="text-sm text-muted">{stat.label}</dt>
+              <dd className="font-mono font-semibold text-ink">{stat.value}</dd>
             </div>
           ))}
         </dl>
@@ -657,8 +656,8 @@ const NotebookSection = memo(() => {
       <div className="space-y-6">
         {/* Step 1: Import Libraries */}
         <div>
-          <h3 className="text-lg font-semibold text-[#1d1d1f] dark:text-white mb-3 flex items-center gap-2">
-            <span className="w-7 h-7 bg-[#1d1d1f] dark:bg-white text-white dark:text-[#1d1d1f] rounded-lg flex items-center justify-center text-sm font-bold">1</span>
+          <h3 className="text-lg font-semibold text-ink mb-3 flex items-center gap-2">
+            <span className="w-7 h-7 step-badge rounded-lg flex items-center justify-center text-sm font-bold">1</span>
             Import Libraries
           </h3>
           <CodeCell
@@ -670,8 +669,8 @@ const NotebookSection = memo(() => {
 
         {/* Step 2: Load Data */}
         <div>
-          <h3 className="text-lg font-semibold text-[#1d1d1f] dark:text-white mb-3 flex items-center gap-2">
-            <span className="w-7 h-7 bg-[#1d1d1f] dark:bg-white text-white dark:text-[#1d1d1f] rounded-lg flex items-center justify-center text-sm font-bold">2</span>
+          <h3 className="text-lg font-semibold text-ink mb-3 flex items-center gap-2">
+            <span className="w-7 h-7 step-badge rounded-lg flex items-center justify-center text-sm font-bold">2</span>
             Load and Explore Data
           </h3>
           <div className="space-y-4">
@@ -688,8 +687,8 @@ const NotebookSection = memo(() => {
 
         {/* Step 3: Preprocess */}
         <div>
-          <h3 className="text-lg font-semibold text-[#1d1d1f] dark:text-white mb-3 flex items-center gap-2">
-            <span className="w-7 h-7 bg-[#1d1d1f] dark:bg-white text-white dark:text-[#1d1d1f] rounded-lg flex items-center justify-center text-sm font-bold">3</span>
+          <h3 className="text-lg font-semibold text-ink mb-3 flex items-center gap-2">
+            <span className="w-7 h-7 step-badge rounded-lg flex items-center justify-center text-sm font-bold">3</span>
             Data Preprocessing
           </h3>
           <div className="space-y-4">
@@ -706,8 +705,8 @@ const NotebookSection = memo(() => {
 
         {/* Step 4: Train Model */}
         <div>
-          <h3 className="text-lg font-semibold text-[#1d1d1f] dark:text-white mb-3 flex items-center gap-2">
-            <span className="w-7 h-7 bg-[#1d1d1f] dark:bg-white text-white dark:text-[#1d1d1f] rounded-lg flex items-center justify-center text-sm font-bold">4</span>
+          <h3 className="text-lg font-semibold text-ink mb-3 flex items-center gap-2">
+            <span className="w-7 h-7 step-badge rounded-lg flex items-center justify-center text-sm font-bold">4</span>
             Train the Model
           </h3>
           <div className="space-y-4">
@@ -724,8 +723,8 @@ const NotebookSection = memo(() => {
 
         {/* Step 5: Evaluate */}
         <div>
-          <h3 className="text-lg font-semibold text-[#1d1d1f] dark:text-white mb-3 flex items-center gap-2">
-            <span className="w-7 h-7 bg-[#1d1d1f] dark:bg-white text-white dark:text-[#1d1d1f] rounded-lg flex items-center justify-center text-sm font-bold">5</span>
+          <h3 className="text-lg font-semibold text-ink mb-3 flex items-center gap-2">
+            <span className="w-7 h-7 step-badge rounded-lg flex items-center justify-center text-sm font-bold">5</span>
             Model Evaluation
           </h3>
           <CodeCell
@@ -737,8 +736,8 @@ const NotebookSection = memo(() => {
 
         {/* Step 6: Predictions */}
         <div>
-          <h3 className="text-lg font-semibold text-[#1d1d1f] dark:text-white mb-3 flex items-center gap-2">
-            <span className="w-7 h-7 bg-[#1d1d1f] dark:bg-white text-white dark:text-[#1d1d1f] rounded-lg flex items-center justify-center text-sm font-bold">6</span>
+          <h3 className="text-lg font-semibold text-ink mb-3 flex items-center gap-2">
+            <span className="w-7 h-7 step-badge rounded-lg flex items-center justify-center text-sm font-bold">6</span>
             Make Predictions
           </h3>
           <div className="space-y-4">
@@ -756,15 +755,15 @@ const NotebookSection = memo(() => {
 
       {/* Visualizations Section */}
       <div className="space-y-6">
-        <h3 className="text-xl font-bold text-[#1d1d1f] dark:text-white flex items-center gap-2">
+        <h3 className="text-xl font-bold text-ink flex items-center gap-2">
           <BarChartIcon sx={{ fontSize: 24 }} />
           Model Visualizations
         </h3>
 
         {/* Feature Coefficients Chart */}
         <div className="border-t hairline pt-8">
-          <h4 className="text-lg font-semibold text-[#1d1d1f] dark:text-white mb-4">Feature Coefficients (Importance)</h4>
-          <p className="text-[#6e6e73] dark:text-[#a1a1a6] text-sm mb-4">
+          <h4 className="text-lg font-semibold text-ink mb-4">Feature Coefficients (Importance)</h4>
+          <p className="text-muted text-sm mb-4">
             Shows how much the disease progression changes for each 1 standard deviation increase in a feature.
             Positive values (green) increase progression, negative values (red) decrease it.
           </p>
@@ -815,7 +814,7 @@ const NotebookSection = memo(() => {
                   wrapperStyle={{ paddingTop: 10 }}
                   formatter={(value) => <span style={{ color: chartText, fontSize: 13, fontWeight: 500 }}>{value}</span>}
                 />
-                <ReferenceLine x={0} stroke={colors.primary} strokeWidth={2} />
+                <ReferenceLine x={0} stroke={colors.secondary} strokeWidth={2} />
                 <Bar dataKey="coefficient" name="Coefficient" radius={[0, 4, 4, 0]}>
                   {[
                     { feature: 's5', coefficient: 25.8 },
@@ -839,8 +838,8 @@ const NotebookSection = memo(() => {
 
         {/* Actual vs Predicted Chart */}
         <div className="border-t hairline pt-8">
-          <h4 className="text-lg font-semibold text-[#1d1d1f] dark:text-white mb-4">Actual vs Predicted Values</h4>
-          <p className="text-[#6e6e73] dark:text-[#a1a1a6] text-sm mb-4">
+          <h4 className="text-lg font-semibold text-ink mb-4">Actual vs Predicted Values</h4>
+          <p className="text-muted text-sm mb-4">
             Compares actual disease progression values against model predictions.
             Points closer to the diagonal line indicate better predictions.
           </p>
@@ -917,7 +916,7 @@ const NotebookSection = memo(() => {
                   type="linear"
                   dataKey="actual"
                   data={[{ actual: 0, predicted: 0 }, { actual: 350, predicted: 350 }]}
-                  stroke={colors.danger}
+                  stroke={colors.line}
                   strokeWidth={2}
                   strokeDasharray="8 4"
                   dot={false}
@@ -935,8 +934,8 @@ const NotebookSection = memo(() => {
 
         {/* Residuals Distribution Chart */}
         <div className="border-t hairline pt-8">
-          <h4 className="text-lg font-semibold text-[#1d1d1f] dark:text-white mb-4">Residuals Distribution</h4>
-          <p className="text-[#6e6e73] dark:text-[#a1a1a6] text-sm mb-4">
+          <h4 className="text-lg font-semibold text-ink mb-4">Residuals Distribution</h4>
+          <p className="text-muted text-sm mb-4">
             Distribution of prediction errors (residuals = actual - predicted).
             A good model should have residuals centered around zero with a normal distribution.
           </p>
@@ -1002,38 +1001,38 @@ const NotebookSection = memo(() => {
       </div>
 
       <div className="border-y hairline py-8">
-        <h3 className="text-xl font-bold text-[#1d1d1f] dark:text-white mb-4">Key Insights</h3>
+        <h3 className="text-xl font-bold text-ink mb-4">Key Insights</h3>
         <div className="grid md:grid-cols-2 gap-6">
           <div>
-            <h4 className="font-semibold text-[#1d1d1f] dark:text-white mb-2">Most Important Features</h4>
-            <ul className="space-y-2 text-[#6e6e73] dark:text-[#a1a1a6]">
+            <h4 className="font-semibold text-ink mb-2">Most Important Features</h4>
+            <ul className="space-y-2 text-muted">
               <li className="flex items-center gap-2">
-                <span className="text-emerald-500 font-bold">1.</span>
+                <span className="text-fairway font-bold">1.</span>
                 <span><strong>s5 (Log triglycerides)</strong> - Strongest predictor (+25.80/std)</span>
               </li>
               <li className="flex items-center gap-2">
-                <span className="text-emerald-500 font-bold">2.</span>
+                <span className="text-fairway font-bold">2.</span>
                 <span><strong>BMI</strong> - Body mass index strongly predicts progression (+23.16/std)</span>
               </li>
               <li className="flex items-center gap-2">
-                <span className="text-emerald-500 font-bold">3.</span>
+                <span className="text-fairway font-bold">3.</span>
                 <span><strong>Blood Pressure</strong> - Higher BP correlates with progression (+14.31/std)</span>
               </li>
             </ul>
           </div>
           <div>
-            <h4 className="font-semibold text-[#1d1d1f] dark:text-white mb-2">Model Limitations</h4>
-            <ul className="space-y-2 text-[#6e6e73] dark:text-[#a1a1a6]">
+            <h4 className="font-semibold text-ink mb-2">Model Limitations</h4>
+            <ul className="space-y-2 text-muted">
               <li className="flex items-start gap-2">
-                <span className="text-amber-500 mt-1">!</span>
+                <span className="text-aspen mt-1">!</span>
                 <span>R-squared of 0.45 means 55% of variance is unexplained</span>
               </li>
               <li className="flex items-start gap-2">
-                <span className="text-amber-500 mt-1">!</span>
+                <span className="text-aspen mt-1">!</span>
                 <span>Linear model cannot capture non-linear biological relationships</span>
               </li>
               <li className="flex items-start gap-2">
-                <span className="text-amber-500 mt-1">!</span>
+                <span className="text-aspen mt-1">!</span>
                 <span>Small dataset (442 samples) limits generalization</span>
               </li>
             </ul>
@@ -1044,8 +1043,8 @@ const NotebookSection = memo(() => {
       {/* Download notebook CTA */}
       <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
         <div>
-          <h3 className="font-semibold text-[#1d1d1f] dark:text-white">Want to run this yourself?</h3>
-          <p className="text-[#6e6e73] dark:text-[#a1a1a6] text-sm">
+          <h3 className="font-semibold text-ink">Want to run this yourself?</h3>
+          <p className="text-muted text-sm">
             Download the complete Jupyter notebook and experiment with the code.
           </p>
         </div>
@@ -1190,62 +1189,16 @@ export default function LinearRegressionDemo() {
   return (
     <section className="apple-page pb-24 pt-14">
       <div className="apple-section max-w-6xl">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          <Link
-            to="/projects"
-            className="text-link mb-8 group"
-          >
-            <ArrowBackIcon className="group-hover:-translate-x-1 transition-transform" sx={{ fontSize: 20 }} />
-            Back to Projects
-          </Link>
+        <DemoHeader
 
-          <div className="mb-14 grid gap-8 border-b hairline pb-12 lg:grid-cols-[1.25fr_0.75fr] lg:items-end">
-            <div>
-            <motion.span
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className="eyebrow mb-6 inline-flex items-center gap-2"
-            >
-              <TimelineIcon sx={{ fontSize: 18 }} />
-              Project walkthrough
-            </motion.span>
-            <h1 className="display-heading display-page mb-6">
-              Linear <span className="ink-text">Regression</span>
-            </h1>
-            </div>
-            <p className="apple-copy max-w-2xl text-lg sm:text-xl">
-              This is the same plain-language regression walkthrough I use with teams when we need to explain model fit and tradeoffs.
-            </p>
-          </div>
+          kind="regression"
 
-          {/* Navigation Tabs */}
-          <div className="mb-12 flex flex-wrap gap-2" role="group" aria-label="Project sections">
-            {sections.map((section) => {
-              const Icon = section.icon
-              return (
-                <button
-                  type="button"
-                  key={section.id}
-                  onClick={() => setActiveSection(section.id)}
-                  aria-pressed={activeSection === section.id}
-                  className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-medium transition-all ${activeSection === section.id
-                    ? 'bg-[#1d1d1f] text-white dark:bg-white dark:text-[#1d1d1f]'
-                    : 'border hairline text-[#6e6e73] hover:bg-black/[0.05] dark:text-[#a1a1a6] dark:hover:bg-white/[0.08]'
-                    }`}
-                >
-                  <Icon sx={{ fontSize: 18 }} />
-                  {section.label}
-                </button>
-              )
-            })}
-          </div>
-        </motion.div>
+          lede="This is the same plain-language regression walkthrough I use with teams when we need to explain model fit and tradeoffs."
+
+        />
+
+        <DemoTabs sections={sections} active={activeSection} onChange={setActiveSection} />
+
 
         {/* Introduction Section */}
         {activeSection === 'intro' && (
@@ -1255,40 +1208,40 @@ export default function LinearRegressionDemo() {
             className="space-y-8"
           >
             <div className="border-t hairline pt-8">
-              <h2 className="text-2xl font-bold text-[#1d1d1f] dark:text-white mb-6">What is Linear Regression?</h2>
+              <h2 className="display-heading text-3xl mb-6">What is Linear Regression?</h2>
               <div className="prose dark:prose-invert max-w-none">
-                <p className="text-[#6e6e73] dark:text-[#a1a1a6] text-lg leading-relaxed mb-6">
-                  Linear regression is a <strong className="text-[#1d1d1f] dark:text-white">supervised learning algorithm</strong> that models the relationship between a dependent variable (y) and one or more independent variables (x) by fitting a linear equation to the observed data.
+                <p className="text-muted text-lg leading-relaxed mb-6">
+                  Linear regression is a <strong className="text-ink">supervised learning algorithm</strong> that models the relationship between a dependent variable (y) and one or more independent variables (x) by fitting a linear equation to the observed data.
                 </p>
-                <p className="text-[#6e6e73] dark:text-[#a1a1a6] leading-relaxed mb-6">
+                <p className="text-muted leading-relaxed mb-6">
                   Think of it as drawing the "best fit" straight line through a scatter plot of data points. This line can then be used to make predictions about new data.
                 </p>
 
                 <div className="mt-10 grid gap-8 md:grid-cols-3">
                   <div className="border-t hairline pt-5">
-                    <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-[#1d1d1f] text-white dark:bg-white dark:text-[#1d1d1f]">
+                    <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full demo-icon">
                       <BarChartIcon sx={{ fontSize: 24 }} />
                     </div>
-                    <h3 className="font-semibold text-[#1d1d1f] dark:text-white mb-2">Descriptive</h3>
-                    <p className="text-[#6e6e73] dark:text-[#a1a1a6] text-sm">
+                    <h3 className="font-semibold text-ink mb-2">Descriptive</h3>
+                    <p className="text-muted text-sm">
                       Understand the relationship between variables and quantify how they change together.
                     </p>
                   </div>
                   <div className="border-t hairline pt-5">
-                    <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-[#1d1d1f] text-white dark:bg-white dark:text-[#1d1d1f]">
+                    <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full demo-icon">
                       <TrendingUpIcon sx={{ fontSize: 24 }} />
                     </div>
-                    <h3 className="font-semibold text-[#1d1d1f] dark:text-white mb-2">Predictive</h3>
-                    <p className="text-[#6e6e73] dark:text-[#a1a1a6] text-sm">
+                    <h3 className="font-semibold text-ink mb-2">Predictive</h3>
+                    <p className="text-muted text-sm">
                       Forecast future outcomes based on historical data patterns.
                     </p>
                   </div>
                   <div className="border-t hairline pt-5">
-                    <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-[#1d1d1f] text-white dark:bg-white dark:text-[#1d1d1f]">
+                    <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full demo-icon">
                       <SpeedIcon sx={{ fontSize: 24 }} />
                     </div>
-                    <h3 className="font-semibold text-[#1d1d1f] dark:text-white mb-2">Interpretable</h3>
-                    <p className="text-[#6e6e73] dark:text-[#a1a1a6] text-sm">
+                    <h3 className="font-semibold text-ink mb-2">Interpretable</h3>
+                    <p className="text-muted text-sm">
                       Easy to understand and explain—coefficients have clear, intuitive meanings.
                     </p>
                   </div>
@@ -1298,8 +1251,8 @@ export default function LinearRegressionDemo() {
 
             {/* Visual Example */}
             <div className="border-t hairline pt-8">
-              <h2 className="text-2xl font-bold text-[#1d1d1f] dark:text-white mb-2">Visual Example</h2>
-              <p className="text-[#6e6e73] dark:text-[#a1a1a6] mb-6">
+              <h2 className="display-heading text-3xl mb-2">Visual Example</h2>
+              <p className="text-muted mb-6">
                 The relationship between square footage and house prices. Data points show actual observations; the trend line shows the predicted relationship.
               </p>
               <div className="h-80">
@@ -1354,7 +1307,7 @@ export default function LinearRegressionDemo() {
                       name="Data Points"
                       dataKey="y"
                       fill={colors.primary}
-                      stroke="#fff"
+                      stroke="var(--page-bg)"
                       strokeWidth={2}
                       r={8}
                     />
@@ -1372,13 +1325,13 @@ export default function LinearRegressionDemo() {
               </div>
               {result && (
                 <div className="mt-6 flex flex-wrap gap-4 justify-center">
-                  <div className="bg-black/[0.045] dark:bg-[#0a0a0c]/[0.055] rounded-xl px-5 py-3 border border-black/[0.08] dark:border-white/[0.14]">
-                    <span className="text-muted dark:text-[#a1a1a6] text-sm">Equation: </span>
-                    <span className="font-mono font-bold text-[#1d1d1f] dark:text-[#f5f5f7]">{result.equation}</span>
+                  <div className="bg-hover rounded-xl px-5 py-3 border border-line">
+                    <span className="text-muted text-sm">Equation: </span>
+                    <span className="font-mono font-bold text-ink">{result.equation}</span>
                   </div>
-                  <div className="bg-black/[0.045] dark:bg-[#0a0a0c]/[0.055] rounded-xl px-5 py-3 border border-black/[0.08] dark:border-white/[0.14]">
-                    <span className="text-muted dark:text-[#a1a1a6] text-sm">R² Score: </span>
-                    <span className="font-mono font-bold text-[#248a3d]">{result.r_squared}</span>
+                  <div className="bg-hover rounded-xl px-5 py-3 border border-line">
+                    <span className="text-muted text-sm">R² Score: </span>
+                    <span className="font-mono font-bold text-fairway">{result.r_squared}</span>
                   </div>
                 </div>
               )}
@@ -1394,31 +1347,31 @@ export default function LinearRegressionDemo() {
             className="space-y-8"
           >
             <div className="border-t hairline pt-8">
-              <h2 className="text-2xl font-bold text-[#1d1d1f] dark:text-white mb-6">The Linear Equation</h2>
+              <h2 className="display-heading text-3xl mb-6">The Linear Equation</h2>
               <div className="mb-8 border-y hairline py-10 text-center">
-                <p className="font-mono text-3xl font-bold text-[#1d1d1f] dark:text-[#f5f5f7] md:text-4xl">
+                <p className="font-mono text-3xl font-bold text-ink md:text-4xl">
                   y = mx + b
                 </p>
-                <p className="text-muted dark:text-[#a1a1a6] mt-4">or equivalently</p>
-                <p className="mt-2 font-mono text-3xl font-bold text-[#6e6e73] dark:text-[#a1a1a6] md:text-4xl">
+                <p className="text-muted mt-4">or equivalently</p>
+                <p className="mt-2 font-mono text-3xl font-bold text-muted md:text-4xl">
                   y = β₀ + β₁x
                 </p>
               </div>
 
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="border-t hairline pt-5">
-                  <h3 className="font-semibold text-[#1d1d1f] dark:text-white mb-3 flex items-center gap-2">
+                  <h3 className="font-semibold text-ink mb-3 flex items-center gap-2">
                     <span className="font-mono text-lg font-semibold">m</span> or <span className="font-mono text-lg font-semibold">β₁</span> — Slope
                   </h3>
-                  <p className="text-[#6e6e73] dark:text-[#a1a1a6]">
+                  <p className="text-muted">
                     The slope tells you how much y changes for every one-unit increase in x. A positive slope means y increases as x increases; a negative slope means y decreases.
                   </p>
                 </div>
                 <div className="border-t hairline pt-5">
-                  <h3 className="font-semibold text-[#1d1d1f] dark:text-white mb-3 flex items-center gap-2">
-                    <span className="font-mono text-lg text-amber-600 dark:text-amber-400">b</span> or <span className="font-mono text-lg text-amber-600 dark:text-amber-400">β₀</span> — Intercept
+                  <h3 className="font-semibold text-ink mb-3 flex items-center gap-2">
+                    <span className="font-mono text-lg text-aspen">b</span> or <span className="font-mono text-lg text-aspen">β₀</span> — Intercept
                   </h3>
-                  <p className="text-[#6e6e73] dark:text-[#a1a1a6]">
+                  <p className="text-muted">
                     The y-intercept is the value of y when x equals zero. It's where the regression line crosses the y-axis.
                   </p>
                 </div>
@@ -1426,38 +1379,38 @@ export default function LinearRegressionDemo() {
             </div>
 
             <div className="border-t hairline pt-8">
-              <h2 className="text-2xl font-bold text-[#1d1d1f] dark:text-white mb-6">How It's Calculated</h2>
-              <p className="text-[#6e6e73] dark:text-[#a1a1a6] mb-6">
-                Linear regression uses the <strong className="text-[#1d1d1f] dark:text-[#f5f5f7]">Ordinary Least Squares (OLS)</strong> method to find the line that minimizes the sum of squared residuals (errors).
+              <h2 className="display-heading text-3xl mb-6">How It's Calculated</h2>
+              <p className="text-muted mb-6">
+                Linear regression uses the <strong className="text-ink">Ordinary Least Squares (OLS)</strong> method to find the line that minimizes the sum of squared residuals (errors).
               </p>
 
               <div className="divide-y hairline border-y hairline">
                 <div className="py-6">
                   <div className="flex items-center gap-3 mb-3">
-                    <span className="w-8 h-8 bg-[#1d1d1f] dark:bg-[#f5f5f7] dark:text-[#1d1d1f] text-white rounded-lg flex items-center justify-center font-bold text-sm">1</span>
-                    <h3 className="font-semibold text-[#1d1d1f] dark:text-white">Calculate Means</h3>
+                    <span className="w-8 h-8 step-badge rounded-lg flex items-center justify-center font-bold text-sm">1</span>
+                    <h3 className="font-semibold text-ink">Calculate Means</h3>
                   </div>
-                  <p className="text-[#424245] dark:text-[#d2d2d7] font-mono text-lg pl-11">
+                  <p className="text-body font-mono text-lg pl-11">
                     x̄ = Σx / n &nbsp;&nbsp;&nbsp; ȳ = Σy / n
                   </p>
                 </div>
 
                 <div className="py-6">
                   <div className="flex items-center gap-3 mb-3">
-                    <span className="w-8 h-8 bg-[#1d1d1f] dark:bg-[#f5f5f7] dark:text-[#1d1d1f] text-white rounded-lg flex items-center justify-center font-bold text-sm">2</span>
-                    <h3 className="font-semibold text-[#1d1d1f] dark:text-white">Calculate Slope</h3>
+                    <span className="w-8 h-8 step-badge rounded-lg flex items-center justify-center font-bold text-sm">2</span>
+                    <h3 className="font-semibold text-ink">Calculate Slope</h3>
                   </div>
-                  <p className="text-[#424245] dark:text-[#d2d2d7] font-mono text-lg pl-11">
+                  <p className="text-body font-mono text-lg pl-11">
                     m = Σ(xᵢ - x̄)(yᵢ - ȳ) / Σ(xᵢ - x̄)²
                   </p>
                 </div>
 
                 <div className="py-6">
                   <div className="flex items-center gap-3 mb-3">
-                    <span className="w-8 h-8 bg-[#1d1d1f] dark:bg-[#f5f5f7] dark:text-[#1d1d1f] text-white rounded-lg flex items-center justify-center font-bold text-sm">3</span>
-                    <h3 className="font-semibold text-[#1d1d1f] dark:text-white">Calculate Intercept</h3>
+                    <span className="w-8 h-8 step-badge rounded-lg flex items-center justify-center font-bold text-sm">3</span>
+                    <h3 className="font-semibold text-ink">Calculate Intercept</h3>
                   </div>
-                  <p className="text-[#424245] dark:text-[#d2d2d7] font-mono text-lg pl-11">
+                  <p className="text-body font-mono text-lg pl-11">
                     b = ȳ - m × x̄
                   </p>
                 </div>
@@ -1465,37 +1418,37 @@ export default function LinearRegressionDemo() {
             </div>
 
             <div className="border-t hairline pt-8">
-              <h2 className="text-2xl font-bold text-[#1d1d1f] dark:text-white mb-6">R² — Coefficient of Determination</h2>
-              <p className="text-[#6e6e73] dark:text-[#a1a1a6] mb-6">
+              <h2 className="display-heading text-3xl mb-6">R² — Coefficient of Determination</h2>
+              <p className="text-muted mb-6">
                 R² measures how well the regression line fits the data. It represents the proportion of variance in the dependent variable that's predictable from the independent variable.
               </p>
 
               <div className="mb-6 border-y hairline py-6">
-                <p className="text-[#424245] dark:text-[#d2d2d7] font-mono text-center text-xl font-bold">
+                <p className="text-body font-mono text-center text-xl font-bold">
                   R² = 1 - (SS<sub>res</sub> / SS<sub>tot</sub>)
                 </p>
               </div>
 
               <div className="grid md:grid-cols-3 gap-4">
                 <div className="border-t hairline pt-5 text-center">
-                  <p className="text-3xl font-bold text-red-500">0.0 - 0.3</p>
-                  <p className="text-[#6e6e73] dark:text-[#a1a1a6] text-sm mt-1">Weak fit</p>
-                  <div className="w-full bg-red-200 dark:bg-red-800/30 rounded-full h-2 mt-3">
-                    <div className="bg-[#1d1d1f] dark:bg-[#f5f5f7] dark:text-[#1d1d1f] h-2 rounded-full" style={{ width: '30%' }}></div>
+                  <p className="text-3xl font-bold text-negative">0.0 - 0.3</p>
+                  <p className="text-muted text-sm mt-1">Weak fit</p>
+                  <div className="w-full bg-negative/12 rounded-full h-2 mt-3">
+                    <div className="bg-signal h-2 rounded-full" style={{ width: '30%' }}></div>
                   </div>
                 </div>
                 <div className="border-t hairline pt-5 text-center">
-                  <p className="text-3xl font-bold text-amber-500">0.3 - 0.7</p>
-                  <p className="text-[#6e6e73] dark:text-[#a1a1a6] text-sm mt-1">Moderate fit</p>
-                  <div className="w-full bg-amber-200 dark:bg-amber-800/30 rounded-full h-2 mt-3">
-                    <div className="bg-[#1d1d1f] dark:bg-[#f5f5f7] dark:text-[#1d1d1f] h-2 rounded-full" style={{ width: '60%' }}></div>
+                  <p className="text-3xl font-bold text-aspen">0.3 - 0.7</p>
+                  <p className="text-muted text-sm mt-1">Moderate fit</p>
+                  <div className="w-full bg-aspen/12 rounded-full h-2 mt-3">
+                    <div className="bg-signal h-2 rounded-full" style={{ width: '60%' }}></div>
                   </div>
                 </div>
                 <div className="border-t hairline pt-5 text-center">
-                  <p className="text-3xl font-bold text-emerald-500">0.7 - 1.0</p>
-                  <p className="text-[#6e6e73] dark:text-[#a1a1a6] text-sm mt-1">Strong fit</p>
-                  <div className="w-full bg-emerald-200 dark:bg-emerald-800/30 rounded-full h-2 mt-3">
-                    <div className="bg-[#1d1d1f] dark:bg-[#f5f5f7] dark:text-[#1d1d1f] h-2 rounded-full" style={{ width: '90%' }}></div>
+                  <p className="text-3xl font-bold text-fairway">0.7 - 1.0</p>
+                  <p className="text-muted text-sm mt-1">Strong fit</p>
+                  <div className="w-full bg-fairway/12 rounded-full h-2 mt-3">
+                    <div className="bg-signal h-2 rounded-full" style={{ width: '90%' }}></div>
                   </div>
                 </div>
               </div>
@@ -1512,7 +1465,7 @@ export default function LinearRegressionDemo() {
           >
             <div className="apple-card-solid p-5 sm:p-8">
               <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
-                <h2 className="text-2xl font-bold text-[#1d1d1f] dark:text-white">Interactive Playground</h2>
+                <h2 className="display-heading text-3xl">Interactive Playground</h2>
                 <div className="flex gap-2">
                   <button
                     onClick={() => {
@@ -1520,8 +1473,8 @@ export default function LinearRegressionDemo() {
                       clearCustomPoints()
                     }}
                     className={`px-4 py-2 rounded-lg font-medium transition-all flex items-center gap-2 ${!isCustomMode
-                      ? 'bg-[#1d1d1f] text-white dark:bg-white dark:text-[#1d1d1f]'
-                      : 'bg-black/[0.045] dark:bg-[#2c2c2e] text-[#6e6e73] dark:text-[#a1a1a6] hover:bg-black/[0.08] dark:hover:bg-[#424245]'
+                      ? 'bg-signal text-signal-ink'
+                      : 'bg-hover text-muted hover:bg-hover'
                       }`}
                   >
                     <DatasetIcon sx={{ fontSize: 18 }} />
@@ -1530,8 +1483,8 @@ export default function LinearRegressionDemo() {
                   <button
                     onClick={() => setIsCustomMode(true)}
                     className={`px-4 py-2 rounded-lg font-medium transition-all flex items-center gap-2 ${isCustomMode
-                      ? 'bg-[#1d1d1f] text-white dark:bg-white dark:text-[#1d1d1f]'
-                      : 'bg-black/[0.045] dark:bg-[#2c2c2e] text-[#6e6e73] dark:text-[#a1a1a6] hover:bg-black/[0.08] dark:hover:bg-[#424245]'
+                      ? 'bg-signal text-signal-ink'
+                      : 'bg-hover text-muted hover:bg-hover'
                       }`}
                   >
                     <TouchAppIcon sx={{ fontSize: 18 }} />
@@ -1547,8 +1500,8 @@ export default function LinearRegressionDemo() {
                       key={key}
                       onClick={() => setSelectedDataset(key)}
                       className={`px-4 py-2 rounded-full text-sm font-medium transition-all border ${selectedDataset === key
-                        ? 'border-[#1d1d1f] bg-[#1d1d1f] text-white dark:border-white dark:bg-white dark:text-[#1d1d1f]'
-                        : 'bg-white dark:bg-[#2c2c2e] text-[#6e6e73] dark:text-[#a1a1a6] border-black/[0.08] dark:border-white/[0.14] hover:border-black/30 hover:text-[#1d1d1f] dark:hover:text-white'
+                        ? 'border-signal bg-signal text-signal-ink'
+                        : 'bg-surface text-muted border-line hover:border-control hover:text-ink'
                         }`}
                     >
                       {dataset.name}
@@ -1559,22 +1512,22 @@ export default function LinearRegressionDemo() {
 
               {isCustomMode && (
                 <div className="mb-6 flex flex-wrap items-center justify-between gap-4 border-y hairline py-4">
-                  <div className="flex items-center gap-2 text-[#424245] dark:text-[#d2d2d7]">
-                    <TouchAppIcon className="text-[#6e6e73] dark:text-[#a1a1a6]" sx={{ fontSize: 20 }} />
+                  <div className="flex items-center gap-2 text-body">
+                    <TouchAppIcon className="text-muted" sx={{ fontSize: 20 }} />
                     <span>Click anywhere on the chart to add points.</span>
-                    <span className="text-muted dark:text-[#a1a1a6]">({customPoints.length} points)</span>
+                    <span className="text-muted">({customPoints.length} points)</span>
                   </div>
                   <div className="flex gap-2">
                     <button
                       onClick={removeLastPoint}
                       disabled={customPoints.length === 0}
-                      className="px-3 py-1.5 bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 rounded-lg text-sm font-medium hover:bg-amber-200 dark:hover:bg-amber-900/50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="px-3 py-1.5 bg-aspen/12 text-aspen rounded-lg text-sm font-medium hover:bg-aspen/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       Undo Last
                     </button>
                     <button
                       onClick={clearCustomPoints}
-                      className="px-3 py-1.5 bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 rounded-lg text-sm font-medium hover:bg-red-200 dark:hover:bg-red-900/50 transition-colors"
+                      className="px-3 py-1.5 bg-negative/12 text-negative rounded-lg text-sm font-medium hover:bg-negative/20 transition-colors"
                     >
                       Clear All
                     </button>
@@ -1642,7 +1595,7 @@ export default function LinearRegressionDemo() {
                       name="Data Points"
                       dataKey="y"
                       fill={colors.primary}
-                      stroke="#fff"
+                      stroke="var(--page-bg)"
                       strokeWidth={2}
                       r={isCustomMode ? 10 : 8}
                     />
@@ -1651,7 +1604,7 @@ export default function LinearRegressionDemo() {
                         data={lineData}
                         type="monotone"
                         dataKey="y"
-                        stroke={colors.danger}
+                        stroke={colors.line}
                         strokeWidth={3}
                         dot={false}
                         name="Regression Line"
@@ -1663,24 +1616,24 @@ export default function LinearRegressionDemo() {
 
               {/* Results Panel */}
               {result && (
-                <dl className="mt-8 grid gap-px overflow-hidden rounded-2xl border hairline bg-black/[0.06] dark:bg-white/[0.10] md:grid-cols-4">
-                  <div className="bg-white p-5 text-center dark:bg-[#161617]">
-                    <dt className="mb-2 text-sm text-muted dark:text-[#a1a1a6]">Equation</dt>
-                    <dd className="font-mono text-lg font-bold text-[#1d1d1f] dark:text-[#f5f5f7]">{result.equation}</dd>
+                <dl className="mt-8 grid gap-px overflow-hidden rounded-2xl border hairline bg-hover md:grid-cols-4">
+                  <div className="bg-surface p-5 text-center">
+                    <dt className="mb-2 text-sm text-muted">Equation</dt>
+                    <dd className="font-mono text-lg font-bold text-ink">{result.equation}</dd>
                   </div>
-                  <div className="bg-white p-5 text-center dark:bg-[#161617]">
-                    <dt className="mb-2 text-sm text-muted dark:text-[#a1a1a6]">Slope (m)</dt>
-                    <dd className="font-mono text-lg font-bold text-[#1d1d1f] dark:text-[#f5f5f7]">{result.slope}</dd>
+                  <div className="bg-surface p-5 text-center">
+                    <dt className="mb-2 text-sm text-muted">Slope (m)</dt>
+                    <dd className="font-mono text-lg font-bold text-ink">{result.slope}</dd>
                   </div>
-                  <div className="bg-white p-5 text-center dark:bg-[#161617]">
-                    <dt className="mb-2 text-sm text-muted dark:text-[#a1a1a6]">Intercept (b)</dt>
-                    <dd className="font-mono text-lg font-bold text-[#b25000]">{result.intercept}</dd>
+                  <div className="bg-surface p-5 text-center">
+                    <dt className="mb-2 text-sm text-muted">Intercept (b)</dt>
+                    <dd className="font-mono text-lg font-bold text-signal">{result.intercept}</dd>
                   </div>
-                  <div className="bg-white p-5 text-center dark:bg-[#161617]">
-                    <dt className="mb-2 text-sm text-muted dark:text-[#a1a1a6]">R² Score</dt>
-                    <dd className={`text-lg font-mono font-bold ${result.r_squared >= 0.7 ? 'text-emerald-600 dark:text-emerald-400' :
-                      result.r_squared >= 0.3 ? 'text-amber-600 dark:text-amber-400' :
-                        'text-red-600 dark:text-red-400'
+                  <div className="bg-surface p-5 text-center">
+                    <dt className="mb-2 text-sm text-muted">R² Score</dt>
+                    <dd className={`text-lg font-mono font-bold ${result.r_squared >= 0.7 ? 'text-fairway' :
+                      result.r_squared >= 0.3 ? 'text-aspen' :
+                        'text-negative'
                       }`}>
                       {result.r_squared}
                     </dd>
@@ -1689,8 +1642,8 @@ export default function LinearRegressionDemo() {
               )}
 
               {isCustomMode && customPoints.length < 2 && (
-                <div className="mt-6 text-center text-muted dark:text-[#a1a1a6]">
-                  Add at least <span className="font-semibold text-[#1d1d1f] dark:text-[#f5f5f7]">2 points</span> to see the regression line
+                <div className="mt-6 text-center text-muted">
+                  Add at least <span className="font-semibold text-ink">2 points</span> to see the regression line
                 </div>
               )}
             </div>
@@ -1698,8 +1651,8 @@ export default function LinearRegressionDemo() {
             {/* Residuals Chart */}
             {result && chartData.length > 0 && (
               <div className="border-t hairline pt-8">
-                <h2 className="text-2xl font-bold text-[#1d1d1f] dark:text-white mb-2">Residuals Analysis</h2>
-                <p className="text-[#6e6e73] dark:text-[#a1a1a6] mb-6">
+                <h2 className="display-heading text-3xl mb-2">Residuals Analysis</h2>
+                <p className="text-muted mb-6">
                   Residuals show the difference between actual and predicted values. Ideally, they should be randomly scattered around zero.
                 </p>
                 <div className="h-72">
@@ -1752,6 +1705,7 @@ export default function LinearRegressionDemo() {
                       <Bar
                         dataKey="residual"
                         name="Residual"
+                        fill={colors.secondary}
                         radius={[4, 4, 4, 4]}
                         maxBarSize={40}
                       >
@@ -1783,7 +1737,7 @@ export default function LinearRegressionDemo() {
             className="space-y-8"
           >
             <div className="border-t hairline pt-8">
-              <h2 className="text-2xl font-bold text-[#1d1d1f] dark:text-white mb-6">Real-World Applications</h2>
+              <h2 className="display-heading text-3xl mb-6">Real-World Applications</h2>
               <div className="grid gap-x-8 gap-y-10 md:grid-cols-2 lg:grid-cols-3">
                 {[
                   { Icon: HomeWorkIcon, title: 'Real Estate', desc: 'Predict house prices based on features like square footage, bedrooms, location, and property age.' },
@@ -1795,22 +1749,22 @@ export default function LinearRegressionDemo() {
                 ].map((item, i) => (
                   <div key={i} className="border-t hairline pt-5">
                     <div className="flex items-center gap-3 mb-4">
-                      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#1d1d1f] text-white dark:bg-white dark:text-[#1d1d1f]">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-full demo-icon">
                         <item.Icon sx={{ fontSize: 22 }} />
                       </div>
-                      <h3 className="text-lg font-semibold text-[#1d1d1f] dark:text-white">{item.title}</h3>
+                      <h3 className="text-lg font-semibold text-ink">{item.title}</h3>
                     </div>
-                    <p className="text-[#6e6e73] dark:text-[#a1a1a6] text-sm">{item.desc}</p>
+                    <p className="text-muted text-sm">{item.desc}</p>
                   </div>
                 ))}
               </div>
             </div>
 
             <div className="border-t hairline pt-8">
-              <h2 className="text-2xl font-bold text-[#1d1d1f] dark:text-white mb-6">When to Use Linear Regression</h2>
+              <h2 className="display-heading text-3xl mb-6">When to Use Linear Regression</h2>
               <div className="grid md:grid-cols-2 gap-8">
                 <div className="border-t hairline pt-5">
-                  <h3 className="font-semibold text-emerald-600 dark:text-emerald-400 mb-4 flex items-center gap-2 text-lg">
+                  <h3 className="font-semibold text-fairway mb-4 flex items-center gap-2 text-lg">
                     <CheckCircleIcon sx={{ fontSize: 22 }} />
                     Good For
                   </h3>
@@ -1821,15 +1775,15 @@ export default function LinearRegressionDemo() {
                       'When interpretability is important',
                       'Baseline models for comparison',
                     ].map((item, i) => (
-                      <li key={i} className="flex items-start gap-3 text-[#6e6e73] dark:text-[#a1a1a6]">
-                        <span className="text-emerald-500 mt-0.5">•</span>
+                      <li key={i} className="flex items-start gap-3 text-muted">
+                        <span className="text-fairway mt-0.5">•</span>
                         {item}
                       </li>
                     ))}
                   </ul>
                 </div>
                 <div className="border-t hairline pt-5">
-                  <h3 className="font-semibold text-red-600 dark:text-red-400 mb-4 flex items-center gap-2 text-lg">
+                  <h3 className="font-semibold text-negative mb-4 flex items-center gap-2 text-lg">
                     <CancelIcon sx={{ fontSize: 22 }} />
                     Not Ideal For
                   </h3>
@@ -1840,8 +1794,8 @@ export default function LinearRegressionDemo() {
                       'Data with many outliers',
                       'Highly correlated features (multicollinearity)',
                     ].map((item, i) => (
-                      <li key={i} className="flex items-start gap-3 text-[#6e6e73] dark:text-[#a1a1a6]">
-                        <span className="text-red-500 mt-0.5">•</span>
+                      <li key={i} className="flex items-start gap-3 text-muted">
+                        <span className="text-negative mt-0.5">•</span>
                         {item}
                       </li>
                     ))}
@@ -1851,7 +1805,7 @@ export default function LinearRegressionDemo() {
             </div>
 
             <div className="border-y hairline py-10 text-center">
-              <h2 className="mb-4 text-2xl font-semibold text-[#1d1d1f] dark:text-[#f5f5f7]">Try the playground</h2>
+              <h2 className="display-heading text-3xl mb-4">Try the playground</h2>
               <p className="apple-copy mx-auto mb-6 max-w-xl">
                 Head to the interactive demo to fit lines against different datasets and inspect the residuals.
               </p>

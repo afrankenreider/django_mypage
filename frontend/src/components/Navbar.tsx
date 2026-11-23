@@ -111,9 +111,9 @@ export default function Navbar() {
 
   return (
     <header ref={headerRef} className="site-header">
-      <div className="site-header-bar">
+      <div className="site-header-bar ink-band">
         <div ref={innerRef} className="apple-section site-header-inner">
-          <Link to="/" className="py-2 text-sm font-semibold tracking-tight">
+          <Link to="/" className="wordmark py-2">
             Andrew Frankenreider
           </Link>
 

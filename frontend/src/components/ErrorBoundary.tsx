@@ -43,22 +43,22 @@ export default class ErrorBoundary extends Component<Props, State> {
             }
 
             return (
-                <div role="alert" className="flex flex-col items-center justify-center p-8 bg-[#f5f5f7] dark:bg-[#1d1d1f]/50 rounded-2xl border border-[#d2d2d7] dark:border-[#2c2c2e]">
-                    <div className="w-16 h-16 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center mb-4">
-                        <ErrorOutlineIcon aria-hidden="true" className="text-red-600 dark:text-red-400" sx={{ fontSize: 32 }} />
+                <div role="alert" className="flex flex-col items-center justify-center p-8 bg-well rounded-2xl border border-line">
+                    <div className="w-16 h-16 bg-negative/12 rounded-full flex items-center justify-center mb-4">
+                        <ErrorOutlineIcon aria-hidden="true" className="text-negative" sx={{ fontSize: 32 }} />
                     </div>
-                    <h2 className="text-lg font-semibold text-[#1d1d1f] dark:text-[#f5f5f7] mb-2">
+                    <h2 className="text-lg font-semibold text-ink mb-2">
                         Something went wrong
                     </h2>
-                    <p className="text-[#6e6e73] dark:text-[#a1a1a6] text-center mb-4 max-w-md">
+                    <p className="text-muted text-center mb-4 max-w-md">
                         An error occurred while rendering this component. Please try refreshing.
                     </p>
                     {this.state.error && (
                         <details className="mb-4 w-full max-w-md">
-                            <summary className="text-sm text-muted cursor-pointer hover:text-[#424245] dark:hover:text-[#d2d2d7]">
+                            <summary className="text-sm text-muted cursor-pointer hover:text-ink">
                                 View error details
                             </summary>
-                            <pre className="mt-2 p-3 bg-[#e8e8ed] dark:bg-[#2c2c2e] rounded-lg text-xs text-[#6e6e73] dark:text-[#a1a1a6] overflow-x-auto">
+                            <pre className="mt-2 p-3 bg-well rounded-lg text-xs text-muted overflow-x-auto">
                                 {this.state.error.message}
                             </pre>
                         </details>
@@ -66,7 +66,7 @@ export default class ErrorBoundary extends Component<Props, State> {
                     <button
                         type="button"
                         onClick={this.handleReset}
-                        className="inline-flex items-center gap-2 px-4 py-2 bg-[#1d1d1f] dark:bg-white text-white dark:text-[#1d1d1f] rounded-lg font-medium hover:bg-[#2c2c2e] dark:hover:bg-[#e8e8ed] transition-colors"
+                        className="inline-flex items-center gap-2 px-4 py-2 bg-signal text-signal-ink rounded-lg font-medium hover:bg-signal-hover transition-colors"
                     >
                         <RefreshIcon aria-hidden="true" sx={{ fontSize: 18 }} />
                         Try again

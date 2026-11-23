@@ -126,7 +126,7 @@ function MediaRow({ item, index }: MediaRowProps) {
                 {item.tags.length > 0 && (
                     <ul className="mt-4 flex flex-wrap gap-2" aria-label="Tags">
                         {item.tags.slice(0, 4).map((tag) => (
-                            <li key={tag} className="rounded-full bg-[var(--hover)] px-3 py-1 text-xs text-body">
+                            <li key={tag} className="rounded-sm bg-[var(--hover)] px-3 py-1 text-xs text-body">
                                 {tag}
                             </li>
                         ))}
@@ -138,7 +138,7 @@ function MediaRow({ item, index }: MediaRowProps) {
                     href={item.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-link min-h-11 rounded-full px-2"
+                    className="text-link min-h-11 rounded-sm px-2"
                 >
                     Open
                     <span className="visually-hidden">: {item.title} (opens in a new tab)</span>
@@ -238,7 +238,7 @@ export default function WeeklyMedia() {
                             placeholder="Search title, source, or tag"
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="min-h-12 w-full rounded-full border border-control bg-[var(--surface-strong)] py-3 pl-11 pr-4 text-ink placeholder:text-muted"
+                            className="min-h-12 w-full rounded-sm border border-control bg-[var(--surface-strong)] py-3 pl-11 pr-4 text-ink placeholder:text-muted"
                         />
                     </div>
 
@@ -277,7 +277,7 @@ export default function WeeklyMedia() {
 
                 {error && (
                     <div role="alert" className="py-16 text-center">
-                        <ErrorOutlineIcon aria-hidden="true" className="text-red-600 dark:text-red-400" sx={{ fontSize: 34 }} />
+                        <ErrorOutlineIcon aria-hidden="true" className="text-negative" sx={{ fontSize: 34 }} />
                         <h2 className="mt-4 text-xl font-semibold">Failed to load content</h2>
                         <p className="apple-copy mt-2">{error}</p>
                         <button type="button" onClick={fetchMediaItems} className="quiet-link mt-6">

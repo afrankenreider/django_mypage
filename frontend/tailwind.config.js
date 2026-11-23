@@ -21,16 +21,53 @@ export default {
     ],
     theme: {
         extend: {
-            colors: {
-                ink: 'var(--text-primary)',
-                body: 'var(--text-body)',
-                muted: 'var(--text-secondary)',
-                page: 'var(--page-bg)',
-                control: 'var(--control-border)',
+            /*
+             * Semantic colors resolve to tokens in src/index.css. The
+             * color-mix wrapper keeps opacity modifiers (bg-well/50) working.
+             */
+            colors: Object.fromEntries(
+                Object.entries({
+                    ink: '--text-primary',
+                    body: '--text-body',
+                    muted: '--text-secondary',
+                    page: '--page-bg',
+                    control: '--control-border',
+                    surface: '--surface-strong',
+                    well: '--well',
+                    line: '--line',
+                    hover: '--hover',
+                    signal: '--signal',
+                    'signal-ink': '--signal-ink',
+                    'signal-hover': '--signal-hover',
+                    fairway: '--data-teal',
+                    river: '--data-blue',
+                    aspen: '--accent',
+                    negative: '--negative',
+                    spruce: '--band-bg',
+                    pine: '--band-bg',
+                    cedar: '--cedar',
+                    sand: '--sand-line',
+                }).map(([name, token]) => [
+                    name,
+                    `color-mix(in oklab, var(${token}) calc(<alpha-value> * 100%), transparent)`,
+                ]),
+            ),
+            /*
+             * Square corners: every rounded-* step resolves to the 2px
+             * radius token. rounded-full stays round for dots and markers.
+             */
+            borderRadius: {
+                sm: 'var(--radius)',
+                DEFAULT: 'var(--radius)',
+                md: 'var(--radius)',
+                lg: 'var(--radius)',
+                xl: 'var(--radius)',
+                '2xl': 'var(--radius)',
+                '3xl': 'var(--radius)',
             },
             fontFamily: {
                 sans: ['system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'],
-                display: ['system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'],
+                display: ['"Libre Caslon Display"', 'Georgia', '"Times New Roman"', 'serif'],
                 mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Consolas', 'monospace'],
             },
         },
