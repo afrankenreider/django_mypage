@@ -47,6 +47,8 @@ htmlcov/
 
 # Docker
 data/
+# Frontend source modules, not Docker volume data.
+!frontend/src/data/
 
 # Claude Code (personal, not shared)
 .claude/settings.local.json
