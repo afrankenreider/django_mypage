@@ -46,6 +46,12 @@
     --data-teal-dark: #86c493;
     --data-blue-light: #33627d;
     --data-blue-dark: #93bdd6;
+    --well-light: #e5ebe2;
+    --well-dark: #1c2821;
+    --line-light: #cdd6ca;
+    --line-dark: #2d3b32;
+    --negative-light: #a3243a;
+    --negative-dark: #f08a9a;
 
     --page-bg: var(--page-bg-light);
     --surface: var(--surface-light);
@@ -64,6 +70,9 @@
     --signal-hover: var(--signal-hover-light);
     --data-teal: var(--data-teal-light);
     --data-blue: var(--data-blue-light);
+    --well: var(--well-light);
+    --line: var(--line-light);
+    --negative: var(--negative-light);
 
     /* Always-dark spruce band. Same in both schemes. */
     --band-bg: #163126;
@@ -110,6 +119,9 @@
         --signal-hover: var(--signal-hover-dark);
         --data-teal: var(--data-teal-dark);
         --data-blue: var(--data-blue-dark);
+        --well: var(--well-dark);
+        --line: var(--line-dark);
+        --negative: var(--negative-dark);
         }
 
         :root:has(> head > meta[name="color-scheme"][content="light"]) {
@@ -130,6 +142,9 @@
         --signal-hover: var(--signal-hover-light);
         --data-teal: var(--data-teal-light);
         --data-blue: var(--data-blue-light);
+        --well: var(--well-light);
+        --line: var(--line-light);
+        --negative: var(--negative-light);
         }
     }
 
@@ -151,6 +166,9 @@
     --signal-hover: var(--signal-hover-dark);
     --data-teal: var(--data-teal-dark);
     --data-blue: var(--data-blue-dark);
+    --well: var(--well-dark);
+    --line: var(--line-dark);
+    --negative: var(--negative-dark);
     }
 }
 
@@ -173,6 +191,9 @@
         --signal-hover: light-dark(var(--signal-hover-light), var(--signal-hover-dark));
         --data-teal: light-dark(var(--data-teal-light), var(--data-teal-dark));
         --data-blue: light-dark(var(--data-blue-light), var(--data-blue-dark));
+        --well: light-dark(var(--well-light), var(--well-dark));
+        --line: light-dark(var(--line-light), var(--line-dark));
+        --negative: light-dark(var(--negative-light), var(--negative-dark));
     }
 }
 
@@ -1018,6 +1039,71 @@ progress.loading-spinner-sm:indeterminate {
         color: var(--text-primary);
     }
 
+    /* Demo pages: section switcher. */
+    .demo-tabs {
+        display: flex;
+        gap: 0.25rem;
+        inline-size: fit-content;
+        max-inline-size: 100%;
+        padding: 0.3rem;
+        overflow-x: auto;
+        border: 1px solid var(--hairline);
+        border-radius: 9999px;
+        background: var(--well);
+        scrollbar-width: none;
+    }
+
+    .demo-tab {
+        display: inline-flex;
+        flex-shrink: 0;
+        align-items: center;
+        gap: 0.5rem;
+        min-block-size: 2.5rem;
+        padding-inline: 1rem;
+        border-radius: 9999px;
+        color: var(--text-secondary);
+        font-size: 0.9375rem;
+        font-weight: 500;
+        white-space: nowrap;
+        transition: background-color 150ms ease-out, color 150ms ease-out, box-shadow 200ms ease-out;
+    }
+
+    .demo-tab:hover {
+        background: var(--hover);
+        color: var(--text-primary);
+    }
+
+    .demo-tab[aria-pressed="true"] {
+        background: var(--signal);
+        color: var(--signal-ink);
+        box-shadow: 0 8px 20px -12px color-mix(in oklab, var(--signal) 80%, transparent);
+    }
+
+    /* Demo pages: the large glyph in the Spruce header. */
+    .demo-hero-glyph {
+        aspect-ratio: 4 / 3;
+        padding: 0.75rem;
+        border: 1px solid var(--band-line);
+        border-radius: 1.5rem;
+        background: rgba(255, 255, 255, 0.04);
+    }
+
+    /* Icon marks beside demo headings: a Blaze tint, not a black tile. */
+    .demo-icon.demo-icon {
+        background: color-mix(in oklab, var(--signal) 13%, transparent);
+        color: var(--signal);
+        box-shadow: none;
+    }
+
+    /* Numbered steps: serif numerals, like a scorecard. */
+    .step-badge.step-badge {
+        background: color-mix(in oklab, var(--data-teal) 16%, transparent);
+        color: var(--data-teal);
+        font-family: "Young Serif", Georgia, serif;
+        font-weight: 400;
+        box-shadow: none;
+    }
+
     .soft-rule {
         height: 1px;
         background: var(--hairline);
@@ -1046,6 +1132,10 @@ progress.loading-spinner-sm:indeterminate {
         --data-teal: var(--data-teal-dark);
         --data-blue: var(--data-blue-dark);
         --accent: var(--accent-dark);
+        --well: rgba(255, 255, 255, 0.06);
+        --line: var(--band-line);
+        --negative: var(--negative-dark);
+        --surface-strong: rgba(255, 255, 255, 0.05);
     }
 
 }

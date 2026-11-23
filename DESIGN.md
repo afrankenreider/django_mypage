@@ -44,6 +44,20 @@ keeps its raw light and dark values and resolves through `light-dark()`, with a
 | `--data-blue` | Snake River | `#33627d` | `#93bdd6` | Data slate-blue: infrastructure, C.H. Robinson |
 | `--accent` | Aspen | `#8a6408` | `#e2b54a` | Data gold: small markers, the Data skill group |
 | `--band-bg` | Spruce | `#163126` | same | Always-dark band and footer (`.ink-band`) |
+| `--well` | | `#e5ebe2` | `#1c2821` | Sunken backgrounds: tab tracks, demo panels, chips |
+| `--line` | | `#cdd6ca` | `#2d3b32` | Solid decorative borders (cards, panels); never a control edge |
+| `--negative` | Cranberry | `#a3243a` | `#f08a9a` | Losses, negative coefficients, errors |
+
+Tailwind aliases every semantic token through `color-mix()`, so opacity
+modifiers work: `text-ink`, `text-body`, `text-muted`, `bg-page`,
+`bg-surface`, `bg-well`, `border-line`, `bg-hover`, `bg-signal`,
+`text-signal-ink`, `bg-signal-hover`, `text-fairway`, `text-river`,
+`text-aspen`, `text-negative`, `bg-spruce`, and so on. Never write raw hex or
+Tailwind palette colors (`text-red-500`) in components; status colors are
+Fairway (positive), Aspen (warning), and Cranberry (negative).
+
+Recharts accepts CSS variables in `stroke` and `fill`, so chart colors are
+written as `var(--signal)` and follow the scheme with no JavaScript.
 
 Canvas code cannot resolve `light-dark()`, so `src/utils/palette.ts` mirrors
 the data colors as RGB triples. Keep it in sync with the tokens.
@@ -82,7 +96,8 @@ In JavaScript (canvas, charts), read the rendered scheme from `useTheme()`.
   400 and `font-synthesis: none`; never bold it. Tailwind: `font-display`.
 - Body and UI: the system stack (`system-ui`, SF Pro, Segoe UI). The serif
   and sans pair on a contrast axis; do not add a second serif or sans.
-- Display headings: `.display-heading` — Young Serif, tracking `-0.015em`. Size
+- Display headings: `.display-heading` — Young Serif, tracking `-0.015em`.
+  Demo section headings (h2) use it too, at `text-3xl`. Size
   comes from `.display-hero` (home) or `.display-page` (every other page),
   both `clamp()` scales with rem bounds so browser zoom still works and long
   words fit at 320px.
@@ -152,7 +167,20 @@ the interactive demos and loads with them through `DemoLayout`.
 - `CareerTimeline` — one bar from 2018 to today, colored by company, with a
   flagstick at today.
 - `PlatformStack` — isometric layer diagram with a matching list.
-- `DemoGlyph` — small SVG illustration per demo (home band, projects list).
+- `DemoGlyph` — small SVG illustration per demo (home band, projects list,
+  demo headers).
+- `DemoHeader` — opening Spruce band on every demo page: back link, category
+  in Aspen, serif title with the Blaze period, lede, optional actions, and
+  the demo's glyph (hidden on phones) over contour lines.
+- `DemoTabs` / `.demo-tab` — section switcher on a sunken track; the active
+  tab is Blaze. Scrolls sideways on narrow screens.
+- `.demo-icon` — Blaze-tinted icon mark beside demo headings (never a black
+  tile). `.step-badge` — numbered steps as Young Serif numerals on a
+  Fairway tint, like a scorecard.
+- Demo chart conventions: data series in Snake River, fitted and forecast
+  lines in Blaze, positive values in Fairway, negative in Cranberry, k-means
+  clusters cycle Blaze, Fairway, Snake River, Aspen, Cranberry. Centroids are
+  ring markers.
   The demo list itself lives in `src/data/demos.ts`.
 - `.metric-tile`, `.signal-strip` — dashboard widgets for the demos.
 - Icons: Material Icons (`@mui/icons-material`) only, sized 17–18px inline.

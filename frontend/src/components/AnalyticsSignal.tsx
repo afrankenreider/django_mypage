@@ -20,17 +20,17 @@ export default function AnalyticsSignal({
           <h3 className="mt-3 text-2xl font-semibold tracking-tight">{title}</h3>
           <p className="apple-copy mt-3 max-w-sm text-sm">{caption}</p>
         </div>
-        <div className="flex items-center gap-1.5 rounded-full border hairline px-3 py-1 text-xs text-[#6e6e73] dark:text-[#a1a1a6]">
-          <span className="h-1.5 w-1.5 rounded-full bg-[#1d1d1f] dark:bg-[#f5f5f7]" />
+        <div className="flex items-center gap-1.5 rounded-full border hairline px-3 py-1 text-xs text-muted">
+          <span className="h-1.5 w-1.5 rounded-full bg-signal" />
           Live
         </div>
       </div>
 
       <div className="mt-8 grid gap-4 sm:grid-cols-[1.25fr_0.75fr]">
-        <div className="rounded-3xl border hairline bg-white/65 p-4 dark:bg-white/[0.055]">
+        <div className="rounded-3xl border hairline bg-surface p-4">
           <svg viewBox="0 0 336 150" className="h-44 w-full" role="img" aria-label="Animated analytics signal line">
             {[30, 60, 90, 120].map((y) => (
-              <line key={y} x1="0" y1={y} x2="336" y2={y} stroke="currentColor" className="text-black/10 dark:text-white/10" />
+              <line key={y} x1="0" y1={y} x2="336" y2={y} stroke="currentColor" className="text-ink" />
             ))}
             <motion.path
               d={path}
@@ -38,7 +38,7 @@ export default function AnalyticsSignal({
               stroke="currentColor"
               strokeWidth="3"
               strokeLinecap="round"
-              className="text-[#1d1d1f] dark:text-[#f5f5f7]"
+              className="text-ink"
               initial={{ pathLength: 0, opacity: 0.35 }}
               whileInView={{ pathLength: 1, opacity: 1 }}
               viewport={{ once: true }}
@@ -51,7 +51,7 @@ export default function AnalyticsSignal({
                 cy={[116, 96, 64, 33][index]}
                 r="4"
                 fill="currentColor"
-                className="text-[#1d1d1f] dark:text-[#f5f5f7]"
+                className="text-ink"
                 initial={{ scale: 0, opacity: 0 }}
                 whileInView={{ scale: 1, opacity: 1 }}
                 viewport={{ once: true }}
@@ -84,7 +84,7 @@ export default function AnalyticsSignal({
         {bars.map((height, index) => (
           <motion.div
             key={height + index}
-            className="flex-1 rounded-full bg-[#1d1d1f]/75 dark:bg-[#f5f5f7]/80"
+            className="flex-1 rounded-full bg-spruce/75"
             style={{ height }}
             initial={{ scaleY: 0.35, opacity: 0.4 }}
             whileInView={{ scaleY: 1, opacity: 1 }}

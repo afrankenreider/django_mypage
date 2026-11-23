@@ -277,7 +277,7 @@ export default function WeeklyMedia() {
 
                 {error && (
                     <div role="alert" className="py-16 text-center">
-                        <ErrorOutlineIcon aria-hidden="true" className="text-red-600 dark:text-red-400" sx={{ fontSize: 34 }} />
+                        <ErrorOutlineIcon aria-hidden="true" className="text-negative" sx={{ fontSize: 34 }} />
                         <h2 className="mt-4 text-xl font-semibold">Failed to load content</h2>
                         <p className="apple-copy mt-2">{error}</p>
                         <button type="button" onClick={fetchMediaItems} className="quiet-link mt-6">
