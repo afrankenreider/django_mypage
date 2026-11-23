@@ -1,297 +1,202 @@
 # Andrew Frankenreider Portfolio
 
-A modern personal portfolio website built with React/TypeScript frontend and Django REST API backend.
+[![CI](https://github.com/afrankenreider/django_mypage/actions/workflows/ci.yml/badge.svg)](https://github.com/afrankenreider/django_mypage/actions/workflows/ci.yml)
 
-## Tech Stack
+My personal portfolio: a React + TypeScript frontend served by a Django REST
+API, with interactive machine learning demos backed by real Python models.
 
-### Frontend
-- **React 18** with TypeScript
-- **Vite** - Fast build tool
-- **Tailwind CSS** - Utility-first CSS framework
-- **Framer Motion** - Animation library (interactive demos only)
-- **React Router** - Client-side routing
-- **Material UI** - Component library
+## Features
 
-### Backend
-- **Django 6.0** - Python web framework
-- **Django REST Framework** - API toolkit
-- **PostgreSQL** - Database (local via Docker, managed on Heroku)
-- **uv** - Fast Python package manager
+- **Home, About, Skills** - background, story, and tooling.
+- **Projects** - filterable portfolio of work.
+- **Interactive demos** - k-means clustering, linear regression, a neural
+  network visualizer, and a stock dashboard with model-based price
+  predictions.
+- **Weekly media** - what I'm reading, watching, and listening to.
+- **Light and dark themes** built on a token-based design system
+  ([DESIGN.md](DESIGN.md)).
 
-### Data Science
-- **Jupyter Notebooks** - Interactive development
-- **pandas** - Data manipulation
-- **numpy** - Numerical computing
+## Tech stack
 
-## Project Structure
+| Layer | Tools |
+|---|---|
+| Frontend | React 18, TypeScript, Vite, Tailwind CSS, Material UI, Recharts, Framer Motion (demos only) |
+| Backend | Python 3.13, Django, Django REST Framework, WhiteNoise, Gunicorn |
+| Data / ML | pandas, numpy, statsmodels, XGBoost, LightGBM, CatBoost, yfinance |
+| Database | PostgreSQL (Docker locally, managed on Heroku); SQLite fallback |
+| Tooling | uv, npm, ruff, pre-commit, pytest, GitHub Actions, Make |
+
+## Quick start
+
+Prerequisites: [uv](https://docs.astral.sh/uv/), Node.js (see
+`frontend/.nvmrc`), and Docker if you want PostgreSQL locally.
+
+```bash
+make install   # uv sync, npm ci, pre-commit hooks
+make env       # create .env from .env.example
+make migrate   # set up the database
+make dev       # Django on :8000, Vite on :3000
+```
+
+Open <http://localhost:3000>. Vite proxies `/api` to Django, so both halves
+work together with hot reload.
+
+Without a `DATABASE_URL` or `POSTGRES_HOST` set, Django uses a local SQLite
+file. To use PostgreSQL instead, run `make db-up` and set `POSTGRES_HOST` in
+`.env`.
+
+To run the whole stack in containers instead:
+
+```bash
+make docker-up
+```
+
+## Make targets
+
+Run `make help` for the full list.
+
+| Target | What it does |
+|---|---|
+| `make install` | Install Python and frontend dependencies and git hooks |
+| `make dev` | Run Django and Vite together |
+| `make backend` / `make frontend` | Run one server on its own |
+| `make db-up` / `make db-down` | Start or stop local PostgreSQL |
+| `make migrate` / `make migrations` | Apply or create migrations |
+| `make lint` / `make format` | Check or fix Python style with ruff |
+| `make typecheck` | Type-check the frontend with `tsc` |
+| `make test` / `make coverage` | Run pytest, optionally with coverage |
+| `make check` | Lint, type-check, and test (what CI runs) |
+| `make build` | Build the frontend into `staticfiles/frontend/` |
+| `make branch NAME=...` / `make pr` | Start a feature branch / open a PR to master |
+| `make notebook` | Start Jupyter in `src/notebooks/` |
+| `make skills-update` | Update the pinned agent skills |
+| `make clean` | Remove caches and build artifacts |
+
+## Project structure
 
 ```
 django_mypage/
-├── src/                    # Python source code
-│   ├── apps/               # Django applications
-│   │   ├── base_app/       # Django project settings & config
-│   │   └── projects/       # Projects app with models and API
-│   └── notebooks/          # Jupyter notebooks for data science/ML
-├── frontend/               # React TypeScript frontend
+├── src/
+│   ├── apps/
+│   │   ├── base_app/       Django settings, URLs, WSGI/ASGI
+│   │   ├── projects/       Projects API and ML demo endpoints
+│   │   └── weekly_media/   Weekly media API
+│   └── notebooks/          Jupyter notebooks
+├── frontend/               React + TypeScript + Vite app
 │   └── src/
-│       ├── components/     # Reusable UI components
-│       ├── pages/          # Page components
-│       └── types/          # TypeScript type definitions
-├── tests/                  # Test suite
-│   ├── unit/               # Unit tests
-│   └── integration/        # Integration tests
-├── scripts/                # Utility scripts
-├── docker/                 # Docker configuration
-│   ├── Dockerfile
-│   └── docker-compose.yaml
-├── docs/                   # Documentation
-├── manage.py               # Django CLI
-└── pyproject.toml          # Python dependencies and project config
-```
-
-## Getting Started
-
-### Prerequisites
-- Python 3.13+
-- [uv](https://docs.astral.sh/uv/) - Fast Python package manager
-- Node.js 20+
-- Docker (for local PostgreSQL)
-
-### Quick Start (Docker)
-
-The easiest way to run the full stack locally:
-
-```bash
-cd docker
-docker-compose up
-```
-
-This starts:
-- PostgreSQL database on port 5432
-- Django backend on port 8000
-- Vite frontend on port 3000
-
-### Manual Setup
-
-#### Backend Setup
-
-1. Install uv (if not already installed):
-   ```bash
-   curl -LsSf https://astral.sh/uv/install.sh | sh
-   ```
-
-2. Create virtual environment and install dependencies:
-   ```bash
-   uv sync --dev
-   ```
-
-3. Start PostgreSQL (via Docker):
-   ```bash
-   cd docker && docker-compose up db -d
-   ```
-
-4. Run migrations:
-   ```bash
-   uv run python manage.py migrate
-   ```
-
-5. Create a superuser (optional):
-   ```bash
-   uv run python manage.py createsuperuser
-   ```
-
-6. Start the Django development server:
-   ```bash
-   uv run python manage.py runserver
-   ```
-
-The API will be available at `http://localhost:8000/api/`
-
-#### Frontend Setup
-
-1. Navigate to the frontend directory:
-   ```bash
-   cd frontend
-   ```
-
-2. Install npm dependencies:
-   ```bash
-   npm install
-   ```
-
-3. Start the development server:
-   ```bash
-   npm run dev
-   ```
-
-The frontend will be available at `http://localhost:3000`
-
-### Running Both Services
-
-Use the start script to run both frontend and backend:
-
-```bash
-./scripts/start.sh
+│       ├── pages/          One component per route
+│       ├── components/     Shared UI
+│       ├── hooks/ context/ types/ utils/
+│       └── index.css       Design tokens
+├── staticfiles/frontend/   Vite build output served by Django
+├── tests/                  Cross-app unit and integration tests
+├── docker/                 Dockerfile and compose file
+├── scripts/                Start script used by Heroku and Docker
+├── bin/post_compile        Heroku build hook (builds the frontend)
+├── .claude/                Claude Code skills, hooks, and shared settings
+├── AGENTS.md               Instructions for AI coding agents
+├── PRODUCT.md, DESIGN.md   Product context and design system
+├── Makefile                Developer tasks
+└── pyproject.toml          Python dependencies and tool config
 ```
 
 ## Development
 
-### Code Quality
+### Tests
 
-This project uses:
-- **Ruff** - Fast Python linter and formatter
-- **Pre-commit** - Git hooks for code quality
-
-Setup pre-commit hooks:
-```bash
-uv run pre-commit install
-```
-
-Run linting manually:
-```bash
-uv run ruff check --fix .
-uv run ruff format .
-```
-
-### Agent Skills
-
-Two skills guide AI coding agents working on the frontend:
-
-- `.github/skills/impeccable` - visual design direction, read together with
-  `PRODUCT.md` and `DESIGN.md`.
-- `.agents/skills/modern-web-guidance` - Google Chrome's
-  [Modern Web Guidance](https://developer.chrome.com/docs/modern-web-guidance):
-  current web platform practices for HTML, CSS, accessibility, and performance.
-  `skills-lock.json` pins the installed copy.
+Tests use pytest with pytest-django and live in each app's `tests.py` and in
+`tests/`.
 
 ```bash
-# Update Modern Web Guidance to the latest release
-npx modern-web-guidance@latest update
-
-# Look up guidance by hand
-npx modern-web-guidance@latest search "dark mode toggle"
+make test
+uv run pytest src/apps/projects/tests.py -k list_projects   # a single test
+make coverage                                                # HTML report in htmlcov/
 ```
 
-The CLI sends anonymous usage data to Google, including the search queries.
-Set `DISABLE_TELEMETRY=1` to opt out.
+### Code quality
 
-### Jupyter Notebooks
-
-Start Jupyter for data science work:
-```bash
-uv run jupyter notebook
-```
-
-Notebooks are located in `src/notebooks/`.
-
-### Running Tests
-
-The project uses Django's test framework with `unittest` style tests. Tests are organized by app within each app's `tests.py` file.
-
-#### Test Structure
-
-```
-src/apps/
-├── projects/
-│   └── tests.py          # Projects app tests (model & API)
-└── weekly_media/
-    └── tests.py          # Weekly media app tests (model & API)
-```
-
-#### Running Tests with uv
+Ruff lints and formats Python; pre-commit runs it plus whitespace and YAML
+checks on every commit. CI runs pre-commit, the test suite against
+PostgreSQL, and a frontend type check and build.
 
 ```bash
-# Run all tests
-uv run python manage.py test
-
-# Run tests with verbose output
-uv run python manage.py test --verbosity=2
-
-# Run tests for a specific app
-uv run python manage.py test src.apps.projects
-uv run python manage.py test src.apps.weekly_media
-
-# Run a specific test class
-uv run python manage.py test src.apps.projects.tests.ProjectsAPITests
-
-# Run a specific test method
-uv run python manage.py test src.apps.projects.tests.ProjectsAPITests.test_list_projects
+make format       # fix what can be fixed
+make pre-commit   # run every hook on every file
 ```
 
-#### Running Tests with Docker
+### Branches and pull requests
+
+`master` only changes through pull requests. Work on a feature branch named
+`<type>/<slug>` (`feat/`, `fix/`, `design/`, `refactor/`, `docs/`,
+`chore/`, `test/`) and use Conventional Commits.
 
 ```bash
-# Run tests in the Docker container
-cd docker
-docker-compose exec web python manage.py test
-
-# Run tests with verbose output
-docker-compose exec web python manage.py test --verbosity=2
-
-# Run tests for a specific app
-docker-compose exec web python manage.py test src.apps.projects
+make branch NAME=feat/project-tags   # new branch from origin/master
+make sync                            # merge the latest master into it
+make pr-context                      # commits, files by area, and the diff
+make pr                              # push and open a PR in the browser
 ```
 
-#### Test Coverage
+`make pr` needs the [GitHub CLI](https://cli.github.com/) (`brew install gh`,
+then `gh auth login`). New PRs start from
+`.github/pull_request_template.md`.
 
-To run tests with coverage reporting:
+Claude Code follows the same flow through the `git-workflow` skill: it
+creates a feature branch before its first edit, commits there, and opens PRs
+with descriptions written from the diff when you ask. A hook in
+`.claude/settings.json` blocks commits and pushes on `master` as a backstop.
+
+### Dependencies
 
 ```bash
-# Install coverage (if not already installed)
-uv add --dev coverage
-
-# Run tests with coverage
-uv run coverage run manage.py test
-
-# View coverage report in terminal
-uv run coverage report
-
-# Generate HTML coverage report
-uv run coverage html
-# Open htmlcov/index.html in your browser
+uv add <package>          # runtime dependency
+uv add --dev <package>    # dev dependency
+cd frontend && npm install <package>
 ```
 
-### Adding Dependencies
+## Working with AI agents
+
+[AGENTS.md](AGENTS.md) gives coding agents the commands, layout, and
+conventions for this repo; `CLAUDE.md` imports it for Claude Code. Agent
+skills in `.claude/skills/` add focused expertise:
+
+| Skill | Source | Purpose |
+|---|---|---|
+| `impeccable` | vendored in `.github/skills/` | Design, critique, and polish UI against PRODUCT.md and DESIGN.md |
+| `frontend-design` | [anthropics/skills](https://github.com/anthropics/skills) | Distinctive visual direction for new UI |
+| `modern-web-guidance` | [GoogleChrome/modern-web-guidance](https://github.com/GoogleChrome/modern-web-guidance) | Current HTML, CSS, accessibility, and performance practice |
+| `vercel-react-best-practices` | [vercel-labs/agent-skills](https://github.com/vercel-labs/agent-skills) | React performance rules |
+| `vercel-composition-patterns` | [vercel-labs/agent-skills](https://github.com/vercel-labs/agent-skills) | Scalable component APIs |
+| `webapp-testing` | [anthropics/skills](https://github.com/anthropics/skills) | Playwright checks and screenshots of the running site |
+| `systematic-debugging` | [obra/superpowers](https://github.com/obra/superpowers) | Root-cause debugging before fixing |
+| `test-driven-development` | [obra/superpowers](https://github.com/obra/superpowers) | Red-green-refactor for new code |
+| `verification-before-completion` | [obra/superpowers](https://github.com/obra/superpowers) | Run the checks before calling work done |
+| `git-workflow` | written for this repo | Feature branches, commits, and PRs to `master` with diff-based descriptions |
+
+`skills-lock.json` pins each installed skill to a source commit and content
+hash. Add more with `npx skills add <owner/repo> -s <skill> -a claude-code`.
+The skills CLI and the Modern Web Guidance CLI send anonymous telemetry; the
+Make targets set `DISABLE_TELEMETRY=1`.
+
+## API
+
+| Endpoint | Method | Description |
+|---|---|---|
+| `/api/projects/` | GET | List projects |
+| `/api/projects/{id}/` | GET | Get one project |
+
+The ML demo and stock endpoints are registered in
+`src/apps/base_app/urls.py`.
+
+## Deployment
+
+The site deploys to Heroku. During the build, `bin/post_compile` builds the
+frontend; on release, `Procfile` runs migrations, and `scripts/start.sh`
+collects static files and starts Gunicorn.
 
 ```bash
-# Add production dependency
-uv add <package-name>
-
-# Add dev dependency
-uv add --dev <package-name>
+heroku create <app-name>
+heroku addons:create heroku-postgresql:essential-0
+heroku config:set SECRET_KEY=<secret>
+git push heroku master
 ```
-
-## API Endpoints
-
-| Endpoint              | Method | Description            |
-| --------------------- | ------ | ---------------------- |
-| `/api/projects/`      | GET    | List all projects      |
-| `/api/projects/{id}/` | GET    | Get a specific project |
-
-## Deployment (Heroku)
-
-The project is configured for Heroku deployment:
-
-1. Create Heroku app and add PostgreSQL:
-   ```bash
-   heroku create your-app-name
-   heroku addons:create heroku-postgresql:essential-0
-   ```
-
-2. Set environment variables:
-   ```bash
-   heroku config:set SECRET_KEY=your-secret-key
-   ```
-
-3. Deploy:
-   ```bash
-   git push heroku main
-   ```
-
-## Features
-
-- 🏠 **Home** - Hero section with social links
-- 👤 **About** - Professional background and story
-- 🛠️ **Skills** - Technical skills and tools showcase
-- 💼 **Projects** - Portfolio of work with filtering
-- 📊 **Notebooks** - Data science experiments and ML projects

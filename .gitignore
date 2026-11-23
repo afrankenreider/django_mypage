@@ -47,3 +47,11 @@ htmlcov/
 
 # Docker
 data/
+
+# Claude Code (personal, not shared)
+.claude/settings.local.json
+.claude/worktrees/
+
+# Playwright / webapp-testing output
+test-results/
+playwright-report/
