@@ -2,46 +2,54 @@ import { enterIndex } from '../utils/motion'
 
 const timeline = [
   {
-    title: 'Data Science & Analytics Manager',
-    company: 'Caterpillar, Inc.',
-    period: 'May 2024 - Present',
-    summary: 'Manage a team building ML models, dashboards, web apps, and RPA for accounting, finance, and S&OP in the financial services division.',
+    title: 'Senior Manager, Digital Architecture',
+    company: 'Caterpillar',
+    period: 'Aug 2026 - Present',
+    summary: 'Lead the team building an enterprise analytics platform for global finance: the application code, the AI chat interface and its harness, and the Azure infrastructure it runs on.',
+  },
+  {
+    title: 'Manager, Analytics',
+    company: 'Caterpillar',
+    period: 'May 2024 - Aug 2026',
+    summary: 'Managed a team building ML models, Power BI reports, web apps, and automation for accounting, finance, and S&OP.',
   },
   {
     title: 'Data Scientist',
-    company: 'Caterpillar, Inc.',
+    company: 'Caterpillar',
     period: 'Apr 2023 - May 2024',
-    summary: 'Built Earthmoving Mission Control for reports, apps, models, and access.',
+    summary: 'Built Earthmoving Mission Control, one place for the division\'s 100+ Power BI reports, web apps, ML models, and access management. Django, Celery, Redis, Docker, Azure.',
   },
   {
     title: 'Data Scientist',
     company: 'C.H. Robinson',
     period: 'Oct 2021 - Apr 2023',
-    summary: 'Built pricing APIs, quote tools, ETL, and pipelines.',
+    summary: 'Built a real-time pricing API for intermodal quotes on Kubernetes, plus the Django front end that handled quote requests. Ran ETL pipelines in Airflow, Snowflake, and PostgreSQL.',
   },
   {
     title: 'Senior Data Analyst',
     company: 'C.H. Robinson',
     period: 'Apr 2021 - Sep 2021',
-    summary: 'Delivered dashboards for revenue, market trends, yield, and KPIs.',
+    summary: 'Built dashboards for leadership covering volume, revenue, market trends, and yield, and bots that automated parts of operations and business development.',
   },
   {
     title: 'Data Analyst',
     company: 'C.H. Robinson',
     period: 'Jun 2018 - Apr 2021',
-    summary: 'Built automation for cost reduction, efficiency, and revenue growth.',
+    summary: 'Reporting and analysis.',
   },
 ]
 
-const capabilities = [
-  'Centralized analytics platforms',
-  'Power BI reporting ecosystems',
-  'Django and API application development',
-  'Airflow, Snowflake, and PostgreSQL pipelines',
-  'Kubernetes and Azure DevOps deployments',
-  'Operational automation and bot development',
-  'ML model deployment',
-  'Stakeholder intake, prioritization, and delivery',
+const education = [
+  {
+    degree: "Master's, Management Information Systems",
+    school: 'Northern Illinois University',
+    period: '2017 - 2018',
+  },
+  {
+    degree: 'Operations and Information Management, emphasis in Information Systems',
+    school: 'Northern Illinois University',
+    period: '2013 - 2017',
+  },
 ]
 
 export default function About() {
@@ -51,21 +59,21 @@ export default function About() {
         <header className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-start lg:gap-12">
           <div className="enter">
             <h1 className="display-heading display-page">
-              Data science and analytics for finance.
+              About me.
             </h1>
             <p className="apple-copy mt-6 max-w-md text-lg">
-              Andrew Frankenreider, Data Science & Analytics Manager
+              Senior Manager, Digital Architecture at Caterpillar
             </p>
           </div>
           <div className="body-copy enter max-w-[65ch] space-y-5 text-lg lg:pt-2" style={enterIndex(1)}>
             <p>
-              I manage a data science and analytics team in Caterpillar's financial services division. We build ML models, analytics dashboards, web applications, and process automation (RPA) for accounting and finance and for sales and operations planning.
+              I run the team behind Caterpillar's enterprise analytics platform for global finance. We own all of it: the backend and frontend code, the AI chat interface and the harness behind it, and the Azure infrastructure that hosts it.
             </p>
             <p>
-              Before this role, I developed Earthmoving Mission Control at Caterpillar. At C.H. Robinson, I built pricing APIs, ETL pipelines, dashboards, and automation bots.
+              I started as a data analyst at C.H. Robinson in 2018, building dashboards and bots, and moved into data science there writing pricing APIs and Airflow pipelines. At Caterpillar I built Earthmoving Mission Control as a data scientist, then managed the analytics team before taking this role.
             </p>
             <p>
-              This site is where I keep my resume and a few interactive demos of the methods I use.
+              I write Python, R, SQL, and JavaScript. This site has my work history and a few side projects.
             </p>
           </div>
         </header>
@@ -92,15 +100,19 @@ export default function About() {
 
           <section>
             <div className="border-b hairline pb-4">
-              <h2 className="text-2xl font-semibold tracking-tight">What I have shipped</h2>
+              <h2 className="text-2xl font-semibold tracking-tight">Education</h2>
             </div>
-            <ul className="divide-y divide-[var(--hairline)]">
-              {capabilities.map((capability) => (
-                <li key={capability} className="py-4 text-lg font-medium tracking-tight">
-                  {capability}
+            <ol className="divide-y divide-[var(--hairline)]">
+              {education.map((item) => (
+                <li key={item.degree} className="grid gap-2 py-6 sm:grid-cols-[1fr_auto] sm:gap-6">
+                  <div>
+                    <h3 className="font-semibold tracking-tight">{item.degree}</h3>
+                    <p className="apple-copy mt-1 text-sm">{item.school}</p>
+                  </div>
+                  <p className="text-sm tabular-nums text-muted sm:text-right">{item.period}</p>
                 </li>
               ))}
-            </ul>
+            </ol>
           </section>
         </div>
       </div>

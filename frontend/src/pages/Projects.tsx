@@ -15,7 +15,7 @@ const projects: Project[] = [
   {
     title: 'Linear Regression',
     description:
-      'An interactive guide to model fitting, residual analysis, and regression diagnostics using practical datasets.',
+      'Fit a line to a dataset, then check the residuals and diagnostics to see how good the fit really is.',
     category: 'Statistical modeling',
     link: '/projects/linear-regression',
     capabilities: ['Interactive fit', 'Residual analysis', 'Model diagnostics'],
@@ -23,7 +23,7 @@ const projects: Project[] = [
   {
     title: 'K-Means Clustering',
     description:
-      'A step-by-step visualization of centroid initialization, cluster assignment, and model convergence.',
+      'Watch k-means place its centroids, assign points, and repeat until the clusters stop moving.',
     category: 'Unsupervised learning',
     link: '/projects/kmeans',
     capabilities: ['Live clustering', 'Iteration history', 'Quality scoring'],
@@ -31,7 +31,7 @@ const projects: Project[] = [
   {
     title: 'Neural Networks',
     description:
-      'A visual workspace for exploring network architecture, activation functions, and forward propagation.',
+      'Change the layers and activation functions of a small network and see how a signal moves through it.',
     category: 'Deep learning',
     link: '/projects/neural-networks',
     capabilities: ['Layer controls', 'Activation flow', 'Training concepts'],
@@ -39,7 +39,7 @@ const projects: Project[] = [
   {
     title: 'Finance Dashboard',
     description:
-      'A market analysis workspace combining watchlists, technical indicators, and forecasting experiments.',
+      'Stock watchlists, technical indicators, and some price forecasting experiments.',
     category: 'Financial analytics',
     link: '/projects/finance-dashboard',
     capabilities: ['Market overview', 'Forecasting lab', 'Custom watchlist'],
@@ -51,10 +51,9 @@ export default function Projects() {
     <div className="apple-page pb-24 pt-14 sm:pt-16">
       <div className="apple-section">
         <header className="enter grid gap-6 lg:grid-cols-[1.35fr_0.65fr] lg:items-end lg:gap-10">
-          <h1 className="display-heading display-page">Interactive demos.</h1>
+          <h1 className="display-heading display-page">Projects.</h1>
           <p className="apple-copy max-w-xl text-lg sm:text-xl lg:pb-1">
-            Browser-based walkthroughs of methods I use at work: regression,
-            clustering, neural networks, and market data analysis.
+            Small demos that run in your browser and call a Django API for the math.
           </p>
         </header>
 
@@ -99,7 +98,7 @@ export default function Projects() {
 
         <div className="mt-16 flex flex-col gap-6 sm:mt-20 sm:flex-row sm:items-center sm:justify-between">
           <h2 className="max-w-2xl text-2xl font-semibold tracking-tight">
-            Questions about any of these? I'm happy to talk through the code.
+            Questions about how any of these work?
           </h2>
           <a href={`mailto:${CONTACT_EMAIL}`} className="quiet-link self-start">
             Email me

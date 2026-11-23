@@ -5,23 +5,22 @@ import SocialLinks, { CONTACT_EMAIL } from '../components/SocialLinks'
 import { enterIndex } from '../utils/motion'
 
 const stats = [
-  { value: '100+', label: 'analytics products' },
-  { value: '7+', label: 'years in data' },
-  { value: '2', label: 'enterprise teams' },
+  { value: '8', label: 'years working with data' },
+  { value: '100+', label: 'Power BI reports shipped on one platform' },
 ]
 
 const focusAreas = [
   {
-    title: 'ML models',
-    description: 'Forecasting and classification models for finance and S&OP.',
+    title: 'The application',
+    description: 'Backend and frontend code for the platform itself.',
   },
   {
-    title: 'Dashboards and automation',
-    description: 'Power BI reporting and RPA that removes manual work from accounting processes.',
+    title: 'The AI chat interface',
+    description: 'The chat interface built into the platform, and the harness that runs it.',
   },
   {
-    title: 'Web applications',
-    description: 'Django and React apps backed by Airflow, Snowflake, and PostgreSQL.',
+    title: 'The Azure infrastructure',
+    description: 'All of the cloud infrastructure the platform is hosted on.',
   },
 ]
 
@@ -33,10 +32,10 @@ export default function Home() {
           <div>
             <h1 className="display-heading display-hero enter">Andrew Frankenreider</h1>
             <p className="apple-copy enter mt-6 max-w-2xl text-xl sm:text-2xl" style={enterIndex(1)}>
-              Data science and analytics manager at Caterpillar, Inc.
+              Senior Manager, Digital Architecture at Caterpillar
             </p>
             <p className="body-copy enter mt-5 max-w-[60ch] text-lg" style={enterIndex(2)}>
-              I manage a team in our financial services division that builds ML models, analytics dashboards, web applications, and process automation for accounting, finance, and sales and operations planning.
+              I lead the team building Caterpillar's enterprise analytics platform for global finance. We write the application, run the Azure infrastructure under it, and build the AI chat interface people use to work with it.
             </p>
             <div className="enter mt-9 flex flex-wrap items-center gap-x-5 gap-y-4" style={enterIndex(3)}>
               <Link to="/projects" className="quiet-link">
@@ -70,7 +69,7 @@ export default function Home() {
 
       <section className="apple-section pb-24">
         <h2 className="text-sm font-semibold text-muted">
-          What my team builds
+          What my team owns
         </h2>
         <ul className="mt-6 grid gap-x-10 md:grid-cols-3">
           {focusAreas.map((area) => (
@@ -86,7 +85,7 @@ export default function Home() {
         <div className="ink-band rounded-[2rem] px-6 py-12 sm:px-10 lg:px-14">
           <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
             <h2 className="max-w-3xl text-3xl font-semibold tracking-[-0.03em] sm:text-5xl">
-              Interactive demos of the methods I use at work.
+              A few models I built to run in the browser.
             </h2>
             <Link to="/projects" className="quiet-link justify-self-start">
               Open the demos
@@ -99,7 +98,7 @@ export default function Home() {
       <section className="apple-section pb-28">
         <div className="flex flex-col gap-6 border-t hairline pt-8 sm:flex-row sm:items-center sm:justify-between">
           <h2 className="max-w-xl text-2xl font-semibold tracking-tight">
-            Questions about the work or the demos?
+            Want to talk shop?
           </h2>
           <a href={`mailto:${CONTACT_EMAIL}`} className="quiet-link self-start">
             Email me

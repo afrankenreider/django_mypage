@@ -19,7 +19,7 @@ export default function Footer() {
               Andrew Frankenreider
             </Link>
             <p className="apple-copy mt-3 max-w-md text-sm">
-              Data science and analytics manager at Caterpillar, Inc., leading a team that builds ML models, dashboards, web apps, and RPA for finance.
+              Senior Manager, Digital Architecture at Caterpillar.
             </p>
           </div>
 
