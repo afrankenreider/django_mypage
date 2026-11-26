@@ -47,7 +47,7 @@ export default function Home() {
               </span>
             </h1>
             <p className="body-copy enter mt-7 max-w-[54ch] text-lg" style={enterIndex(4)}>
-              I lead the team building Caterpillar's enterprise analytics platform for global finance. We write the application, run the Azure infrastructure under it, and build the AI chat interface people use to work with it.
+              I manage the team that builds Caterpillar's analytics platform for global finance. That includes the web application, the AI chat built into it, and the Azure infrastructure it runs on.
             </p>
             <div className="enter mt-10 flex flex-wrap items-center gap-x-7 gap-y-4" style={enterIndex(5)}>
               <Link to="/projects" className="quiet-link">
@@ -72,9 +72,6 @@ export default function Home() {
       <section className="apple-section pb-24 sm:pb-32">
         <p className="eyebrow">The platform</p>
         <h2 className="display-heading mt-4 max-w-2xl text-4xl sm:text-[3.25rem]">What my team owns</h2>
-        <p className="apple-copy mt-4 max-w-[52ch] text-lg">
-          The whole platform, from the cloud resources up to the chat window.
-        </p>
         <div className="mt-12 sm:mt-16">
           <PlatformStack layers={layers} />
         </div>
