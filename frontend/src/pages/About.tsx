@@ -73,13 +73,13 @@ export default function About() {
           </div>
           <div className="body-copy enter max-w-[65ch] space-y-5 text-lg lg:pt-2" style={enterIndex(1)}>
             <p>
-              I run the team behind Caterpillar's enterprise analytics platform for global finance. We own all of it: the backend and frontend code, the AI chat interface and the harness behind it, and the Azure infrastructure that hosts it.
+              My team at Caterpillar builds the analytics platform used by global finance. We write the application, we built the AI chat inside it, and we manage the Azure infrastructure it is hosted on.
             </p>
             <p>
-              I started as a data analyst at C.H. Robinson in 2018, building dashboards and bots, and moved into data science there writing pricing APIs and Airflow pipelines. At Caterpillar I built Earthmoving Mission Control as a data scientist, then managed the analytics team before taking this role.
+              I started at C.H. Robinson in 2018 as a data analyst. I spent about three years on dashboards and automation bots, then moved to data science, where I built a pricing API for intermodal quotes and ran ETL pipelines in Airflow. I joined Caterpillar in 2023 as a data scientist and built Earthmoving Mission Control, which put the division's reports, web apps, and models in one place. I started managing the analytics team in 2024 and moved into my current role in 2026.
             </p>
             <p>
-              I write Python, R, SQL, and JavaScript. This site has my work history and a few side projects.
+              I work mostly in Python, SQL, R, JavaScript, and TypeScript. The rest of this site is my work history and some side projects, including a few machine learning demos you can run in the browser.
             </p>
           </div>
         </header>
